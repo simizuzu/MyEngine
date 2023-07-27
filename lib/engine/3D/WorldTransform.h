@@ -12,7 +12,6 @@ struct ConstBufferDataB0
 
 class WorldTransform
 {
-
 public:
 	//初期化
 	void Initialize();

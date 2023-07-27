@@ -21,7 +21,7 @@ public:
 	// 射影行列
 	MyMath::Matrix4 matProjection_;;
 	// カメラ距離
-	float distance = 50.0f;
+	float distance_ = 50.0f;
 
 private:
 #pragma region 射影行列設定

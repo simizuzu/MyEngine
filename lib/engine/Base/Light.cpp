@@ -76,8 +76,8 @@ void Light::TransferConstBuffer()
 	result = constBuff->Map(0, nullptr, (void**)&constMap);
 	if (SUCCEEDED(result))
 	{
-		constMap->lightVec = -lightdir;
-		constMap->lightColor = lightColor;
+		constMap->lightVec = -lightdir_;
+		constMap->lightColor = lightColor_;
 		constBuff->Unmap(0, nullptr);
 	}
 }
@@ -85,15 +85,15 @@ void Light::TransferConstBuffer()
 void Light::SetLightDir(const MyMath::Vector4& lightdir)
 {
 	//正規化してセット
-	this->lightdir.x = lightdir.x;
-	this->lightdir.y = lightdir.y;
-	this->lightdir.z = lightdir.z;
+	lightdir_.x = lightdir.x;
+	lightdir_.y = lightdir.y;
+	lightdir_.z = lightdir.z;
 	dirty = true;
 }
 
 void Light::SetLightColor(const MyMath::Vector3& lightColor)
 {
-	this->lightColor = lightColor;
+	lightColor_ = lightColor;
 	dirty = true;
 }
 

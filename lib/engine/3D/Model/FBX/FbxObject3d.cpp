@@ -75,7 +75,7 @@ void FbxObject3d::Draw(WorldTransform* transform)
 	//プリミティブ形状を設定
 	cmdList_->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	//定数バッファビューをセット
-	cmdList_->SetGraphicsRootConstantBufferView(0, constBuffTransform->GetGPUVirtualAddress());
+	cmdList_->SetGraphicsRootConstantBufferView(0, transform->GetGpuAddress());
 
 	//モデル描画
 	model_->Draw(cmdList_.Get());

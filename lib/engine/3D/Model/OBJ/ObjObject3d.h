@@ -31,7 +31,7 @@ private:
 	// パイプラインステート
 	static RootsigSetPip pip;
 	//ライト
-	static Light* light;
+	static Light* light_;
 
 public: // メンバ関数
 	/// <summary>
@@ -68,7 +68,7 @@ public:
 	// 親オブジェクト
 	ObjObject3d* parent = nullptr;
 	// モデル
-	ObjModel* model = nullptr;
+	ObjModel* model_ = nullptr;
 };
 
 namespace MyMath

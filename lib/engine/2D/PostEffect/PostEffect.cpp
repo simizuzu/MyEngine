@@ -4,7 +4,7 @@
 
 #pragma warning(push)
 #pragma warning(disable: 4091)
-#include <directx/d3dx12.h>
+#include <DirectXTex/d3dx12.h>
 #pragma warning(pop)
 
 const float PostEffect::clearColor[4] = { 0.25f,0.5f,0.1f,0.0f };

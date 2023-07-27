@@ -9,7 +9,7 @@
 Microsoft::WRL::ComPtr<ID3D12Device> ObjObject3d::device_;
 Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> ObjObject3d::cmdList_;
 RootsigSetPip ObjObject3d::pip;
-Light* ObjObject3d::light = nullptr;
+Light* ObjObject3d::light_ = nullptr;
 
 void ObjObject3d::StaticInitialize(ID3D12Device* device)
 {
@@ -91,7 +91,7 @@ void ObjObject3d::Draw(WorldTransform* transform)
 	assert(ObjObject3d::cmdList_);
 
 	// モデルの割り当てがなければ描画しない
-	if (model == nullptr)
+	if (model_ == nullptr)
 	{
 		return;
 	}
@@ -106,19 +106,19 @@ void ObjObject3d::Draw(WorldTransform* transform)
 	cmdList_->SetGraphicsRootConstantBufferView(2, transform->GetGpuAddress());
 
 	//ライトの描画
-	light->Draw(cmdList_.Get(), 3);
+	light_->Draw(cmdList_.Get(), 3);
 	// モデル描画
-	model->Draw(cmdList_.Get());
+	model_->Draw(cmdList_.Get());
 }
 
 void ObjObject3d::SetModel(ObjModel* model)
 {
-	this->model = model;
+	model_ = model;
 }
 
 void ObjObject3d::SetLight(Light* light)
 {
-	ObjObject3d::light = light;
+	ObjObject3d::light_ = light;
 }
 
 namespace MyMath

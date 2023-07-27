@@ -87,6 +87,7 @@ public:
 	/// 解放処理
 	/// </summary>
 	void Delete();
+
 private:
 	DirectXCommon() = default;
 	~DirectXCommon() = default;

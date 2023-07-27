@@ -6,6 +6,8 @@
 #include <d3d12.h>
 #include <d3dx12.h>
 #include <string>
+
+#pragma warning(disable: 4244)
 #pragma warning(pop)
 
 class FbxLoader
@@ -64,7 +66,7 @@ private:
 
 private:
 	//D3Dデバイス
-	ID3D12Device* device = nullptr;
+	ID3D12Device* device_ = nullptr;
 	//FBXマネージャ
 	FbxManager* fbxManager = nullptr;
 	//FBXインポータ

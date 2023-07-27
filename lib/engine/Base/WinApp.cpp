@@ -28,10 +28,6 @@ LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 void WinApp::Initialize()
 {
-	// ウィンドウサイズ
-	const int window_width = 1280;
-	const int window_height = 720;
-
 	//ウィンドウクラス設定
 	w.cbSize = sizeof(WNDCLASSEX);
 	w.lpfnWndProc = (WNDPROC)WindowProc;		// ウィンドウプロシージャを設定

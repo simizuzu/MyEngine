@@ -8,7 +8,7 @@
 /// <summary>
 /// 静的メンバ変数の実態
 /// </summary>
-Microsoft::WRL::ComPtr<ID3D12Device> ObjModel::device;
+Microsoft::WRL::ComPtr<ID3D12Device> ObjModel::device_;
 Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> ObjModel::descHeap;
 
 ObjModel* ObjModel::LoadFromObj(const std::string& modelname, bool smoothing)
@@ -16,7 +16,7 @@ ObjModel* ObjModel::LoadFromObj(const std::string& modelname, bool smoothing)
 	// 新たなModel型のインスタンスをnewする
 	ObjModel* model_ = new ObjModel();
 	// デバイスを代入
-	device = DirectXCommon::GetInstance()->GetDevice();
+	device_ = DirectXCommon::GetInstance()->GetDevice();
 	// デスクリプタヒープの生成
 	model_->InitializeDescriptorHeap();
 	// 読み込み
@@ -129,7 +129,7 @@ void ObjModel::Draw(ID3D12GraphicsCommandList* cmdList)
 
 void ObjModel::SetDevice(ID3D12Device* device)
 {
-	ObjModel::device = device;
+	ObjModel::device_ = device;
 }
 
 void ObjModel::LoadFromOBJInternal(const std::string& modelname,bool smoothing)
@@ -228,10 +228,10 @@ void ObjModel::LoadFromOBJInternal(const std::string& modelname,bool smoothing)
 		if (key == "mtllib")
 		{
 			// マテリアルのファイル名読み込み
-			std::string filename;
-			line_stream >> filename;
+			std::string materialFilename;
+			line_stream >> materialFilename;
 			// マテリアル読み込み
-			LoadMaterial(directoryPath, filename);
+			LoadMaterial(directoryPath, materialFilename);
 		}
 	}
 	// ファイルを閉じる
@@ -256,10 +256,10 @@ void ObjModel::InitializeDescriptorHeap()
 	descHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	descHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;//シェーダから見えるように
 	descHeapDesc.NumDescriptors = 1; // シェーダーリソースビュー1つ
-	result = device->CreateDescriptorHeap(&descHeapDesc, IID_PPV_ARGS(&descHeap));//生成
+	result = device_->CreateDescriptorHeap(&descHeapDesc, IID_PPV_ARGS(&descHeap));//生成
 	assert(SUCCEEDED(result));
 
-	descriptorHandleIncrementSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	descriptorHandleIncrementSize = device_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 }
 
 void ObjModel::CreateBuffers()
@@ -267,10 +267,8 @@ void ObjModel::CreateBuffers()
 	HRESULT result;
 
 	//定数バッファの生成
-	D3D12_HEAP_PROPERTIES heapProp{};//ヒープ設定
 	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD;//GPUへの転送用
 
-	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 	resDesc.Width = (sizeof(ConstBufferDataB1) + 0xff) & ~0xff;//頂点データ全体のサイズ
 	resDesc.Height = 1;
@@ -279,7 +277,7 @@ void ObjModel::CreateBuffers()
 	resDesc.SampleDesc.Count = 1;
 	resDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 
-	result = device->CreateCommittedResource(
+	result = device_->CreateCommittedResource(
 		&heapProp,
 		D3D12_HEAP_FLAG_NONE,
 		&resDesc,
@@ -319,7 +317,7 @@ void ObjModel::CreateVBSize()
 	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD; // GPUへの転送用
 
 	// 頂点バッファの生成
-	result = device->CreateCommittedResource(
+	result = device_->CreateCommittedResource(
 		&heapProp, // ヒープ設定
 		D3D12_HEAP_FLAG_NONE,
 		&resDesc, // リソース設定
@@ -364,7 +362,7 @@ void ObjModel::CreateIBSize()
 	resDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 
 	//インデックスバッファの生成
-	result = device->CreateCommittedResource(
+	result = device_->CreateCommittedResource(
 		&heapProp,//ヒープ設定
 		D3D12_HEAP_FLAG_NONE,
 		&resDesc,//リソース設定

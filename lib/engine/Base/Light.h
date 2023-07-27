@@ -5,18 +5,17 @@
 #include "Vector4.h"
 #include "DirectX12Math.h"
 
+struct ConstBufferData
+{
+	MyMath::Vector4 lightVec;		//ライトへの方向を表すベクトル
+	MyMath::Vector3 lightColor;	//ライトの色
+};
+
 /// <summary>
 /// ライト
 /// </summary>
 class Light
 {
-public:
-	struct ConstBufferData
-	{
-		MyMath::Vector4 lightVec;		//ライトへの方向を表すベクトル
-		MyMath::Vector3 lightColor;	//ライトの色
-	};
-
 public:
 	/// <summary>
 	/// 静的初期化
@@ -67,13 +66,15 @@ private:
 	/// </summary>
 	void TransferConstBuffer();
 
-private: //メンバ変数
+public:
+	//ライト光線方向（単位ベクトル）
+	MyMath::Vector4 lightdir_ = { 1.0f,0.0f,0.0f,0.0f };
+	//ライト色
+	MyMath::Vector3 lightColor_ = { 1.0f,1.0f,1.0f };
+
+protected: //メンバ変数
 	//定数バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuff;
-	//ライト光線方向（単位ベクトル）
-	MyMath::Vector4 lightdir = {1,0,0,0};
-	//ライト色
-	MyMath::Vector3 lightColor = { 1.0f,1.0f,1.0f };
 	//ダーティフラグ
 	bool dirty = false;
 };

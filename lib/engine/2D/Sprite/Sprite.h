@@ -7,14 +7,7 @@
 #include "Shader.h"
 #include "Pipeline.h"
 
-// 2D変換行列(定数バッファ)
-struct ConstBufferData
-{
-	MyMath::Vector4 color;
-	MyMath::Matrix4 mat;
-};
-
-/// 頂点データ構造体
+// 頂点データ構造体
 struct PosUvColor
 {
 	MyMath::Vector3 pos;

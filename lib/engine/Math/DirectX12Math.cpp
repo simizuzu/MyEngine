@@ -120,11 +120,6 @@ namespace MyMathUtility
 		cos_ = Cos(angle);
 	}
 
-	Matrix4 MatMulVector(Matrix4 m, Vector3 v)
-	{
-		return Matrix4();
-	}
-
 	void MakeOrthogonalL(float left, float right, float bottom, float top, float near_, float far_, MyMath::Matrix4& matrix)
 	{
 		float width = 1.0f / (right - left);
@@ -459,10 +454,10 @@ namespace MyMathUtility
 		return endPoint + len * pow(1 - (nowFlame / endFlame), 3.0f);
 	}
 
-	float EaseOutCirc(const float startPoint, const float endPoint, float nowFlame, float endFlame)
+	/*float EaseOutCirc(const float startPoint, const float endPoint, float nowFlame, float endFlame)
 	{
 		return sqrt(1 - pow(nowFlame / endFlame - 1.0f, 2.0f)) + startPoint;
-	}
+	}*/
 
 	float EaseInSine(const float startPoint, const float endPoint, float nowFlame, float endFlame)
 	{

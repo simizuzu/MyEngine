@@ -99,7 +99,7 @@ void DirectXCommon::InitializeRtv() {
 		// スワップチェーンからバッファを取得
 		swapChain->GetBuffer((UINT)i, IID_PPV_ARGS(&backBuffers[i]));
 		// デスクリプタヒ－プのハンドルを取得
-		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvHeap->GetCPUDescriptorHandleForHeapStart();
+		rtvHandle = rtvHeap->GetCPUDescriptorHandleForHeapStart();
 		// 裏か表かでアドレスがずれる
 		rtvHandle.ptr += i * device->GetDescriptorHandleIncrementSize(rtvHeapDesc.Type);
 		// レンダーターゲットビューの設定
@@ -163,7 +163,6 @@ void DirectXCommon::InitializeCommand()
 
 void DirectXCommon::InitializeDepthBuffer()
 {
-	HRESULT result;
 	winApp_ = WinApp::GetInstance();
 
 	//リソース設定

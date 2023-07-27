@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include "Vector2.h"
 #include "Vector3.h"
@@ -35,9 +35,6 @@ namespace MyMathUtility
 	//Mathematics::Matrix4 CreateMatrix(const WorldTransform& worldTransform);
 
 	void SinCos(float& sin_, float& cos_, float angle);
-
-	// ベクトルと行列の掛け算
-	MyMath::Matrix4 MatMulVector(MyMath::Matrix4 m, MyMath::Vector3 v);
 
 	// 平行投影変換(左手系)
 	void MakeOrthogonalL(float left, float right, float bottom, float top, float near_, float far_, MyMath::Matrix4& matrix);
@@ -96,7 +93,7 @@ namespace MyMathUtility
 	float SimpleHarmonicMotion(float time, float amplitude = 10.0f, float period = 60.0f);
 
 	float EaseOutCubic(const float startPoint, const float endPoint, float nowFlame, float endFlame);
-	float EaseOutCirc(const float startPoint, const float endPoint, float nowFlame, float endFlame);
+	//float EaseOutCirc(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 	float EaseInSine(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 	float EaseOutSine(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 	float EaseOutQuint(const float startPoint, const float endPoint, float nowFlame, float endFlame);

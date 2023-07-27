@@ -83,7 +83,7 @@ public:
 	static void SetDevice(ID3D12Device* device);
 
 private: // 静的メンバ変数
-	static Microsoft::WRL::ComPtr<ID3D12Device> device;
+	static Microsoft::WRL::ComPtr<ID3D12Device> device_;
 	// テクスチャバッファ
 	 Microsoft::WRL::ComPtr<ID3D12Resource> texBuff;
 	// シェーダリソースビューのハンドル(CPU)
@@ -121,6 +121,9 @@ private: // メンバ変数
 
 	//頂点法線スムージング用データ
 	std::unordered_map<unsigned short, std::vector<unsigned short>> smoothData;
+
+	//ファイル名
+	std::string filename;
 
 private:
 	/// <summary>

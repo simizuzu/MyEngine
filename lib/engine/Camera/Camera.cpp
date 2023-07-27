@@ -11,7 +11,7 @@ ConstBufferDataViewProjection ConstMap;
 
 void Camera::Initialize()
 {
-	eye_ = { 0,0,-distance };//視点座標
+	eye_ = { 0,0,-distance_ };//視点座標
 	target_ = { 0,0,0 };//注視点座標
 	up_ = { 0,1,0 };//上方向ベクトル
 
@@ -147,6 +147,6 @@ void Camera::SetNearZ(const float& nearZ)
 }
 void Camera::SetDistance(const float& distance)
 {
-	this->distance = distance;
+	distance_ = distance;
 }
 #pragma endregion
