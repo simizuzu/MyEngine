@@ -123,7 +123,7 @@ private: // メンバ変数
 	std::unordered_map<unsigned short, std::vector<unsigned short>> smoothData;
 
 	//ファイル名
-	std::string filename;
+	std::string filename_;
 
 private:
 	/// <summary>

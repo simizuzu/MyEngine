@@ -116,7 +116,7 @@ void FbxModel::Draw(ID3D12GraphicsCommandList* cmdList)
 {
 	//貯点バッファをセット(VBV)
 	cmdList->IASetVertexBuffers(0, 1, &vbView);
-	//インデックスヴぁっふぁをせっと(IBV)
+	//インデックスバッファをセット(IBV)
 	cmdList->IASetIndexBuffer(&ibView);
 
 	//デスクリプタヒープのセット

@@ -102,9 +102,8 @@ void FbxLoader::ParseNodeRecursive(FbxModel* model, FbxNode* fbxNode, Node* pare
 	//スケール、回転、平行移動行列の計算
 	MyMath::Matrix4 matScaling, matRotation, matTranslation;
 	matScaling = MyMathUtility::MakeScaling(node.scaling);
-	matRotation = MyMathUtility::MakeScaling(node.rotation);
-	matTranslation = MyMathUtility::MakeScaling(node.translation);
-
+	matRotation = MyMathUtility::MakeRotation(node.rotation);
+	matTranslation = MyMathUtility::MakeTranslation(node.translation);
 	//ローカル変形行列の計算
 	node.transform = MyMathUtility::MakeIdentity();
 	node.transform *= matScaling;

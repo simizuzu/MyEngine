@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "DirectX12Math.h"
 
 #pragma warning(push)

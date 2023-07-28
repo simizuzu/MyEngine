@@ -3,6 +3,7 @@
 #include "DirectX12Math.h"
 #include "Pipeline.h"
 #include "WorldTransform.h"
+#include "Camera.h"
 
 class FbxObject3d
 {
@@ -39,10 +40,15 @@ public:
 	bool Initialize();
 
 	/// <summary>
+	/// 更新
+	/// </summary>
+	void Update(Camera* camera);
+
+	/// <summary>
 	/// 描画
 	/// </summary>
 	/// <param name="transform">トランスフォーム</param>
-	void Draw(WorldTransform* transform);
+	void Draw();
 
 	/// <summary>
 	/// モデルをセット
@@ -53,6 +59,15 @@ public:
 protected:
 	//定数バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffTransform;
+
+	//ローカル座標
+	MyMath::Vector3 translation_ = { 0.0f,0.0f,0.0f };
+	//X,Y,Z軸回りのローカル回転角
+	MyMath::Vector3 rotation_ = { 0.0f,0.0f,0.0f };
+	//ローカルスケール
+	MyMath::Vector3 scale_ = { 1.0f,1.0f,1.0f };
+
+	MyMath::Matrix4 matWorld;
 
 	// モデル
 	FbxModel* model_ = nullptr;

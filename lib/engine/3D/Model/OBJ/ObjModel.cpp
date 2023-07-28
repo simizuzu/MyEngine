@@ -31,8 +31,10 @@ void ObjModel::LoadMaterial(const std::string& directoryPath, const std::string&
 {
 	// ファイルストリーム
 	std::ifstream file;
+
+	filename_ = filename;
 	// マテリアルファイルを開く
-	file.open(directoryPath + filename);
+	file.open(directoryPath + filename_);
 	// ファイルオープン失敗をチェック
 	if (file.fail())
 	{
@@ -98,8 +100,9 @@ void ObjModel::LoadMaterial(const std::string& directoryPath, const std::string&
 
 void ObjModel::LoadTexture(const std::string& directoryPath, const std::string& filename)
 {
+	filename_ = filename;
 	// ファイルパスを結合
-	std::string filepath = directoryPath + "/" + filename;
+	std::string filepath = directoryPath + "/" + filename_;
 
 	textureData = TextureManager::GetInstance()->LoadTexture(filepath);
 }
@@ -137,9 +140,9 @@ void ObjModel::LoadFromOBJInternal(const std::string& modelname,bool smoothing)
 	// ファイルストリーム
 	std::ifstream file;
 
-	const std::string filename = modelname + ".obj";	// "modelname.obj"
+	filename_ = modelname + ".obj";	// "modelname.obj"
 	const std::string directoryPath = "Resources/" + modelname + "/";	// "Resouces/modelname/"
-	file.open(directoryPath + filename);	// "Resources/modelname/modelname.obj"
+	file.open(directoryPath + filename_);	// "Resources/modelname/modelname.obj"
 
 	// ファイルオープン失敗をチェック
 	if (file.fail())

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Camera.h"
+#include "FbxModel.h"
 
 // 定数バッファ用データ構造体B0
 struct ConstBufferDataB0
@@ -15,9 +16,11 @@ class WorldTransform
 public:
 	//初期化
 	void Initialize();
-	void Update(Camera* camera);
+	void InitailizeFbx();
 	//更新
+	void Update(Camera* camera);
 	void UpdateParticle(Camera* camera,bool billboradFlag = false);
+	void UpdateFbx(Camera* camera);
 
 
 public:	//セッター・ゲッター

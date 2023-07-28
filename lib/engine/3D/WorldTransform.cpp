@@ -7,6 +7,11 @@ void WorldTransform::Initialize()
 	CreateConstBuffer();
 }
 
+void WorldTransform::InitailizeFbx()
+{
+	
+}
+
 void WorldTransform::UpdateParticle(Camera* camera, bool billboradFlag)
 {
 	HRESULT result;
@@ -67,6 +72,11 @@ void WorldTransform::UpdateParticle(Camera* camera, bool billboradFlag)
 	//}
 }
 
+void WorldTransform::UpdateFbx(Camera* camera)
+{
+
+}
+
 void WorldTransform::Update(Camera* camera)
 {
 	HRESULT result;
@@ -83,12 +93,6 @@ void WorldTransform::Update(Camera* camera)
 	matWorld *= matScale;
 	matWorld *= matRot;
 	matWorld *= matTrans;
-
-	// 親オブジェクトがあれば
-	if (parent != nullptr)
-	{
-		matWorld *= parent->matWorld;
-	}
 
 	const MyMath::Matrix4 matView = camera->GetMatView();
 	const MyMath::Matrix4 matProjection = camera->GetMatProjection();

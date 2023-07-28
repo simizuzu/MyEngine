@@ -26,8 +26,6 @@ void GameScene::Initialize()
 	fbxObj_.reset(FbxObject3d::Create());
 	fbxObj_->SetModel(fbxModel_.get());
 
-	fbxTrans.Initialize();
-
 	//railCamera_->Initailize(camera.get());
 
 	sceneManager_ = SceneManager::GetInstance();
@@ -42,10 +40,10 @@ void GameScene::Update()
 	camera->Update();
 	light->Update();
 	skydomeTrans.Update(camera.get());
-	fbxTrans.Update(camera.get());
+	fbxObj_->Update(camera.get());
 
 	camera->SetTarget({0,20,0});
-	camera->SetDistance(500.0f);
+	camera->SetEye({0,0,-500});
 
 	if (input_->PushKey(DIK_RIGHT))
 	{
@@ -63,8 +61,8 @@ void GameScene::Update()
 
 void GameScene::Draw()
 {
-	skydomeObj_->Draw(&skydomeTrans);
-	fbxObj_->Draw(&fbxTrans);
+	//skydomeObj_->Draw(&skydomeTrans);
+	fbxObj_->Draw();
 }
 
 void GameScene::Finalize()

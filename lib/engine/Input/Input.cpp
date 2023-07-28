@@ -32,7 +32,7 @@ Input* Input::GetInstance()
 }
 
 #pragma region キーボード
-unsigned char Input::GetKeyTime(int keyName)
+unsigned char Input::GetKeyTime(BYTE keyName)
 {
 	if (PushKey(keyName))
 	{
