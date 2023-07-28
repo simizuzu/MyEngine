@@ -5,7 +5,7 @@ void FbxModel::CreateBuffers(ID3D12Device* device)
 	HRESULT result;
 
 	//頂点データ全体のサイズ
-	UINT sizeVB = static_cast<UINT>(sizeof(FBXVertexPosNormalUv) * vertices.size());
+	UINT sizeVB = static_cast<UINT>(sizeof(VertexPosNormalUvSkin) * vertices.size());
 
 	//頂点バッファ生成
 	CD3DX12_HEAP_PROPERTIES VBHEAP_PROPERTIES = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
@@ -20,7 +20,7 @@ void FbxModel::CreateBuffers(ID3D12Device* device)
 		IID_PPV_ARGS(&vertBuff));
 
 	//頂点バッファへのデータ転送
-	FBXVertexPosNormalUv* vertMap = nullptr;
+	VertexPosNormalUvSkin* vertMap = nullptr;
 	result = vertBuff->Map(0, nullptr, (void**)&vertMap);
 	if (SUCCEEDED(result)) {
 		std::copy(vertices.begin(), vertices.end(), vertMap);
@@ -127,6 +127,22 @@ void FbxModel::Draw(ID3D12GraphicsCommandList* cmdList)
 
 	//描画コマンド
 	cmdList->DrawIndexedInstanced((UINT)indices.size(), 1, 0, 0, 0);
+}
+
+FbxModel::~FbxModel()
+{
+	//FBXシーンの解放
+	fbxScene->Destroy();
+}
+
+std::vector<FbxModel::Bone>& FbxModel::GetBones()
+{
+	return bones;
+}
+
+FbxScene* FbxModel::GetFbxScene()
+{
+	return fbxScene;
 }
 
 const MyMath::Matrix4& FbxModel::GetModelTransform()

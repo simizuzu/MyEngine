@@ -9,6 +9,7 @@
 #include <wrl.h>
 #include <d3d12.h>
 #include <d3dx12.h>
+#include <fbxsdk.h>
 #pragma warning(pop)
 
 struct Node
@@ -35,12 +36,34 @@ public:
 	//フレンドクラス
 	friend class FbxLoader;
 
+public: //定数
+	//ボーンインデックスの最大数
+	static const int MAX_BONE_INDICES = 4;
+
 public: //サブクラス
-	struct FBXVertexPosNormalUv
+	struct VertexPosNormalUvSkin
 	{
 		MyMath::Vector3 pos; //xyz座標
 		MyMath::Vector3 normal; //法線ベクトル
 		MyMath::Vector2 uv; //uv座標
+		UINT boneIndex[MAX_BONE_INDICES];	//ボーン番号
+		float boneWeight[MAX_BONE_INDICES];	//ボーン重み
+	};
+
+public:
+	
+	struct Bone
+	{
+		//名前
+		std::string name_;
+		//初期姿勢の逆行列
+		MyMath::Matrix4 invInitialPose;
+		//クラスター(FBX側のボーン情報)
+		FbxCluster* fbxCluster;
+		//コンストラクタ
+		Bone(const std::string& name) {
+			name_ = name;
+		}
 	};
 
 public:
@@ -50,6 +73,12 @@ public:
 	//描画
 	void Draw(ID3D12GraphicsCommandList* cmdList);
 
+	~FbxModel();
+
+	//getter
+	std::vector<Bone>& GetBones();
+	FbxScene* GetFbxScene();
+
 	const MyMath::Matrix4& GetModelTransform();
 
 private:
@@ -57,6 +86,8 @@ private:
 	std::string name;
 	//ノード配列
 	std::vector<Node> nodes;
+	//ボーン配列
+	std::vector<Bone> bones;
 
 	//頂点バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> vertBuff;
@@ -74,7 +105,7 @@ private:
 	//メッシュを持つノード
 	Node* meshNode = nullptr;
 	//頂点データ配列
-	std::vector<FBXVertexPosNormalUv> vertices;
+	std::vector<VertexPosNormalUvSkin> vertices;
 	//頂点インデックス配列
 	std::vector<unsigned short> indices;
 
@@ -86,4 +117,7 @@ private:
 	DirectX::TexMetadata metadata = {};
 	//スクラッチイメージ
 	DirectX::ScratchImage scratchImg = {};
+
+	//FBXシーン
+	FbxScene* fbxScene = nullptr;
 };

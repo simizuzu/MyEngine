@@ -25,16 +25,25 @@ public:
 	void Finalize();
 
 	/// <summary>
+	/// ファイルからFBXモデル読み込み
+	/// </summary>
+	/// <param name="modelName">モデル名</param>
+	FbxModel* LoadModelFromFile(const std::string& modelName);
+
+public:
+	/// <summary>
 	/// シングルトンインスタンスの取得
 	/// </summary>
 	/// <returns>インスタンス</returns>
 	static FbxLoader* GetInstance();
 
+private:
 	/// <summary>
-	/// ファイルからFBXモデル読み込み
+	/// FBXの行列をMatrix4に変換
 	/// </summary>
-	/// <param name="modelName">モデル名</param>
-	FbxModel* LoadModelFromFile(const std::string& modelName);
+	/// <param name="dst">書き込み先</param>
+	/// <param name="src">元となるFBX行列</param>
+	static void ConvertMatrixFromFbx(MyMath::Matrix4* dst, const FbxMatrix& src);
 
 private:
 	/// <summary>
@@ -61,6 +70,9 @@ private:
 	void ParseMeshFaces(FbxModel* model, FbxMesh* fbxMesh);
 	//マテリアル読み取り
 	void ParseMaterial(FbxModel* model, FbxNode* fbxNode);
+	//スキニング情報の読み取り
+	void ParseSkin(FbxModel* model, FbxMesh* fbxMesh);
+
 	//テクスチャ読み込み
 	void LoadTexture(FbxModel* model, const std::string& fullpath);
 
