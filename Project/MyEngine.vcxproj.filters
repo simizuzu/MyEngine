@@ -148,6 +148,12 @@
     <Filter Include="Engine\ヘッダー ファイル\Utility">
       <UniqueIdentifier>{61022013-3f61-4378-b9f8-c3061173662f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\ソース ファイル\Editer">
+      <UniqueIdentifier>{f1308bc9-c0ac-4149-968f-e4a2382477e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\Editer">
+      <UniqueIdentifier>{dc1beda6-1e51-4aba-af0a-b9c11b610548}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\engine\main.cpp">
@@ -266,6 +272,9 @@
     </ClCompile>
     <ClCompile Include="Users\PlayerBullet.cpp">
       <Filter>Application\ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\engine\Editer\LevelLoader.cpp">
+      <Filter>Engine\ソース ファイル\Editer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -388,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="lib\engine\Base\Utility\EngineUtility.h">
       <Filter>Engine\ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\Editer\LevelLoader.h">
+      <Filter>Engine\ヘッダー ファイル\Editer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
