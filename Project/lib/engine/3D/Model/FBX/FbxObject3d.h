@@ -5,6 +5,8 @@
 #include "WorldTransform.h"
 #include "Camera.h"
 
+#include"FbxLoader.h"
+
 class FbxObject3d
 {
 public: //静的メンバ関数
@@ -16,6 +18,9 @@ public: //静的メンバ関数
 	static void CrateGrapicsPipeline();
 
 private: //静的メンバ変数
+	//ボーンの最大数
+	static const int MAX_BONES = 32;
+
 	//デバイス
 	static Microsoft::WRL::ComPtr<ID3D12Device> device_;
 
@@ -31,6 +36,12 @@ public:
 		MyMath::Matrix4 viewproj;
 		MyMath::Matrix4 world;
 		MyMath::Vector3 cameraPos;
+	};
+
+	//定数バッファ用データ構造体（スキニング）
+	struct ConstBufferDataSkin
+	{
+		MyMath::Matrix4 bones[MAX_BONES];
 	};
 
 public:
@@ -56,9 +67,20 @@ public:
 	/// <param name="model">モデル</param>
 	void SetModel(FbxModel* model);
 
+	/// <summary>
+	/// アニメーション開始
+	/// </summary>
+	void PlayAnimation();
+
+	void SetScale(MyMath::Vector3 scale);
+	void SetRotation(MyMath::Vector3 rotation);
+	void SetTranslation(MyMath::Vector3 translation);
+
 protected:
 	//定数バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffTransform;
+	//定数バッファ（スキン）
+	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffSkin;
 
 	//ローカル座標
 	MyMath::Vector3 translation_ = { 0.0f,0.0f,0.0f };
@@ -68,6 +90,17 @@ protected:
 	MyMath::Vector3 scale_ = { 1.0f,1.0f,1.0f };
 
 	MyMath::Matrix4 matWorld;
+
+	//1フレームの時間
+	FbxTime frameTime;
+	//アニメーション開始時間
+	FbxTime startTime;
+	//アニメーション終了時間
+	FbxTime endTime;
+	//現在時間（アニメーション）
+	FbxTime currentTime;
+	//アニメーション再生中
+	bool isPlay = false;
 
 	// モデル
 	FbxModel* model_ = nullptr;

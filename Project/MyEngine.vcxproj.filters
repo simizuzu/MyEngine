@@ -154,6 +154,24 @@
     <Filter Include="Engine\ヘッダー ファイル\Editer">
       <UniqueIdentifier>{dc1beda6-1e51-4aba-af0a-b9c11b610548}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\シェーダファイル">
+      <UniqueIdentifier>{92c212eb-0323-4902-9642-8de0bb3e110a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\シェーダファイル\Sprite">
+      <UniqueIdentifier>{008aadbc-bc4e-4aca-848b-3fba00ce8102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\シェーダファイル\FBX">
+      <UniqueIdentifier>{d85ed3c2-1724-4223-889a-14d87b2d3776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\シェーダファイル\OBJ">
+      <UniqueIdentifier>{9b66a189-14df-46b1-9546-fc82c4f3d830}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\シェーダファイル\Paricle">
+      <UniqueIdentifier>{8a172d45-f096-46e3-bc3f-e4ea84517c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\シェーダファイル\PostEffect">
+      <UniqueIdentifier>{0c7228f8-9527-40c4-b67d-c16fb6591cb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\engine\main.cpp">
@@ -401,5 +419,57 @@
     <ClInclude Include="lib\engine\Editer\LevelLoader.h">
       <Filter>Engine\ヘッダー ファイル\Editer</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shaders\FBX\FBX.hlsli">
+      <Filter>Engine\シェーダファイル\FBX</Filter>
+    </None>
+    <None Include="Resources\shaders\OBJ\OBJ.hlsli">
+      <Filter>Engine\シェーダファイル\OBJ</Filter>
+    </None>
+    <None Include="Resources\shaders\PostEffect\PostEffectDefault.hlsli">
+      <Filter>Engine\シェーダファイル\PostEffect</Filter>
+    </None>
+    <None Include="Resources\shaders\Sprite\Sprite.hlsli">
+      <Filter>Engine\シェーダファイル\Sprite</Filter>
+    </None>
+    <None Include="Resources\shaders\Particle\Particle.hlsli">
+      <Filter>Engine\シェーダファイル\Paricle</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Resources\shaders\FBX\FBXPS.hlsl">
+      <Filter>Engine\シェーダファイル\FBX</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\FBX\FBXVS.hlsl">
+      <Filter>Engine\シェーダファイル\FBX</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\OBJ\OBJPS.hlsl">
+      <Filter>Engine\シェーダファイル\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\OBJ\OBJVS.hlsl">
+      <Filter>Engine\シェーダファイル\OBJ</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\PostEffect\PostEffectDefaultPS.hlsl">
+      <Filter>Engine\シェーダファイル\PostEffect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\PostEffect\PostEffectDefaultVS.hlsl">
+      <Filter>Engine\シェーダファイル\PostEffect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Sprite\SpritePS.hlsl">
+      <Filter>Engine\シェーダファイル\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Sprite\SpriteVS.hlsl">
+      <Filter>Engine\シェーダファイル\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\ParticleGS.hlsl">
+      <Filter>Engine\シェーダファイル\Paricle</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\ParticlePS.hlsl">
+      <Filter>Engine\シェーダファイル\Paricle</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\ParticleVS.hlsl">
+      <Filter>Engine\シェーダファイル\Paricle</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

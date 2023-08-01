@@ -111,6 +111,81 @@
       <Project>{87c7a5ed-2c06-4fa9-8237-9922ba531380}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shaders\FBX\FBX.hlsli" />
+    <None Include="Resources\shaders\OBJ\OBJ.hlsli" />
+    <None Include="Resources\shaders\Particle\Particle.hlsli" />
+    <None Include="Resources\shaders\PostEffect\PostEffectDefault.hlsli" />
+    <None Include="Resources\shaders\Sprite\Sprite.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Resources\shaders\FBX\FBXPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\FBX\FBXVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\OBJ\OBJPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\OBJ\OBJVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\ParticleGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\ParticlePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\ParticleVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\PostEffect\PostEffectDefaultPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\PostEffect\PostEffectDefaultVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Sprite\SpritePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Sprite\SpriteVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -209,7 +284,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -228,7 +303,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>

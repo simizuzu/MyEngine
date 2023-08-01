@@ -13,7 +13,6 @@ void GameScene::Initialize()
 	light->SetLightColor({ 1,1,1 });
 	ObjObject3d::SetLight(light.get());
 
-	skydomeModel_ = std::make_unique<ObjModel>();
 	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
 	skydomeObj_.reset(ObjObject3d::Create());
 	skydomeObj_->SetModel(skydomeModel_.get());
@@ -21,10 +20,11 @@ void GameScene::Initialize()
 	skydomeTrans.Initialize();
 	skydomeTrans.SetScale({ 500.0f,500.0f,500.0f });
 
-	fbxModel_ = std::make_unique<FbxModel>();
-	fbxModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("cube"));
+	fbxModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("boneTest"));
 	fbxObj_.reset(FbxObject3d::Create());
 	fbxObj_->SetModel(fbxModel_.get());
+	fbxObj_->PlayAnimation();
+	fbxObj_->SetScale({0.05f,0.05f,0.05f});
 
 	//railCamera_->Initailize(camera.get());
 
@@ -43,7 +43,7 @@ void GameScene::Update()
 	fbxObj_->Update(camera.get());
 
 	camera->SetTarget({0,20,0});
-	camera->SetEye({0,0,-500});
+	camera->SetEye({0,0,-1000});
 
 	if (input_->PushKey(DIK_RIGHT))
 	{

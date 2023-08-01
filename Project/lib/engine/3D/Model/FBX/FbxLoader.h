@@ -37,7 +37,6 @@ public:
 	/// <returns>インスタンス</returns>
 	static FbxLoader* GetInstance();
 
-private:
 	/// <summary>
 	/// FBXの行列をMatrix4に変換
 	/// </summary>

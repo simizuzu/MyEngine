@@ -1,4 +1,4 @@
-#include "Shader.h"
+﻿#include "Shader.h"
 
 #include <cassert>
 #include <string>
@@ -13,7 +13,7 @@ void Shader::CreateSpriteShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Microso
 
 	//　頂点シェーダの読み込みとコンパイル
 	HRESULT result = D3DCompileFromFile(
-		L"Resources/shaders/SpriteVS.hlsl",	// シェーダファイル名
+		L"Resources/shaders/Sprite/SpriteVS.hlsl",	// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
 		"main", "vs_5_0",	// エントリーポイント名、シェーダモデル指定
@@ -39,7 +39,7 @@ void Shader::CreateSpriteShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Microso
 
 	// ピクセルシェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/SpritePS.hlsl",	// シェーダファイル名
+		L"Resources/shaders/Sprite/SpritePS.hlsl",	// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
 		"main", "ps_5_0",	// エンドリーポイント名、シェーダモデル指定
@@ -71,7 +71,7 @@ void Shader::CreateObjShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Microsoft:
 
 	//　頂点シェーダの読み込みとコンパイル
 	HRESULT result = D3DCompileFromFile(
-		L"Resources/shaders/OBJVS.hlsl",	// シェーダファイル名
+		L"Resources/shaders/OBJ/OBJVS.hlsl",	// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
 		"main", "vs_5_0",	// エントリーポイント名、シェーダモデル指定
@@ -97,7 +97,7 @@ void Shader::CreateObjShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Microsoft:
 
 	// ピクセルシェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/OBJPS.hlsl",	// シェーダファイル名
+		L"Resources/shaders/OBJ/OBJPS.hlsl",	// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
 		"main", "ps_5_0",	// エンドリーポイント名、シェーダモデル指定
@@ -130,7 +130,7 @@ void Shader::CreateFBXShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Microsoft:
 
 	// 頂点シェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/FBXVS.hlsl",    // シェーダファイル名
+		L"Resources/shaders/FBX/FBXVS.hlsl",    // シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE, // インクルード可能にする
 		"main", "vs_5_0",    // エントリーポイント名、シェーダーモデル指定
@@ -153,7 +153,7 @@ void Shader::CreateFBXShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Microsoft:
 
 	// ピクセルシェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/FBXPS.hlsl",    // シェーダファイル名
+		L"Resources/shaders/FBX/FBXPS.hlsl",    // シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE, // インクルード可能にする
 		"main", "ps_5_0",    // エントリーポイント名、シェーダーモデル指定
@@ -182,7 +182,7 @@ void Shader::CreateParticleShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Micro
 
 	//　頂点シェーダの読み込みとコンパイル
 	HRESULT result = D3DCompileFromFile(
-		L"Resources/shaders/ParticleVS.hlsl",	// シェーダファイル名
+		L"Resources/shaders/Particle/ParticleVS.hlsl",	// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
 		"main", "vs_5_0",	// エントリーポイント名、シェーダモデル指定
@@ -208,7 +208,7 @@ void Shader::CreateParticleShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Micro
 
 	// ジオメトリシェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/Shaders/ParticleGS.hlsl",	// シェーダファイル名
+		L"Resources/Shaders/Particle/ParticleGS.hlsl",	// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE, // インクルード可能にする
 		"main", "gs_5_0",	// エントリーポイント名、シェーダーモデル指定
@@ -231,7 +231,7 @@ void Shader::CreateParticleShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Micro
 
 	// ピクセルシェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/ParticlePS.hlsl",	// シェーダファイル名
+		L"Resources/shaders/Particle/ParticlePS.hlsl",	// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
 		"main", "ps_5_0",	// エンドリーポイント名、シェーダモデル指定
@@ -264,7 +264,7 @@ void Shader::CreatePostEffectShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Mic
 
 	//頂点シェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/PostEffectDefaultVS.hlsl",	//シェーダファイル名
+		L"Resources/shaders/PostEffect/PostEffectDefaultVS.hlsl",	//シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	//インクルード可能にする
 		"main", "vs_5_0",	//エントリーポイント名、シェーダーモデル指定
@@ -289,7 +289,7 @@ void Shader::CreatePostEffectShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Mic
 
 	//ピクセルシェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/PostEffectDefaultPS.hlsl",	//シェーダファイル名
+		L"Resources/shaders/PostEffect/PostEffectDefaultPS.hlsl",	//シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	//インクルード可能にする
 		"main", "ps_5_0",	//エントリーポイント名、シェーダーモデル指定
