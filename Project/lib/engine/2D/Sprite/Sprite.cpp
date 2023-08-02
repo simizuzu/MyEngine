@@ -5,7 +5,6 @@
 
 using namespace Microsoft::WRL;
 using namespace DirectX;
-using namespace MyMath;
 using namespace MyMathUtility;
 
 /// <summary>
@@ -220,7 +219,7 @@ void Sprite::CreateConstBuff()
 	//リソース設定
 	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-	resDesc.Width = (sizeof(Matrix4) + 0xff) & ~0xff;//頂点データ全体のサイズ
+	resDesc.Width = (sizeof(MyMath::Matrix4) + 0xff) & ~0xff;//頂点データ全体のサイズ
 	resDesc.Height = 1;
 	resDesc.DepthOrArraySize = 1;
 	resDesc.MipLevels = 1;

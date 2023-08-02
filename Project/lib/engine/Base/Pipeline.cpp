@@ -595,7 +595,7 @@ void Pipeline::CreatePostEffectPipeline(ID3DBlob* vsBlob, ID3DBlob* psBlob, ID3D
 
 	//その他の設定
 	gpipeline.NumRenderTargets = 1;	//描画対象は1つ
-	gpipeline.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;	//0～255指定のRGBA
+	gpipeline.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;	//0～255指定のRGBA
 	gpipeline.SampleDesc.Count = 1;	//1ピクセルにつき1回サンプリング
 
 	//デスクリプタテーブルの設定
@@ -607,8 +607,10 @@ void Pipeline::CreatePostEffectPipeline(ID3DBlob* vsBlob, ID3DBlob* psBlob, ID3D
 	rootparams[0].InitAsConstantBufferView(0);
 	rootparams[1].InitAsDescriptorTable(1, &descRangeSRV);
 
-	//テクスチャサンプラーの設定
-	CD3DX12_STATIC_SAMPLER_DESC samplerDesc = CD3DX12_STATIC_SAMPLER_DESC(0);
+	//スタティックサンプラー
+	CD3DX12_STATIC_SAMPLER_DESC samplerDesc = CD3DX12_STATIC_SAMPLER_DESC(0,D3D12_FILTER_MIN_MAG_MIP_POINT);
+	samplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
+	samplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
 
 	//ルートシグネチャの設定
 	CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootSignatureDesc;

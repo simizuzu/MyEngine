@@ -12,7 +12,7 @@ struct PosUvColor
 {
 	MyMath::Vector3 pos;
 	MyMath::Vector2 uv;
-	//Mathematics::Vector4 color;
+	MyMath::Vector4 color;
 };
 
 class Sprite

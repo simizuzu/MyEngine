@@ -18,6 +18,8 @@
 #include "FbxModel.h"
 #include "FbxObject3d.h"
 
+#include "PostEffect.h"
+
 //#include "SplinePosCamera.h"
 
 //#include "RailCamera.h"
@@ -61,6 +63,8 @@ private: // メンバ変数
 
 	std::unique_ptr<FbxObject3d> fbxObj_;
 	std::unique_ptr<FbxModel> fbxModel_;
+
+	std::unique_ptr<PostEffect> postEffect_;
 
 	MyMath::Vector3 cameraRot = {0,0,0};
 	MyMath::Vector3 cameraTarget;

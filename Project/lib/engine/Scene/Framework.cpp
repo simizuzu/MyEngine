@@ -1,4 +1,4 @@
-#include "Framework.h"
+﻿#include "Framework.h"
 
 void Framework::Initialize()
 {
@@ -27,9 +27,9 @@ void Framework::Initialize()
 	input_->Initialize();
 	//FBXLoaderの初期化
 	fbxLoader->Initialize(dxCommon_->GetDevice());
-
-	/*postEffect = std::make_unique<PostEffect>();
-	postEffect->Initialize();*/
+	//ポストエフェクト初期化
+	postEffect = std::make_unique<PostEffect>();
+	postEffect->Initialize(dxCommon_->GetDevice());
 
 	sceneManager_ = SceneManager::GetInstance();
 }
@@ -91,11 +91,12 @@ void Framework::Run()
 		{
 			break;
 		}
-		dxCommon_->PreDraw(winApp_);
-		//postEffect->PreDrawScene(dxCommon_->GetCommandList());
-		// シーンの描画
+		postEffect->PreDrawScene(dxCommon_->GetCommandList());
 		Draw();
-		//postEffect->PostDrawScene(dxCommon_->GetCommandList());
+		postEffect->PostDrawScene(dxCommon_->GetCommandList());
+
+		dxCommon_->PreDraw(winApp_);
+		postEffect->Draw(dxCommon_->GetCommandList());
 		//ImGui描画
 		imGuiManager->Draw(dxCommon_);
 		//postEffect->Draw(dxCommon_->GetCommandList());

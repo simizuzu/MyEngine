@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib\engine\2D\PostEffect\PostEffect.cpp" />
     <ClCompile Include="lib\engine\2D\Sprite\Sprite.cpp" />
     <ClCompile Include="lib\engine\3D\Model\FBX\FbxLoader.cpp" />
     <ClCompile Include="lib\engine\3D\Model\FBX\FbxModel.cpp" />
@@ -53,6 +52,7 @@
     <ClCompile Include="lib\engine\Scene\Framework.cpp" />
     <ClCompile Include="lib\engine\Scene\MainGame.cpp" />
     <ClCompile Include="lib\engine\Scene\SceneManager.cpp" />
+    <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="Users\GameCamera.cpp" />
     <ClCompile Include="Users\Player.cpp" />
     <ClCompile Include="Users\PlayerBullet.cpp" />
@@ -61,7 +61,6 @@
     <ClCompile Include="Users\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib\engine\2D\PostEffect\PostEffect.h" />
     <ClInclude Include="lib\engine\2D\Sprite\Sprite.h" />
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxLoader.h" />
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxModel.h" />
@@ -96,6 +95,7 @@
     <ClInclude Include="lib\engine\Scene\Framework.h" />
     <ClInclude Include="lib\engine\Scene\MainGame.h" />
     <ClInclude Include="lib\engine\Scene\SceneManager.h" />
+    <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Users\GameCamera.h" />
     <ClInclude Include="Users\Player.h" />
     <ClInclude Include="Users\PlayerBullet.h" />
@@ -115,7 +115,7 @@
     <None Include="Resources\shaders\FBX\FBX.hlsli" />
     <None Include="Resources\shaders\OBJ\OBJ.hlsli" />
     <None Include="Resources\shaders\Particle\Particle.hlsli" />
-    <None Include="Resources\shaders\PostEffect\PostEffectDefault.hlsli" />
+    <None Include="Resources\shaders\PostEffect\PostEffect.hlsli" />
     <None Include="Resources\shaders\Sprite\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
@@ -161,13 +161,13 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\PostEffect\PostEffectDefaultPS.hlsl">
+    <FxCompile Include="Resources\shaders\PostEffect\PostEffectPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\PostEffect\PostEffectDefaultVS.hlsl">
+    <FxCompile Include="Resources\shaders\PostEffect\PostEffectVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>

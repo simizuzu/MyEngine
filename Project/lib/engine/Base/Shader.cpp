@@ -264,7 +264,7 @@ void Shader::CreatePostEffectShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Mic
 
 	//頂点シェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/PostEffect/PostEffectDefaultVS.hlsl",	//シェーダファイル名
+		L"Resources/shaders/PostEffect/PostEffectVS.hlsl",	//シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	//インクルード可能にする
 		"main", "vs_5_0",	//エントリーポイント名、シェーダーモデル指定
@@ -289,7 +289,7 @@ void Shader::CreatePostEffectShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Mic
 
 	//ピクセルシェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/PostEffect/PostEffectDefaultPS.hlsl",	//シェーダファイル名
+		L"Resources/shaders/PostEffect/PostEffectPS.hlsl",	//シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	//インクルード可能にする
 		"main", "ps_5_0",	//エントリーポイント名、シェーダーモデル指定

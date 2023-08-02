@@ -39,9 +39,6 @@
     <Filter Include="Engine\ソース ファイル\2D\Sprite">
       <UniqueIdentifier>{0d7f35bd-67b2-4814-a414-ec6bf373d047}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\ソース ファイル\2D\Particle">
-      <UniqueIdentifier>{0ef518c2-f00e-4e32-a3a2-2c2a52b5e9ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\ソース ファイル\3D">
       <UniqueIdentifier>{d5dc638c-2872-4809-b80f-57ad7c658ea9}</UniqueIdentifier>
     </Filter>
@@ -50,9 +47,6 @@
     </Filter>
     <Filter Include="Engine\ソース ファイル\3D\Fbx">
       <UniqueIdentifier>{a8548164-c544-404b-a83c-dbe447849e6a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\ソース ファイル\3D\PostEffect">
-      <UniqueIdentifier>{664663f0-373c-41f4-8a0c-9db69203d73f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\ソース ファイル\Audio">
       <UniqueIdentifier>{de83eca9-1354-4d9a-adab-1cf885f70cdc}</UniqueIdentifier>
@@ -97,9 +91,6 @@
     <Filter Include="Engine\ヘッダー ファイル\2D\Sprite">
       <UniqueIdentifier>{6cfc7f01-ba12-4930-ac10-42c7899dcf64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\ヘッダー ファイル\2D\Particle">
-      <UniqueIdentifier>{8da21379-2774-4f7e-846f-11929346a27e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\ヘッダー ファイル\3D">
       <UniqueIdentifier>{2dac5741-87a8-4672-9b59-9563a47db247}</UniqueIdentifier>
     </Filter>
@@ -108,9 +99,6 @@
     </Filter>
     <Filter Include="Engine\ヘッダー ファイル\3D\Fbx">
       <UniqueIdentifier>{3e12042b-8b95-4eda-91e3-6146fb80d56f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\ヘッダー ファイル\3D\PostEffect">
-      <UniqueIdentifier>{31473cb2-0e25-4ebf-ab3c-275aee09f92a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\ヘッダー ファイル\Audio">
       <UniqueIdentifier>{1bd9416e-9c21-4d03-9297-526f5db5e23c}</UniqueIdentifier>
@@ -171,6 +159,18 @@
     </Filter>
     <Filter Include="Engine\シェーダファイル\PostEffect">
       <UniqueIdentifier>{0c7228f8-9527-40c4-b67d-c16fb6591cb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\2D\PostEffect">
+      <UniqueIdentifier>{664663f0-373c-41f4-8a0c-9db69203d73f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\3D\Particle">
+      <UniqueIdentifier>{0ef518c2-f00e-4e32-a3a2-2c2a52b5e9ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\2D\PostEffect">
+      <UniqueIdentifier>{31473cb2-0e25-4ebf-ab3c-275aee09f92a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\3D\Particle">
+      <UniqueIdentifier>{8da21379-2774-4f7e-846f-11929346a27e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -253,16 +253,13 @@
       <Filter>Engine\ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\Particle\ParticleManager.cpp">
-      <Filter>Engine\ソース ファイル\2D\Particle</Filter>
+      <Filter>Engine\ソース ファイル\3D\Particle</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\2D\Sprite\Sprite.cpp">
       <Filter>Engine\ソース ファイル\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\Base\Light.cpp">
       <Filter>Engine\ソース ファイル\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\engine\2D\PostEffect\PostEffect.cpp">
-      <Filter>Engine\ソース ファイル\3D\PostEffect</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\Camera\Camera.cpp">
       <Filter>Engine\ソース ファイル\Camera</Filter>
@@ -293,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="lib\engine\Editer\LevelLoader.cpp">
       <Filter>Engine\ソース ファイル\Editer</Filter>
+    </ClCompile>
+    <ClCompile Include="PostEffect.cpp">
+      <Filter>Engine\ソース ファイル\2D\PostEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -383,9 +383,6 @@
     <ClInclude Include="lib\engine\3D\WorldTransform.h">
       <Filter>Engine\ヘッダー ファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\2D\PostEffect\PostEffect.h">
-      <Filter>Engine\ヘッダー ファイル\3D\PostEffect</Filter>
-    </ClInclude>
     <ClInclude Include="lib\engine\Math\DirectX12Math.h">
       <Filter>Engine\ヘッダー ファイル\Math</Filter>
     </ClInclude>
@@ -396,7 +393,7 @@
       <Filter>Engine\ヘッダー ファイル\2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\3D\Particle\ParticleManager.h">
-      <Filter>Engine\ヘッダー ファイル\2D\Particle</Filter>
+      <Filter>Engine\ヘッダー ファイル\3D\Particle</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\ImGui\ImGuiManager.h">
       <Filter>Engine\ヘッダー ファイル\Imgui</Filter>
@@ -419,6 +416,9 @@
     <ClInclude Include="lib\engine\Editer\LevelLoader.h">
       <Filter>Engine\ヘッダー ファイル\Editer</Filter>
     </ClInclude>
+    <ClInclude Include="PostEffect.h">
+      <Filter>Engine\ヘッダー ファイル\2D\PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\FBX\FBX.hlsli">
@@ -427,7 +427,7 @@
     <None Include="Resources\shaders\OBJ\OBJ.hlsli">
       <Filter>Engine\シェーダファイル\OBJ</Filter>
     </None>
-    <None Include="Resources\shaders\PostEffect\PostEffectDefault.hlsli">
+    <None Include="Resources\shaders\PostEffect\PostEffect.hlsli">
       <Filter>Engine\シェーダファイル\PostEffect</Filter>
     </None>
     <None Include="Resources\shaders\Sprite\Sprite.hlsli">
@@ -450,10 +450,10 @@
     <FxCompile Include="Resources\shaders\OBJ\OBJVS.hlsl">
       <Filter>Engine\シェーダファイル\OBJ</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\PostEffect\PostEffectDefaultPS.hlsl">
+    <FxCompile Include="Resources\shaders\PostEffect\PostEffectPS.hlsl">
       <Filter>Engine\シェーダファイル\PostEffect</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\PostEffect\PostEffectDefaultVS.hlsl">
+    <FxCompile Include="Resources\shaders\PostEffect\PostEffectVS.hlsl">
       <Filter>Engine\シェーダファイル\PostEffect</Filter>
     </FxCompile>
     <FxCompile Include="Resources\shaders\Sprite\SpritePS.hlsl">
