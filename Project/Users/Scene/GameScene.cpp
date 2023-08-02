@@ -42,8 +42,8 @@ void GameScene::Update()
 	skydomeTrans.Update(camera.get());
 	fbxObj_->Update(camera.get());
 
-	camera->SetTarget({0,20,0});
-	camera->SetEye({0,0,-1000});
+	camera->SetTarget({0,-100,0});
+	camera->SetEye({0,0,-100});
 
 	if (input_->PushKey(DIK_RIGHT))
 	{
