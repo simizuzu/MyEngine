@@ -17,7 +17,7 @@ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> PostEffect::cmdList_;
 const float PostEffect::clearColor[4] = { 0.0f,0.3f,0.0f,1.0f };
 RootsigSetPip PostEffect::pipline_;
 
-void PostEffect::CreateGraphicsPipeline()
+void PostEffect::CreateGraphicsPipelinePE()
 {
 	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob;	// 頂点シェーダオブジェクト
 	Microsoft::WRL::ComPtr<ID3DBlob> psBlob;	// ピクセルシェーダオブジェクト
@@ -36,7 +36,7 @@ void PostEffect::Initialize(ID3D12Device* device)
 	CreateRTV();
 	CreateDepth();
 	CreateDSV();
-	CreateGraphicsPipeline();
+	CreateGraphicsPipelinePE();
 }
 
 void PostEffect::Draw(ID3D12GraphicsCommandList* cmdList_)

@@ -18,7 +18,7 @@ public: // 静的メンバ関数
 	/// <summary>
 	/// パイプラインステート静的初期化
 	/// </summary>
-	void CreateGraphicsPipeline();
+	void CreateGraphicsPipelinePE();
 
 private: // 静的メンバ変数
 	//デバイス
