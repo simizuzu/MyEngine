@@ -14,7 +14,7 @@
 
 Microsoft::WRL::ComPtr<ID3D12Device> PostEffect::device_;
 Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> PostEffect::cmdList_;
-const float PostEffect::clearColor[4] = { 0.0f,0.3f,0.0f,1.0f };
+const float PostEffect::clearColor[4] = { 0.25f,0.5f,0.1f,1.0f };
 RootsigSetPip PostEffect::pipline_;
 
 void PostEffect::CreateGraphicsPipelinePE()

@@ -1,12 +1,11 @@
 ﻿#pragma once
-#include "fbxsdk.h"
 #include "FbxModel.h"
 
 #pragma warning(push)
 #include <d3d12.h>
 #include <d3dx12.h>
 #include <string>
-
+#include <fbxsdk.h>
 #pragma warning(disable: 4244)
 #pragma warning(pop)
 
