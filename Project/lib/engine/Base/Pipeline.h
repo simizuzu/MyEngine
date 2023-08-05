@@ -23,7 +23,7 @@ enum class BlendMode
 
 class Pipeline
 {
-public: // エイリアステンプレート
+private: // エイリアステンプレート
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 public: // メンバ関数

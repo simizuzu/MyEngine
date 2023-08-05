@@ -28,11 +28,11 @@ float4  main(VSOutput input) : SV_TARGET
 	}
 
 	output = colortex1 / (uForRange * vForRange);
-	//float4 colortex1 = tex1.Sample(smp, input.uv);
+	float4 colortex0 = tex1.Sample(smp, input.uv);
 	
-	//if (fmod(input.uv.y, 0.1f) < 0.05f)
-	//{
-	//	output = float4(1 - colortex0.rgb, 1);
-	//}
+	if (fmod(input.uv.y, 0.1f) < 0.05f)
+	{
+		output = float4(1 - colortex0.rgb, 1);
+	}
 	return output;
 }
