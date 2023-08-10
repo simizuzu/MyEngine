@@ -89,30 +89,6 @@ namespace MyMathUtility
 		return matTrans;
 	}
 
-	//Matrix4 CreateMatrix(const WorldTransform& worldTransform)
-	//{
-	//	Matrix4 matWorld;
-
-	//	matWorld = MakeIdentity();
-	//	matWorld = MakeScaling(worldTransform.scale_);
-	//	matWorld = MakeRotation(worldTransform.rotation_);
-	//	matWorld = MakeTranslation(worldTransform.translation_);
-
-	//	if (worldTransform.parent_ != nullptr)
-	//	{
-	//		matWorld *= worldTransform.parent_->matWorld_;
-	//	}
-
-	//	return matWorld;
-	//}
-
-	//void WorldTransUpdate(WorldTransform& childWorldtrans)
-	//{
-	//	childWorldtrans.matWorld_ = CreateMatrix(childWorldtrans);			// 合成した行列の計算
-	//	childWorldtrans.matWorld_ *= childWorldtrans.parent_->matWorld_;	// parent_のワールド行列の掛け算代入
-	//	childWorldtrans.TransferMatrix();									// 行列の転送
-	//}
-
 	//sin、cosを両方出す
 	void SinCos(float& sin_, float& cos_, float angle)
 	{
@@ -440,6 +416,59 @@ namespace MyMathUtility
 		float t2 = t * t;
 		float t3 = t2 * t;
 		return c0 * t3 + c1 * t2 + c2 * t + c3;
+	}
+
+	Vector3 BezierGetPoint(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
+	{
+		Vector3 pos;
+
+		Vector3 c0 = Lerp(p0, p1, t);
+		Vector3 c1 = Lerp(p1, p2, t);
+		Vector3 c2 = Lerp(p2, p3, t);
+		Vector3 c3 = Lerp(c0, c1, t);
+		Vector3 c4 = Lerp(c1, c2, t);
+
+		pos = Lerp(c3, c4, t);
+		return pos;
+	}
+
+	Vector3 BezierCurve(std::vector<Vector3>& points, float t)
+	{
+		float length = static_cast<float>(points.size());
+		float progress = (length - 1) * t;
+		float index = std::floor(progress);
+		float weight = progress - index;
+
+		if (Approximately(weight, 0.0f) && index >= length - 1)
+		{
+			index = length - 2;
+			weight = 1;
+		}
+
+		Vector3 p0 = points[static_cast<size_t>(index)];
+		Vector3 p1 = points[static_cast<size_t>(index + 1.0f)];
+		Vector3 p2;
+		Vector3 p3;
+
+		if (index > 0.0f)
+		{
+			p2 = 0.5f * (points[static_cast<size_t>(index + 1.0f)] - points[static_cast<size_t>(index - 1.0f)]);
+		}
+		else
+		{
+			p2 = points[static_cast<size_t>(index + 1.0f)] - points[static_cast<size_t>(index)];
+		}
+
+		if (index < length - 2.0f)
+		{
+			p3 = 0.5f * (points[static_cast<size_t>(index + 2.0f)] - points[static_cast<size_t>(index)]);
+		}
+		else
+		{
+			p3 = points[static_cast<size_t>(index + 1.0f)] - points[static_cast<size_t>(index)];
+		}
+
+		return BezierGetPoint(p0, p1, p2, p3, t);
 	}
 
 	float SimpleHarmonicMotion(float time, float amplitude, float period)

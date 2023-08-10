@@ -20,6 +20,8 @@
 
 #include "PostEffect.h"
 
+#include "LevelLoader.h"
+
 //#include "SplinePosCamera.h"
 
 //#include "RailCamera.h"
@@ -65,6 +67,9 @@ private: // メンバ変数
 	std::unique_ptr<FbxModel> fbxModel_;
 
 	std::unique_ptr<PostEffect> postEffect_;
+
+	LevelData* levelData;
+	std::vector<MyMath::Vector3> points_;
 
 	MyMath::Vector3 cameraRot = {0,0,0};
 	MyMath::Vector3 cameraTarget;

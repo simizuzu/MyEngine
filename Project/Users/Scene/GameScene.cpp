@@ -20,6 +20,9 @@ void GameScene::Initialize()
 	skydomeTrans.Initialize();
 	skydomeTrans.SetScale({ 500.0f,500.0f,500.0f });
 
+	//levelLoader_ = std::make_unique<LevelLoader>();
+	levelData = LevelLoader::LoadFile("levelData");
+
 	fbxModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("boneTest"));
 	fbxObj_.reset(FbxObject3d::Create());
 	fbxObj_->SetModel(fbxModel_.get());
@@ -54,7 +57,12 @@ void GameScene::Update()
 		cameraRot.x++;
 	}
 
-	//railCamera_->Update();
+	for (auto& curveData : levelData->curves)
+	{
+		points_ = curveData.points;
+	}
+
+	//MyMathUtility::BezierCurve(curveData.points, 1.0);
 
 	camera->SetTarget({ cameraRot.x,cameraRot.y,cameraRot.z });
 }

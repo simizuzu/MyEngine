@@ -70,7 +70,6 @@ void Framework::Update()
 	// ImGui更新処理開始
 	imGuiManager->Begin();
 	// ゲームシーンの毎フレーム処理
-	//gameScene->Update();
 	sceneManager_->Update();
 	
 	// ImGui更新処理終了
@@ -91,15 +90,14 @@ void Framework::Run()
 		{
 			break;
 		}
-		postEffect->PreDrawScene(dxCommon_->GetCommandList());
-		Draw();
-		postEffect->PostDrawScene(dxCommon_->GetCommandList());
+		/*postEffect->PreDrawScene(dxCommon_->GetCommandList());
+		postEffect->Draw(dxCommon_->GetCommandList());
+		postEffect->PostDrawScene(dxCommon_->GetCommandList());*/
 
 		dxCommon_->PreDraw(winApp_);
-		postEffect->Draw(dxCommon_->GetCommandList());
+		Draw();
 		//ImGui描画
 		imGuiManager->Draw(dxCommon_);
-		//postEffect->Draw(dxCommon_->GetCommandList());
 		dxCommon_->PostDraw();
 		// FPS固定更新
 		fps_->UpdateFixFPS();

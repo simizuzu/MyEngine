@@ -31,10 +31,6 @@ namespace MyMathUtility
 	MyMath::Matrix4 MakeRotation(const MyMath::Vector3& rot);
 	// 平行移動行列を求める
 	MyMath::Matrix4 MakeTranslation(const MyMath::Vector3& trans);
-	//// ワールド行列の計算
-	//Mathematics::Matrix4 CreateMatrix(const WorldTransform& worldTransform);
-
-	void SinCos(float& sin_, float& cos_, float angle);
 
 	// 平行投影変換(左手系)
 	void MakeOrthogonalL(float left, float right, float bottom, float top, float near_, float far_, MyMath::Matrix4& matrix);
@@ -51,8 +47,9 @@ namespace MyMathUtility
 	// 値が等しいか確認する
 	bool Approximately(float a, float b);
 
-	// 線形補間
+	// 線形補間(float)
 	float Lerp(float a, float b, float t);
+	// 線形補間(Vector3)
 	MyMath::Vector3 Lerp(MyMath::Vector3 a, MyMath::Vector3 b, float t);
 
 	/// <summary>
@@ -66,12 +63,30 @@ namespace MyMathUtility
 	/// <returns></returns>
 	MyMath::Vector3 HermiteGetPoint(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 v0, MyMath::Vector3 v1, float t);
 
-	
+	/// <summary>
+	/// 4点分のベジェ曲線
+	/// </summary>
+	/// <param name="p0">制御点</param>
+	/// <param name="p1">制御点</param>
+	/// <param name="v0">制御点</param>
+	/// <param name="v1">制御点</param>
+	/// <param name="t">時間</param>
+	/// <returns>ベジェ曲線の計算結果</returns>
+	MyMath::Vector3 BezierGetPoint(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 p2, MyMath::Vector3 p3, float t);
+
+	/// <summary>
+	/// ベジェ曲線
+	/// </summary>
+	/// <param name="points">制御点</param>
+	/// <param name="t">t時間(0.0~1.0)</param>
+	/// <returns>4点分のベジェ曲線の結果</returns>
+	MyMath::Vector3 BezierCurve(std::vector<MyMath::Vector3>& points, float t);
 
 	// Sin,Cos,Tan関数
 	float Sin(float sin);
 	float Cos(float cos);
 	float Tan(float tan);
+	void SinCos(float& sin_, float& cos_, float angle);
 
 	float Asin(float sin);
 	float Acos(float cos);

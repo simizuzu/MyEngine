@@ -7,13 +7,14 @@
 const std::string LevelLoader::kDefaultBaseDirectory = "Resources/levels/";
 const std::string LevelLoader::kExtension = ".json";
 
+[[nodiscard]]
 LevelData* LevelLoader::LoadFile(const std::string& fileName)
 {
 	// 連結してフルパスを得る
-    const std::string fullpath = kDefaultBaseDirectory + fileName + kExtension;
+	const std::string fullpath = kDefaultBaseDirectory + fileName + kExtension;
 
-    // ファイルストリーム
-    std::ifstream file;
+	// ファイルストリーム
+	std::ifstream file;
 
 	// ファイルを開く
 	file.open(fullpath);
@@ -48,7 +49,7 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		// 種別を取得
 		std::string type = object["type"].get<std::string>();
 
-		// MESH
+		// typeがMESHの時
 		if (type.compare("MESH") == 0) {
 			// 要素追加
 			levelData->objects.emplace_back(LevelData::ObjectData{});
@@ -87,5 +88,34 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		}
 	}
 
+	// "curves"の制御点の X,Y,Z を走査
+	for (nlohmann::json& curves : deserialized["curves"]) {
+
+		for (nlohmann::json& curve : curves["curve"]) {
+			// 要素追加
+			levelData->curves.emplace_back(LevelData::CurveData{});
+			// 今追加した要素の参照を得る
+			LevelData::CurveData& curveData = levelData->curves.back();
+
+			// トランスフォームのパラメータ読み込み
+			nlohmann::json& transform = curve;
+			// 制御点
+			curveData.pointCeter.x = (float)transform["ControlPoint"][1];
+			curveData.pointCeter.y = (float)transform["ControlPoint"][2];
+			curveData.pointCeter.z = (float)transform["ControlPoint"][0];
+			// 左ハンドル
+			curveData.pointLeft.x = (float)transform["HandlePointL"][1];
+			curveData.pointLeft.y = (float)transform["HandlePointL"][2];
+			curveData.pointLeft.z = (float)transform["HandlePointL"][0];
+			// 右ハンドル
+			curveData.pointRight.x = (float)transform["HandlePointR"][1];
+			curveData.pointRight.y = (float)transform["HandlePointR"][2];
+			curveData.pointRight.z = (float)transform["HandlePointR"][0];
+
+			curveData.points.push_back(curveData.pointCeter);
+			curveData.points.push_back(curveData.pointLeft);
+			curveData.points.push_back(curveData.pointRight);
+		}
+	}
 	return levelData;
 }
