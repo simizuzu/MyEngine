@@ -25,9 +25,11 @@ struct LevelData {
 		MyMath::Vector3 pointLeft;
 		// 右ハンドル
 		MyMath::Vector3 pointRight;
-		// 3つ並べた制御点
-		std::vector<MyMath::Vector3> points;
+
 	};
+
+	// 3つ並べた制御点
+	std::vector<MyMath::Vector3> points;
 
 	// オブジェクト配列
 	std::vector<ObjectData> objects;

@@ -420,16 +420,13 @@ namespace MyMathUtility
 
 	Vector3 BezierGetPoint(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
 	{
-		Vector3 pos;
-
 		Vector3 c0 = Lerp(p0, p1, t);
 		Vector3 c1 = Lerp(p1, p2, t);
 		Vector3 c2 = Lerp(p2, p3, t);
 		Vector3 c3 = Lerp(c0, c1, t);
 		Vector3 c4 = Lerp(c1, c2, t);
 
-		pos = Lerp(c3, c4, t);
-		return pos;
+		return Lerp(c3, c4, t);
 	}
 
 	Vector3 BezierCurve(std::vector<Vector3>& points, float t)

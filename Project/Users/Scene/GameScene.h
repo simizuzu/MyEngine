@@ -69,6 +69,8 @@ private: // メンバ変数
 	std::unique_ptr<PostEffect> postEffect_;
 
 	LevelData* levelData;
+
+	LevelData::CurveData curveData;
 	std::vector<MyMath::Vector3> points_;
 
 	MyMath::Vector3 cameraRot = {0,0,0};

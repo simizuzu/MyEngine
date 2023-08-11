@@ -57,12 +57,11 @@ void GameScene::Update()
 		cameraRot.x++;
 	}
 
-	for (auto& curveData : levelData->curves)
+	/*for (auto& curveData : levelData->curves)
 	{
 		points_ = curveData.points;
-	}
-
-	//MyMathUtility::BezierCurve(curveData.points, 1.0);
+	}*/
+	MyMathUtility::BezierCurve(levelData->points, 0.0f);
 
 	camera->SetTarget({ cameraRot.x,cameraRot.y,cameraRot.z });
 }
