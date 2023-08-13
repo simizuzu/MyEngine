@@ -56,3 +56,24 @@ public:// メンバ関数
 	[[nodiscard]]
 	static LevelData* LoadFile(const std::string& fileName);
 };
+
+namespace MyMathUtility {
+	/// <summary>
+	/// 4点分のベジェ曲線
+	/// </summary>
+	/// <param name="p0">始点</param>
+	/// <param name="p1">制御点1</param>
+	/// <param name="v0">制御点2</param>
+	/// <param name="v1">終点</param>
+	/// <param name="t">時間</param>
+	/// <returns>ベジェ曲線の計算結果</returns>
+	MyMath::Vector3 BezierGetPoint(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 p2, MyMath::Vector3 p3, float t);
+
+	/// <summary>
+	/// ベジェ曲線
+	/// </summary>
+	/// <param name="points">制御点</param>
+	/// <param name="t">t時間(0.0~1.0)</param>
+	/// <returns>4点分のベジェ曲線の結果</returns>
+	MyMath::Vector3 BezierCurve(std::vector<LevelData::CurveData>& points, float t);
+}

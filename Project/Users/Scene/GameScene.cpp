@@ -45,8 +45,8 @@ void GameScene::Update()
 	skydomeTrans.Update(camera.get());
 	fbxObj_->Update(camera.get());
 
-	camera->SetTarget({0,20,0});
-	camera->SetEye({0,0,-1000});
+	camera->SetTarget({0,0,0});
+	camera->SetEye(MyMathUtility::BezierCurve(levelData->curves, 0.0f));
 
 	if (input_->PushKey(DIK_RIGHT))
 	{
@@ -61,14 +61,14 @@ void GameScene::Update()
 	{
 		points_ = curveData.points;
 	}*/
-	MyMathUtility::BezierCurve(levelData->points, 0.0f);
+	
 
 	camera->SetTarget({ cameraRot.x,cameraRot.y,cameraRot.z });
 }
 
 void GameScene::Draw()
 {
-	//skydomeObj_->Draw(&skydomeTrans);
+	skydomeObj_->Draw(&skydomeTrans);
 	fbxObj_->Draw();
 }
 

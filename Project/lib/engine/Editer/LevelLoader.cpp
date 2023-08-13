@@ -120,3 +120,41 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 	}
 	return levelData;
 }
+
+namespace MyMathUtility {
+	MyMath::Vector3 BezierGetPoint(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 p2, MyMath::Vector3 p3, float t)
+	{
+		MyMath::Vector3 c0 = Lerp(p0, p1, t);
+		MyMath::Vector3 c1 = Lerp(p1, p2, t);
+		MyMath::Vector3 c2 = Lerp(p2, p3, t);
+		MyMath::Vector3 c3 = Lerp(c0, c1, t);
+		MyMath::Vector3 c4 = Lerp(c1, c2, t);
+
+		return Lerp(c3, c4, t);
+	}
+
+	MyMath::Vector3 BezierCurve(std::vector<LevelData::CurveData>& points, float t)
+	{
+		float length = static_cast<float>(points.size());
+		float progress = (length - 1) * t;
+		float index = std::floor(progress);
+		float weight = progress - index;
+
+		if (Approximately(weight, 0.0f) && index >= length - 1)
+		{
+			index = length - 2;
+			weight = 1;
+		}
+
+		//始点
+		MyMath::Vector3 p0 = points[static_cast<size_t>(index)].pointCeter;
+		//制御点1
+		MyMath::Vector3 p1 = points[static_cast<size_t>(index)].pointRight;
+		//制御点2
+		MyMath::Vector3 p2 = points[static_cast<size_t>(index + 1.0f)].pointLeft;
+		//終点
+		MyMath::Vector3 p3 = points[static_cast<size_t>(index + 1.0f)].pointCeter;
+
+		return BezierGetPoint(p0, p1, p2, p3, t);
+	}
+}
