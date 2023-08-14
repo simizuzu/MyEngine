@@ -39,14 +39,23 @@ void GameScene::Update()
 	//if (input_->TriggerPushKey(DIK_SPACE) || input_->TriggerButton(A))
 	//{
 	//	sceneManager_->ChangeScene("TITLE");
-	//}
+	//}]
+
+	//経過時間(elapsedTime[s])の計算
+	nowCount++;
+	elapsedCount = nowCount - startCount;
+	float elapsedTime = static_cast<float> (elapsedCount) / 60.f;
+
+	timeRate = elapsedTime / maxTime;
+
 	camera->Update();
 	light->Update();
 	skydomeTrans.Update(camera.get());
 	fbxObj_->Update(camera.get());
+	fbxObj_->SetTranslation({ { MyMathUtility::BezierCurve(levelData->curves, timeRate) } });
 
 	camera->SetTarget({0,0,0});
-	camera->SetEye(MyMathUtility::BezierCurve(levelData->curves, 0.0f));
+	camera->SetEye({0,0,-500.0f});
 
 	if (input_->PushKey(DIK_RIGHT))
 	{

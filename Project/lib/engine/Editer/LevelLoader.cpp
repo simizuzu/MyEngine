@@ -155,6 +155,6 @@ namespace MyMathUtility {
 		//終点
 		MyMath::Vector3 p3 = points[static_cast<size_t>(index + 1.0f)].pointCeter;
 
-		return BezierGetPoint(p0, p1, p2, p3, t);
+		return BezierGetPoint(p0, p1, p2, p3, weight);
 	}
 }
