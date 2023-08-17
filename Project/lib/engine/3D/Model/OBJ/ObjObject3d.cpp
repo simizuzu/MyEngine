@@ -123,17 +123,6 @@ void ObjObject3d::SetLight(Light* light)
 
 namespace MyMath
 {
-	Vector3 GetWorldPosition(ObjObject3d& transform)
-	{
-		// ワールド座標を入れる変数
-		Vector3 worldPos;
-		// ワールド行列の平行移動成分を取得
-		worldPos.x = transform.matWorld.m[3][0];
-		worldPos.y = transform.matWorld.m[3][1];
-		worldPos.z = transform.matWorld.m[3][2];
-
-		return worldPos;
-	}
 
 	Matrix4 MakeWorldMatrix4(ObjObject3d& transform)
 	{

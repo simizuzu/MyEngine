@@ -73,6 +73,5 @@ public:
 
 namespace MyMath
 {
-	Vector3 GetWorldPosition(ObjObject3d& transform);
 	Matrix4 MakeWorldMatrix4(ObjObject3d& transform);
 }

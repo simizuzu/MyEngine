@@ -192,7 +192,7 @@ void Pipeline::CreateObjPipeline(ID3DBlob* vsBlob, ID3DBlob* psBlob, BlendMode b
 	// ラスタライザの設定
 	//pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;	// カリングしない
 	//pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_FRONT;	// 前面カリング
-	pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK;	// 背面カリング
+	pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_FRONT;	// 背面カリング
 	pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;	// ポリゴン内塗りつぶし
 	pipelineDesc.RasterizerState.DepthClipEnable = true;			// 深度クリッピングを有効に
 	// ブレンドステート

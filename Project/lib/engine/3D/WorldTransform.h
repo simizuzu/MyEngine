@@ -22,11 +22,11 @@ public:
 	void UpdateParticle(Camera* camera,bool billboradFlag = false);
 	void UpdateFbx(Camera* camera);
 
-
-public:	//セッター・ゲッター
 	void SetTranslation(MyMath::Vector3 translation);
 	void SetScale(MyMath::Vector3 scale);
 	void SetRotation(MyMath::Vector3 rotation);
+
+	void MakeMatWorld();
 
 	D3D12_GPU_VIRTUAL_ADDRESS GetGpuAddress();
 
@@ -52,3 +52,6 @@ public:
 	const WorldTransform* parent = nullptr;
 };
 
+namespace MyMath {
+	MyMath::Vector3 GetWorldPosition(WorldTransform& transform);
+}

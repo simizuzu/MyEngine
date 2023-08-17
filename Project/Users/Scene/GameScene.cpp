@@ -17,7 +17,17 @@ void GameScene::Initialize()
 	skydomeObj_.reset(ObjObject3d::Create());
 	skydomeObj_->SetModel(skydomeModel_.get());
 
+	buildingModel_.reset(ObjModel::LoadFromObj("building"));
+	buildingObj_.reset(ObjObject3d::Create());
+	buildingObj_->SetModel(buildingModel_.get());
+
+	groundModel_.reset(ObjModel::LoadFromObj("ground"));
+	groundObj_.reset(ObjObject3d::Create());
+	groundObj_->SetModel(groundModel_.get());
+
 	skydomeTrans.Initialize();
+	buildingTrans.Initialize();
+	groundTrans.Initialize();
 	skydomeTrans.SetScale({ 500.0f,500.0f,500.0f });
 
 	//levelLoader_ = std::make_unique<LevelLoader>();
@@ -50,35 +60,34 @@ void GameScene::Update()
 
 	camera->Update();
 	light->Update();
+
 	skydomeTrans.Update(camera.get());
+	buildingTrans.Update(camera.get());
+	groundTrans.Update(camera.get());
+
 	fbxObj_->Update(camera.get());
 	fbxObj_->SetTranslation({ { MyMathUtility::BezierCurve(levelData->curves, timeRate) } });
 
-	camera->SetTarget({0,0,0});
-	camera->SetEye({0,0,-500.0f});
-
-	if (input_->PushKey(DIK_RIGHT))
-	{
-		cameraRot.x--;
-	}
-	else if (input_->PushKey(DIK_LEFT))
-	{
-		cameraRot.x++;
-	}
-
-	/*for (auto& curveData : levelData->curves)
-	{
-		points_ = curveData.points;
-	}*/
+	//camera->SetTarget({ 0.0f,100.0f,0.0f });
 	
+	cameraTrans.translation_ = MyMathUtility::BezierCurve(levelData->curves, timeRate);
+	cameraTrans.MakeMatWorld();
+	camera->SetEye({ MyMath::GetWorldPosition(cameraTrans) });
 
-	camera->SetTarget({ cameraRot.x,cameraRot.y,cameraRot.z });
+	MyMath::Vector3 forward(0.0f, 0.0f, 1.0f);
+	forward = MyMath::Vec3Mat4Mul(forward, cameraTrans.matWorld);
+	camera->target_ = camera->eye_ + forward;
+
+	MyMath::Vector3 up(0, 1, 0);
+	camera->up_ = MyMath::Vec3Mat4Mul(up, cameraTrans.matWorld);
 }
 
 void GameScene::Draw()
 {
 	skydomeObj_->Draw(&skydomeTrans);
-	fbxObj_->Draw();
+	buildingObj_->Draw(&buildingTrans);
+	groundObj_->Draw(&groundTrans);
+	//fbxObj_->Draw();
 }
 
 void GameScene::Finalize()

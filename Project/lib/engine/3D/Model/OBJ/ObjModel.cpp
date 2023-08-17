@@ -171,6 +171,8 @@ void ObjModel::LoadFromOBJInternal(const std::string& modelname,bool smoothing)
 			line_stream >> position.x;
 			line_stream >> position.y;
 			line_stream >> position.z;
+			//右手系から左手系へ反転
+			position.x *= -1.0f;
 			// 座標データに追加
 			positions.emplace_back(position);
 		}
@@ -224,6 +226,8 @@ void ObjModel::LoadFromOBJInternal(const std::string& modelname,bool smoothing)
 			line_stream >> normal.x;
 			line_stream >> normal.y;
 			line_stream >> normal.z;
+			//右手系から左手系へ反転
+			normal.x *= -1.0f;
 			// 法線ベクトルデータに追加
 			normals.emplace_back(normal);
 		}

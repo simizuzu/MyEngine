@@ -63,6 +63,13 @@ private: // メンバ変数
 	std::unique_ptr<ObjObject3d> skydomeObj_;
 	std::unique_ptr<ObjModel> skydomeModel_;
 
+	std::unique_ptr<ObjObject3d> groundObj_;
+	std::unique_ptr<ObjModel> groundModel_;
+
+	std::unique_ptr<ObjObject3d> buildingObj_;
+	std::unique_ptr<ObjModel> buildingModel_;
+
+
 	std::unique_ptr<FbxObject3d> fbxObj_;
 	std::unique_ptr<FbxModel> fbxModel_;
 
@@ -77,7 +84,12 @@ private: // メンバ変数
 	MyMath::Vector3 cameraTarget;
 
 	WorldTransform skydomeTrans;
-	WorldTransform fbxTrans;
+	WorldTransform buildingTrans;
+	WorldTransform groundTrans;
+	
+	WorldTransform cameraTrans;
+
+	//WorldTransform fbxTrans;
 
 	float maxTime = 10.0f;;				//全体時間[s]
 	float timeRate;						//何％時間が進んだか

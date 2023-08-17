@@ -9,7 +9,7 @@ void WorldTransform::Initialize()
 
 void WorldTransform::InitailizeFbx()
 {
-	
+
 }
 
 void WorldTransform::UpdateParticle(Camera* camera, bool billboradFlag)
@@ -152,7 +152,39 @@ void WorldTransform::SetRotation(MyMath::Vector3 rotation)
 	rotation_ = rotation;
 }
 
+void WorldTransform::MakeMatWorld()
+{
+	MyMath::Matrix4 matScale, matRot, matTrans;
+
+	// スケール、回転、平行移動行列の計算
+	matScale = MyMathUtility::MakeScaling(scale_);
+	matRot = MyMathUtility::MakeIdentity();
+	matRot = MyMathUtility::MakeRotation(rotation_);
+	matTrans = MyMathUtility::MakeTranslation(translation_);
+
+	// ワールド行列の合成
+	matWorld = MyMathUtility::MakeIdentity();
+	matWorld *= matScale;
+	matWorld *= matRot;
+	matWorld *= matTrans;
+}
+
 D3D12_GPU_VIRTUAL_ADDRESS WorldTransform::GetGpuAddress()
 {
 	return constBuffer_->GetGPUVirtualAddress();
+}
+
+namespace MyMath
+{
+	MyMath::Vector3 GetWorldPosition(WorldTransform& transform)
+	{
+		// ワールド座標を入れる変数
+		Vector3 worldPos;
+		// ワールド行列の平行移動成分を取得
+		worldPos.x = transform.matWorld.m[3][0];
+		worldPos.y = transform.matWorld.m[3][1];
+		worldPos.z = transform.matWorld.m[3][2];
+
+		return worldPos;
+	}
 }
