@@ -294,6 +294,9 @@
     <ClCompile Include="PostEffect.cpp">
       <Filter>Engine\ソース ファイル\2D\PostEffect</Filter>
     </ClCompile>
+    <ClCompile Include="SceneData.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxObject3d.h">
@@ -418,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="PostEffect.h">
       <Filter>Engine\ヘッダー ファイル\2D\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneData.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -53,6 +53,7 @@
     <ClCompile Include="lib\engine\Scene\MainGame.cpp" />
     <ClCompile Include="lib\engine\Scene\SceneManager.cpp" />
     <ClCompile Include="PostEffect.cpp" />
+    <ClCompile Include="SceneData.cpp" />
     <ClCompile Include="Users\GameCamera.cpp" />
     <ClCompile Include="Users\Player.cpp" />
     <ClCompile Include="Users\PlayerBullet.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="lib\engine\Scene\MainGame.h" />
     <ClInclude Include="lib\engine\Scene\SceneManager.h" />
     <ClInclude Include="PostEffect.h" />
+    <ClInclude Include="SceneData.h" />
     <ClInclude Include="Users\GameCamera.h" />
     <ClInclude Include="Users\Player.h" />
     <ClInclude Include="Users\PlayerBullet.h" />

@@ -20,7 +20,9 @@
 
 #include "PostEffect.h"
 
-#include "LevelLoader.h"
+#include "SceneData.h"
+#include "GameCamera.h"
+
 
 //#include "SplinePosCamera.h"
 
@@ -49,55 +51,20 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	std::unique_ptr<Camera> camera;
 	std::unique_ptr<Light> light;
+	// サウンド
 	//AudioManager* audioManager_ = nullptr;
-
-	SceneManager* sceneManager_ = nullptr;
+	//uint32_t gameHandle_ = 0;
 
 	//宣言
 	INT32 sceneNum = 0;
 	char PADING[4]{};
 
-	// サウンド
-	//uint32_t gameHandle_ = 0;
-
-	std::unique_ptr<ObjObject3d> skydomeObj_;
-	std::unique_ptr<ObjModel> skydomeModel_;
-
-	std::unique_ptr<ObjObject3d> groundObj_;
-	std::unique_ptr<ObjModel> groundModel_;
-
-	std::unique_ptr<ObjObject3d> buildingObj_;
-	std::unique_ptr<ObjModel> buildingModel_;
-
-
-	std::unique_ptr<FbxObject3d> fbxObj_;
-	std::unique_ptr<FbxModel> fbxModel_;
-
+	std::unique_ptr<SceneData> modelData_;
+	std::unique_ptr<GameCamera> gameCamera_;
 	std::unique_ptr<PostEffect> postEffect_;
-
-	LevelData* levelData;
-
-	LevelData::CurveData curveData;
-	std::vector<MyMath::Vector3> points_;
-
-	MyMath::Vector3 cameraRot = {0,0,0};
-	MyMath::Vector3 cameraTarget;
-
-	WorldTransform skydomeTrans;
-	WorldTransform buildingTrans;
-	WorldTransform groundTrans;
 	
-	WorldTransform cameraTrans;
-
-	//WorldTransform fbxTrans;
-
-	float maxTime = 10.0f;;				//全体時間[s]
-	float timeRate;						//何％時間が進んだか
-	size_t startIndex = 1;
-	uint32_t startCount = 0;
-	uint32_t nowCount = 0;
-	uint32_t elapsedCount = 0;
-
+	//シーンマネージャ
+	SceneManager* sceneManager_ = nullptr;
 private:
 	//コピーコンストラクタ・代入演算子削除
 
