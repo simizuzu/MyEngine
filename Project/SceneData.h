@@ -35,9 +35,6 @@ private:
 	std::unique_ptr<ObjModel> skydomeModel_;
 	std::unique_ptr<ObjModel> buildingModel_;
 
-
-	
-
 	WorldTransform skydomeTrans;
 	WorldTransform buildingTrans;
 	WorldTransform groundTrans;

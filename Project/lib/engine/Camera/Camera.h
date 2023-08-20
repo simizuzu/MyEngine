@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "DirectX12Math.h"
 #include "EngineUtility.h"
+#include <DirectXMath.h>
 
 class Camera
 {

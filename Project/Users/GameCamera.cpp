@@ -20,12 +20,14 @@ void GameCamera::Update()
 	//カメラの座標にベジェ曲線の値を入れる
 	cameraTrans.translation_ = MyMathUtility::BezierCurve(curveData->curves, timeRate);
 	cameraTrans.MakeMatWorld();
-	camera_->SetEye({ MyMath::GetWorldPosition(cameraTrans) });
+	camera_->eye_ = MyMath::GetWorldPosition(cameraTrans);
 
 	//前方向ベクトルの計算
-	MyMath::Vector3 forward(0.0f, 0.0f, 1.0f);
+	MyMath::Vector3 forward(0.0f,0.0f,1.0f);
+	targetTimeRate = timeRate + 0.02f;
 	forward = MyMath::Vec3Mat4Mul(forward, cameraTrans.matWorld);
-	camera_->target_ = camera_->eye_ + forward;
+	camera_->target_ = {0.0f,0.0f,0.0f};
+	
 
 	//上方向ベクトルの計算
 	MyMath::Vector3 up(0, 1, 0);

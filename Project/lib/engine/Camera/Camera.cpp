@@ -85,7 +85,7 @@ void Camera::UpdateMatrix()
 void Camera::TransferMatrix()
 {
 	// 定数バッファに書き込み
-	ConstMap.view = matView_;
+	ConstMap.view = matViewInverse_;
 	ConstMap.projection = matProjection_;
 	ConstMap.cameraPos = eye_;
 }

@@ -38,6 +38,7 @@ private:
 
 	float maxTime = 10.0f;;				//全体時間[s]
 	float timeRate;						//何％時間が進んだか
+	float targetTimeRate;
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;
