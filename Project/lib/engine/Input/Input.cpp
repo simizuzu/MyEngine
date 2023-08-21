@@ -15,6 +15,9 @@ void Input::Initialize()
 
 	// コントローラー初期化
 	controller_ = new Controller();
+
+	//マウス初期化
+	mouse_ = new Mouse();
 }
 
 void Input::Update() 
@@ -23,6 +26,8 @@ void Input::Update()
 	keyboard_->Update();
 	// コントローラー処理
 	controller_->Update();
+	// マウス処理
+	mouse_->Update();
 }
 
 Input* Input::GetInstance()
@@ -102,5 +107,33 @@ MyMath::Vector2 Input::GetLeftStickVec(const MyMath::Vector2& deadZoneRange)
 MyMath::Vector2 Input::GetRightStickVec(const MyMath::Vector2& deadZoneRange)
 {
 	return controller_->GetRightStickVec(deadZoneRange);
+}
+#pragma endregion
+
+#pragma region マウス
+bool Input::MouseButtonTrigger(MouseButton button)
+{
+	return mouse_->MouseButtonInput(button);
+}
+bool Input::MouseButtonOffTrigger(MouseButton button)
+{
+	return mouse_->MouseButtonOffTrigger(button);
+}
+bool Input::MouseButtonInput(MouseButton button)
+{
+	return mouse_->MouseButtonInput(button);
+}
+const MyMath::Vector2 Input::GetMousePos() const
+{
+	return mouse_->GetMousePos();
+}
+const MyMath::Vector2 Input::GetWorldMousePos() const
+{
+	return mouse_->GetWorldMousePos();
+}
+
+const MyMath::Vector3 Input::GetMouseMove() const
+{
+	return mouse_->GetMouseMove();
 }
 #pragma endregion

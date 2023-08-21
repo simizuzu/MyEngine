@@ -294,8 +294,11 @@
     <ClCompile Include="PostEffect.cpp">
       <Filter>Engine\ソース ファイル\2D\PostEffect</Filter>
     </ClCompile>
-    <ClCompile Include="SceneData.cpp">
+    <ClCompile Include="Mouse.cpp">
       <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneData.cpp">
+      <Filter>Application\ソースファイル\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -422,8 +425,11 @@
     <ClInclude Include="PostEffect.h">
       <Filter>Engine\ヘッダー ファイル\2D\PostEffect</Filter>
     </ClInclude>
-    <ClInclude Include="SceneData.h">
+    <ClInclude Include="Mouse.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneData.h">
+      <Filter>Application\ヘッダーファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

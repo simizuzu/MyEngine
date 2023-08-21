@@ -52,6 +52,7 @@
     <ClCompile Include="lib\engine\Scene\Framework.cpp" />
     <ClCompile Include="lib\engine\Scene\MainGame.cpp" />
     <ClCompile Include="lib\engine\Scene\SceneManager.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="SceneData.cpp" />
     <ClCompile Include="Users\GameCamera.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="lib\engine\Scene\Framework.h" />
     <ClInclude Include="lib\engine\Scene\MainGame.h" />
     <ClInclude Include="lib\engine\Scene\SceneManager.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="SceneData.h" />
     <ClInclude Include="Users\GameCamera.h" />
