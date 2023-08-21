@@ -5,6 +5,9 @@ void GameCamera::Initialize(Camera* camera)
 	assert(camera);
 	camera_ = camera;
 
+	//視野角の設定
+	camera_->SetFovAngleY(MyMathUtility::degree2Radius * 90.0f);
+
 	curveData = LevelLoader::LoadFile("curveData");
 }
 
@@ -22,16 +25,14 @@ void GameCamera::Update()
 	cameraTrans.MakeMatWorld();
 	camera_->eye_ = MyMath::GetWorldPosition(cameraTrans);
 
-	//前方向ベクトルの計算
-	MyMath::Vector3 forward(0.0f,0.0f,1.0f);
-	targetTimeRate = timeRate + 0.02f;
-	forward = MyMath::Vec3Mat4Mul(forward, cameraTrans.matWorld);
-	camera_->target_ = {0.0f,0.0f,0.0f};
+	//ベジェ曲線に沿った方向ベクトルの計算
+	targetTimeRate = timeRate + 0.002f;
+	camera_->target_ = MyMathUtility::BezierCurve(curveData->curves, targetTimeRate);
 	
-
 	//上方向ベクトルの計算
 	MyMath::Vector3 up(0, 1, 0);
 	camera_->up_ = MyMath::Vec3Mat4Mul(up, cameraTrans.matWorld);
+
 }
 
 void GameCamera::Reset()

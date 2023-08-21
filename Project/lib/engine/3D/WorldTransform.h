@@ -20,7 +20,6 @@ public:
 	//更新
 	void Update(Camera* camera);
 	void UpdateParticle(Camera* camera,bool billboradFlag = false);
-	void UpdateFbx(Camera* camera);
 
 	void SetTranslation(MyMath::Vector3 translation);
 	void SetScale(MyMath::Vector3 scale);

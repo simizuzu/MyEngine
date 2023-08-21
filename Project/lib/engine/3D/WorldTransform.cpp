@@ -72,10 +72,6 @@ void WorldTransform::UpdateParticle(Camera* camera, bool billboradFlag)
 	//}
 }
 
-void WorldTransform::UpdateFbx(Camera* camera)
-{
-
-}
 
 void WorldTransform::Update(Camera* camera)
 {

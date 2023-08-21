@@ -138,16 +138,18 @@ namespace MyMathUtility {
 
 	MyMath::Vector3 BezierCurve(std::vector<LevelData::CurveData>& points, float t)
 	{
+		//制御点のindexをずらしていく処理
 		float length = static_cast<float>(points.size());
 		float progress = (length - 1) * t;
 		float index = std::floor(progress);
 		float weight = progress - index;
 
-		if (Approximately(weight, 0.0f) && index >= length - 1)
+		
+		/*if (Approximately(weight, 0.0f) && index >= length - 1)
 		{
 			index = length - 2;
 			weight = 1;
-		}
+		}*/
 
 		//始点
 		MyMath::Vector3 p0 = points[static_cast<size_t>(index)].pointCeter;

@@ -165,9 +165,9 @@ namespace MyMathUtility
 		matrix.m[2][1] = zVec.y;
 		matrix.m[2][2] = zVec.z;
 
-		matrix.m[3][0] = -eye.x;
-		matrix.m[3][1] = -eye.y;
-		matrix.m[3][2] = -eye.z;
+		matrix.m[3][0] = eye.x;
+		matrix.m[3][1] = eye.y;
+		matrix.m[3][2] = eye.z;
 
 		return matrix;
 	}

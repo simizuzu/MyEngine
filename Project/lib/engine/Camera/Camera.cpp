@@ -76,6 +76,7 @@ void Camera::UpdateMatrix()
 	matView_ = MyMathUtility::MakeLookAtLH(eye_, target_, up_);
 	// 逆行列
 	matViewInverse_ = MyMathUtility::MakeInverse(matView_);
+	matView_ = matViewInverse_;
 	// 透視投影の生成
 	matProjection_ = MyMathUtility::MakePerspective(fovAngleY, aspect, nearZ_, farZ_);
 	// 定数バッファに転送
@@ -148,5 +149,9 @@ void Camera::SetNearZ(const float& nearZ)
 void Camera::SetDistance(const float& distance)
 {
 	distance_ = distance;
+}
+void Camera::SetFovAngleY(const float& fovAngle)
+{
+	fovAngleY = fovAngle;
 }
 #pragma endregion

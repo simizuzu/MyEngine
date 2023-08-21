@@ -79,4 +79,5 @@ public:
 	void SetFarZ(const float& farZ);
 	void SetNearZ(const float& nearZ);
 	void SetDistance(const float& distance);
+	void SetFovAngleY(const float& fovAngle);
 };
