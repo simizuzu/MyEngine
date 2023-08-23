@@ -20,16 +20,14 @@ void GameCamera::Update()
 	//経過時間(elapsedTime)/全体の時間(maxTime)を0~1(timeRate)にする
 	timeRate = elapsedTime / maxTime;
 
-	targetTimeRate = timeRate + 0.002f;
-
 	//カメラの座標にベジェ曲線の値を入れる
-	cameraTrans.translation_ = MyMathUtility::CatmullRomSpline(curveData->curves, timeRate);
+	cameraTrans.translation_ = MyMathUtility::BezierCurve(curveData->curves, timeRate);
 	cameraTrans.MakeMatWorld();
 	camera_->eye_ = MyMath::GetWorldPosition(cameraTrans);
 
 	//ベジェ曲線に沿った方向ベクトルの計算
-	
-	camera_->target_ = MyMathUtility::CatmullRomSpline(curveData->curves, targetTimeRate);
+	targetTimeRate = timeRate + 0.002f;
+	camera_->target_ = MyMathUtility::BezierCurve(curveData->curves, targetTimeRate);
 	
 	//上方向ベクトルの計算
 	MyMath::Vector3 up(0, 1, 0);
