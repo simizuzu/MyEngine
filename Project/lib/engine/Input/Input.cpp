@@ -18,6 +18,7 @@ void Input::Initialize()
 
 	//マウス初期化
 	mouse_ = new Mouse();
+	mouse_->Initialize(directInput.Get());
 }
 
 void Input::Update() 

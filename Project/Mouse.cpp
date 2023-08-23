@@ -5,11 +5,11 @@ void Mouse::Initialize(IDirectInput8* dinput)
 {
 	HRESULT result;
 
-	//ƒ}ƒEƒXƒfƒoƒCƒX‚ÌŽæ“¾
+	//ãƒžã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã®å–å¾—
 	result = dinput->CreateDevice(GUID_SysMouse, &mouseDev, NULL);
 	assert(SUCCEEDED(result));
 
-	result = mouseDev->SetDataFormat(&c_dfDIJoystick2);
+	result = mouseDev->SetDataFormat(&c_dfDIMouse2);
 	assert(SUCCEEDED(result));
 
 	result = mouseDev->SetCooperativeLevel(WinApp::GetInstance()->GetHwnd(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
@@ -20,7 +20,7 @@ void Mouse::Update()
 {
 	HRESULT result;
 
-	//ƒ}ƒEƒX
+	//ãƒžã‚¦ã‚¹
 	result = mouseDev->Acquire();
 	oldMouseState = mouseState;
 	result = mouseDev->GetDeviceState(sizeof(mouseState), &mouseState);

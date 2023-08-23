@@ -6,8 +6,11 @@ void PlayerBullet::Initialize(ObjModel* model, ObjObject3d* obj, const MyMath::V
 	//代入チェック
 	assert(model);
 
+	//モデルを代入
 	bulletModel_ = model;
 	bulletObj_ = obj;
+
+	//ワールドトランスフォームの初期化
 	bulletTrans_.Initialize();
 	bulletTrans_.translation_ = position;
 
@@ -20,5 +23,6 @@ void PlayerBullet::Update(Camera* camera)
 
 void PlayerBullet::Draw()
 {
-	
+	//モデルの描画
+	bulletObj_->Draw(&bulletTrans_);
 }

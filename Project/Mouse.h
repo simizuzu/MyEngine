@@ -1,5 +1,5 @@
 #pragma once
-#define DIRECTINPUT_VERSION 0x0800 // DirectInput‚Ìƒo[ƒWƒ‡ƒ“w’è
+#define DIRECTINPUT_VERSION 0x0800 // DirectInputã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³æŒ‡å®š
 #include <dinput.h>
 #include <wrl.h>
 #include "WinApp.h"
@@ -16,7 +16,7 @@ enum MouseButton
 };
 
 /// <summary>
-/// ƒ}ƒEƒX
+/// ãƒã‚¦ã‚¹
 /// </summary>
 class Mouse
 {
@@ -24,60 +24,60 @@ private:
 	Microsoft::WRL::ComPtr<IDirectInputDevice8> mouseDev;
 	DIMOUSESTATE2 mouseState = {};
 	DIMOUSESTATE2 oldMouseState = {};
-	//ƒ}ƒEƒX‚ÌƒQ[ƒ€‹óŠÔ“à‚Å‚ÌƒŒƒC
+	//ãƒã‚¦ã‚¹ã®ã‚²ãƒ¼ãƒ ç©ºé–“å†…ã§ã®ãƒ¬ã‚¤
 	MyMath::Vector2 mousePos;
 	MyMath::Vector2 worldMousePos;
 	MyMath::Vector3 mouseMove;
 
 public:
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
 	/// <param name="dinput"></param>
 	void Initialize(IDirectInput8* dinput);
 
 	/// <summary>
-	/// XV
+	/// æ›´æ–°
 	/// </summary>
 	void Update();
 
 	/// <summary>
-	/// ƒ}ƒEƒXƒ{ƒ^ƒ“‚Ì“ü—Í
+	/// ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³ã®å…¥åŠ›
 	/// </summary>
-	/// <param name="button">ƒ`ƒFƒbƒN‚µ‚½‚¢ƒ{ƒ^ƒ“</param>
-	/// <returns>‰Ÿ‚µ‚½‚©‚Ç‚¤‚©</returns>
+	/// <param name="button">ãƒã‚§ãƒƒã‚¯ã—ãŸã„ãƒœã‚¿ãƒ³</param>
+	/// <returns>æŠ¼ã—ãŸã‹ã©ã†ã‹</returns>
 	bool MouseButtonTrigger(MouseButton button);
 
 	/// <summary>
-	/// ƒ}ƒEƒXƒ{ƒ^ƒ“‚Ì—£‚µ‚½uŠÔ
+	/// ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³ã®é›¢ã—ãŸç¬é–“
 	/// </summary>
-	/// <param name="button">ƒ`ƒFƒbƒN‚µ‚½‚¢ƒ{ƒ^ƒ“</param>
-	/// <returns>—£‚µ‚½‚©</returns>
+	/// <param name="button">ãƒã‚§ãƒƒã‚¯ã—ãŸã„ãƒœã‚¿ãƒ³</param>
+	/// <returns>é›¢ã—ãŸã‹</returns>
 	bool MouseButtonOffTrigger(MouseButton button);
 
 	/// <summary>
-	/// ƒ}ƒEƒXƒ{ƒ^ƒ“‚Ì“ü—Í
+	/// ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³ã®å…¥åŠ›
 	/// </summary>
-	/// <param name="button">ƒ`ƒFƒbƒN‚µ‚½‚¢ƒ{ƒ^ƒ“</param>
-	/// <returns>‰Ÿ‚µ‚½‚©</returns>
+	/// <param name="button">ãƒã‚§ãƒƒã‚¯ã—ãŸã„ãƒœã‚¿ãƒ³</param>
+	/// <returns>æŠ¼ã—ãŸã‹</returns>
 	bool MouseButtonInput(MouseButton button);
 
 	/// <summary>
-	/// ƒ}ƒEƒX‚ÌˆÊ’u
+	/// ãƒã‚¦ã‚¹ã®ä½ç½®
 	/// </summary>
-	/// <returnsƒ}ƒEƒX‚ÌˆÊ’u></returns>
+	/// <returnsãƒã‚¦ã‚¹ã®ä½ç½®></returns>
 	const MyMath::Vector2 GetMousePos()const;
 
 	/// <summary>
-	/// ƒ}ƒEƒX‚ÌˆÊ’u
+	/// ãƒã‚¦ã‚¹ã®ä½ç½®
 	/// </summary>
-	/// <returnsƒ}ƒEƒX‚ÌˆÊ’u></returns>
+	/// <returnsãƒã‚¦ã‚¹ã®ä½ç½®></returns>
 	const MyMath::Vector2 GetWorldMousePos()const;
 
 	/// <summary>
-	/// ƒ}ƒEƒX‚ÌˆÊ’u
+	/// ãƒã‚¦ã‚¹ã®ä½ç½®
 	/// </summary>
-	/// <returnsƒ}ƒEƒX‚ÌˆÊ’u></returns>
+	/// <returnsãƒã‚¦ã‚¹ã®ä½ç½®></returns>
 	const MyMath::Vector3 GetMouseMove()const;
 };
 

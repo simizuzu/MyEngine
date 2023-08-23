@@ -162,4 +162,56 @@ namespace MyMathUtility {
 
 		return BezierGetPoint(p0, p1, p2, p3, weight);
 	}
+
+	MyMath::Vector3 HermiteGetPoint2(const MyMath::Vector3& p0, const MyMath::Vector3& p1, const MyMath::Vector3& v0, const MyMath::Vector3& v1, float t)
+	{
+		MyMath::Vector3 c0 = 2.0f * p0 + -2.0f * p1 + v0 + v1;
+		MyMath::Vector3 c1 = -3.0f * p0 + 3.0f * p1 + -2.0f * v0 - v1;
+		MyMath::Vector3 c2 = v0;
+		MyMath::Vector3 c3 = p0;
+
+		float t2 = t * t;
+		float t3 = t2 * t;
+		return c0 * t3 + c1 * t2 + c2 * t + c3;
+	}
+
+	MyMath::Vector3 CatmullRomSpline(std::vector<LevelData::CurveData>& points, float t)
+	{
+
+		float length = static_cast<float>(points.size());
+		float progress = (length - 1) * t;
+		float index = std::floor(progress);
+		float weight = progress - index;
+
+		if (Approximately(weight, 0.0f) && index >= length - 1)
+		{
+			index = length - 2;
+			weight = 1;
+		}
+
+		MyMath::Vector3 p0 = points[static_cast<size_t>(index)].pointCeter;
+		MyMath::Vector3 p1 = points[static_cast<size_t>(index + 1.0f)].pointCeter;
+		MyMath::Vector3 p2;
+		MyMath::Vector3 p3;
+
+		if (index > 0.0f)
+		{
+			p2 = 0.5f * (points[static_cast<size_t>(index + 1.0f)].pointCeter - points[static_cast<size_t>(index - 1.0f)].pointCeter);
+		}
+		else
+		{
+			p2 = points[static_cast<size_t>(index + 1.0f)].pointCeter - points[static_cast<size_t>(index)].pointCeter;
+		}
+
+		if (index < length - 2.0f)
+		{
+			p3 = 0.5f * (points[static_cast<size_t>(index + 2.0f)].pointCeter - points[static_cast<size_t>(index)].pointCeter);
+		}
+		else
+		{
+			p3 = points[static_cast<size_t>(index + 1.0f)].pointCeter - points[static_cast<size_t>(index)].pointCeter;
+		}
+
+		return HermiteGetPoint2(p0, p1, p2, p3, weight);
+	}
 }

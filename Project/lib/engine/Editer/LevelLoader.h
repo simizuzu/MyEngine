@@ -76,4 +76,22 @@ namespace MyMathUtility {
 	/// <param name="t">t時間(0.0~1.0)</param>
 	/// <returns>4点分のベジェ曲線の結果</returns>
 	MyMath::Vector3 BezierCurve(std::vector<LevelData::CurveData>& points, float t);
+
+	/// <summary>
+/// エルミート曲線
+/// </summary>
+/// <param name="p0">制御点</param>
+/// <param name="p1">制御点</param>
+/// <param name="v0">制御点</param>
+/// <param name="v1">制御点</param>
+/// <param name="t">時間(0.0～1.0)</param>
+/// <returns></returns>
+	MyMath::Vector3 HermiteGetPoint2(const MyMath::Vector3& p0, const MyMath::Vector3& p1, const MyMath::Vector3& v0, const MyMath::Vector3& v1, float t);
+
+	/// <summary>
+	/// キャットムルーロムスプライン 
+	/// </summary>
+	/// <param name="points">制御点</param>
+	/// <param name="t">時間(0.0～1.0)</param>
+	MyMath::Vector3 CatmullRomSpline(std::vector<LevelData::CurveData>& points, float t);
 }
