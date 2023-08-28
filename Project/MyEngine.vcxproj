@@ -291,6 +291,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -310,6 +311,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
