@@ -20,7 +20,6 @@ void GameScene::Initialize()
 	modelData_ = std::make_unique<SceneData>();
 	modelData_->Initialize(camera.get());
 
-
 	sceneManager_ = SceneManager::GetInstance();
 }
 
@@ -30,12 +29,11 @@ void GameScene::Update()
 	//{
 	//	sceneManager_->ChangeScene("TITLE");
 	//}]
-
+	modelData_->Update();
 	camera->Update();
 	light->Update();
-
 	gameCamera_->Update();
-	modelData_->Update();
+
 }
 
 void GameScene::Draw()
