@@ -172,6 +172,27 @@
     <Filter Include="Engine\ヘッダー ファイル\3D\Particle">
       <UniqueIdentifier>{8da21379-2774-4f7e-846f-11929346a27e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\シェーダファイル\Primitive">
+      <UniqueIdentifier>{71edfd3b-7519-4a47-803a-e79aae482459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\Input\Mouse">
+      <UniqueIdentifier>{5631e236-1713-4aea-80cc-543fe2500c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\Input\Mouse">
+      <UniqueIdentifier>{15cb395f-2559-405e-b41c-5d2836371f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\3D\Transform">
+      <UniqueIdentifier>{2a3bad4b-3198-4895-92eb-e8a5e13de482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\3D\Primitive">
+      <UniqueIdentifier>{0c3cbf90-5209-4489-a728-7b385205c897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\3D\Transform">
+      <UniqueIdentifier>{ee0f5dd2-76f9-4d10-9470-3858d1bec2e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\3D\Primitive">
+      <UniqueIdentifier>{bddbf111-9dff-49df-be25-bf4e8489f0af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\engine\main.cpp">
@@ -267,9 +288,6 @@
     <ClCompile Include="lib\engine\Audio\AudioManager.cpp">
       <Filter>Engine\ソース ファイル\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="lib\engine\3D\WorldTransform.cpp">
-      <Filter>Engine\ソース ファイル\3D</Filter>
-    </ClCompile>
     <ClCompile Include="Users\Scene\SceneFactory.cpp">
       <Filter>Application\ソースファイル\Scene</Filter>
     </ClCompile>
@@ -294,11 +312,17 @@
     <ClCompile Include="PostEffect.cpp">
       <Filter>Engine\ソース ファイル\2D\PostEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SceneData.cpp">
       <Filter>Application\ソースファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Engine\ソース ファイル\Input\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\engine\3D\WorldTransform.cpp">
+      <Filter>Engine\ソース ファイル\3D\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="PrimitiveDrawer.cpp">
+      <Filter>Engine\ソース ファイル\3D\Primitive</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -386,9 +410,6 @@
     <ClInclude Include="Users\Scene\SceneFactory.h">
       <Filter>Application\ヘッダーファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\3D\WorldTransform.h">
-      <Filter>Engine\ヘッダー ファイル\3D</Filter>
-    </ClInclude>
     <ClInclude Include="lib\engine\Math\DirectX12Math.h">
       <Filter>Engine\ヘッダー ファイル\Math</Filter>
     </ClInclude>
@@ -425,11 +446,17 @@
     <ClInclude Include="PostEffect.h">
       <Filter>Engine\ヘッダー ファイル\2D\PostEffect</Filter>
     </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="SceneData.h">
       <Filter>Application\ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Engine\ヘッダー ファイル\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\3D\WorldTransform.h">
+      <Filter>Engine\ヘッダー ファイル\3D\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="PrimitiveDrawer.h">
+      <Filter>Engine\ヘッダー ファイル\3D\Primitive</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +474,9 @@
     </None>
     <None Include="Resources\shaders\Particle\Particle.hlsli">
       <Filter>Engine\シェーダファイル\Paricle</Filter>
+    </None>
+    <None Include="Primitive.hlsli">
+      <Filter>Engine\シェーダファイル\Primitive</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -482,6 +512,12 @@
     </FxCompile>
     <FxCompile Include="Resources\shaders\Particle\ParticleVS.hlsl">
       <Filter>Engine\シェーダファイル\Paricle</Filter>
+    </FxCompile>
+    <FxCompile Include="PrimitiveVS.hlsl">
+      <Filter>Engine\シェーダファイル\Primitive</Filter>
+    </FxCompile>
+    <FxCompile Include="PrimitivePS.hlsl">
+      <Filter>Engine\シェーダファイル\Primitive</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 
 #include <wrl.h>
 #include <d3d12.h>
-#include<cassert>
+#include <cassert>
 #include "DirectXCommon.h"
 #include "WinApp.h"
 

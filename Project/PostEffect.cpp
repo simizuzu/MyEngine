@@ -264,7 +264,7 @@ void PostEffect::PreDrawScene(ID3D12GraphicsCommandList* cmdList)
 	//レンダーターゲットをセット
 	cmdList_->OMSetRenderTargets(1, &rtvH, false, &dsvH);
 	//ビューポートの設定
-	CD3DX12_VIEWPORT viewPort = CD3DX12_VIEWPORT(0.0f, 0.0f, static_cast<LONG>(WinApp::GetInstance()->window_width), static_cast<LONG>(WinApp::GetInstance()->window_height));
+	CD3DX12_VIEWPORT viewPort = CD3DX12_VIEWPORT(0.0f, 0.0f, static_cast<FLOAT>(WinApp::GetInstance()->window_width), static_cast<FLOAT>(WinApp::GetInstance()->window_height));
 	cmdList_->RSSetViewports(1, &viewPort);
 	//シザリング矩形の設定
 	CD3DX12_RECT rect = CD3DX12_RECT(0, 0, static_cast<LONG>(WinApp::GetInstance()->window_width), static_cast<LONG>(WinApp::GetInstance()->window_height));

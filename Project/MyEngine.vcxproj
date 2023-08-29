@@ -54,6 +54,7 @@
     <ClCompile Include="lib\engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="PostEffect.cpp" />
+    <ClCompile Include="PrimitiveDrawer.cpp" />
     <ClCompile Include="SceneData.cpp" />
     <ClCompile Include="Users\GameCamera.cpp" />
     <ClCompile Include="Users\Player.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="lib\engine\Scene\SceneManager.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="PostEffect.h" />
+    <ClInclude Include="PrimitiveDrawer.h" />
     <ClInclude Include="SceneData.h" />
     <ClInclude Include="Users\GameCamera.h" />
     <ClInclude Include="Users\Player.h" />
@@ -116,6 +118,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Primitive.hlsli" />
     <None Include="Resources\shaders\FBX\FBX.hlsli" />
     <None Include="Resources\shaders\OBJ\OBJ.hlsli" />
     <None Include="Resources\shaders\Particle\Particle.hlsli" />
@@ -123,6 +126,18 @@
     <None Include="Resources\shaders\Sprite\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="PrimitivePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="PrimitiveVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Resources\shaders\FBX\FBXPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
