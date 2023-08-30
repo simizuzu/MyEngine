@@ -5,7 +5,7 @@ void Mouse::Initialize(IDirectInput8* dinput)
 {
 	HRESULT result;
 
-	//マウスデバイスの取得
+
 	result = dinput->CreateDevice(GUID_SysMouse, &mouseDev, NULL);
 	assert(SUCCEEDED(result));
 
@@ -20,7 +20,7 @@ void Mouse::Update()
 {
 	HRESULT result;
 
-	//マウス
+
 	result = mouseDev->Acquire();
 	oldMouseState = mouseState;
 	result = mouseDev->GetDeviceState(sizeof(mouseState), &mouseState);

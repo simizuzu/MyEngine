@@ -16,11 +16,11 @@
 class SceneData
 {
 public:
-	//初期化
+	
 	void Initialize(Camera* camera);
-	//更新
+	
 	void Update();
-	//描画
+	
 	void Draw();
 
 private:
@@ -47,8 +47,8 @@ private:
 	WorldTransform groundTrans;
 
 
-	float maxTime = 10.0f;;				//全体時間[s]
-	float timeRate;						//何％時間が進んだか
+	float maxTime = 10.0f;;
+	float timeRate;
 	float targetTimeRate;
 	size_t startIndex = 1;
 	uint32_t startCount = 0;

@@ -9,15 +9,12 @@ void GameCamera::Initialize(Camera* camera)
 	camera_->SetFovAngleY(MyMathUtility::degree2Radius * 90.0f);
 	curveData = LevelLoader::LoadFile("curveData");
 
-	camera_->SetEye({ 0.0f,40.0f,0.0f });
-	camera_->SetTarget({ 0,0,0 });
-	camera_->SetUp({ 1,0,0 });
 }
 
 void GameCamera::Update()
 {
 	MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData->curves, timeRate);
-	pos.y = 30 ;
+	pos.y = 40 ;
 	//MyMath::Vector3 pos = { 0,30,0 };;
 
 	timeRate += 0.001f;
