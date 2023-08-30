@@ -16,29 +16,26 @@ void GameCamera::Initialize(Camera* camera)
 
 void GameCamera::Update()
 {
-	//経過時間(elapsedTime[s])の計算
-	nowCount++;
-	elapsedCount = nowCount - startCount;
-	float elapsedTime = static_cast<float> (elapsedCount) / 60.f;
-	//経過時間(elapsedTime)/全体の時間(maxTime)を0~1(timeRate)にする
-	timeRate = elapsedTime / maxTime;
+	MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData->curves, timeRate);
+	pos.y = 30 ;
+	//MyMath::Vector3 pos = { 0,30,0 };;
 
-	//カメラの座標にベジェ曲線の値を入れる
-	cameraTrans.translation_ = MyMathUtility::BezierCurve(curveData->curves, timeRate);
-	cameraTrans.MakeMatWorld();
-	camera_->SetEye(MyMath::GetWorldPosition(cameraTrans));
-
-	targetTimeRate = timeRate + 0.00025f;
+	timeRate += 0.001f;
 	
-	//ベジェ曲線に沿った方向ベクトルの計算
-	camera_->SetTarget(MyMathUtility::BezierCurve(curveData->curves, targetTimeRate));
+	if (timeRate >= 1.0f)
+	{
+		timeRate = 0.0f;
+	}
+
+	//MyMath::Vector3 target = { 0,0,0 };
+	MyMath::Vector3 target = MyMathUtility::BezierCurve(curveData->curves, timeRate);
 	
 	//上方向ベクトルの計算
-	MyMath::Vector3 up(0, 1, 0);
-	camera_->SetUp(MyMath::Vec3Mat4Mul(up, cameraTrans.matWorld));
-	
-	//camera_->eye_ = MyMathUtility::BezierCurve(curveData->curves, timeRate);
-
+	//MyMath::Vector3 up(0, 1, 0);
+	MyMath::Vector3 up(1, 0, 0);
+	camera_->SetUp(up);
+	camera_->SetEye(pos);
+	camera_->SetTarget(target);
 }
 
 void GameCamera::Reset()

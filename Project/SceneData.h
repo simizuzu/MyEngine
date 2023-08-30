@@ -54,5 +54,7 @@ private:
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;
 	uint32_t elapsedCount = 0;
+
+	std::array<WorldTransform, 1000> objs;
 };
 

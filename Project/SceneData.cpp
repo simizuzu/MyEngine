@@ -7,7 +7,7 @@ void SceneData::Initialize(Camera* camera)
 	levelData = LevelLoader::LoadFile("levelData");
 	curveData2 = LevelLoader::LoadFile("curveData");
 
-	tyoinoriModel_.reset(ObjModel::LoadFromObj("skydome"));
+	tyoinoriModel_.reset(ObjModel::LoadFromObj("box"));
 	tyoinoriModel2_.reset(ObjModel::LoadFromObj("Tyoinori"));
 	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
 	groundModel_.reset(ObjModel::LoadFromObj("ground"));
@@ -31,36 +31,42 @@ void SceneData::Initialize(Camera* camera)
 	buildingTrans.Initialize();
 	groundTrans.Initialize();
 	skydomeTrans.SetScale({ 500.0f,500.0f,500.0f });
+
+	for (size_t i = 0; i < objs.size(); i++)
+	{
+		objs[i].Initialize();
+		objs[i].scale_ = { 0.025f,0.025f ,0.025f };
+	}
 }
 
 void SceneData::Update()
 {
-	tyoinoriTrans.Update(camera_);
-	tyoinoriTrans2.Update(camera_);
 	skydomeTrans.Update(camera_);
 	buildingTrans.Update(camera_);
 	groundTrans.Update(camera_);
 
-	//tyoinoriTrans.SetScale({ 5.0f,5.0f,5.0f });
+	for (size_t i = 0; i < objs.size(); i++)
+	{
 
-	//経過時間(elapsedTime[s])の計算
-	nowCount++;
-	elapsedCount = nowCount - startCount;
-	float elapsedTime = static_cast<float> (elapsedCount) / 60.f;
-	//経過時間(elapsedTime)/全体の時間(maxTime)を0~1(timeRate)にする
-	timeRate = elapsedTime / maxTime;
+		float t = 1.0f / objs.size();
+		MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData2->curves, t * i);
 
-	targetTimeRate = timeRate + 0.002f;
 
-	//カメラの座標にベジェ曲線の値を入れる
-	tyoinoriTrans.translation_ = MyMathUtility::BezierCurve(curveData2->curves, timeRate);
-	tyoinoriTrans2.translation_ = MyMathUtility::BezierCurve(curveData2->curves, targetTimeRate);
+		objs[i].translation_ = pos;
+
+		objs[i].Update(camera_);
+		
+	}
+
 }
 
 void SceneData::Draw()
 {
-	//tyoinoriObj_->Draw(&tyoinoriTrans);
-	tyoinoriObj2_->Draw(&tyoinoriTrans);
+	for (size_t i = 0; i < objs.size(); i++)
+	{
+		tyoinoriObj_->Draw(&objs[i]);
+	}
+	
 	skydomeObj_->Draw(&skydomeTrans);
 	buildingObj_->Draw(&buildingTrans);
 	groundObj_->Draw(&groundTrans);
