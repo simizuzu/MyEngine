@@ -8,28 +8,25 @@ void GameCamera::Initialize(Camera* camera)
 	//視野角の設定
 	camera_->SetFovAngleY(MyMathUtility::degree2Radius * 90.0f);
 	curveData = LevelLoader::LoadFile("curveData");
-
 }
 
 void GameCamera::Update()
 {
 	MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData->curves, timeRate);
-	pos.y = 40 ;
-	//MyMath::Vector3 pos = { 0,30,0 };;
+	//pos.y = 30;
 
+	//全体の速度を調整できる
 	timeRate += 0.001f;
-	
+
+	//tが1.0fに到達したとき最初に戻す
 	if (timeRate >= 1.0f)
 	{
 		timeRate = 0.0f;
 	}
 
-	//MyMath::Vector3 target = { 0,0,0 };
 	MyMath::Vector3 target = MyMathUtility::BezierCurve(curveData->curves, timeRate);
-	
-	//上方向ベクトルの計算
-	//MyMath::Vector3 up(0, 1, 0);
-	MyMath::Vector3 up(1, 0, 0);
+
+	MyMath::Vector3 up(0, 1, 0);
 	camera_->SetUp(up);
 	camera_->SetEye(pos);
 	camera_->SetTarget(target);

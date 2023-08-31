@@ -62,10 +62,10 @@ void SceneData::Update()
 
 void SceneData::Draw()
 {
-	for (size_t i = 0; i < objs.size(); i++)
+	/*for (size_t i = 0; i < objs.size(); i++)
 	{
 		tyoinoriObj_->Draw(&objs[i]);
-	}
+	}*/
 	
 	skydomeObj_->Draw(&skydomeTrans);
 	buildingObj_->Draw(&buildingTrans);
