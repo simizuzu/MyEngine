@@ -7,11 +7,6 @@ void WorldTransform::Initialize()
 	CreateConstBuffer();
 }
 
-void WorldTransform::InitailizeFbx()
-{
-
-}
-
 void WorldTransform::UpdateParticle(Camera* camera, bool billboradFlag)
 {
 	HRESULT result;

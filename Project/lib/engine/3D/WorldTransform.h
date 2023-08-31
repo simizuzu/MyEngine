@@ -16,7 +16,6 @@ class WorldTransform
 public:
 	//初期化
 	void Initialize();
-	void InitailizeFbx();
 	//更新
 	void Update(Camera* camera);
 	void UpdateParticle(Camera* camera,bool billboradFlag = false);

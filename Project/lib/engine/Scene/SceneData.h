@@ -1,17 +1,14 @@
 #pragma once
 #include "LevelLoader.h"
 #include "TextureManager.h"
-#include "WorldTransform.h"
 
 #include "Sprite.h"
-#include "ObjObject3d.h"
-#include "ObjModel.h"
 
 #include "FbxLoader.h"
 #include "FbxModel.h"
 #include "FbxObject3d.h"
 
-#include "Camera.h"
+#include "Player.h"
 
 class SceneData
 {
@@ -26,22 +23,21 @@ public:
 private:
 	Camera* camera_;
 	LevelData* levelData;
-	LevelData* curveData2;
+
+	Player* player = nullptr;
+	
 
 	std::unique_ptr<ObjObject3d> skydomeObj_;
 	std::unique_ptr<ObjObject3d> buildingObj_;
 	std::unique_ptr<ObjObject3d> groundObj_;
 	std::unique_ptr<ObjObject3d> tyoinoriObj_;
-	std::unique_ptr<ObjObject3d> tyoinoriObj2_;
 
 	std::unique_ptr<ObjModel> groundModel_;
 	std::unique_ptr<ObjModel> skydomeModel_;
 	std::unique_ptr<ObjModel> buildingModel_;
 	std::unique_ptr<ObjModel> tyoinoriModel_;
-	std::unique_ptr<ObjModel> tyoinoriModel2_;
 
 	WorldTransform tyoinoriTrans;
-	WorldTransform tyoinoriTrans2;
 	WorldTransform skydomeTrans;
 	WorldTransform buildingTrans;
 	WorldTransform groundTrans;

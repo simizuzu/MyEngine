@@ -36,7 +36,7 @@ private:
 	//カメラのトランスフォーム
 	WorldTransform cameraTrans;
 
-	float maxTime = 10.0f;				//全体時間[s]
+	float maxTime = 120.0f;				//全体時間[s]
 	float timeRate;						//何％時間が進んだか
 	float targetTimeRate;
 	size_t startIndex = 1;
