@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "LevelLoader.h"
 #include "Camera.h"
+#include <list>
 
 class Player
 {
@@ -17,11 +18,12 @@ public:
 
 private:
 	MyMath::Vector3 rot;
+	MyMath::Vector3 translation;
 
 private:
 	//LevelData* curveData2;
 
-	PlayerBullet* bullet = nullptr;
+	std::list<PlayerBullet*> bullets;
 	Input* input = nullptr;
 
 	std::unique_ptr<Camera> camera_;
@@ -29,6 +31,12 @@ private:
 	std::unique_ptr<ObjObject3d> playerObj;
 	std::unique_ptr<ObjModel> playerModel;
 
+	std::unique_ptr<ObjObject3d> bulletObj;
+	std::unique_ptr<ObjModel> bulletModel;
+
 	WorldTransform playerTrans;
+
+public:
+	~Player();
 };
 

@@ -24,6 +24,10 @@ public:
 	void SetScale(MyMath::Vector3 scale);
 	void SetRotation(MyMath::Vector3 rotation);
 
+	MyMath::Vector3 GetTranslation();
+	MyMath::Vector3 GetScale();
+	MyMath::Vector3 GetRotation();
+
 	void MakeMatWorld();
 
 	D3D12_GPU_VIRTUAL_ADDRESS GetGpuAddress();

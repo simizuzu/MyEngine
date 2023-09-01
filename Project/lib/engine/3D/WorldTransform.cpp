@@ -143,6 +143,21 @@ void WorldTransform::SetRotation(MyMath::Vector3 rotation)
 	rotation_ = rotation;
 }
 
+MyMath::Vector3 WorldTransform::GetTranslation()
+{
+	return translation_;
+}
+
+MyMath::Vector3 WorldTransform::GetScale()
+{
+	return scale_;
+}
+
+MyMath::Vector3 WorldTransform::GetRotation()
+{
+	return rotation_;
+}
+
 void WorldTransform::MakeMatWorld()
 {
 	MyMath::Matrix4 matScale, matRot, matTrans;
