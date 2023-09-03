@@ -56,6 +56,8 @@
     <ClCompile Include="lib\engine\Scene\MainGame.cpp" />
     <ClCompile Include="lib\engine\Scene\SceneData.cpp" />
     <ClCompile Include="lib\engine\Scene\SceneManager.cpp" />
+    <ClCompile Include="Raticle2D.cpp" />
+    <ClCompile Include="Raticle3D.cpp" />
     <ClCompile Include="Users\GameCamera.cpp" />
     <ClCompile Include="Users\Player.cpp" />
     <ClCompile Include="Users\PlayerBullet.cpp" />
@@ -102,6 +104,8 @@
     <ClInclude Include="lib\engine\Scene\MainGame.h" />
     <ClInclude Include="lib\engine\Scene\SceneData.h" />
     <ClInclude Include="lib\engine\Scene\SceneManager.h" />
+    <ClInclude Include="Raticle2D.h" />
+    <ClInclude Include="Raticle3D.h" />
     <ClInclude Include="Users\GameCamera.h" />
     <ClInclude Include="Users\Player.h" />
     <ClInclude Include="Users\PlayerBullet.h" />

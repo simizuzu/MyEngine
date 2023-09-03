@@ -20,11 +20,6 @@ namespace MyMath
 			float m20, float m21, float m22, float m23,
 			float m30, float m31, float m32, float m33);
 
-		//Assimp用Matrix4
-		Matrix4 Transpose();
-
-		Matrix4 identity();
-
 		/// <summary>
 		/// 代入演算子
 		/// </summary>

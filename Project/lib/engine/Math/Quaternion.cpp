@@ -115,7 +115,7 @@ namespace MyMath
 
 	Matrix4 Quaternion::MakeRotateMatrix()
 	{
-		Matrix4 result = result.identity();
+		Matrix4 result = MyMathUtility::MakeIdentity();
 
 		result.m[0][0] = w_ * w_ + x_ * x_ - y_ * y_ - z_ * z_;
 		result.m[0][1] = 2 * (x_ * y_ + w_ * z_);

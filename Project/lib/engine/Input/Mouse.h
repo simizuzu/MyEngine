@@ -30,7 +30,6 @@ public:
 
 	void Initialize(IDirectInput8* dinput);
 
-
 	void Update();
 
 	bool MouseButtonTrigger(MouseButton button);

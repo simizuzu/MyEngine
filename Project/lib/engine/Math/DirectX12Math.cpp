@@ -1,4 +1,5 @@
 ﻿#include "DirectX12Math.h"
+#include "WinApp.h"
 #include <cmath>
 #include <cassert>
 
@@ -19,6 +20,15 @@ namespace MyMathUtility
 	Vector3 MakeNormalize(Vector3 v)
 	{
 		float len = Vector3Length(v);
+		if (len != 0) {
+			return v /= len;
+		}
+		return v;
+	}
+
+	MyMath::Vector2 MakeNormalizeVec2(MyMath::Vector2 v)
+	{
+		float len = Vector2Length(v);
 		if (len != 0) {
 			return v /= len;
 		}
@@ -301,14 +311,46 @@ namespace MyMathUtility
 		return retMat;
 	}
 
-	// 二つの値がほぼ等しいか
+	MyMath::Matrix4 MakeViewport(MyMath::Matrix4& viewport, MyMath::Vector3& offset)
+	{
+		float width = static_cast<float>(WinApp::GetInstance()->window_width);
+		float height = static_cast<float>(WinApp::GetInstance()->window_height);
+
+		MyMath::Matrix4 matrix = viewport;
+		matrix = MyMathUtility::MakeIdentity();
+		
+		matrix.m[0][0] = width / 2;
+		matrix.m[1][1] = -height / 2;
+		matrix.m[0][3] = width / 2 + offset.x;
+		matrix.m[1][3] = height / 2 + offset.y;
+
+		return matrix;
+	}
+
+	MyMath::Vector3 MakeWDivision(MyMath::Vector3& worldPos, MyMath::Matrix4& matrix)
+	{
+		float w = worldPos.x * matrix.m[0][3] + worldPos.y * matrix.m[1][3] + worldPos.z * matrix.m[2][3] + matrix.m[3][3];
+
+		MyMath::Vector3 result = 
+		{
+			(worldPos.x * matrix.m[0][0] + worldPos.y * matrix.m[1][0] + worldPos.z * matrix.m[2][0] + matrix.m[3][0]) / w,
+			(worldPos.x * matrix.m[0][1] + worldPos.y * matrix.m[1][1] + worldPos.z * matrix.m[2][1] + matrix.m[3][1]) / w,
+			(worldPos.x * matrix.m[0][2] + worldPos.y * matrix.m[1][2] + worldPos.z * matrix.m[2][2] + matrix.m[3][2]) / w
+		};
+
+		result /= result.z;
+
+		return result;
+	}
+
+	
 	bool Approximately(float a, float b)
 	{
-		float tmp = 1e-06f * std::max(fabs(a), fabs(b));
+		float tmp = 1e-06f * Max(fabs(a), fabs(b));
 
 		float tmp2 = EPSILON * 8.0f;
 
-		if (fabs(b - a) < std::max(tmp, tmp2))
+		if (fabs(b - a) < Max(tmp, tmp2))
 		{
 			return true;
 		}
@@ -349,6 +391,16 @@ namespace MyMathUtility
 	float Atan2(float y, float x)
 	{
 		return std::atan2f(y, x);
+	}
+
+	float Max(float a, float b)
+	{
+		return (((a) > (b)) ? (a) : (b));
+	}
+
+	float Min(float a, float b)
+	{
+		return (((a) < (b)) ? (a) : (b));
 	}
 
 	void Complement(float& x1, float x2, float flame)

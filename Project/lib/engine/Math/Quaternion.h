@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include"vector3.h"
-#include"Matrix4.h"
+#include"DirectX12Math.h"
 
 namespace MyMath
 {

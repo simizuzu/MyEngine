@@ -52,36 +52,6 @@ namespace MyMath
 		m[3][3] = m33;
 	}
 
-	Matrix4 Matrix4::Transpose()
-	{
-		MyMath::Matrix4 tmp(*this);
-		for (size_t i = 0; i < 4; i++)
-		{
-			for (size_t j = i; j < 4; j++)
-			{
-				float f = tmp.m[i][j];
-				tmp.m[i][j] = tmp.m[j][i];
-				tmp.m[j][i] = f;
-			}
-		}
-
-		return tmp;
-	}
-
-	// 単位行列を求める
-	Matrix4 Matrix4::identity()
-	{
-		static const Matrix4 result
-		{
-			1.0f, 0.0f, 0.0f, 0.0f,
-				0.0f, 1.0f, 0.0f, 0.0f,
-				0.0f, 0.0f, 1.0f, 0.0f,
-				0.0f, 0.0f, 0.0f, 1.0f
-		};
-
-		return result;
-	}
-
 	Matrix4& Matrix4::operator=(const Matrix4& _m)
 	{
 		for (int i = 0; i < 4; i++)

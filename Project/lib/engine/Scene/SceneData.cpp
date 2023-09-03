@@ -67,6 +67,7 @@ void SceneData::Draw()
 	{
 		tyoinoriObj_->Draw(&objs[i]);
 	}*/
+	player->UIDraw();
 	player->Draw();
 
 	//tyoinoriObj_->Draw(&tyoinoriTrans);

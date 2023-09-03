@@ -20,8 +20,10 @@ namespace MyMathUtility
 	// 長さを求める(3次元)
 	float Vector3Length(const MyMath::Vector3& v);
 
-	// 正規化する
+	// 正規化する(vector3)
 	MyMath::Vector3 MakeNormalize(MyMath::Vector3 v);
+	//正規化する(vector2)
+	MyMath::Vector2 MakeNormalizeVec2(MyMath::Vector2 v);
 
 	// 単位行列を求める
 	MyMath::Matrix4 MakeIdentity();
@@ -38,11 +40,16 @@ namespace MyMathUtility
 	void MakeOrthogonalR(float left, float right, float bottom, float top, float near_, float far_, MyMath::Matrix4& matrix);
 
 	// ビュー行列の作成
-	MyMath::Matrix4 MakeLookAtLH( MyMath::Vector3& eye,  MyMath::Vector3& target, MyMath::Vector3& up);
+	MyMath::Matrix4 MakeLookAtLH(MyMath::Vector3& eye, MyMath::Vector3& target, MyMath::Vector3& up);
 	// 透視投影作成
 	MyMath::Matrix4 MakePerspective(float fogAngleY, float aspectRatio, float nearZ, float farZ);
 	// 逆行列
 	MyMath::Matrix4 MakeInverse(MyMath::Matrix4& mat);
+	//ビューポート行列を求める
+	MyMath::Matrix4 MakeViewport(MyMath::Matrix4& viewport, MyMath::Vector3& offset);
+
+	//ワールド→スクリーン座標変換
+	MyMath::Vector3 MakeWDivision(MyMath::Vector3& worldPos, MyMath::Matrix4& matrix);
 
 	// 値が等しいか確認する
 	bool Approximately(float a, float b);
@@ -74,9 +81,14 @@ namespace MyMathUtility
 	float Atan(float tan);
 	float Atan2(float y, float x);
 
+	float Max(float a, float b);
+	float Min(float a, float b);
+
 	void Complement(float& x1, float x2, float flame);
 
+	//vの値を範囲[low, high]に収める。
 	float Clamp(float Value, const float low, const float high);
+	//vの値を範囲[0 ~ 1]に収める。
 	float Clamp0To1(float val);
 
 	/// <summary>

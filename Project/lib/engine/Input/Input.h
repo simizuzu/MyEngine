@@ -63,21 +63,21 @@ public:
 	bool MouseButtonInput(MouseButton button);
 
 	/// <summary>
-	/// マウスの位置
+	/// マウスの位置を取得
 	/// </summary>
-	/// <returnsマウスの位置></returns>
+	/// <returns>マウスの位置</returns>
 	const MyMath::Vector2 GetMousePos()const;
 
 	/// <summary>
-	/// マウスの位置
+	/// マウスの位置を取得
 	/// </summary>
-	/// <returnsマウスの位置></returns>
+	/// <returns>マウスの位置</returns>
 	const MyMath::Vector2 GetWorldMousePos()const;
 
 	/// <summary>
-	/// マウスの位置
+	/// 
 	/// </summary>
-	/// <returnsマウスの位置></returns>
+	/// <returns></returns>
 	const MyMath::Vector3 GetMouseMove()const;
 
 
