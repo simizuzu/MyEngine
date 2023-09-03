@@ -29,11 +29,16 @@ void GameScene::Update()
 	//{
 	//	sceneManager_->ChangeScene("TITLE");
 	//}]
-	modelData_->Update();
+
+#ifdef _DEBUG
+	ImGui::Begin("CameraPos");
+	ImGui::Text("Position(%f,%f,%f)", camera->GetTarget().x, camera->GetTarget().y, camera->GetTarget().z);
+	ImGui::End();
+#endif
 	camera->Update();
 	light->Update();
 	gameCamera_->Update();
-
+	modelData_->Update();
 }
 
 void GameScene::Draw()

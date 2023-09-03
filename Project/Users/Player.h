@@ -20,7 +20,17 @@ public:
 
 	void Move();
 
+	void PlayerTarget();
+
 	void UIDraw();
+
+	//自機のワールド座標から3Dレティクルのワールド座標を計算
+	void Reticle3D();
+
+	//マウスカーソルのスクリーン座標からワールド座標を取得して3Dレティクル配置
+	void Reticle2D();
+
+	void ReticleMouse();
 
 private:
 	MyMath::Vector3 rot;
@@ -30,8 +40,18 @@ private:
 	MyMath::Vector3 mouseVec;
 	MyMath::Vector3 mouseAngle;
 
+	float angle;
 private:
-	//LevelData* curveData2;
+	float maxTime = 120.0f;				//全体時間[s]
+	float timeRate;						//何％時間が進んだか
+	float targetTimeRate;
+	size_t startIndex = 1;
+	uint32_t startCount = 0;
+	uint32_t nowCount = 0;
+	uint32_t elapsedCount = 0;
+
+private:
+	LevelData* curveData;
 
 	//弾
 	std::list<PlayerBullet*> bullets;

@@ -329,9 +329,7 @@ class MYADDON_OT_export_scene(bpy.types.Operator, bpy_extras.io_utils.ExportHelp
                     for id, p in enumerate(sp.bezier_points):
                         curve = dict()
                         curve["point"] = id
-                        curve["ControlPoint"] = (p.co.x, p.co.y, p.co.z)
-                        curve["HandlePointL"] = (p.handle_left.x, p.handle_left.y, p.handle_left.z)
-                        curve["HandlePointR"] = (p.handle_right.x, p.handle_right.y, p.handle_right.z)
+                        curve["translation"] = (p.co.x, p.co.y, p.co.z)
                         curve_json_object["curve"].append(curve)
 
                 json_object_root["curves"].append(curve_json_object)

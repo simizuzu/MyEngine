@@ -67,11 +67,12 @@ void SceneData::Draw()
 	{
 		tyoinoriObj_->Draw(&objs[i]);
 	}*/
-	player->UIDraw();
+	
 	player->Draw();
+	player->UIDraw();
 
-	//tyoinoriObj_->Draw(&tyoinoriTrans);
-	//skydomeObj_->Draw(&skydomeTrans);
-	//buildingObj_->Draw(&buildingTrans);
-	//groundObj_->Draw(&groundTrans);
+	tyoinoriObj_->Draw(&tyoinoriTrans);
+	skydomeObj_->Draw(&skydomeTrans);
+	buildingObj_->Draw(&buildingTrans);
+	groundObj_->Draw(&groundTrans);
 }

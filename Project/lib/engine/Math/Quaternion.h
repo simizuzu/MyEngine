@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include"DirectX12Math.h"
+#include "WorldTransform.h"
 
 namespace MyMath
 {
@@ -33,7 +34,17 @@ namespace MyMath
 		//任意軸回転を表すQuaternionの生成
 		Quaternion MakeAxisAngle(const MyMath::Vector3& axsi, float angle);
 		// uからvへの回転を生成
-		Quaternion DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v);
+		//Quaternion DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v);
+		
+		/// <summary>
+		/// 特定の方向に向かせる
+		/// </summary>
+		/// <param name="u">無回転のときの向き</param>
+		/// <param name="v">向かせたい特定の方向</param>
+		/// <param name="transform"></param>
+		/// <returns>回転軸[w = u*v]</returns>
+		Quaternion DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v,WorldTransform transform);
+
 
 		//球面線形補間
 		Quaternion Slerp(const Quaternion& p, float t);

@@ -311,20 +311,15 @@ namespace MyMathUtility
 		return retMat;
 	}
 
-	MyMath::Matrix4 MakeViewport(MyMath::Matrix4& viewport, MyMath::Vector3& offset)
+	MyMath::Matrix4 MakeViewport(const MyMath::Matrix4& viewport)
 	{
-		float width = static_cast<float>(WinApp::GetInstance()->window_width);
-		float height = static_cast<float>(WinApp::GetInstance()->window_height);
+		float width = static_cast<float>(WinApp::GetInstance()->window_width) / 2;
+		float height = static_cast<float>(WinApp::GetInstance()->window_height) / 2;
 
-		MyMath::Matrix4 matrix = viewport;
-		matrix = MyMathUtility::MakeIdentity();
-		
-		matrix.m[0][0] = width / 2;
-		matrix.m[1][1] = -height / 2;
-		matrix.m[0][3] = width / 2 + offset.x;
-		matrix.m[1][3] = height / 2 + offset.y;
+		MyMath::Matrix4 m = viewport;	
+		m = { width, 0, 0, 0, 0, -height, 0, 0, 0, 0, 1, 0, width, height, 0, 1 };
 
-		return matrix;
+		return m;
 	}
 
 	MyMath::Vector3 MakeWDivision(MyMath::Vector3& worldPos, MyMath::Matrix4& matrix)

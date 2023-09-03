@@ -80,21 +80,6 @@ namespace MyMath
 		return result;
 	}
 
-	Quaternion MakeAxisAngle(const Vector3& axsi, float angle)
-	{
-		Quaternion result;
-
-		result.w_ = cos(angle / 2);
-
-		Vector3 VecResult = axsi * sin(angle / 2);
-
-		result.x_ = VecResult.x;
-		result.y_ = VecResult.y;
-		result.z_ = VecResult.z;
-
-		return result;
-	}
-
 	Vector3 Quaternion::RotateVector(const Vector3& vector)
 	{
 		Quaternion result;
@@ -130,6 +115,21 @@ namespace MyMath
 		return result;
 	}
 
+	Quaternion Quaternion::MakeAxisAngle(const MyMath::Vector3& axsi, float angle)
+	{
+		Quaternion result;
+
+		result.w_ = cos(angle / 2);
+
+		Vector3 VecResult = axsi * sin(angle / 2);
+
+		result.x_ = VecResult.x;
+		result.y_ = VecResult.y;
+		result.z_ = VecResult.z;
+
+		return result;
+	}
+
 	//Quaternion Quaternion::DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v)
 	//{
 	//	Vector3 vecU = u.Norm();
@@ -150,6 +150,21 @@ namespace MyMath
 	//	z_ = sin * axis.z;
 	//	w_ = cosf(theta / 2.0f);
 	//}
+
+	Quaternion Quaternion::DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v, WorldTransform transform)
+	{
+		//uとvの内積を求める
+		float dot = u.dot(v);
+
+		//uとvの外積を求める
+		MyMath::Vector3 cross = u.cross(v);
+
+		MyMath::Vector3 axis = cross.Norm();
+
+		float theta = std::acos(dot);
+
+		return MakeAxisAngle(axis, theta);
+	}
 
 	Quaternion Quaternion::Slerp(const Quaternion& p, float t)
 	{

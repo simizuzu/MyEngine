@@ -46,7 +46,7 @@ namespace MyMathUtility
 	// 逆行列
 	MyMath::Matrix4 MakeInverse(MyMath::Matrix4& mat);
 	//ビューポート行列を求める
-	MyMath::Matrix4 MakeViewport(MyMath::Matrix4& viewport, MyMath::Vector3& offset);
+	MyMath::Matrix4 MakeViewport(const MyMath::Matrix4& viewport);
 
 	//ワールド→スクリーン座標変換
 	MyMath::Vector3 MakeWDivision(MyMath::Vector3& worldPos, MyMath::Matrix4& matrix);

@@ -17,24 +17,24 @@ void GameCamera::Initialize(Camera* camera)
 
 void GameCamera::Update()
 {
-	//MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData->curves, timeRate);
-	////pos.y = 30;
+	MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData->curves, timeRate);
+	//pos.y = 30;
 
-	////全体の速度を調整できる
-	//timeRate += 0.0005f;
+	//全体の速度を調整できる
+	timeRate += 0.0005f;
 
-	////tが1.0fに到達したとき最初に戻す
-	//if (timeRate >= 1.0f)
-	//{
-	//	timeRate = 0.0f;
-	//}
+	//tが1.0fに到達したとき最初に戻す
+	if (timeRate >= 1.0f)
+	{
+		timeRate = 0.0f;
+	}
 
-	//MyMath::Vector3 target = MyMathUtility::BezierCurve(curveData->curves, timeRate);
+	MyMath::Vector3 target = MyMathUtility::BezierCurve(curveData->curves, timeRate);
 
-	//MyMath::Vector3 up(0, 1, 0);
-	//camera_->SetUp(up);
-	//camera_->SetEye(pos);
-	//camera_->SetTarget(target);
+	MyMath::Vector3 up(0, 1, 0);
+	camera_->SetUp(up);
+	camera_->SetEye(pos);
+	camera_->SetTarget(target);
 }
 
 void GameCamera::Reset()

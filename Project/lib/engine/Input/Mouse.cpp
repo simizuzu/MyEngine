@@ -37,7 +37,7 @@ void Mouse::Update()
 
 	worldMousePos.x = static_cast<float>(p->x);
 	mousePos.x = MyMathUtility::Clamp(worldMousePos.x, 0.0f, width);
-	worldMousePos.x = static_cast<float>(p->y);
+	worldMousePos.y = static_cast<float>(p->y);
 	mousePos.y = MyMathUtility::Clamp(worldMousePos.y, 0.0f, height);
 }
 
