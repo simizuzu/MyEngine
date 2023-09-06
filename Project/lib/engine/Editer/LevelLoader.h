@@ -96,4 +96,12 @@ namespace MyMathUtility {
 	/// <param name="points">制御点</param>
 	/// <param name="t">時間(0.0～1.0)</param>
 	MyMath::Vector3 CatmullRomSpline(std::vector<LevelData::CurveData>& points, float t);
+
+	/// <summary>
+	/// 方向ベクトルを取得
+	/// </summary>
+	/// <param name="prevPoint">開始点</param>
+	/// <param name="nextPoint">次の制御点</param>
+	/// <returns>方向ベクトル</returns>
+	MyMath::Vector3 CalcTangentPosition(const MyMath::Vector3& prevPoint, const MyMath::Vector3& nextPoint);
 }

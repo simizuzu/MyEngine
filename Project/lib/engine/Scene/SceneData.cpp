@@ -5,11 +5,12 @@ void SceneData::Initialize(Camera* camera)
 	assert(camera);
 	camera_ = camera;
 	levelData = LevelLoader::LoadFile("levelData");
+	curveData2 = LevelLoader::LoadFile("curveData");
 	
 	player = new Player();
 	player->Initialize(camera_);
 
-	tyoinoriModel_.reset(ObjModel::LoadFromObj("Tyoinori"));
+	tyoinoriModel_.reset(ObjModel::LoadFromObj("box"));
 	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
 	groundModel_.reset(ObjModel::LoadFromObj("ground"));
 	buildingModel_.reset(ObjModel::LoadFromObj("building"));
@@ -30,11 +31,11 @@ void SceneData::Initialize(Camera* camera)
 	groundTrans.Initialize();
 	skydomeTrans.SetScale({ 500.0f,500.0f,500.0f });
 
-	//for (size_t i = 0; i < objs.size(); i++)
-	//{
-	//	objs[i].Initialize();
-	//	objs[i].scale_ = { 0.025f,0.025f ,0.025f };
-	//}
+	for (size_t i = 0; i < objs.size(); i++)
+	{
+		objs[i].Initialize();
+		objs[i].scale_ = { 0.025f,0.025f ,0.025f };
+	}
 }
 
 void SceneData::Update()
@@ -46,27 +47,27 @@ void SceneData::Update()
 
 	player->Update();
 
-	//for (size_t i = 0; i < objs.size(); i++)
-	//{
+	for (size_t i = 0; i < objs.size(); i++)
+	{
 
-	//	float t = 1.0f / objs.size();
-	//	MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData2->curves, t * i);
+		float t = 1.0f / objs.size();
+		MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData2->curves, t * i);
 
 
-	//	objs[i].translation_ = pos;
+		objs[i].translation_ = pos;
 
-	//	objs[i].Update(camera_);
-	//	
-	//}
+		objs[i].Update(camera_);
+		
+	}
 
 }
 
 void SceneData::Draw()
 {
-	/*for (size_t i = 0; i < objs.size(); i++)
+	for (size_t i = 0; i < objs.size(); i++)
 	{
 		tyoinoriObj_->Draw(&objs[i]);
-	}*/
+	}
 	
 	player->Draw();
 	player->UIDraw();

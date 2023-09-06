@@ -104,17 +104,17 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 			curveData.pointLeft.x = (float)transform["HandlePointL"][0];
 			curveData.pointLeft.y = (float)transform["HandlePointL"][2];
 			curveData.pointLeft.z = (float)transform["HandlePointL"][1];
-			
+
 			// 制御点
 			curveData.pointCeter.x = (float)transform["ControlPoint"][0];
 			curveData.pointCeter.y = (float)transform["ControlPoint"][2];
 			curveData.pointCeter.z = (float)transform["ControlPoint"][1];
-			
+
 			// 右ハンドル
 			curveData.pointRight.x = (float)transform["HandlePointR"][0];
 			curveData.pointRight.y = (float)transform["HandlePointR"][2];
 			curveData.pointRight.z = (float)transform["HandlePointR"][1];
-			
+
 
 			levelData->points.push_back(curveData.pointLeft);
 			levelData->points.push_back(curveData.pointCeter);
@@ -144,7 +144,7 @@ namespace MyMathUtility {
 		float index = std::floor(progress);
 		float weight = progress - index;
 
-		
+
 		/*if (Approximately(weight, 0.0f) && index >= length - 1)
 		{
 			index = length - 2;
@@ -160,7 +160,21 @@ namespace MyMathUtility {
 		//終点
 		MyMath::Vector3 p3 = points[static_cast<size_t>(index + 1.0f)].pointCeter;
 
-		return BezierGetPoint(p0, p1, p2, p3, weight);
+		MyMath::Vector3 tangent0 = MyMathUtility::CalcTangentPosition(p0, p1);
+		MyMath::Vector3 tangent1 = MyMathUtility::CalcTangentPosition(p1, p2);
+		MyMath::Vector3 tangent2 = MyMathUtility::CalcTangentPosition(p2, p3);
+
+		//ベジェ曲線を代入
+		MyMath::Vector3 position = BezierGetPoint(p0, p1, p2, p3, weight);
+
+		//補間された接戦ベクトル
+		MyMath::Vector3 tangent = MyMathUtility::Lerp(tangent1, tangent2,weight);
+
+		//ポジションに接戦ベクトルを適用して一を修正
+		float scaleFactor = 1.0f;
+		position += tangent * scaleFactor;
+
+		return position;
 	}
 
 	MyMath::Vector3 BezierGetPointWithTangent(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 p2, MyMath::Vector3 p3, MyMath::Vector3 prevTangent, float t)
@@ -235,6 +249,25 @@ namespace MyMathUtility {
 			p3 = points[static_cast<size_t>(index + 1.0f)].pointCeter - points[static_cast<size_t>(index)].pointCeter;
 		}
 
-		return HermiteGetPoint2(p0, p1, p2, p3, weight);
+		MyMath::Vector3 tangent0 = MyMathUtility::CalcTangentPosition(p0, p1);
+		MyMath::Vector3 tangent1 = MyMathUtility::CalcTangentPosition(p1, p2);
+		MyMath::Vector3 tangent2 = MyMathUtility::CalcTangentPosition(p2, p3);
+
+		MyMath::Vector3 position = HermiteGetPoint2(p0, p1, p2, p3, weight);
+		MyMath::Vector3 tangent = MyMathUtility::Lerp(tangent1, tangent2, weight);
+
+		//ポジションに接戦ベクトルを適用して一を修正
+		float scaleFactor = 1.0f;
+		position += tangent * scaleFactor;
+
+
+		return position;
+	}
+
+	MyMath::Vector3 CalcTangentPosition(const MyMath::Vector3& prevPoint, const MyMath::Vector3& nextPoint)
+	{
+		//方向ベクトルを取得
+		MyMath::Vector3 calcVec = nextPoint - prevPoint;
+		return calcVec.normalize();
 	}
 }

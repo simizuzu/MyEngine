@@ -23,6 +23,7 @@ public:
 private:
 	Camera* camera_;
 	LevelData* levelData;
+	LevelData* curveData2;
 
 	Player* player = nullptr;
 	
@@ -51,6 +52,6 @@ private:
 	uint32_t nowCount = 0;
 	uint32_t elapsedCount = 0;
 
-	std::array<WorldTransform, 10000> objs;
+	std::array<WorldTransform, 1000> objs;
 };
 

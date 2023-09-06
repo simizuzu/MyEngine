@@ -80,7 +80,7 @@ void Player::Update()
 
 void Player::Draw()
 {
-	playerObj->Draw(&playerTrans);
+	//playerObj->Draw(&playerTrans);
 
 	//reticleObj->Draw(&worldTransform3DReticle);
 
