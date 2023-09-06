@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FPSCamera.cpp" />
     <ClCompile Include="lib\engine\2D\PostEffect\PostEffect.cpp" />
     <ClCompile Include="lib\engine\2D\Sprite\Sprite.cpp" />
     <ClCompile Include="lib\engine\3D\Model\FBX\FbxLoader.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="Users\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FPSCamera.h" />
     <ClInclude Include="lib\engine\2D\PostEffect\PostEffect.h" />
     <ClInclude Include="lib\engine\2D\Sprite\Sprite.h" />
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxLoader.h" />

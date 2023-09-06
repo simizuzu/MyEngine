@@ -23,6 +23,7 @@ namespace MyMath
 		Vector3 Norm()const;
 		float dot(const Vector3& v)const;  //内積を求める
 		Vector3 cross(const Vector3& v)const; //外積を求める
+		Vector3 copy(const Vector3& v1, const Vector3& v2)const;
 
 		//単項演算子オーバーロード
 		Vector3 operator+() const;

@@ -52,6 +52,17 @@ namespace MyMath
 		return w;
 	}
 
+	Vector3 Vector3::copy(const Vector3& v1, const Vector3& v2) const
+	{
+		Vector3 w1,w2;
+
+		w1 = v1;
+		w2 = v2;
+		w1 = w2;
+
+		return w1;
+	}
+
 	Vector3 Vector3::operator+()const
 	{
 		return *this;
