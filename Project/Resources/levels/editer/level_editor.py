@@ -360,6 +360,7 @@ class MYADDON_OT_export_scene(bpy.types.Operator, bpy_extras.io_utils.ExportHelp
         #平行移動、回転、スケールを抽出
         trans, rot, scale = object.matrix_local.decompose()
         #回転を Quternion から Euler（3軸での回転角）に変換
+        rot = rot.to_euler()
         rot.x = math.degrees(rot.x)
         rot.y = math.degrees(rot.y)
         rot.z = math.degrees(rot.z)
