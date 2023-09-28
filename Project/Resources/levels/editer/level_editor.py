@@ -10,7 +10,7 @@ import json
 #ブレンダーに登録するアドオン情報
 bl_info = {
     "name": "レベルエディタ",
-    "author": "Taro Kamata",
+    "author": "Sho Shimizu",
     "version": (1, 0),
     "blender": (3, 1, 2),
     "location": "",
@@ -313,6 +313,7 @@ class MYADDON_OT_export_scene(bpy.types.Operator, bpy_extras.io_utils.ExportHelp
             #シーン直下のオブジェクトをルートノード(深さ0)とし、再起関数で走査
             self.parse_scene_recursive_json(json_object_root["objects"], object, 0)
 
+        #------------------------------------------------------------------------------------#
         #曲線読み込み
         json_object_root["curves"] = list()
         #全曲線
@@ -333,6 +334,14 @@ class MYADDON_OT_export_scene(bpy.types.Operator, bpy_extras.io_utils.ExportHelp
                         curve_json_object["curve"].append(curve)
 
                 json_object_root["curves"].append(curve_json_object)
+
+        #------------------------------------------------------------------------------------#
+        #アニメーションデータ取得
+        # json_object_root["anim_data"] = list()
+        # for anim in bpy.context.scene.frame_current:
+        #     if anim.users == 1:
+
+
 
         #オブジェクトをJSON文字列にエンコード（改行・インデント付き）
         json_text = json.dumps(json_object_root, ensure_ascii=False, cls=json.JSONEncoder, indent=4)
