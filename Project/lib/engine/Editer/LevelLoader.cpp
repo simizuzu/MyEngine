@@ -121,6 +121,30 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 			levelData->points.push_back(curveData.pointRight);
 		}
 	}
+
+	for (nlohmann::json& keyframes : deserialized["animdata"]) {
+
+		//要素追加
+		levelData->anims.emplace_back(LevelData::AnimData{});
+		//今追加した要素の参照を得る
+		LevelData::AnimData& animData = levelData->anims.back();
+
+		//トランスフォームのパラメータ読み込み
+		nlohmann::json& transform = keyframes["keyframe"];
+
+		//座標
+		animData.trans.x = (float)transform["translation"][0];
+		animData.trans.y = (float)transform["translation"][2];
+		animData.trans.z = (float)transform["translation"][1];
+		//回転角
+		animData.rot.x = (float)transform["rotation"][0];
+		animData.rot.y = (float)transform["rotation"][2];
+		animData.rot.z = (float)transform["rotation"][1];
+
+		levelData->nowFrame.push_back(animData.trans);
+		levelData->nowFrame.push_back(animData.rot);
+	}
+
 	return levelData;
 }
 
@@ -175,29 +199,6 @@ namespace MyMathUtility {
 		position += tangent * scaleFactor;
 
 		return position;
-	}
-
-	MyMath::Vector3 BezierGetPointWithTangent(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 p2, MyMath::Vector3 p3, MyMath::Vector3 prevTangent, float t)
-	{
-		MyMath::Vector3 c0 = Lerp(p0, p1, t);
-		MyMath::Vector3 c1 = Lerp(p1, p2, t);
-		MyMath::Vector3 c2 = Lerp(p2, p3, t);
-		MyMath::Vector3 c3 = Lerp(c0, c1, t);
-		MyMath::Vector3 c4 = Lerp(c1, c2, t);
-
-		MyMath::Vector3 tangent0 = MyMathUtility::MakeNormalize(p1 - p0);
-		MyMath::Vector3 tangent1 = MyMathUtility::MakeNormalize(p2 - p1);
-		MyMath::Vector3 tangent2 = MyMathUtility::MakeNormalize(p3 - p2);
-		MyMath::Vector3 tangent3 = MyMathUtility::MakeNormalize(c1 - c0);
-		MyMath::Vector3 tangent4 = MyMathUtility::MakeNormalize(c2 - c1);
-
-		MyMath::Vector3 tangent = Lerp(prevTangent, tangent0, t); // 接線に線形補間を使う
-		MyMath::Vector3 interpolatedTangent = Lerp(tangent3, tangent4, t);
-
-		MyMath::Vector3 adjustedC3 = c3 + tangent * MyMathUtility::Vector3Length(c3 - c2); // c2の接線と距離を用いてc3を調整する。
-		MyMath::Vector3 adjustedC4 = c4 + interpolatedTangent * MyMathUtility::Vector3Length(c4 - c3); // 補間された接線とc3との距離を用いてc4を調整する。
-
-		return Lerp(adjustedC3, adjustedC4, t);
 	}
 
 	MyMath::Vector3 HermiteGetPoint2(const MyMath::Vector3& p0, const MyMath::Vector3& p1, const MyMath::Vector3& v0, const MyMath::Vector3& v1, float t)
@@ -269,5 +270,10 @@ namespace MyMathUtility {
 		//方向ベクトルを取得
 		MyMath::Vector3 calcVec = nextPoint - prevPoint;
 		return calcVec.normalize();
+	}
+
+	MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame)
+	{
+		
 	}
 }

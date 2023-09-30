@@ -28,12 +28,24 @@ struct LevelData {
 
 	};
 
+	struct AnimData {
+		//現在のフレーム
+		float nowFrame;
+		//座標
+		MyMath::Vector3 trans;
+		//回転
+		MyMath::Vector3 rot;
+	};
+
 	// 3つ並べた制御点
 	std::vector<MyMath::Vector3> points;
+
+	std::vector<MyMath::Vector3> nowFrame;
 
 	// オブジェクト配列
 	std::vector<ObjectData> objects;
 	std::vector<CurveData> curves;
+	std::vector<AnimData> anims;
 };
 
 // レベルデータのローダー
@@ -77,8 +89,6 @@ namespace MyMathUtility {
 	/// <returns>4点分のベジェ曲線の結果</returns>
 	MyMath::Vector3 BezierCurve(std::vector<LevelData::CurveData>& points, float t);
 
-	MyMath::Vector3 BezierGetPointWithTangent(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 p2, MyMath::Vector3 p3, MyMath::Vector3 prevTangent, float t);
-
 	/// <summary>
 	/// エルミート曲線
 	/// </summary>
@@ -104,4 +114,7 @@ namespace MyMathUtility {
 	/// <param name="nextPoint">次の制御点</param>
 	/// <returns>方向ベクトル</returns>
 	MyMath::Vector3 CalcTangentPosition(const MyMath::Vector3& prevPoint, const MyMath::Vector3& nextPoint);
+
+
+	MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame);
 }
