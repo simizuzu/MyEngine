@@ -272,8 +272,8 @@ namespace MyMathUtility {
 		return calcVec.normalize();
 	}
 
-	MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame)
-	{
-		
-	}
+	//MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame)
+	//{
+	//	
+	//}
 }

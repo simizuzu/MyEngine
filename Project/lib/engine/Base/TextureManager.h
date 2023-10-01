@@ -76,4 +76,8 @@ private:
 	~TextureManager() = default;
 	TextureManager& operator=(const TextureManager&) = delete;
 	TextureManager(const TextureManager&) = delete;
+
+private:
+	//ファイル拡張子
+	char* fileExt_;
 };

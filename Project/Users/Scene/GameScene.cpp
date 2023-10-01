@@ -14,8 +14,8 @@ void GameScene::Initialize()
 	camera = std::make_unique<Camera>();
 	camera->Initialize();
 
-	gameCamera_ = std::make_unique<GameCamera>();
-	gameCamera_->Initialize(camera.get());
+	/*gameCamera_ = std::make_unique<GameCamera>();
+	gameCamera_->Initialize(camera.get());*/
 
 	modelData_ = std::make_unique<SceneData>();
 	modelData_->Initialize(camera.get());
@@ -37,7 +37,7 @@ void GameScene::Update()
 #endif
 	camera->Update();
 	light->Update();
-	gameCamera_->Update();
+	//gameCamera_->Update();
 	modelData_->Update();
 }
 

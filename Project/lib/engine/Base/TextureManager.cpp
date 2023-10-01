@@ -57,11 +57,14 @@ TextureData TextureManager::LoadTexture(const std::string& fileName)
 
 	MultiByteToWideChar(CP_ACP, 0, fileName.c_str(), -1, wfilepath, _countof(wfilepath));
 
-	// WICテクスチャのロード
-	HRESULT result = LoadFromWICFile(
-		wfilepath,
-		DirectX::WIC_FLAGS_NONE,
-		&metadata, scratchImg);
+	HRESULT result;
+
+	//DDSテクスチャのロード
+	result = LoadFromDDSFile(wfilepath, DirectX::DDS_FLAGS_NONE, &metadata, scratchImg);
+
+	//WICテクスチャのロード
+	//result = LoadFromWICFile(wfilepath, DirectX::WIC_FLAGS_NONE, &metadata, scratchImg);
+
 	assert(SUCCEEDED(result));
 
 	// ミップマップ生成
