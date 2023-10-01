@@ -20,6 +20,9 @@ void GameScene::Initialize()
 	modelData_ = std::make_unique<SceneData>();
 	modelData_->Initialize(camera.get());
 
+	player = new Player();
+	player->Initialize(camera.get());
+
 	sceneManager_ = SceneManager::GetInstance();
 }
 
@@ -39,6 +42,8 @@ void GameScene::Update()
 	light->Update();
 	gameCamera_->Update();
 	modelData_->Update();
+
+
 }
 
 void GameScene::Draw()
@@ -48,4 +53,11 @@ void GameScene::Draw()
 
 void GameScene::Finalize()
 {
+	if (gameCamera_->timeRate >= 1.0f)
+	{
+		sceneManager_->ChangeScene("TITLE");
+	}
+	//player->timeRate = 0.0f;
 }
+	
+	

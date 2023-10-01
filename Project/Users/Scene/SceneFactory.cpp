@@ -1,6 +1,7 @@
 #include "SceneFactory.h"
 #include "TitleScene.h"
 #include "GameScene.h"
+#include "ResultScene.h"
 
 #pragma warning(push)
 #pragma warning(disable: 4091)
@@ -16,6 +17,9 @@ BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
     }
     else if (sceneName == "GAME") {
         newScene = new GameScene();
+    }
+    else if (sceneName == "RESULT") {
+        newScene = new ResultScene();
     }
 
     return newScene;

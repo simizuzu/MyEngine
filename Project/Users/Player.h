@@ -32,6 +32,8 @@ public:
 
 	void ReticleMouse();
 
+	void Finalize();
+
 private:
 	MyMath::Vector3 rot;
 	MyMath::Vector3 translation;
@@ -41,14 +43,19 @@ private:
 	MyMath::Vector3 mouseAngle;
 
 	float angle;
+
+public:
+	float timeRate;						//何％時間が進んだか
 private:
 	float maxTime = 120.0f;				//全体時間[s]
-	float timeRate;						//何％時間が進んだか
+	
 	float targetTimeRate;
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;
 	uint32_t elapsedCount = 0;
+
+	LevelData::CurveData curves;
 
 private:
 	LevelData* curveData;

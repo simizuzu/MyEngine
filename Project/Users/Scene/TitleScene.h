@@ -50,17 +50,12 @@ private:
 	TextureData tex;
 	std::unique_ptr<Sprite> sprite_;
 
-	TextureData tex2;
-	std::unique_ptr<Sprite> warningSprite_;
-
 #pragma endregion
 
 #pragma region OBJ
-	std::unique_ptr<ObjObject3d> tyoinoriObj;
-	std::unique_ptr<ObjModel> tyoinori;
-
-	std::unique_ptr<ObjObject3d> skydomeObj;
-	std::unique_ptr<ObjModel> skydome;
+	std::unique_ptr<ObjObject3d> playerObj;
+	std::unique_ptr<ObjModel> playerModel;
+	WorldTransform playerTrans;
 #pragma endregion
 
 

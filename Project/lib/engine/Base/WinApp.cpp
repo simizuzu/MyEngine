@@ -31,7 +31,7 @@ void WinApp::Initialize()
 	//ウィンドウクラス設定
 	w.cbSize = sizeof(WNDCLASSEX);
 	w.lpfnWndProc = (WNDPROC)WindowProc;		// ウィンドウプロシージャを設定
-	w.lpszClassName = "Engine";				// ウィンドウクラス名（ヘッダーで名前変更可能）
+	w.lpszClassName = "Assault";				// ウィンドウクラス名（ヘッダーで名前変更可能）
 	w.hInstance = GetModuleHandle(nullptr);		// ウィンドウハンドル
 	w.hCursor = LoadCursor(NULL, IDC_ARROW);	// カーソル設定
 
@@ -45,7 +45,7 @@ void WinApp::Initialize()
 	//ウィンドウオブジェクトの生成
 	hwnd = CreateWindow(
 		w.lpszClassName,		// クラス名
-		"Engine",				// タイトルバーの文字
+		"Assault",				// タイトルバーの文字
 		WS_OVERLAPPEDWINDOW,	// 標準的なウィンドウスタイル（ヘッダーで変更可能）
 		CW_USEDEFAULT,			// 表示X座標（OSに任せる）
 		CW_USEDEFAULT,			// 表示Y座標（OSに任せる）

@@ -27,6 +27,8 @@ private:
 
 	Player* player = nullptr;
 	
+	TextureData displayTex;
+	std::unique_ptr<Sprite> display;
 
 	std::unique_ptr<ObjObject3d> skydomeObj_;
 	std::unique_ptr<ObjObject3d> buildingObj_;

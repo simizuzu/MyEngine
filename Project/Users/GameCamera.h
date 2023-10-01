@@ -24,6 +24,8 @@ public:
 	/// </summary>
 	void Reset();
 
+	float timeRate;						//何％時間が進んだか
+
 private:
 	//レベルエディタ(ベジェ曲線)
 	LevelData* curveData;
@@ -37,7 +39,7 @@ private:
 	WorldTransform cameraTrans;
 
 	float maxTime = 120.0f;				//全体時間[s]
-	float timeRate;						//何％時間が進んだか
+	
 	float targetTimeRate;
 	size_t startIndex = 1;
 	uint32_t startCount = 0;

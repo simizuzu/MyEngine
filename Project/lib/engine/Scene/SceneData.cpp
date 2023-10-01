@@ -31,11 +31,15 @@ void SceneData::Initialize(Camera* camera)
 	groundTrans.Initialize();
 	skydomeTrans.SetScale({ 500.0f,500.0f,500.0f });
 
-	for (size_t i = 0; i < objs.size(); i++)
-	{
-		objs[i].Initialize();
-		objs[i].scale_ = { 0.025f,0.025f ,0.025f };
-	}
+	//for (size_t i = 0; i < objs.size(); i++)
+	//{
+	//	objs[i].Initialize();
+	//	objs[i].scale_ = { 0.025f,0.025f ,0.025f };
+	//}
+
+	displayTex = TextureManager::Load("Resources/Texture/display.png");
+	display = std::make_unique<Sprite>();
+	display->Initialize();
 }
 
 void SceneData::Update()
@@ -47,35 +51,36 @@ void SceneData::Update()
 
 	player->Update();
 
-	for (size_t i = 0; i < objs.size(); i++)
-	{
+	//for (size_t i = 0; i < objs.size(); i++)
+	//{
 
-		float t = 1.0f / objs.size();
-		MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData2->curves, t * i);
+	//	float t = 1.0f / objs.size();
+	//	MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData2->curves, t * i);
 
 
-		objs[i].translation_ = pos;
+	//	objs[i].translation_ = pos;
 
-		objs[i].Update(camera_);
-		
-	}
+	//	objs[i].Update(camera_);
+	//	
+	//}
 
 }
 
 void SceneData::Draw()
 {
-	for (size_t i = 0; i < objs.size(); i++)
-	{
-		tyoinoriObj_->Draw(&objs[i]);
-	}
+	//for (size_t i = 0; i < objs.size(); i++)
+	//{
+	//	tyoinoriObj_->Draw(&objs[i]);
+	//}
 
+	
 
 	tyoinoriObj_->Draw(&tyoinoriTrans);
 	skydomeObj_->Draw(&skydomeTrans);
 	buildingObj_->Draw(&buildingTrans);
 	groundObj_->Draw(&groundTrans);
 
-
+	display->Draw(displayTex, { 0,0 });
 	player->Draw();
 	player->UIDraw();
 }
