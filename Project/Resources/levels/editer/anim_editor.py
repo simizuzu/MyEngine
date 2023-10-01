@@ -87,7 +87,7 @@ class MYADDON_OT_export_animdata(bpy.types.Operator, bpy_extras.io_utils.ExportH
         #オブジェクト種類
         #["type"] = object.type
         #オブジェクト名
-        #json_object["name"] = object.name
+        
 
         #その他の情報をパック
         #シーン内の全オブジェクトについて
@@ -129,6 +129,7 @@ class MYADDON_OT_export_animdata(bpy.types.Operator, bpy_extras.io_utils.ExportH
                     ro3 = rotation[num]
 
                     json_object = dict()
+                    json_object["name"] = object.name
                     transform = dict()
                     #トランスフォーム情報をディクショナリに登録
                     transform["nowframe"] = totalFrame[num // 3]
