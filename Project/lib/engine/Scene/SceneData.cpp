@@ -16,7 +16,7 @@ void SceneData::Initialize(Camera* camera)
 void SceneData::Update()
 {
 	rot++;
-	planeTrans.SetRotation({ 0,rot,rot });
+	//planeTrans.SetRotation({ 0,rot,0 });
 	planeTrans.Update(camera_);
 }
 

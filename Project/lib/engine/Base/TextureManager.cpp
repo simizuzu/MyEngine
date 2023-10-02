@@ -68,17 +68,17 @@ TextureData TextureManager::LoadTexture(const std::string& fileName)
 	assert(SUCCEEDED(result));
 
 	// ミップマップ生成
-	result = GenerateMipMaps(
-		scratchImg.GetImages(),
-		scratchImg.GetImageCount(),
-		scratchImg.GetMetadata(),
-		DirectX::TEX_FILTER_DEFAULT, 0, mipChain);
+	//result = GenerateMipMaps(
+	//	scratchImg.GetImages(),
+	//	scratchImg.GetImageCount(),
+	//	scratchImg.GetMetadata(),
+	//	DirectX::TEX_FILTER_DEFAULT, 0, mipChain);
 
-	if (SUCCEEDED(result))
-	{
-		scratchImg = std::move(mipChain);
-		metadata = scratchImg.GetMetadata();
-	}
+	//if (SUCCEEDED(result))
+	//{
+	//	scratchImg = std::move(mipChain);
+	//	metadata = scratchImg.GetMetadata();
+	//}
 
 	// 読み込んだディフューズテクスチャをSRGBとして扱う
 	metadata.format = DirectX::MakeSRGB(metadata.format);
