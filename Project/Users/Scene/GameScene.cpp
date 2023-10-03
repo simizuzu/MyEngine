@@ -15,7 +15,7 @@ void GameScene::Initialize()
 	camera->Initialize();
 
 	gameCamera_ = std::make_unique<GameCamera>();
-	gameCamera_->Initialize(camera.get());
+	gameCamera_->Initialize(camera.get(),input_);
 
 	modelData_ = std::make_unique<SceneData>();
 	modelData_->Initialize(camera.get());

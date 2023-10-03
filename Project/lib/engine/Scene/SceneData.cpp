@@ -5,7 +5,7 @@ void SceneData::Initialize(Camera* camera)
 	assert(camera);
 	camera_ = camera;
 	levelData = LevelLoader::LoadFile("levelData");
-	curveData2 = LevelLoader::LoadFile("curveTest");
+	curveData2 = LevelLoader::LoadFile("curveData");
 	
 	player = new Player();
 	player->Initialize(camera_);
@@ -61,7 +61,7 @@ void SceneData::Update()
 	{
 		if (startIndex < curveData2->curves.size() - 3)
 		{
-			startIndex += 1.0f;
+			startIndex += 1;
 			timeRate -= 1.0f;
 			startCount = nowCount;
 		}

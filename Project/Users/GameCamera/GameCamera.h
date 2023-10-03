@@ -11,7 +11,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Camera* camera);
+	void Initialize(Camera* camera, Input* input);
 
 	/// <summary>
 	/// 更新
@@ -23,6 +23,12 @@ public:
 	/// 各変数のリセット関数
 	/// </summary>
 	void Reset();
+
+	/// <summary>
+	/// startとendをfor文で作る処理 {start,start,P1…Pn,end,end}
+	/// </summary>
+	/// <param name="curvePoint">カーブのデータ</param>
+	void SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint);
 
 	float timeRate;						//何％時間が進んだか
 
@@ -38,7 +44,7 @@ private:
 	//カメラのトランスフォーム
 	WorldTransform cameraTrans;
 
-	float maxTime = 5.0f;				//全体時間[s]
+	float maxTime = 0.5f;				//全体時間[s]
 	
 	float targetTimeRate;
 	size_t startIndex = 1;

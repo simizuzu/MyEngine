@@ -86,7 +86,7 @@ namespace MyMathUtility {
 	MyMath::Vector3 BezierGetPoint(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 p2, MyMath::Vector3 p3, float t);
 
 	/// <summary>
-	/// ベジェ曲線
+	/// スプライン曲線(blenderベジェ用)
 	/// </summary>
 	/// <param name="points">制御点</param>
 	/// <param name="t">t時間(0.0~1.0)</param>
