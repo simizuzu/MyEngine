@@ -5,7 +5,7 @@ void SceneData::Initialize(Camera* camera)
 	assert(camera);
 	camera_ = camera;
 	levelData = LevelLoader::LoadFile("levelData");
-	curveData2 = LevelLoader::LoadFile("curveData");
+	curveData2 = LevelLoader::LoadFile("curveTest");
 	
 	player = new Player();
 	player->Initialize(camera_);
@@ -31,11 +31,11 @@ void SceneData::Initialize(Camera* camera)
 	groundTrans.Initialize();
 	skydomeTrans.SetScale({ 500.0f,500.0f,500.0f });
 
-	//for (size_t i = 0; i < objs.size(); i++)
-	//{
-	//	objs[i].Initialize();
-	//	objs[i].scale_ = { 0.025f,0.025f ,0.025f };
-	//}
+	for (size_t i = 0; i < objs.size(); i++)
+	{
+		objs[i].Initialize();
+		objs[i].scale_ = { 0.025f,0.025f ,0.025f };
+	}
 
 	displayTex = TextureManager::Load("Resources/Texture/display.png");
 	display = std::make_unique<Sprite>();
@@ -51,31 +51,50 @@ void SceneData::Update()
 
 	player->Update();
 
-	//for (size_t i = 0; i < objs.size(); i++)
-	//{
+	nowCount++;
+	elapsedCount = nowCount - startCount;
+	float elapsedTime = static_cast<float> (elapsedCount) / 60.0f;
+	timeRate = elapsedTime / maxTime;
 
-	//	float t = 1.0f / objs.size();
-	//	MyMath::Vector3 pos = MyMathUtility::BezierCurve(curveData2->curves, t * i);
+
+	if (timeRate >= 1.0f)
+	{
+		if (startIndex < curveData2->curves.size() - 3)
+		{
+			startIndex += 1.0f;
+			timeRate -= 1.0f;
+			startCount = nowCount;
+		}
+		else
+		{
+			timeRate = 1.0f;
+		}
+	}
 
 
-	//	objs[i].translation_ = pos;
+	for (size_t i = 0; i < objs.size(); i++)
+	{
+		float t = 1.0f / objs.size();
+		MyMath::Vector3 pos = MyMathUtility::SplinePosition(curveData2->curves, t * i, startIndex);
+		pos.y = 6.0f;
+		objs[i].translation_ = pos;
 
-	//	objs[i].Update(camera_);
-	//	
-	//}
+		objs[i].Update(camera_);
+
+	}
 
 }
 
 void SceneData::Draw()
 {
-	//for (size_t i = 0; i < objs.size(); i++)
-	//{
-	//	tyoinoriObj_->Draw(&objs[i]);
-	//}
+	for (size_t i = 0; i < objs.size(); i++)
+	{
+		tyoinoriObj_->Draw(&objs[i]);
+	}
 
 	
 
-	tyoinoriObj_->Draw(&tyoinoriTrans);
+	//tyoinoriObj_->Draw(&tyoinoriTrans);
 	skydomeObj_->Draw(&skydomeTrans);
 	buildingObj_->Draw(&buildingTrans);
 	groundObj_->Draw(&groundTrans);

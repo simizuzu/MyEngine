@@ -134,10 +134,11 @@ void Player::PlayerTarget()
 	if (timeRate >= 1.0f)
 	{
 		timeRate = 0.0f;
+		targetTimeRate = 0.0f;
 	}
 
-	MyMath::Vector3 playerPos = MyMathUtility::BezierCurve(curveData->curves, timeRate);
-	MyMath::Vector3 playerTarget = MyMathUtility::BezierCurve(curveData->curves, targetTimeRate);
+	MyMath::Vector3 playerPos = MyMathUtility::SplinePosition(curveData->curves, timeRate);
+	MyMath::Vector3 playerTarget = MyMathUtility::SplinePosition(curveData->curves, targetTimeRate);
 
 	//プレイヤーレイの向き
 	MyMath::Vector3 playerDirection = playerTarget - playerPos;

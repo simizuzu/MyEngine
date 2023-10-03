@@ -101,9 +101,9 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 			nlohmann::json& transform = curve;
 
 			// 左ハンドル
-			curveData.pointLeft.x = (float)transform["HandlePointL"][0];
+			/*curveData.pointLeft.x = (float)transform["HandlePointL"][0];
 			curveData.pointLeft.y = (float)transform["HandlePointL"][2];
-			curveData.pointLeft.z = (float)transform["HandlePointL"][1];
+			curveData.pointLeft.z = (float)transform["HandlePointL"][1];*/
 
 			// 制御点
 			curveData.pointCeter.x = (float)transform["ControlPoint"][0];
@@ -111,14 +111,14 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 			curveData.pointCeter.z = (float)transform["ControlPoint"][1];
 
 			// 右ハンドル
-			curveData.pointRight.x = (float)transform["HandlePointR"][0];
+			/*curveData.pointRight.x = (float)transform["HandlePointR"][0];
 			curveData.pointRight.y = (float)transform["HandlePointR"][2];
-			curveData.pointRight.z = (float)transform["HandlePointR"][1];
+			curveData.pointRight.z = (float)transform["HandlePointR"][1];*/
 
 
-			levelData->points.push_back(curveData.pointLeft);
+			//levelData->points.push_back(curveData.pointLeft);
 			levelData->points.push_back(curveData.pointCeter);
-			levelData->points.push_back(curveData.pointRight);
+			//levelData->points.push_back(curveData.pointRight);
 		}
 	}
 
@@ -132,6 +132,8 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		//トランスフォームのパラメータ読み込み
 		nlohmann::json& transform = keyframes["keyframe"];
 
+		//現在のフレーム
+		animData.nowFrame = (float)transform["nowframe"];
 		//座標
 		animData.trans.x = (float)transform["translation"][0];
 		animData.trans.y = (float)transform["translation"][2];
@@ -141,8 +143,9 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		animData.rot.y = (float)transform["rotation"][2];
 		animData.rot.z = (float)transform["rotation"][1];
 
-		levelData->nowFrame.push_back(animData.trans);
-		levelData->nowFrame.push_back(animData.rot);
+		levelData->nowFrame.push_back(animData.nowFrame);
+		levelData->nowTransform.push_back(animData.trans);
+		levelData->nowTransform.push_back(animData.rot);
 	}
 
 	return levelData;
@@ -160,7 +163,35 @@ namespace MyMathUtility {
 		return Lerp(c3, c4, t);
 	}
 
-	MyMath::Vector3 BezierCurve(std::vector<LevelData::CurveData>& points, float t)
+	MyMath::Vector3 SplinePosition(std::vector<LevelData::CurveData>& points, float t, size_t startIndex)
+	{
+		//制御点のindexをずらしていく処理
+		/*float length = static_cast<float>(points.size());
+		float progress = (length - 1) * t;
+		float index = std::floor(progress);
+		float weight = progress - index;*/
+
+		size_t n = points.size() - 2;
+
+		if (startIndex > n) return points[n].pointCeter; //Pnの値を返す
+		if (startIndex < 1) return points[1].pointCeter; //Pnの値を返す
+
+		//始点
+		MyMath::Vector3 p0 = points[startIndex - 1].pointCeter;
+		//制御点1
+		MyMath::Vector3 p1 = points[startIndex].pointCeter;
+		//制御点2
+		MyMath::Vector3 p2 = points[startIndex + 1].pointCeter;
+		//終点
+		MyMath::Vector3 p3 = points[startIndex + 2].pointCeter;
+
+		//ベジェ曲線を代入
+		MyMath::Vector3 position = MyMathUtility::HermiteGetPoint(p0, p1, p2, p3, t);
+
+		return position;
+	}
+
+	MyMath::Vector3 SplinePositionAnim(std::vector<LevelData::AnimData>& points, size_t startIndex, float t)
 	{
 		//制御点のindexをずらしていく処理
 		float length = static_cast<float>(points.size());
@@ -168,99 +199,19 @@ namespace MyMathUtility {
 		float index = std::floor(progress);
 		float weight = progress - index;
 
+		//1秒あたり60フレーム
+		float timeStep = 1.0f / 60.0f;
 
-		/*if (Approximately(weight, 0.0f) && index >= length - 1)
-		{
-			index = length - 2;
-			weight = 1;
-		}*/
 
-		//始点
-		MyMath::Vector3 p0 = points[static_cast<size_t>(index)].pointCeter;
-		//制御点1
-		MyMath::Vector3 p1 = points[static_cast<size_t>(index)].pointRight;
-		//制御点2
-		MyMath::Vector3 p2 = points[static_cast<size_t>(index + 1.0f)].pointLeft;
-		//終点
-		MyMath::Vector3 p3 = points[static_cast<size_t>(index + 1.0f)].pointCeter;
 
-		MyMath::Vector3 tangent0 = MyMathUtility::CalcTangentPosition(p0, p1);
-		MyMath::Vector3 tangent1 = MyMathUtility::CalcTangentPosition(p1, p2);
-		MyMath::Vector3 tangent2 = MyMathUtility::CalcTangentPosition(p2, p3);
+		//p0~p3 の制御点を取得する ※p1~p2 を補間する
+		MyMath::Vector3 p0 = points[static_cast<size_t>(index) - 1].trans;
+		MyMath::Vector3 p1 = points[static_cast<size_t>(index)].trans;
+		MyMath::Vector3 p2 = points[static_cast<size_t>(index) + 1].trans;
+		MyMath::Vector3 p3 = points[static_cast<size_t>(index) + 2].trans;
 
-		//ベジェ曲線を代入
-		MyMath::Vector3 position = BezierGetPoint(p0, p1, p2, p3, weight);
-
-		//補間された接戦ベクトル
-		MyMath::Vector3 tangent = MyMathUtility::Lerp(tangent1, tangent2,weight);
-
-		//ポジションに接戦ベクトルを適用して一を修正
-		float scaleFactor = 1.0f;
-		position += tangent * scaleFactor;
-
-		return position;
-	}
-
-	MyMath::Vector3 HermiteGetPoint2(const MyMath::Vector3& p0, const MyMath::Vector3& p1, const MyMath::Vector3& v0, const MyMath::Vector3& v1, float t)
-	{
-		MyMath::Vector3 c0 = 2.0f * p0 + -2.0f * p1 + v0 + v1;
-		MyMath::Vector3 c1 = -3.0f * p0 + 3.0f * p1 + -2.0f * v0 - v1;
-		MyMath::Vector3 c2 = v0;
-		MyMath::Vector3 c3 = p0;
-
-		float t2 = t * t;
-		float t3 = t2 * t;
-		return c0 * t3 + c1 * t2 + c2 * t + c3;
-	}
-
-	MyMath::Vector3 CatmullRomSpline(std::vector<LevelData::CurveData>& points, float t)
-	{
-
-		float length = static_cast<float>(points.size());
-		float progress = (length - 1) * t;
-		float index = std::floor(progress);
-		float weight = progress - index;
-
-		if (Approximately(weight, 0.0f) && index >= length - 1)
-		{
-			index = length - 2;
-			weight = 1;
-		}
-
-		MyMath::Vector3 p0 = points[static_cast<size_t>(index)].pointCeter;
-		MyMath::Vector3 p1 = points[static_cast<size_t>(index + 1.0f)].pointCeter;
-		MyMath::Vector3 p2;
-		MyMath::Vector3 p3;
-
-		if (index > 0.0f)
-		{
-			p2 = 0.5f * (points[static_cast<size_t>(index + 1.0f)].pointCeter - points[static_cast<size_t>(index - 1.0f)].pointCeter);
-		}
-		else
-		{
-			p2 = points[static_cast<size_t>(index + 1.0f)].pointCeter - points[static_cast<size_t>(index)].pointCeter;
-		}
-
-		if (index < length - 2.0f)
-		{
-			p3 = 0.5f * (points[static_cast<size_t>(index + 2.0f)].pointCeter - points[static_cast<size_t>(index)].pointCeter);
-		}
-		else
-		{
-			p3 = points[static_cast<size_t>(index + 1.0f)].pointCeter - points[static_cast<size_t>(index)].pointCeter;
-		}
-
-		MyMath::Vector3 tangent0 = MyMathUtility::CalcTangentPosition(p0, p1);
-		MyMath::Vector3 tangent1 = MyMathUtility::CalcTangentPosition(p1, p2);
-		MyMath::Vector3 tangent2 = MyMathUtility::CalcTangentPosition(p2, p3);
-
-		MyMath::Vector3 position = HermiteGetPoint2(p0, p1, p2, p3, weight);
-		MyMath::Vector3 tangent = MyMathUtility::Lerp(tangent1, tangent2, weight);
-
-		//ポジションに接戦ベクトルを適用して一を修正
-		float scaleFactor = 1.0f;
-		position += tangent * scaleFactor;
-
+		//Catmull-Romの式による補間
+		MyMath::Vector3 position = MyMathUtility::HermiteGetPoint(p0, p1, p2, p3, weight);
 
 		return position;
 	}
@@ -272,8 +223,8 @@ namespace MyMathUtility {
 		return calcVec.normalize();
 	}
 
-	MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame)
+	/*MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame)
 	{
-		
-	}
+
+	}*/
 }

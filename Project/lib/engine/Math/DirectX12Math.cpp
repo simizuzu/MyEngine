@@ -453,16 +453,13 @@ namespace MyMathUtility
 		return tmp;
 	}
 
-	Vector3 HermiteGetPoint(Vector3 p0, Vector3 p1, Vector3 v0, Vector3 v1, float t)
+	Vector3 HermiteGetPoint(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
 	{
-		Vector3 c0 = 2.0f * p0 + -2.0f * p1 + v0 + v1;
-		Vector3 c1 = -3.0f * p0 + 3.0f * p1 + -2.0f * v0 - v1;
-		Vector3 c2 = v0;
-		Vector3 c3 = p0;
+		Vector3 position = 0.5 * ((2 * p1 + (-p0 + p2) * t) +
+			(2 * p0 - 5 * p1 + 4 * p2 - p3) * (t * t) +
+			(-p0 + 3 * p1 - 3 * p2 + p3) * (t * t * t));
 
-		float t2 = t * t;
-		float t3 = t2 * t;
-		return c0 * t3 + c1 * t2 + c2 * t + c3;
+		return position;
 	}
 
 	float SimpleHarmonicMotion(float time, float amplitude, float period)

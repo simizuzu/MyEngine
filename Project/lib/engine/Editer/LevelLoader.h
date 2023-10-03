@@ -40,7 +40,8 @@ struct LevelData {
 	// 3つ並べた制御点
 	std::vector<MyMath::Vector3> points;
 
-	std::vector<MyMath::Vector3> nowFrame;
+	std::vector<MyMath::Vector3> nowTransform;
+	std::vector<float>nowFrame;
 
 	// オブジェクト配列
 	std::vector<ObjectData> objects;
@@ -67,6 +68,9 @@ public:// メンバ関数
 	/// <param name="fileName">ファイル名</param>
 	[[nodiscard]]
 	static LevelData* LoadFile(const std::string& fileName);
+
+private:
+	
 };
 
 namespace MyMathUtility {
@@ -87,25 +91,16 @@ namespace MyMathUtility {
 	/// <param name="points">制御点</param>
 	/// <param name="t">t時間(0.0~1.0)</param>
 	/// <returns>4点分のベジェ曲線の結果</returns>
-	MyMath::Vector3 BezierCurve(std::vector<LevelData::CurveData>& points, float t);
+	MyMath::Vector3 SplinePosition(std::vector<LevelData::CurveData>& points, float t,size_t startIndex = 1);
 
 	/// <summary>
-	/// エルミート曲線
+	/// スプライン曲線
 	/// </summary>
-	/// <param name="p0">制御点</param>
-	/// <param name="p1">制御点</param>
-	/// <param name="v0">制御点</param>
-	/// <param name="v1">制御点</param>
-	/// <param name="t">時間(0.0～1.0)</param>
+	/// <param name="points">アニメーションフレーム</param>
+	/// <param name="t">全体の時間</param>
+	/// <param name="startIndex">開始するフレーム(デフォルトは1)</param>
 	/// <returns></returns>
-	MyMath::Vector3 HermiteGetPoint2(const MyMath::Vector3& p0, const MyMath::Vector3& p1, const MyMath::Vector3& v0, const MyMath::Vector3& v1, float t);
-
-	/// <summary>
-	/// キャットムルーロムスプライン 
-	/// </summary>
-	/// <param name="points">制御点</param>
-	/// <param name="t">時間(0.0～1.0)</param>
-	MyMath::Vector3 CatmullRomSpline(std::vector<LevelData::CurveData>& points, float t);
+	MyMath::Vector3 SplinePositionAnim(std::vector<LevelData::AnimData>& points, float t ,size_t startIndex = 1);
 
 	/// <summary>
 	/// 方向ベクトルを取得

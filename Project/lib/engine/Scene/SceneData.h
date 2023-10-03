@@ -46,7 +46,7 @@ private:
 	WorldTransform groundTrans;
 
 
-	float maxTime = 10.0f;;
+	float maxTime = 10.0f;
 	float timeRate;
 	float targetTimeRate;
 	size_t startIndex = 1;
@@ -54,6 +54,6 @@ private:
 	uint32_t nowCount = 0;
 	uint32_t elapsedCount = 0;
 
-	std::array<WorldTransform, 1000> objs;
+	std::array<WorldTransform, 100> objs;
 };
 
