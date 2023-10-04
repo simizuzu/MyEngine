@@ -1,5 +1,8 @@
 ﻿#include "WinApp.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui_impl_win32.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib,"winmm.lib")
 

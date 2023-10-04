@@ -1,5 +1,8 @@
 #include "TitleAnimation.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 void TitleAnimation::Initalize(Camera* camera)
 {

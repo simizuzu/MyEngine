@@ -1,5 +1,8 @@
 ﻿#include "TextureManager.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 TextureManager* TextureManager::textureManager_ = nullptr;
 std::string TextureManager::DefaultTextureDirectoryPath = "Resource/";

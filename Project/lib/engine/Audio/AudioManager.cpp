@@ -1,6 +1,9 @@
 ﻿#include "AudioManager.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 #include <xstring>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 AudioManager* AudioManager::instance = nullptr;
 

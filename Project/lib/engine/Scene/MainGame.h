@@ -7,9 +7,6 @@
 #include "PostEffect.h"
 #include "Framework.h"
 #include "SceneFactory.h"
-#pragma warning(push)
-#pragma warning(disable: 4091)
-#pragma warning(pop)
 
 // ゲーム全体
 class MainGame : public Framework

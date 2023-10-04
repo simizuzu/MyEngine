@@ -1,14 +1,17 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include "fbxsdk.h"
-#include "FbxModel.h"
-
-#pragma warning(push)
 #include <d3d12.h>
 #include <d3dx12.h>
 #include <string>
+MYENGINE_SUPPRESS_WARNINGS_END
 
-#pragma warning(disable: 4244)
+#pragma warning(push)
+#pragma warning(disable:5026)
 #pragma warning(pop)
+
+#include "FbxModel.h"
 
 class FbxLoader
 {

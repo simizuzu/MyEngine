@@ -127,7 +127,7 @@ void FbxObject3d::Update(Camera* camera)
 		constMapSkin->bones[i] = MyMathUtility::MakeIdentity();
 	}
 
-	for (int i = 0; i < bones.size(); i++)
+	for (size_t i = 0; i < bones.size(); i++)
 	{
 		//今の姿勢行列
 		MyMath::Matrix4 matCurrentPose;

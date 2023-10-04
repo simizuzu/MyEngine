@@ -1,5 +1,9 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
+MYENGINE_SUPPRESS_WARNINGS_END
 #include "Keyboard.h"
 #include "Controller.h"
 #include "Mouse.h"

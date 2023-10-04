@@ -1,5 +1,8 @@
 #include "Mouse.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 void Mouse::Initialize(IDirectInput8* dinput)
 {

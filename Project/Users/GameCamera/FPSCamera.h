@@ -1,7 +1,10 @@
 #pragma once
 #include "DirectX12Math.h"
 #include "Camera.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 class FPSCamera
 {

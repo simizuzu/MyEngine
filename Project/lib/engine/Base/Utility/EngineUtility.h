@@ -1,6 +1,10 @@
 ﻿#pragma once
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <wrl.h>
 #include <d3d12.h>
+MYENGINE_SUPPRESS_WARNINGS_END
+
 #include "Matrix4.h"
 #include "Vector2.h"
 #include "Vector3.h"

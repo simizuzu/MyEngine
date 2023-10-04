@@ -1,10 +1,13 @@
 #pragma once
 #include "Camera.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <array>
 #include <cstdint>
 #include <wrl.h>
 #include <memory>
 #include <string>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 class PrimitiveDrawer
 {

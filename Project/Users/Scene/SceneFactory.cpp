@@ -3,9 +3,6 @@
 #include "GameScene.h"
 #include "ResultScene.h"
 
-#pragma warning(push)
-#pragma warning(disable: 4091)
-#pragma warning(pop)
 
 BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 {

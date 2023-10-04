@@ -1,5 +1,8 @@
 ﻿#include "Light.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 /// <summary>
 /// 静的メンバ変数の実態

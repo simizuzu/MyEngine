@@ -1,5 +1,8 @@
 ﻿#include "Controller.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 bool Controller::StickDeadZone(MyMath::Vector2& stick, const MyMath::Vector2& deadZoneInitial)
 {

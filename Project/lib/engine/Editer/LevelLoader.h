@@ -1,7 +1,11 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
 
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <string>
 #include <vector>
+MYENGINE_SUPPRESS_WARNINGS_END
+
 #include "DirectX12Math.h"
 
 // レベルデータ

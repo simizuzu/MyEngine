@@ -1,8 +1,11 @@
 #include "PrimitiveDrawer.h"
 #include "DirectXCommon.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 #include <d3dcompiler.h>
-#include <d3dx12.h>
+#include <DirectXTex/d3dx12.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib, "d3dcompiler.lib")
 

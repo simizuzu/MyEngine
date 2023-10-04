@@ -1,7 +1,10 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
 
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cmath>
 #include <array>
+MYENGINE_SUPPRESS_WARNINGS_END
 #include "Vector3.h"
 
 namespace MyMath

@@ -1,9 +1,11 @@
 ﻿#include "ObjModel.h"
 
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <DirectXTex.h>
 #include <fstream>
 #include <sstream>
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 /// <summary>
 /// 静的メンバ変数の実態
@@ -338,7 +340,7 @@ void ObjModel::CreateVBSize()
 	result = vertBuff->Map(0, nullptr, (void**)&vertMap);
 	assert(SUCCEEDED(result));
 	// 全頂点に対して
-	for (int i = 0; i < vertices.size(); i++) {
+	for (size_t i = 0; i < vertices.size(); i++) {
 		vertMap[i] = vertices[i]; // 座標をコピー
 	}
 	// 繋がりを解除
@@ -381,7 +383,7 @@ void ObjModel::CreateIBSize()
 	uint16_t* indexMap = nullptr;
 	result = indexBuff->Map(0, nullptr, (void**)&indexMap);
 	//全インデックスに対して
-	for (int i = 0; i < indices.size(); i++) {
+	for (size_t i = 0; i < indices.size(); i++) {
 		indexMap[i] = indices[i];//インデックスをコピー
 	}
 	//マッピング解除

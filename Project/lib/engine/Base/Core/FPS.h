@@ -1,6 +1,10 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <chrono>
 #include <thread>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 class FPS
 {

@@ -1,5 +1,7 @@
 ﻿#include "ObjObject3d.h"
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <windows.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "DirectX12Math.h"
 

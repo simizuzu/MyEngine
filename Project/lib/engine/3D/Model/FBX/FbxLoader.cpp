@@ -1,5 +1,8 @@
 ﻿#include "FbxLoader.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 /// <summary>
 /// 静的実態
@@ -345,7 +348,7 @@ void FbxLoader::ParseSkin(FbxModel* model, FbxMesh* fbxMesh)
 	if (fbxSkin == nullptr)
 	{
 		//各頂点について処理
-		for (int i = 0; i < model->vertices.size(); i++)
+		for (size_t i = 0; i < model->vertices.size(); i++)
 		{
 			//最初のボーン(単位行列)の影響100%にする
 			model->vertices[i].boneIndex[0] = 0;
@@ -427,7 +430,7 @@ void FbxLoader::ParseSkin(FbxModel* model, FbxMesh* fbxMesh)
 	//頂点配列書き換え用の参照
 	auto& vertices = model->vertices;
 	//各頂点についての処理
-	for (int i = 0; i < vertices.size(); i++)
+	for (size_t i = 0; i < vertices.size(); i++)
 	{
 		//頂点のウェイトから最も大きい4つを選択
 		auto& weightList = weightLists[i];

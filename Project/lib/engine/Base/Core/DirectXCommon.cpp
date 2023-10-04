@@ -1,6 +1,9 @@
 ﻿#include "DirectXCommon.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <string>
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")

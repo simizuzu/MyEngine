@@ -3,9 +3,12 @@
 #include "Input.h"
 #include "LevelLoader.h"
 #include "Camera.h"
-#include <list>
 #include "Sprite.h"
 #include "TextureManager.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
+#include <list>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 class Player
 {

@@ -1,5 +1,7 @@
 #include "FPSCamera.h"
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 void FPSCamera::Initialize(Camera* camera)
 {

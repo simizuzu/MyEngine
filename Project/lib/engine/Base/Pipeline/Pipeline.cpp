@@ -1,11 +1,8 @@
 ﻿#include "Pipeline.h"
 
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include<cassert>
-
-#pragma warning(push)
-#pragma warning(disable: 4091)
-#include <DirectXTex/d3dx12.h>
-#pragma warning(pop)
+MYENGINE_SUPPRESS_WARNINGS_END
 
 void Pipeline::CreateSpritePipeline(ID3DBlob* vsBlob, ID3DBlob* psBlob, BlendMode blend, ID3D12Device* device, std::array<RootsigSetPip, 6>& pipeline)
 {

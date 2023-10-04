@@ -1,10 +1,14 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <Windows.h>
 #include <d3d12.h>
 #include <vector>
 #include <string>
 #include <wrl.h>
 #include <unordered_map>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "Vector2.h"
 #include "Vector3.h"

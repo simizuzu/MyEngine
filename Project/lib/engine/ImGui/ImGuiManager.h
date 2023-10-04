@@ -1,5 +1,9 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <wrl.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "WinApp.h"
 #include "DirectXCommon.h"

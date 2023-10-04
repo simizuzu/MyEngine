@@ -1,5 +1,10 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <vector>
+MYENGINE_SUPPRESS_WARNINGS_END
+
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"

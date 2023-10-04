@@ -1,5 +1,7 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
 
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <Windows.h>
 #include <vector>
 #include <string>
@@ -10,6 +12,7 @@
 #include <mfreadwrite.h>
 #include <xaudio2.h>
 #include <system_error>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib,"xaudio2.lib")
 #pragma comment(lib, "Mf.lib")

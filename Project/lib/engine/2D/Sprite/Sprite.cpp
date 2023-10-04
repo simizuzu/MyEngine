@@ -1,5 +1,7 @@
 ﻿#include "Sprite.h"
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <d3dcompiler.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib,"d3dcompiler.lib")
 
@@ -37,7 +39,7 @@ void Sprite::StaticInitialize()
 	// シェーダーの読み込み
 	Shader::CreateSpriteShade(vsBlob, psBlob);
 
-	for (int i = 0; i < pipelineState.size(); i++)
+	for (size_t i = 0; i < pipelineState.size(); i++)
 	{
 		Pipeline::CreateSpritePipeline(vsBlob.Get(), psBlob.Get(), (BlendMode)i, device_.Get(), pipelineState);
 	}

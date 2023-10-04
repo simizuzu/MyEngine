@@ -1,6 +1,11 @@
 #pragma once
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+MYENGINE_SUPPRESS_WARNINGS_END
+
 #include "WinApp.h"
 #include "DirectX12Math.h"
 

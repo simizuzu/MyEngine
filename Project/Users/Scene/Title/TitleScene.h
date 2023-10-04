@@ -5,13 +5,8 @@
 #include "SceneManager.h"
 #include "Light.h"
 
-
-
 #include "TitleAnimation.h"
 
-#pragma warning(push)
-#pragma warning(disable: 4091)
-#pragma warning(pop)
 
 // タイトルシーン
 class TitleScene : public BaseScene

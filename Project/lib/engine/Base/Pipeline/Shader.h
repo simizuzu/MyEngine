@@ -1,6 +1,10 @@
 #pragma once
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <DirectXTex/d3dx12.h>
 #include <wrl.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 class Shader
 {

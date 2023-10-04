@@ -1,5 +1,8 @@
 ﻿#include "Quaternion.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include<cmath>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 namespace MyMath
 {

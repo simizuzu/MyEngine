@@ -33,18 +33,18 @@ void Keyboard::Update()
 }
 
 
-bool Keyboard::PushKey(BYTE keyNum) { // 押した状態
-	return key[keyNum];
+bool Keyboard::PushKey(uint32_t keyNum) { // 押した状態
+	return (bool)key[keyNum];
 }
 
-bool Keyboard::ReleaseKey(BYTE keyNum) { // 離した状態
+bool Keyboard::ReleaseKey(uint32_t keyNum) { // 離した状態
 	return !key[keyNum] && !oldkey[keyNum];
 }
 
-bool Keyboard::TriggerPushKey(BYTE keyNum) { // 押した瞬間
+bool Keyboard::TriggerPushKey(uint32_t keyNum) { // 押した瞬間
 	return key[keyNum] && !oldkey[keyNum];
 }
 
-bool Keyboard::TriggerReleaseKey(BYTE keyNum) { // 離した瞬間
+bool Keyboard::TriggerReleaseKey(uint32_t keyNum) { // 離した瞬間
 	return !key[keyNum] && oldkey[keyNum];
 }

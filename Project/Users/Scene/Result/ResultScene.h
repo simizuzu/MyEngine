@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include "BaseScene.h"
 #include "SceneManager.h"
 
@@ -7,6 +6,10 @@
 #include "Light.h"
 #include "Sprite.h"
 #include "Camera.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
+#include <memory>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 class ResultScene : public BaseScene
 {

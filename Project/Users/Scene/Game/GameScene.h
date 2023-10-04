@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <memory>
 #include "BaseScene.h"
 #include "SceneManager.h"
 
@@ -22,6 +21,10 @@
 
 #include "SceneData.h"
 #include "GameCamera.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
+#include <memory>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 
 //#include "SplinePosCamera.h"

@@ -1,5 +1,8 @@
 ﻿#include "Player.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 void Player::Initialize(Camera* camera)
 {

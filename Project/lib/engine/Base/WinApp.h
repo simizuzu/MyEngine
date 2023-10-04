@@ -1,8 +1,12 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <Windows.h>
 #include <cstdint>
 #include <string>
 #include <wrl.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 class WinApp
 {

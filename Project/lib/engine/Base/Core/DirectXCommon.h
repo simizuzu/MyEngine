@@ -1,7 +1,11 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <d3d12.h>
 #include <vector>
 #include <dxgi1_6.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "WinApp.h"
 

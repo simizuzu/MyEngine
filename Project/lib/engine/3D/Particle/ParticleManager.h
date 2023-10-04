@@ -1,5 +1,9 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <forward_list>
+MYENGINE_SUPPRESS_WARNINGS_END
+
 #include "Pipeline.h"
 
 #include "WorldTransform.h"

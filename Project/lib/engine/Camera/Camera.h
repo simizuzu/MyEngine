@@ -1,7 +1,10 @@
 ﻿#pragma once
 #include "DirectX12Math.h"
 #include "EngineUtility.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <DirectXMath.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 class Camera
 {

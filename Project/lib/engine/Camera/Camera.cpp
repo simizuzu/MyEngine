@@ -1,8 +1,11 @@
 ﻿#include "Camera.h"
 
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <wrl.h>
 #include <d3d12.h>
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
+
 #include "DirectXCommon.h"
 #include "WinApp.h"
 

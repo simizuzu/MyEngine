@@ -1,5 +1,8 @@
 ﻿#include "SceneManager.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 void SceneManager::Update()
 {

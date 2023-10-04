@@ -258,13 +258,13 @@
     <ClCompile Include="lib\engine\Math\DirectX12Math.cpp">
       <Filter>Engine\ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="lib\engine\Base\Pipeline.cpp">
+    <ClCompile Include="lib\engine\Base\Pipeline\Pipeline.cpp">
       <Filter>Engine\ソース ファイル\Base\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="lib\engine\Base\Shader.cpp">
+    <ClCompile Include="lib\engine\Base\Pipeline\Shader.cpp">
       <Filter>Engine\ソース ファイル\Base\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="lib\engine\Base\DirectXCommon.cpp">
+    <ClCompile Include="lib\engine\Base\Core\DirectXCommon.cpp">
       <Filter>Engine\ソース ファイル\Base\Core</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\Base\WinApp.cpp">
@@ -273,7 +273,7 @@
     <ClCompile Include="lib\engine\Scene\SceneManager.cpp">
       <Filter>Engine\ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\engine\Base\FPS.cpp">
+    <ClCompile Include="lib\engine\Base\Core\FPS.cpp">
       <Filter>Engine\ソース ファイル\Base\Core</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\ImGui\ImGuiManager.cpp">
@@ -431,19 +431,19 @@
     <ClInclude Include="lib\engine\Base\WinApp.h">
       <Filter>Engine\ヘッダー ファイル\Base\Core</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\Base\DirectXCommon.h">
+    <ClInclude Include="lib\engine\Base\Core\DirectXCommon.h">
       <Filter>Engine\ヘッダー ファイル\Base\Core</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\Base\Pipeline.h">
+    <ClInclude Include="lib\engine\Base\Pipeline\Pipeline.h">
       <Filter>Engine\ヘッダー ファイル\Base\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\Base\Shader.h">
+    <ClInclude Include="lib\engine\Base\Pipeline\Shader.h">
       <Filter>Engine\ヘッダー ファイル\Base\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\Scene\Framework.h">
       <Filter>Engine\ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\Base\FPS.h">
+    <ClInclude Include="lib\engine\Base\Core\FPS.h">
       <Filter>Engine\ヘッダー ファイル\Base\Core</Filter>
     </ClInclude>
     <ClInclude Include="Users\Scene\SceneFactory.h">
@@ -529,6 +529,9 @@
     </ClInclude>
     <ClInclude Include="Users\Player\Player.h">
       <Filter>Application\ヘッダーファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\Base\SuppressWarning.h">
+      <Filter>Engine\ヘッダー ファイル\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,14 @@
 ﻿#pragma once
-#include <DirectXMath.h>
-#include <memory>
 
 #include "DirectX12Math.h"
 #include "TextureManager.h"
 #include "Shader.h"
 #include "Pipeline.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
+#include <DirectXMath.h>
+#include <memory>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 // 頂点データ構造体
 struct PosUvColor

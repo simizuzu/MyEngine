@@ -2,8 +2,10 @@
 
 #include "DirectXCommon.h"
 
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <DirectXTex.h>
 #include <array>
+MYENGINE_SUPPRESS_WARNINGS_END
 #include "EngineUtility.h"
 
 /// <summary>

@@ -1,5 +1,9 @@
-﻿#include <Windows.h>
+﻿#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
+#include <Windows.h>
 #include <memory>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "MainGame.h"
 #include "Framework.h"

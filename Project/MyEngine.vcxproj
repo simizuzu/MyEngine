@@ -33,11 +33,11 @@
     <ClCompile Include="lib\engine\3D\PrimitiveDrawer.cpp" />
     <ClCompile Include="lib\engine\3D\WorldTransform.cpp" />
     <ClCompile Include="lib\engine\Audio\AudioManager.cpp" />
-    <ClCompile Include="lib\engine\Base\DirectXCommon.cpp" />
-    <ClCompile Include="lib\engine\Base\FPS.cpp" />
+    <ClCompile Include="lib\engine\Base\Core\DirectXCommon.cpp" />
+    <ClCompile Include="lib\engine\Base\Core\FPS.cpp" />
     <ClCompile Include="lib\engine\Base\Light.cpp" />
-    <ClCompile Include="lib\engine\Base\Pipeline.cpp" />
-    <ClCompile Include="lib\engine\Base\Shader.cpp" />
+    <ClCompile Include="lib\engine\Base\Pipeline\Pipeline.cpp" />
+    <ClCompile Include="lib\engine\Base\Pipeline\Shader.cpp" />
     <ClCompile Include="lib\engine\Base\TextureManager.cpp" />
     <ClCompile Include="lib\engine\Base\WinApp.cpp" />
     <ClCompile Include="lib\engine\Camera\Camera.cpp" />
@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\engine\Camera\DebugCamera.h" />
+    <ClInclude Include="lib\engine\Base\SuppressWarning.h" />
     <ClInclude Include="Users\Scene\Title\TitleAnimation.h" />
     <ClInclude Include="Users\GameCamera\FPSCamera.h" />
     <ClInclude Include="lib\engine\2D\PostEffect\PostEffect.h" />
@@ -84,11 +85,11 @@
     <ClInclude Include="lib\engine\3D\PrimitiveDrawer.h" />
     <ClInclude Include="lib\engine\3D\WorldTransform.h" />
     <ClInclude Include="lib\engine\Audio\AudioManager.h" />
-    <ClInclude Include="lib\engine\Base\DirectXCommon.h" />
-    <ClInclude Include="lib\engine\Base\FPS.h" />
+    <ClInclude Include="lib\engine\Base\Core\DirectXCommon.h" />
+    <ClInclude Include="lib\engine\Base\Core\FPS.h" />
     <ClInclude Include="lib\engine\Base\Light.h" />
-    <ClInclude Include="lib\engine\Base\Pipeline.h" />
-    <ClInclude Include="lib\engine\Base\Shader.h" />
+    <ClInclude Include="lib\engine\Base\Pipeline\Pipeline.h" />
+    <ClInclude Include="lib\engine\Base\Pipeline\Shader.h" />
     <ClInclude Include="lib\engine\Base\TextureManager.h" />
     <ClInclude Include="lib\engine\Base\Utility\EngineUtility.h" />
     <ClInclude Include="lib\engine\Base\WinApp.h" />
@@ -315,11 +316,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Pipeline;$(ProjectDir)lib\engine\Base\Core;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>5045;5026</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -336,11 +338,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Pipeline;$(ProjectDir)lib\engine\Base\Core;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collision;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\2D;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir)Resources\shaders;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>5045;5026</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

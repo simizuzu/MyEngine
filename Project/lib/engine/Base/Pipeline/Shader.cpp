@@ -1,8 +1,10 @@
 ﻿#include "Shader.h"
 
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 #include <string>
 #include <d3dcompiler.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib,"d3dcompiler.lib")
 

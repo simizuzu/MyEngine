@@ -1,6 +1,9 @@
 ﻿#include "ImGuiManager.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx12.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 void ImGuiManager::Initialize(WinApp* winApp, DirectXCommon* dxCommon)
 {

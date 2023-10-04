@@ -1,7 +1,12 @@
 ﻿#pragma once
+#include "SuppressWarning.h"
+
 #include "Vector2.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <Windows.h>
 #include <Xinput.h>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment (lib, "xinput.lib")
 

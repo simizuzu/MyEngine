@@ -1,5 +1,9 @@
 ﻿#include"Vector2.h"
+#include "SuppressWarning.h"
+
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include<cmath>
+MYENGINE_SUPPRESS_WARNINGS_END
 
 namespace MyMath
 {
