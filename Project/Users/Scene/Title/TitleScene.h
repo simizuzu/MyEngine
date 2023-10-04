@@ -5,9 +5,9 @@
 #include "SceneManager.h"
 #include "Light.h"
 
-#include "Sprite.h"
-#include "ObjObject3d.h"
-#include "ParticleManager.h"
+
+
+#include "TitleAnimation.h"
 
 #pragma warning(push)
 #pragma warning(disable: 4091)
@@ -41,17 +41,18 @@ public: // メンバ関数
 	/// </summary>
 	void Finalize() override;
 
+	/// <summary>
+	/// 点滅する処理
+	/// </summary>
+	void ClickBlinking();
+
 private:
 	Input* input_ = nullptr;
 	std::unique_ptr<Camera> camera;
 	std::unique_ptr<Light> light;
 	SceneManager* sceneManager_= nullptr;
-#pragma region Sprite
-	TextureData tex;
-	std::unique_ptr<Sprite> sprite_;
 
-#pragma endregion
-
+	std::unique_ptr<TitleAnimation> titleAnimation_;
 #pragma region OBJ
 	std::unique_ptr<ObjObject3d> playerObj;
 	std::unique_ptr<ObjModel> playerModel;

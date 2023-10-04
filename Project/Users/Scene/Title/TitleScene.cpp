@@ -11,11 +11,8 @@ void TitleScene::Initialize()
 	light->SetLightColor({ 1,1,1 });
 	ObjObject3d::SetLight(light.get());
 
-#pragma region Sprite
-	tex = TextureManager::Load("Resources/Texture/Title.png");
-	sprite_ = std::make_unique<Sprite>();
-	sprite_->Initialize();
-#pragma endregion
+	titleAnimation_ = std::make_unique<TitleAnimation>();
+	titleAnimation_->Initalize(camera.get());
 
 #pragma region OBJ
 
@@ -34,10 +31,12 @@ void TitleScene::Update()
 {
 	if (input_->MouseButtonTrigger(LEFT))
 	{
-		sceneManager_->ChangeScene("GAME");
+		//sceneManager_->ChangeScene("GAME");
 	}
 	camera->Update();
 	light->Update();
+
+	titleAnimation_->Update();
 
 	rot+=0.05f;
 	playerTrans.SetRotation({ 0,rot,MyMathUtility::degree2Radius * -15 });
@@ -48,10 +47,15 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
-	sprite_->Draw(tex,{0,0});
+	titleAnimation_->Draw();
 	playerObj->Draw(&playerTrans);
 }
 
 void TitleScene::Finalize()
 {
+}
+
+void TitleScene::ClickBlinking()
+{
+	
 }

@@ -191,30 +191,30 @@ namespace MyMathUtility {
 		return position;
 	}
 
-	MyMath::Vector3 SplinePositionAnim(std::vector<LevelData::AnimData>& points, size_t startIndex, float t)
-	{
-		//制御点のindexをずらしていく処理
-		float length = static_cast<float>(points.size());
-		float progress = (length - 1) * t;
-		float index = std::floor(progress);
-		float weight = progress - index;
+	//MyMath::Vector3 SplinePositionAnim(std::vector<LevelData::AnimData>& points, size_t startIndex, float t)
+	//{
+	//	//制御点のindexをずらしていく処理
+	//	float length = static_cast<float>(points.size());
+	//	float progress = (length - 1) * t;
+	//	float index = std::floor(progress);
+	//	float weight = progress - index;
 
-		//1秒あたり60フレーム
-		float timeStep = 1.0f / 60.0f;
+	//	//1秒あたり60フレーム
+	//	float timeStep = 1.0f / 60.0f;
 
 
 
-		//p0~p3 の制御点を取得する ※p1~p2 を補間する
-		MyMath::Vector3 p0 = points[static_cast<size_t>(index) - 1].trans;
-		MyMath::Vector3 p1 = points[static_cast<size_t>(index)].trans;
-		MyMath::Vector3 p2 = points[static_cast<size_t>(index) + 1].trans;
-		MyMath::Vector3 p3 = points[static_cast<size_t>(index) + 2].trans;
+	//	//p0~p3 の制御点を取得する ※p1~p2 を補間する
+	//	MyMath::Vector3 p0 = points[static_cast<size_t>(index) - 1].trans;
+	//	MyMath::Vector3 p1 = points[static_cast<size_t>(index)].trans;
+	//	MyMath::Vector3 p2 = points[static_cast<size_t>(index) + 1].trans;
+	//	MyMath::Vector3 p3 = points[static_cast<size_t>(index) + 2].trans;
 
-		//Catmull-Romの式による補間
-		MyMath::Vector3 position = MyMathUtility::HermiteGetPoint(p0, p1, p2, p3, weight);
+	//	//Catmull-Romの式による補間
+	//	MyMath::Vector3 position = MyMathUtility::HermiteGetPoint(p0, p1, p2, p3, weight);
 
-		return position;
-	}
+	//	return position;
+	//}
 
 	MyMath::Vector3 CalcTangentPosition(const MyMath::Vector3& prevPoint, const MyMath::Vector3& nextPoint)
 	{

@@ -193,6 +193,42 @@
     <Filter Include="Engine\ヘッダー ファイル\3D\Primitive">
       <UniqueIdentifier>{bddbf111-9dff-49df-be25-bf4e8489f0af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\ソースファイル\Scene\BaseScene\Game">
+      <UniqueIdentifier>{b223b6ff-ecac-439a-8810-8ae0a6feea65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ソースファイル\Scene\BaseScene\Result">
+      <UniqueIdentifier>{fea3594b-1936-4050-a5b9-463ba72d2d62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ソースファイル\Scene\BaseScene\Title">
+      <UniqueIdentifier>{9926ee36-19b9-450c-a7bc-ce22d012eeec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Scene\BaseScene\Game">
+      <UniqueIdentifier>{f54c4334-ef15-443f-8b98-c5146c3f5495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Scene\BaseScene\Title">
+      <UniqueIdentifier>{2b32be17-58f7-4c4f-8469-64e50f21ee7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Scene\BaseScene\Result">
+      <UniqueIdentifier>{a596fa27-f7d6-4fe9-82d6-58d185b6e94d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ソースファイル\GameCamera">
+      <UniqueIdentifier>{831a8965-242f-4097-9660-30605c331cc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\GameCamera">
+      <UniqueIdentifier>{3df4f6b9-6b5a-47ea-8a07-4d17095d42a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ソースファイル\Player">
+      <UniqueIdentifier>{3bced1bb-2a5d-418b-96f5-5d043f891269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Player">
+      <UniqueIdentifier>{e15142c0-2f1b-4b98-840e-5b59048a0153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Reticle">
+      <UniqueIdentifier>{ad282a86-b734-4112-8d16-559b6dda9a46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ソースファイル\Reticle">
+      <UniqueIdentifier>{bdfe7a1a-b153-47f2-b75a-579d427f3b8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\engine\main.cpp">
@@ -291,28 +327,13 @@
     <ClCompile Include="Users\Scene\SceneFactory.cpp">
       <Filter>Application\ソースファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Users\Scene\GameScene.cpp">
-      <Filter>Application\ソースファイル\Scene\BaseScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Scene\TitleScene.cpp">
-      <Filter>Application\ソースファイル\Scene\BaseScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\GameCamera\GameCamera.cpp">
-      <Filter>Application\ソースファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Player\Player.cpp">
-      <Filter>Application\ソースファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Player\PlayerBullet.cpp">
-      <Filter>Application\ソースファイル</Filter>
-    </ClCompile>
     <ClCompile Include="lib\engine\Editer\LevelLoader.cpp">
       <Filter>Engine\ソース ファイル\Editer</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\WorldTransform.cpp">
       <Filter>Engine\ソース ファイル\3D\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="lib\engine\Scene\SceneData.cpp">
+    <ClCompile Include="Users\Scene\Game\SceneData.cpp">
       <Filter>Application\ソースファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\2D\PostEffect\PostEffect.cpp">
@@ -324,20 +345,38 @@
     <ClCompile Include="lib\engine\Input\Mouse.cpp">
       <Filter>Engine\ソース ファイル\Input\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="Users\Reticle\Raticle3D.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Reticle\Raticle2D.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\GameCamera\FPSCamera.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Scene\ResultScene.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="lib\engine\Camera\DebugCamera.cpp">
       <Filter>Engine\ソース ファイル\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Scene\Game\GameScene.cpp">
+      <Filter>Application\ソースファイル\Scene\BaseScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Scene\Result\ResultScene.cpp">
+      <Filter>Application\ソースファイル\Scene\BaseScene\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Scene\Title\TitleScene.cpp">
+      <Filter>Application\ソースファイル\Scene\BaseScene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Scene\Title\TitleAnimation.cpp">
+      <Filter>Application\ソースファイル\Scene\BaseScene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\GameCamera\FPSCamera.cpp">
+      <Filter>Application\ソースファイル\GameCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\GameCamera\GameCamera.cpp">
+      <Filter>Application\ソースファイル\GameCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Reticle\Raticle3D.cpp">
+      <Filter>Application\ソースファイル\Reticle</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Reticle\Raticle2D.cpp">
+      <Filter>Application\ソースファイル\Reticle</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Player\Player.cpp">
+      <Filter>Application\ソースファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Player\PlayerBullet.cpp">
+      <Filter>Application\ソースファイル\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -407,21 +446,6 @@
     <ClInclude Include="lib\engine\Base\FPS.h">
       <Filter>Engine\ヘッダー ファイル\Base\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Users\Scene\TitleScene.h">
-      <Filter>Application\ヘッダーファイル\Scene\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Scene\GameScene.h">
-      <Filter>Application\ヘッダーファイル\Scene\BaseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Player\Player.h">
-      <Filter>Application\ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Player\PlayerBullet.h">
-      <Filter>Application\ヘッダーファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\GameCamera\GameCamera.h">
-      <Filter>Application\ヘッダーファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Users\Scene\SceneFactory.h">
       <Filter>Application\ヘッダーファイル\Scene</Filter>
     </ClInclude>
@@ -461,7 +485,7 @@
     <ClInclude Include="lib\engine\3D\WorldTransform.h">
       <Filter>Engine\ヘッダー ファイル\3D\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\Scene\SceneData.h">
+    <ClInclude Include="Users\Scene\Game\SceneData.h">
       <Filter>Application\ヘッダーファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\2D\PostEffect\PostEffect.h">
@@ -473,20 +497,38 @@
     <ClInclude Include="lib\engine\Input\Mouse.h">
       <Filter>Engine\ヘッダー ファイル\Input\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="Users\Reticle\Raticle3D.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Reticle\Raticle2D.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\GameCamera\FPSCamera.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Scene\ResultScene.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="lib\engine\Camera\DebugCamera.h">
       <Filter>Engine\ヘッダー ファイル\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Scene\Game\GameScene.h">
+      <Filter>Application\ヘッダーファイル\Scene\BaseScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Scene\Result\ResultScene.h">
+      <Filter>Application\ヘッダーファイル\Scene\BaseScene\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Scene\Title\TitleAnimation.h">
+      <Filter>Application\ヘッダーファイル\Scene\BaseScene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Scene\Title\TitleScene.h">
+      <Filter>Application\ヘッダーファイル\Scene\BaseScene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\GameCamera\GameCamera.h">
+      <Filter>Application\ヘッダーファイル\GameCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\GameCamera\FPSCamera.h">
+      <Filter>Application\ヘッダーファイル\GameCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Reticle\Raticle2D.h">
+      <Filter>Application\ヘッダーファイル\Reticle</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Reticle\Raticle3D.h">
+      <Filter>Application\ヘッダーファイル\Reticle</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Player\PlayerBullet.h">
+      <Filter>Application\ヘッダーファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Player\Player.h">
+      <Filter>Application\ヘッダーファイル\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
