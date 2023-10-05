@@ -1,4 +1,4 @@
-﻿#include "PlayerBullet.h"
+#include "PlayerBullet.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
@@ -44,3 +44,4 @@ bool PlayerBullet::IsDead() const
 {
 	return isDead_;
 }
+

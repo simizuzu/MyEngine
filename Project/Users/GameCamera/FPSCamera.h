@@ -43,5 +43,10 @@ private:
 
 	float HAngle;
 	float VAngle;
+
+private:
+	//コピーコンストラクタ・代入演算子削除
+	FPSCamera& operator=(const FPSCamera&) = delete;
+	FPSCamera(const FPSCamera&) = delete;
 };
 

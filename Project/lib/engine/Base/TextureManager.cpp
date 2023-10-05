@@ -1,4 +1,4 @@
-﻿#include "TextureManager.h"
+#include "TextureManager.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
@@ -171,4 +171,9 @@ TextureManager* TextureManager::GetInstance()
 {
 	static TextureManager instance;
 	return &instance;
+}
+
+ID3D12DescriptorHeap* TextureManager::GetSrvHeap()
+{
+	return srvHeap.Get();
 }

@@ -1,4 +1,4 @@
-﻿#include "DirectX12Math.h"
+#include "DirectX12Math.h"
 #include "WinApp.h"
 #include <cmath>
 #include <cassert>
@@ -227,10 +227,10 @@ namespace MyMathUtility
 			for (int j = 0; j < 4; j++)
 			{
 				//weepの左側に逆行列を求める行列をセット
-				sweep[i][j] = mat.m[i][j];
+				sweep[(uint32_t)i][ ( uint32_t ) j] = mat.m[ ( uint32_t ) i][ ( uint32_t ) j];
 
 				//sweepの右側に単位行列をセット
-				sweep[i][4 + j] = MakeIdentity().m[i][j];
+				sweep[ ( uint32_t ) i][4 + ( uint32_t ) j] = MakeIdentity().m[ ( uint32_t ) i][ ( uint32_t ) j];
 			}
 		}
 
@@ -300,9 +300,9 @@ namespace MyMathUtility
 		}
 
 		//sweepの右半分がmatの逆行列
-		for (int i = 0; i < 4; i++)
+		for (size_t i = 0; i < 4; i++)
 		{
-			for (int j = 0; j < 4; j++)
+			for ( size_t j = 0; j < 4; j++)
 			{
 				retMat.m[i][j] = sweep[i][4 + j];
 			}

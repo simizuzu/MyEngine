@@ -1,4 +1,4 @@
-﻿#include "ObjModel.h"
+#include "ObjModel.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <DirectXTex.h>
@@ -195,14 +195,14 @@ void ObjModel::LoadFromOBJInternal(const std::string& modelname,bool smoothing)
 				index_stream >> indexNormal;
 				// 頂点データの追加
 				VertexPosNormalUv vertex{};
-				vertex.pos = positions[indexPosition - 1];
-				vertex.normal = normals[indexNormal - 1];
-				vertex.uv = texcoords[indexTexcoord - 1];
+				vertex.pos = positions[(uint32_t)indexPosition - 1];
+				vertex.normal = normals[ ( uint32_t ) indexNormal - 1];
+				vertex.uv = texcoords[ ( uint32_t ) indexTexcoord - 1];
 				vertices.emplace_back(vertex);
 				//エッジ平滑化用のデータを追加
 				if (smoothing)
 				{
-					AddSmoothData(indexPosition, (unsigned short)GetVertexCount() - 1);
+					AddSmoothData(indexPosition, (unsigned short)(GetVertexCount() - 1));
 				}
 				// インデックスデータの追加
 				indices.emplace_back((unsigned short)indices.size());
@@ -439,3 +439,11 @@ void ObjModel::CalculateSmoothedVertexNormals()
 	}
 }
 #pragma endregion
+
+Material::Material()
+{
+	ambient = { 0.3f,0.3f,0.3f };
+	diffuse = { 0.0f,0.0f,0.0f };
+	specular = { 0.0f,0.0f,0.0f };
+	alpha = 1.0f;
+}

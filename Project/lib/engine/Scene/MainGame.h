@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "ObjObject3d.h"
 #include "Sprite.h"
 #include "ParticleManager.h"
@@ -12,9 +12,6 @@
 class MainGame : public Framework
 {
 public: // メンバ関数
-	MainGame() = default;
-	~MainGame() = default;
-
 	// 初期化
 	void Initialize() override;
 	// 終了
@@ -24,8 +21,18 @@ public: // メンバ関数
 	// 描画
 	void Draw() override;
 
+	MainGame() = default;
+	~MainGame() = default;
+
 private:
 	// ゲーム終了フラグ
 	bool endRequest_ = false;
+	int8_t pad[7 ];
+
+	//代入演算子削除
+	MainGame& operator=(const MainGame&) = delete;
+	//コピーコンストラクタ削除
+	MainGame(const MainGame&) = delete;
+
 };
 

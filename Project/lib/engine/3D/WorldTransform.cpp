@@ -1,4 +1,4 @@
-﻿#include "WorldTransform.h"
+#include "WorldTransform.h"
 #include"DirectXCommon.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN

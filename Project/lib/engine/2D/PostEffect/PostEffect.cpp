@@ -1,12 +1,12 @@
-﻿#include "PostEffect.h"
+#include "PostEffect.h"
 
-#pragma warning(push)
-#include "DirectXTex.h"
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
+#include <DirectXTex.h>
 #include <WinApp.h>
 #include <d3dx12.h>
 #include <d3dcompiler.h>
 #include <memory>
-#pragma warning(pop)
+MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "DirectXCommon.h"
 
@@ -65,8 +65,8 @@ void PostEffect::CreateTex()
 	//テクスチャリソース設定
 	CD3DX12_RESOURCE_DESC texresDesc = CD3DX12_RESOURCE_DESC::Tex2D(
 		DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
-		WinApp::GetInstance()->window_width,
-		(int32_t)WinApp::GetInstance()->window_height,
+		(UINT)WinApp::GetInstance()->window_width,
+		(UINT)WinApp::GetInstance()->window_height,
 		1, 0, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET
 	);
 
@@ -84,7 +84,7 @@ void PostEffect::CreateTex()
 
 	{//テクスチャを赤クリア
 		//画素数(1280*720=921600ピクセル)
-		const uint32_t pixelCount = WinApp::GetInstance()->window_width * WinApp::GetInstance()->window_height;
+		const uint32_t pixelCount = ( uint32_t ) WinApp::GetInstance()->window_width * ( uint32_t ) WinApp::GetInstance()->window_height;
 		//画像1行分のデータサイズ
 		const uint32_t rowPitch = sizeof(uint32_t) * WinApp::GetInstance()->window_width;
 		//画像1行分のデータサイズ
@@ -154,7 +154,7 @@ void PostEffect::CreateDepth()
 {
 	//深度バッファリソース設定
 	CD3DX12_RESOURCE_DESC depthResourceDesc =
-		CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, WinApp::GetInstance()->window_width, WinApp::GetInstance()->window_height, 1, 0, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
+		CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, (UINT)WinApp::GetInstance()->window_width,( UINT ) WinApp::GetInstance()->window_height, 1, 0, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
 
 	//深度バッファの生成
 	CD3DX12_HEAP_PROPERTIES depthProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);

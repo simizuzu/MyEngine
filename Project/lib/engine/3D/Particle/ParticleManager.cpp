@@ -1,4 +1,4 @@
-﻿#include "ParticleManager.h"
+#include "ParticleManager.h"
 #include "EngineUtility.h"
 #include "DirectXCommon.h"
 #include"TextureManager.h"
@@ -6,7 +6,7 @@
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
-#include <DirectXTex/d3dx12.h>
+#include <d3dx12.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
 /// <summary>

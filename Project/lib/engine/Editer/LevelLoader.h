@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -20,6 +20,7 @@ struct LevelData {
 		MyMath::Vector3 rotation;
 		// スケーリング
 		MyMath::Vector3 scaling;
+		int8_t pad1[ 4 ];
 	};
 
 	struct CurveData {

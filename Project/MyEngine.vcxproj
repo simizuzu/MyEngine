@@ -39,7 +39,7 @@
     <ClCompile Include="lib\engine\Base\Pipeline\Pipeline.cpp" />
     <ClCompile Include="lib\engine\Base\Pipeline\Shader.cpp" />
     <ClCompile Include="lib\engine\Base\TextureManager.cpp" />
-    <ClCompile Include="lib\engine\Base\WinApp.cpp" />
+    <ClCompile Include="lib\engine\Base\Core\WinApp.cpp" />
     <ClCompile Include="lib\engine\Camera\Camera.cpp" />
     <ClCompile Include="lib\engine\Editer\LevelLoader.cpp" />
     <ClCompile Include="lib\engine\ImGui\ImGuiManager.cpp" />
@@ -92,7 +92,7 @@
     <ClInclude Include="lib\engine\Base\Pipeline\Shader.h" />
     <ClInclude Include="lib\engine\Base\TextureManager.h" />
     <ClInclude Include="lib\engine\Base\Utility\EngineUtility.h" />
-    <ClInclude Include="lib\engine\Base\WinApp.h" />
+    <ClInclude Include="lib\engine\Base\Core\WinApp.h" />
     <ClInclude Include="lib\engine\Camera\Camera.h" />
     <ClInclude Include="lib\engine\Editer\LevelLoader.h" />
     <ClInclude Include="lib\engine\ImGui\ImGuiManager.h" />
@@ -121,14 +121,6 @@
     <ClInclude Include="Users\Scene\Game\GameScene.h" />
     <ClInclude Include="Users\Scene\SceneFactory.h" />
     <ClInclude Include="Users\Scene\Title\TitleScene.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="lib\External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
-      <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
-    </ProjectReference>
-    <ProjectReference Include="lib\External\imgui\imgui.vcxproj">
-      <Project>{87c7a5ed-2c06-4fa9-8237-9922ba531380}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\FBX\FBX.hlsli" />
@@ -271,14 +263,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)lib\engine\Editer;$(SolutionDir)lib\External\DirectXTex;$(SolutionDir)lib\External\imgui;$(SolutionDir)lib\External\fbx_sdk\include</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\engine\Editer;$(SolutionDir)lib\External\DirectXTex\inc;$(SolutionDir)lib\External\imgui\inc;$(SolutionDir)lib\External\fbx_sdk\include</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\External\DirectXTex\lib\;$(ProjectDir)lib\External\imgui\lib\$(Configuration);$(ProjectDir)lib\External\DirectXTex\lib\$(Configuration);$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)lib\engine\Editer;$(SolutionDir)lib\External\DirectXTex;$(SolutionDir)lib\External\imgui;$(SolutionDir)lib\External\fbx_sdk\include</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\engine\Editer;$(SolutionDir)lib\External\DirectXTex\inc;$(SolutionDir)lib\External\imgui\inc;$(SolutionDir)lib\External\fbx_sdk\include</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\External\DirectXTex\lib\;$(ProjectDir)lib\External\imgui\lib\$(Configuration);$(ProjectDir)lib\External\DirectXTex\lib\$(Configuration);$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -321,13 +313,13 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableSpecificWarnings>5045;5026</DisableSpecificWarnings>
+      <DisableSpecificWarnings>5045</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>libfbxsdk-md.lib;libxml2-md.lib;zlib-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libfbxsdk-md.lib;libxml2-md.lib;zlib-md.lib;DirectXTex.lib;imgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -343,7 +335,9 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableSpecificWarnings>5045;5026</DisableSpecificWarnings>
+      <DisableSpecificWarnings>5045;4711;4710</DisableSpecificWarnings>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -351,7 +345,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>libfbxsdk-mt.lib;libxml2-mt.lib;zlib-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libxml2-mt.lib;zlib-mt.lib;DirectXTex.lib;imgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

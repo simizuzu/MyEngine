@@ -7,8 +7,8 @@ void SceneData::Initialize(Camera* camera)
 	levelData = LevelLoader::LoadFile("levelData");
 	curveData2 = LevelLoader::LoadFile("curveData");
 	
-	player = new Player();
-	player->Initialize(camera_);
+	player_ = std::make_unique<Player>();
+	player_->Initialize(camera_);
 
 	tyoinoriModel_.reset(ObjModel::LoadFromObj("box"));
 	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
@@ -49,7 +49,7 @@ void SceneData::Update()
 	groundTrans.Update(camera_);
 	tyoinoriTrans.Update(camera_);
 
-	player->Update();
+	player_->Update();
 
 	nowCount++;
 	elapsedCount = nowCount - startCount;
@@ -74,8 +74,8 @@ void SceneData::Update()
 
 	for (size_t i = 0; i < objs.size(); i++)
 	{
-		float t = 1.0f / objs.size();
-		MyMath::Vector3 pos = MyMathUtility::SplinePosition(curveData2->curves, t * i, startIndex);
+		float t = 1.0f / (float)objs.size();
+		MyMath::Vector3 pos = MyMathUtility::SplinePosition(curveData2->curves, t * (float)i, startIndex);
 		pos.y = 6.0f;
 		objs[i].translation_ = pos;
 
@@ -100,6 +100,6 @@ void SceneData::Draw()
 	groundObj_->Draw(&groundTrans);
 
 	display->Draw(displayTex, { 0,0 });
-	player->Draw();
-	player->UIDraw();
+	player_->Draw();
+	player_->UIDraw();
 }

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "FbxModel.h"
 #include "DirectX12Math.h"
 #include "Pipeline.h"
@@ -42,6 +42,12 @@ public:
 	struct ConstBufferDataSkin
 	{
 		MyMath::Matrix4 bones[MAX_BONES];
+
+		//代入演算子削除
+		ConstBufferDataSkin& operator=(const ConstBufferDataSkin&) = delete;
+
+		//コピーコンストラクタ削除
+		ConstBufferDataSkin(const ConstBufferDataSkin&) = delete;
 	};
 
 public:
@@ -90,6 +96,7 @@ protected:
 	MyMath::Vector3 scale_ = { 1.0f,1.0f,1.0f };
 
 	MyMath::Matrix4 matWorld;
+	int8_t pad1[4 ];
 
 	//1フレームの時間
 	FbxTime frameTime;
@@ -101,7 +108,17 @@ protected:
 	FbxTime currentTime;
 	//アニメーション再生中
 	bool isPlay = false;
+	int8_t pad2[7 ];
 
 	// モデル
 	FbxModel* model_ = nullptr;
+
+	FbxObject3d() = default;
+
+private:
+	~FbxObject3d() = default;
+	//代入演算子削除
+	FbxObject3d& operator=(const FbxObject3d&) = delete;
+	//コピーコンストラクタ削除
+	FbxObject3d(const FbxObject3d&) = delete;
 };

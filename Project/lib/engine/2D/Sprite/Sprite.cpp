@@ -1,4 +1,4 @@
-﻿#include "Sprite.h"
+#include "Sprite.h"
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <d3dcompiler.h>
 MYENGINE_SUPPRESS_WARNINGS_END
@@ -45,6 +45,26 @@ void Sprite::StaticInitialize()
 	}
 }
 
+void Sprite::SetPosiotion(const MyMath::Vector2& position)
+{
+	position_ = position;
+}
+
+void Sprite::SetRotation(float rotation)
+{
+	rotation_ = rotation;
+}
+
+void Sprite::SetSize(const MyMath::Vector2& size)
+{
+	size_ = size;
+}
+
+void Sprite::SetColor(const MyMath::Vector4& color)
+{
+	color_ = color;
+}
+
 void Sprite::Initialize()
 {
 	CreateVertexIndexBuff();
@@ -71,10 +91,10 @@ void Sprite::Draw(TextureData& textureData, MyMath::Vector2 position, MyMath::Ve
 	if (flipY == false)isFlipY = 1;
 	else isFlipY = -1;
 
-	float left = ((0.0f - anchorpoint.x) * textureData.width) * isFlipX;
-	float right = ((1.0f - anchorpoint.x) * textureData.width) * isFlipX;
-	float top = ((0.0f - anchorpoint.y) * textureData.height) * isFlipY;
-	float bottom = ((1.0f - anchorpoint.y) * textureData.height) * isFlipY;
+	float left = ((0.0f - anchorpoint.x) * (float)textureData.width) * ( float ) isFlipX;
+	float right = ((1.0f - anchorpoint.x) * ( float ) textureData.width) * ( float ) isFlipX;
+	float top = ((0.0f - anchorpoint.y) * ( float ) textureData.height) * ( float ) isFlipY;
+	float bottom = ((1.0f - anchorpoint.y) * ( float ) textureData.height) * ( float ) isFlipY;
 
 	//頂点データ
 	PosUvColor vertices[] =
@@ -243,6 +263,11 @@ void Sprite::CreateConstBuff()
 	assert(SUCCEEDED(result));
 }
 
+void Sprite::SetTextureIndex(uint32_t textureIndex)
+{
+	textureIndex_ = textureIndex;
+}
+
 void Sprite::SetBlendMode(BlendMode mode)
 {
 	switch (mode)
@@ -289,4 +314,28 @@ void Sprite::SetBlendMode(BlendMode mode)
 
 		break;
 	}
+}
+
+const MyMath::Vector2& Sprite::GetPosition() const
+{
+	return position_;
+}
+float Sprite::GetRotation() const
+{
+	return rotation_;
+}
+
+const MyMath::Vector4& Sprite::GetColor() const
+{
+	return color_;
+}
+
+const MyMath::Vector2& Sprite::GetSize() const
+{
+	return size_;
+}
+
+uint32_t Sprite::GetTextureIndex()
+{
+	return textureIndex_;
 }

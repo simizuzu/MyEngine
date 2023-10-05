@@ -1,4 +1,4 @@
-﻿#include "SuppressWarning.h"
+#include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <Windows.h>
@@ -7,10 +7,6 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "MainGame.h"
 #include "Framework.h"
-
-#pragma warning(push)
-#pragma warning(disable: 4091)
-#pragma warning(pop)
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int){

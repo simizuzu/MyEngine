@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "PlayerBullet.h"
 #include "Input.h"
 #include "LevelLoader.h"
@@ -35,7 +35,10 @@ public:
 
 	void ReticleMouse();
 
-	void Finalize();
+	//void Finalize();
+
+	Player() = default;
+	~Player();
 
 private:
 	MyMath::Vector3 rot;
@@ -91,7 +94,10 @@ private:
 	std::unique_ptr<Sprite> sprite2DReticle;
 	TextureData texReticle;
 
-public:
-	~Player();
+private:
+	//代入演算子削除
+	Player& operator=(const Player&) = delete;
+	//コピーコンストラクタ削除
+	Player(const Player&) = delete;
 };
 

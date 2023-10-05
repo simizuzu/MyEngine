@@ -1,4 +1,4 @@
-﻿#include "Camera.h"
+#include "Camera.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <wrl.h>

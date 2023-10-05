@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "DirectXCommon.h"
 
 #include "Vector3.h"
@@ -71,11 +71,14 @@ public:
 	MyMath::Vector4 lightdir_ = { 1.0f,0.0f,0.0f,0.0f };
 	//ライト色
 	MyMath::Vector3 lightColor_ = { 1.0f,1.0f,1.0f };
+	int8_t pad1[ 4 ];
 
 protected: //メンバ変数
 	//定数バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuff;
+
 	//ダーティフラグ
 	bool dirty = false;
+	int8_t pad2[ 7 ];
 };
 

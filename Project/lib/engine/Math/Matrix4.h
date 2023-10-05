@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -23,6 +23,8 @@ namespace MyMath
 			float m20, float m21, float m22, float m23,
 			float m30, float m31, float m32, float m33);
 
+		~Matrix4() = default;
+
 		/// <summary>
 		/// 代入演算子
 		/// </summary>
@@ -40,6 +42,9 @@ namespace MyMath
 		Matrix4 operator-(const Matrix4& mat) const;
 		// 乗算
 		Matrix4 operator*(const Matrix4& mat) const;
+
+		//コピーコンストラクタ
+		Matrix4(const Matrix4&);
 	};
 }
 

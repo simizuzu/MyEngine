@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "DirectX12Math.h"
 #include "TextureManager.h"
@@ -82,7 +82,8 @@ private: // メンバ変数
 	// テクスチャ番号
 	uint32_t textureIndex_ = 0;
 	// ブレンドモード
-	int blendMode = (int)BlendMode::Alpha;
+	uint8_t blendMode = (int)BlendMode::Alpha;
+	int8_t pad1[ 7 ];
 
 public: // メンバ関数
 	/// <summary>
@@ -149,31 +150,31 @@ public: // setter,getter
 	/// 座標をセット
 	/// </summary>
 	/// <param name="position">: 座標{ x,y }</param>
-	void SetPosiotion(const MyMath::Vector2& position) { position_ = position; }
+	void SetPosiotion(const MyMath::Vector2& position);
 
 	/// <summary>
 	/// 回転角をセット
 	/// </summary>
 	/// <param name="rotation">: 角度</param>
-	void SetRotation(float rotation) { rotation_ = rotation; }
+	void SetRotation(float rotation);
 
 	/// <summary>
 	/// スプライトの大きさをセット
 	/// </summary>
 	/// <param name="rotation">サイズ</param>
-	void SetSize(const MyMath::Vector2& size) { size_ = size; }
+	void SetSize(const MyMath::Vector2& size);
 
 	/// <summary>
 	/// スプライトの色をセット
 	/// </summary>
 	/// <param name="color">: 色{ red,blue,green,alpha }</param>
-	void SetColor(const MyMath::Vector4& color) { color_ = color; }
+	void SetColor(const MyMath::Vector4& color);
 
 	/// <summary>
 	/// テクスチャ番号をセット
 	/// </summary>
 	/// <param name="textureIndex">: テクスチャ番号</param>
-	void SetTextureIndex(uint32_t textureIndex) { textureIndex_ = textureIndex; }
+	void SetTextureIndex(uint32_t textureIndex);
 
 	/// <summary>
 	/// ブレンドを設定
@@ -181,20 +182,18 @@ public: // setter,getter
 	void SetBlendMode(BlendMode mode);
 
 	// 座標
-	const MyMath::Vector2& GetPosition() const { return position_; }
+	const MyMath::Vector2& GetPosition() const;
 	// 角度
-	float GetRotation() const { return rotation_; }
+	float GetRotation() const;
 	// 色
-	const MyMath::Vector4& GetColor() const { return color_; }
+	const MyMath::Vector4& GetColor() const;
 	// サイズ
-	const MyMath::Vector2& GetSize() const { return size_; }
+	const MyMath::Vector2& GetSize() const;
 	// テクスチャ番号
-	uint32_t GetTextureIndex() { return textureIndex_; }
+	uint32_t GetTextureIndex();
 
 private: // クラス呼び出し
 	TextureManager* textureManager_ = nullptr;
 	DirectXCommon* dxCommon_ = nullptr;
 	static WinApp* winApp_;
-
-	//TextureData textureData;
 };

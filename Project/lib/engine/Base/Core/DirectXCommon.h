@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -14,6 +14,8 @@ class DirectXCommon
 private:
 	// DirectX 初期化処理
 	HRESULT result;
+	int8_t pad1[ 4 ];
+
 	Microsoft::WRL::ComPtr<ID3D12Device> device;
 	Microsoft::WRL::ComPtr<IDXGIFactory7> dxgiFactory;
 	Microsoft::WRL::ComPtr<IDXGISwapChain4> swapChain;

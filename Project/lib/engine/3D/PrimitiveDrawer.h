@@ -83,7 +83,7 @@ public:
 	void Reset();
 
 
-	void SetViewProjection(const ViewProjection* viewProjection) { viewProjection_ = viewProjection; }
+	void SetViewProjection(const ViewProjection* viewProjection);
 
 private:
 	PrimitiveDrawer() = default;
@@ -103,10 +103,12 @@ private:
 	std::unique_ptr<Mesh> line_;
 
 	uint32_t indexLine_ = 0;
+	int8_t pad1[4 ];
 
 	const ViewProjection* viewProjection_ = nullptr;
 
 	BlendMode blendMode_ = BlendMode::Normal;
+	int8_t pad2[ 4 ];
 
 	std::array<std::unique_ptr<PipelineSet>, (uint16_t)BlendMode::CountOfBlendMode> pipelineSetLines_;
 };

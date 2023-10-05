@@ -12,11 +12,6 @@
 class TitleAnimation
 {
 public:
-	//コンストラクタ
-	TitleAnimation() = default;
-	//デストラクタ
-	~TitleAnimation() = default;
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -37,6 +32,8 @@ public:
 	/// </summary>
 	void Finalize();
 
+	TitleAnimation() = default;
+	~TitleAnimation() = default;
 private:
 	/// <summary>
 	/// クリックするテクスチャのアニメーション処理
@@ -77,20 +74,26 @@ private: //メンバ変数
 #pragma region その他変数
 	
 	uint16_t clickTime = 0;
+	int8_t pad1[ 6 ];
+
 	std::vector<LevelData::CurveData> points;
 
 	float maxTime = 0.5f;				//全体時間[s]
 	float timeRate;						//何％時間が進んだか
+	int8_t pad2[ 4 ];
 
 	float targetTimeRate;
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;
 	uint32_t elapsedCount = 0;
-
+	int8_t pad3[ 4 ];
 #pragma endregion
 
 private:
-
+	//代入演算子削除
+	TitleAnimation& operator=(const TitleAnimation&) = delete;
+	//コピーコンストラクタ削除
+	TitleAnimation(const TitleAnimation&) = delete;
 };
 

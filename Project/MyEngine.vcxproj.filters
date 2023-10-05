@@ -267,7 +267,7 @@
     <ClCompile Include="lib\engine\Base\Core\DirectXCommon.cpp">
       <Filter>Engine\ソース ファイル\Base\Core</Filter>
     </ClCompile>
-    <ClCompile Include="lib\engine\Base\WinApp.cpp">
+    <ClCompile Include="lib\engine\Base\Core\WinApp.cpp">
       <Filter>Engine\ソース ファイル\Base\Core</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\Scene\SceneManager.cpp">
@@ -428,7 +428,7 @@
     <ClInclude Include="lib\engine\Math\Vector2.h">
       <Filter>Engine\ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\Base\WinApp.h">
+    <ClInclude Include="lib\engine\Base\Core\WinApp.h">
       <Filter>Engine\ヘッダー ファイル\Base\Core</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\Base\Core\DirectXCommon.h">

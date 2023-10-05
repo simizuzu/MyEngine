@@ -49,5 +49,6 @@ public:
 	const MyMath::Vector2 GetWorldMousePos()const;
 
 	const MyMath::Vector3 GetMouseMove()const;
+	int8_t pad1[4];
 };
 

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <forward_list>
@@ -52,6 +52,8 @@ private:
 	UINT descriptorHandleIncrementSize;
 	// 頂点データ配列
 	VertexPos vertices[vertexCount];
+	int8_t pad1[4 ];
+
 	D3D12_VERTEX_BUFFER_VIEW vbView;
 
 	MyMath::Matrix4 matView;
@@ -60,5 +62,11 @@ private:
 private:
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuff;
 	std::forward_list<Particle> particles;
+
+	//代入演算子削除
+	ParticleManager& operator=(const ParticleManager&) = delete;
+
+	//コピーコンストラクタ削除
+	ParticleManager(const ParticleManager&) = delete;
 };
 

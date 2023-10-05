@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "BaseScene.h"
 #include "SceneManager.h"
 
@@ -72,7 +72,6 @@ private: // メンバ変数
 	SceneManager* sceneManager_ = nullptr;
 private:
 	//コピーコンストラクタ・代入演算子削除
-
 	GameScene& operator=(const GameScene&) = delete;
 	GameScene(const GameScene&) = delete;
 };

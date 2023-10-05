@@ -1,7 +1,9 @@
-﻿#include "Matrix4.h"
+#include "Matrix4.h"
 
 namespace MyMath
 {
+	Matrix4::Matrix4(const Matrix4&) = default;
+	
 	Matrix4::Matrix4()
 	{
 		m[0][0] = 1.0f;
@@ -58,7 +60,7 @@ namespace MyMath
 		{
 			for (int j = 0; j < 4; j++)
 			{
-				m[i][j] = _m.m[i][j];
+				m[(uint32_t)i][ ( uint32_t ) j] = _m.m[ ( uint32_t ) i][ ( uint32_t ) j];
 			}
 		}
 
@@ -71,7 +73,7 @@ namespace MyMath
 		{
 			for (int j = 0; j < 4; j++)
 			{
-				m[i][j] += mat.m[i][j];
+				m[ ( uint32_t ) i][ ( uint32_t ) j] += mat.m[ ( uint32_t ) i][ ( uint32_t ) j];
 			}
 		}
 
@@ -84,7 +86,7 @@ namespace MyMath
 		{
 			for (int j = 0; j < 4; j++)
 			{
-				m[i][j] -= mat.m[i][j];
+				m[ ( uint32_t ) i][ ( uint32_t ) j] -= mat.m[ ( uint32_t ) i][ ( uint32_t ) j];
 			}
 		}
 

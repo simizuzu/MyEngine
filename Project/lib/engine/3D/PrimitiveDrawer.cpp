@@ -4,7 +4,7 @@
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 #include <d3dcompiler.h>
-#include <DirectXTex/d3dx12.h>
+#include <d3dx12.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib, "d3dcompiler.lib")
@@ -111,15 +111,20 @@ void PrimitiveDrawer::DrawLine3d(const MyMath::Vector3& p1, const MyMath::Vector
 	
 	commandList->SetGraphicsRootConstantBufferView(0, viewProjection_->constBuff_->GetGPUVirtualAddress());
 	
-	commandList->DrawInstanced(VertexCountLine, 1, static_cast<INT>(indexVertex), 0);
+	commandList->DrawInstanced(VertexCountLine, 1, static_cast<UINT>(indexVertex), 0);
 	
 	indexLine_++;
 }
 
 void PrimitiveDrawer::Reset() { indexLine_ = 0; }
 
+void PrimitiveDrawer::SetViewProjection(const ViewProjection* viewProjection)
+{
+	viewProjection_ = viewProjection;
+}
+
 std::unique_ptr<PrimitiveDrawer::PipelineSet> PrimitiveDrawer::CreateGraphicsPipeline(
-	D3D12_PRIMITIVE_TOPOLOGY_TYPE topologyType, BlendMode blendMode)
+D3D12_PRIMITIVE_TOPOLOGY_TYPE topologyType, BlendMode blendMode)
 {
 	std::unique_ptr<PipelineSet> pipelineSet = std::make_unique<PipelineSet>();
 
@@ -179,43 +184,45 @@ std::unique_ptr<PrimitiveDrawer::PipelineSet> PrimitiveDrawer::CreateGraphicsPip
 	blenddesc.DestBlendAlpha = D3D12_BLEND_ZERO;
 
 	switch (blendMode) {
-	case BlendMode::None:
+	case PrimitiveDrawer::BlendMode::None:
 		blenddesc.BlendEnable = false;
 		break;
-	case BlendMode::Normal:
+	case PrimitiveDrawer::BlendMode::Normal:
 		blenddesc.BlendEnable = true;
 		blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
 		blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
 		blenddesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
 		break;
-	case BlendMode::Add:
+	case PrimitiveDrawer::BlendMode::Add:
 		blenddesc.BlendEnable = true;
 		blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
 		blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
 		blenddesc.DestBlend = D3D12_BLEND_ONE;
 		break;
-	case BlendMode::Subtract:
+	case PrimitiveDrawer::BlendMode::Subtract:
 		blenddesc.BlendEnable = true;
 		blenddesc.BlendOp = D3D12_BLEND_OP_REV_SUBTRACT;
 		blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
 		blenddesc.DestBlend = D3D12_BLEND_ONE;
 		break;
-	case BlendMode::Multily:
+	case PrimitiveDrawer::BlendMode::Multily:
 		blenddesc.BlendEnable = true;
 		blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
 		blenddesc.SrcBlend = D3D12_BLEND_ZERO;
 		blenddesc.DestBlend = D3D12_BLEND_SRC_COLOR;
 		break;
-	case BlendMode::Screen:
+	case PrimitiveDrawer::BlendMode::Screen:
 		blenddesc.BlendEnable = true;
 		blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
 		blenddesc.SrcBlend = D3D12_BLEND_INV_DEST_COLOR;
 		blenddesc.DestBlend = D3D12_BLEND_ONE;
 		break;
+	case PrimitiveDrawer::BlendMode::CountOfBlendMode:
+		assert(0);
+		break;
 	default:
 		break;
 	}
-
 	
 	gpipeline.BlendState.RenderTarget[0] = blenddesc;
 

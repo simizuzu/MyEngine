@@ -1,8 +1,8 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
-#include <DirectXTex/d3dx12.h>
+#include <d3dx12.h>
 #include <wrl.h>
 #include <array>
 MYENGINE_SUPPRESS_WARNINGS_END

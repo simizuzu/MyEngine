@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "DirectXCommon.h"
 
@@ -57,7 +57,7 @@ public: // メンバ関数
 	static TextureManager* GetInstance();
 
 	// Getter
-	ID3D12DescriptorHeap* GetSrvHeap() { return srvHeap.Get(); }
+	ID3D12DescriptorHeap* GetSrvHeap();
 
 private: // メンバ変数
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> srvHeap = nullptr;
@@ -67,6 +67,8 @@ private: // メンバ変数
 	std::array<Microsoft::WRL::ComPtr<ID3D12Resource>, MaxSRVCount> texBuff_;
 	// テクスチャ数
 	UINT texCount;
+	int8_t pad1[4];
+
 	// デフォルトテクスチャ格納ディレクトリ
 	static std::string DefaultTextureDirectoryPath;
 

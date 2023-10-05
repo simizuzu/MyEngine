@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "DirectX12Math.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -26,8 +26,12 @@ struct Node
 	MyMath::Matrix4 transform;
 	//グローバル変形行列
 	MyMath::Matrix4 globalTransform;
+	int8_t pad1[ 4 ];
 	//親ノード
 	Node* parent = nullptr;
+	int16_t pad2[ 4 ];
+
+	Node() = default;
 };
 
 class FbxModel
@@ -46,12 +50,12 @@ public: //サブクラス
 		MyMath::Vector3 pos; //xyz座標
 		MyMath::Vector3 normal; //法線ベクトル
 		MyMath::Vector2 uv; //uv座標
-		UINT boneIndex[MAX_BONE_INDICES];	//ボーン番号
-		float boneWeight[MAX_BONE_INDICES];	//ボーン重み
+		UINT boneIndex[ MAX_BONE_INDICES ];	//ボーン番号
+		float boneWeight[ MAX_BONE_INDICES ];	//ボーン重み
 	};
 
 public:
-	
+
 	struct Bone
 	{
 		//名前
@@ -61,9 +65,9 @@ public:
 		//クラスター(FBX側のボーン情報)
 		FbxCluster* fbxCluster;
 		//コンストラクタ
-		Bone(const std::string& name) {
-			name_ = name;
-		}
+		Bone(const std::string& name);
+		//代入演算子削除
+		Bone& operator=(const Bone&) = delete;
 	};
 
 public:
@@ -121,4 +125,8 @@ private:
 
 	//FBXシーン
 	FbxScene* fbxScene = nullptr;
+
+private:
+	FbxModel& operator=(const FbxModel&) = delete;
+	FbxModel(const FbxModel&) = delete;
 };

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "ObjObject3d.h"
 #include "ObjModel.h"
 #include "WorldTransform.h"
@@ -29,6 +29,9 @@ public:
 	//getter
 	bool IsDead() const;
 
+	PlayerBullet() = default;
+	~PlayerBullet() = default;
+
 private:
 	//速度
 	MyMath::Vector3 velocity_;
@@ -39,6 +42,7 @@ private:
 	int32_t deathTimer_ = lifeTime;
 	//デスフラグ
 	bool isDead_ = false;
+	int8_t pad1[ 7 ];
 
 	//モデル
 	ObjModel* bulletModel_ = nullptr;
@@ -47,5 +51,11 @@ private:
 
 	//トランスフォーム
 	WorldTransform bulletTrans_;
+
+private:
+	//代入演算子削除
+	PlayerBullet& operator=(const PlayerBullet&) = delete;
+	//コピーコンストラクタ削除
+	PlayerBullet(const PlayerBullet&) = delete;
 };
 

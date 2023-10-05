@@ -1,10 +1,48 @@
-﻿#pragma once
+#pragma once
 #include "DirectX12Math.h"
 #include "EngineUtility.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <DirectXMath.h>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+struct ConstBufferDataViewProjection
+{
+	// ワールド行列
+	MyMath::Matrix4 world;
+	// ワールド座標
+	MyMath::Matrix4 matWorld;
+
+	// ワールド → ビュー変換行列
+	MyMath::Matrix4 view;
+	// ビュー → プロジェクション変換行列
+	MyMath::Matrix4 projection;
+	// カメラ座標（ワールド座標）
+	MyMath::Vector3 cameraPos;
+
+	ConstBufferDataViewProjection() = default;
+
+	//代入演算子削除
+	ConstBufferDataViewProjection& operator=(const ConstBufferDataViewProjection&) = delete;
+	//コピーコンストラクタ削除
+	ConstBufferDataViewProjection(const ConstBufferDataViewProjection&) = delete;
+};
+
+struct ViewProjection
+{
+	// 定数バッファ
+	Microsoft::WRL::ComPtr<ID3D12Resource> constBuff_;
+	// マッピング済みアドレス
+	ConstBufferDataViewProjection* constBuffMap = nullptr;
+
+	ViewProjection() = default;
+
+//代入演算子削除
+	ViewProjection& operator=(const ViewProjection&) = delete;
+	//コピーコンストラクタ削除
+	ViewProjection(const ViewProjection&) = delete;
+};
+
 
 class Camera
 {
@@ -83,4 +121,11 @@ public:
 	void SetNearZ(const float& nearZ);
 	void SetDistance(const float& distance);
 	void SetFovAngleY(const float& fovAngle);
+
+	//コピーコンストラクタ削除
+	Camera& operator=(const Camera&) = delete;
+	//代入演算子削除
+	Camera(const Camera&) = delete;
+	Camera() = default;
+	~Camera() = default;
 };

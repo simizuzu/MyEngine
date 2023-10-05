@@ -1,4 +1,4 @@
-﻿#include "Vector4.h"
+#include "Vector4.h"
 #include"Vector3.h"
 #include "SuppressWarning.h"
 
@@ -73,7 +73,8 @@ namespace MyMath
 
 	Vector4 Vector4::operator-() const
 	{
-		return  Vector4(-x, -y, -z, -w);
+		Vector4 v = {-x,-y,-z,-w};
+		return  v;
 	}
 
 	Vector4& Vector4::operator+=(const Vector4& v)

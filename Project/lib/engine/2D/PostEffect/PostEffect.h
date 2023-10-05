@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "DirectX12Math.h"
 
 #include "Pipeline.h"
@@ -9,6 +9,11 @@ struct ConstBufferDataPE
 {
 	MyMath::Vector4	color;//色（RGB）
 	MyMath::Matrix4	mat;//3D変換行列
+
+	//コピーコンストラクタ削除
+	ConstBufferDataPE& operator=(const ConstBufferDataPE&) = delete;
+	//代入演算子削除
+	ConstBufferDataPE(const ConstBufferDataPE&) = delete;
 };
 
 class PostEffect
@@ -120,4 +125,5 @@ private:
 	//カラー
 	MyMath::Vector4 color = { 1,1,1,1 };
 	HRESULT result_;
+	char pad[4];
 };

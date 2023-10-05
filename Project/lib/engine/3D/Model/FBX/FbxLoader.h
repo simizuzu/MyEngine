@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include "fbxsdk.h"
@@ -6,10 +6,6 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <d3dx12.h>
 #include <string>
 MYENGINE_SUPPRESS_WARNINGS_END
-
-#pragma warning(push)
-#pragma warning(disable:5026)
-#pragma warning(pop)
 
 #include "FbxModel.h"
 
@@ -91,9 +87,11 @@ public:
 
 	static const std::string defaultTextureFileName;
 
+
+
 private:
 	// privateなコンストラクタ（シングルトンパターン）
-	FbxLoader() = default;
+	FbxLoader();
 	// privateなデストラクタ（シングルトンパターン）
 	~FbxLoader() = default;
 	// コピーコンストラクタを禁止（シングルトンパターン）

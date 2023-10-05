@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Camera.h"
 #include "FbxModel.h"
 
@@ -9,11 +9,19 @@ struct ConstBufferDataB0
 	MyMath::Matrix4 viewproj;
 	MyMath::Matrix4 world;
 	MyMath::Vector3 cameraPos;
+
+	//代入演算子削除
+	ConstBufferDataB0& operator=(const ConstBufferDataB0&) = delete;
+
+	//コピーコンストラクタ削除
+	ConstBufferDataB0(const ConstBufferDataB0&) = delete;
 };
 
 class WorldTransform
 {
 public:
+	WorldTransform() = default;
+	~WorldTransform() = default;
 	//初期化
 	void Initialize();
 	//更新
@@ -52,6 +60,12 @@ public:
 	MyMath::Matrix4 matWorld;
 
 	const WorldTransform* parent = nullptr;
+
+private:
+	//代入演算子削除
+	WorldTransform& operator=(const WorldTransform&) = delete;
+	//コピーコンストラクタ削除
+	WorldTransform(const WorldTransform&) = delete;
 };
 
 namespace MyMath {

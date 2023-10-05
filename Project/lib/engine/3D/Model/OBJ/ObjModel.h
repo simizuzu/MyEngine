@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -29,15 +29,10 @@ struct Material
 	float alpha;					// アルファ
 	std::string textureFilename;	// テクスチャファイル名
 	float shininess = 1.0f;
-	char pad[4];
+	int8_t pad[ 4 ];
 
 	// コンストラクタ
-	Material() {
-		ambient = { 0.3f,0.3f,0.3f };
-		diffuse = { 0.0f,0.0f,0.0f };
-		specular = { 0.0f,0.0f,0.0f };
-		alpha = 1.0f;
-	}
+	Material();
 };
 
 #pragma region OBJ
@@ -64,18 +59,18 @@ public:
 	/// OBJファイルから3Dモデルを読み込む
 	/// </summary>
 	/// <returns>モデル</returns>
-	static ObjModel* LoadFromObj(const std::string& modelname, bool smoothing = false);
+	static ObjModel* LoadFromObj(const std::string& modelname,bool smoothing = false);
 
 	/// <summary>
 	/// マテリアル読み込み
 	/// </summary>
-	void LoadMaterial(const std::string& directoryPath, const std::string& filename);
+	void LoadMaterial(const std::string& directoryPath,const std::string& filename);
 
 	/// <summary>
 	/// テクスチャ読み込み
 	/// </summary>
 	/// <returns>成否</returns>
-	void LoadTexture(const std::string& directoryPath, const std::string& filename);
+	void LoadTexture(const std::string& directoryPath,const std::string& filename);
 
 	/// <summary>
 	/// 描画
@@ -89,29 +84,30 @@ public:
 private: // 静的メンバ変数
 	static Microsoft::WRL::ComPtr<ID3D12Device> device_;
 	// テクスチャバッファ
-	 Microsoft::WRL::ComPtr<ID3D12Resource> texBuff;
-	// シェーダリソースビューのハンドル(CPU)
+	Microsoft::WRL::ComPtr<ID3D12Resource> texBuff;
+   // シェーダリソースビューのハンドル(CPU)
 	D3D12_CPU_DESCRIPTOR_HANDLE cpuDescHandleSRV;
 		// シェーダリソースビューのハンドル(GPU)
 	D3D12_GPU_DESCRIPTOR_HANDLE gpuDescHandleSRV;
 	// デスクリプタヒープ
 	static Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descHeap;
 	// 頂点バッファビュー
-	 D3D12_VERTEX_BUFFER_VIEW vbView;
-	// インデックスバッファビュー
-	 D3D12_INDEX_BUFFER_VIEW ibView;
-	// 頂点データ配列
-	 std::vector<VertexPosNormalUv> vertices;
-	// 頂点インデックス配列
-	 std::vector<unsigned short> indices;
-	// マテリアル
-	 Material material;
+	D3D12_VERTEX_BUFFER_VIEW vbView;
+   // インデックスバッファビュー
+	D3D12_INDEX_BUFFER_VIEW ibView;
+   // 頂点データ配列
+	std::vector<VertexPosNormalUv> vertices;
+   // 頂点インデックス配列
+	std::vector<unsigned short> indices;
+   // マテリアル
+	Material material;
 
 private: // メンバ変数
 	// リソース設定
 	D3D12_RESOURCE_DESC resDesc{};
 	// ヒープ設定
 	D3D12_HEAP_PROPERTIES heapProp{};
+	int8_t pad1[ 4 ];
 	// 定数バッファ（マテリアル）
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffB1;
 	// 頂点バッファ
@@ -120,11 +116,12 @@ private: // メンバ変数
 	Microsoft::WRL::ComPtr<ID3D12Resource>indexBuff;
 	// デスクリプタサイズ
 	UINT descriptorHandleIncrementSize;
+	int8_t pad2[ 4 ];
 	// テクスチャデータ
 	TextureData textureData;
 
 	//頂点法線スムージング用データ
-	std::unordered_map<unsigned short, std::vector<unsigned short>> smoothData;
+	std::unordered_map<unsigned short,std::vector<unsigned short>> smoothData;
 
 	//ファイル名
 	std::string filename_;
@@ -133,7 +130,7 @@ private:
 	/// <summary>
 	/// OBJファイルから3Dモデルを読み込む
 	/// </summary>
-	void LoadFromOBJInternal(const std::string& modelname, bool smoothing);
+	void LoadFromOBJInternal(const std::string& modelname,bool smoothing);
 
 	/// <summary>
 	/// デスクリプタヒープの初期化
@@ -166,7 +163,7 @@ private:
 	/// </summary>
 	/// <param name="indexPosition">座標インデックス</param>
 	/// <param name="indexVertex">頂点インデックス</param>
-	void AddSmoothData(unsigned short indexPosition, unsigned short indexVertex);
+	void AddSmoothData(unsigned short indexPosition,unsigned short indexVertex);
 
 	/// <summary>
 	/// 平滑化された頂点法線の計算
@@ -174,11 +171,13 @@ private:
 	void CalculateSmoothedVertexNormals();
 
 public:
-	//virtual void ModelInitialize();
-
 	virtual const std::vector<VertexPosNormalUv> GetVertices();
 
-	//virtual void Initialize() = 0;
+	ObjModel() = default;
+	virtual ~ObjModel() = default;
+private:
+	ObjModel& operator=(const ObjModel&) = delete;
+	ObjModel(const ObjModel&) = delete;
 };
 #pragma endregion
 

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "DirectX12Math.h"
 #include "Camera.h"
 #include "Input.h"
@@ -8,6 +8,8 @@
 class GameCamera
 {
 public:
+	GameCamera() = default;
+	~GameCamera() = default;
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -31,7 +33,7 @@ public:
 	void SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint);
 
 	float timeRate;						//何％時間が進んだか
-
+	int8_t pad1[4 ];
 private:
 	//レベルエディタ(ベジェ曲線)
 	LevelData* curveData;
@@ -51,6 +53,7 @@ private:
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;
 	uint32_t elapsedCount = 0;
+	int8_t pad2[ 4 ];
 
 	std::vector<LevelData::CurveData> points;
 
@@ -59,5 +62,11 @@ private:
 
 	Input* input_;
 	Camera* camera_;
+
+private:
+	//代入演算子削除
+	GameCamera& operator=(const GameCamera&) = delete;
+	//コピーコンストラクタ削除
+	GameCamera(const GameCamera&) = delete;
 };
 

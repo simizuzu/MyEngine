@@ -28,5 +28,13 @@ private:
 	MyMath::Vector3 rotation_ = { 0,0,0 };
 	MyMath::Vector3 translation_ = {0,0,-50};
 	MyMath::Matrix4 matrot;
+
+	int8_t pad1[ 4 ];
+
+private:
+	//コピーコンストラクタ削除
+	DebugCamera& operator=(const DebugCamera&) = delete;
+	//代入演算子削除
+	DebugCamera(const DebugCamera&) = delete;
 };
 

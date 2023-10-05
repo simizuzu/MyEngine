@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "BaseScene.h"
 
 #include "Input.h"
@@ -41,6 +41,7 @@ public: // メンバ関数
 	/// </summary>
 	void ClickBlinking();
 
+
 private:
 	Input* input_ = nullptr;
 	std::unique_ptr<Camera> camera;
@@ -61,5 +62,12 @@ private:
 	MyMath::Vector2 pos = { 0,0 };
 
 	float rot = 0.0f;
+
+private:
+
+	//代入演算子削除
+	TitleScene& operator=(const TitleScene&) = delete;
+	//コピーコンストラクタ削除
+	TitleScene(const TitleScene&) = delete;
 };
 

@@ -1,4 +1,5 @@
-﻿#pragma once
+#pragma once
+#include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <wrl.h>
@@ -9,29 +10,6 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
-
-struct ConstBufferDataViewProjection
-{
-	// ワールド行列
-	MyMath::Matrix4 world;
-	// ワールド座標
-	MyMath::Matrix4 matWorld;
-
-	// ワールド → ビュー変換行列
-	MyMath::Matrix4 view;
-	// ビュー → プロジェクション変換行列
-	MyMath::Matrix4 projection;
-	// カメラ座標（ワールド座標）
-	MyMath::Vector3 cameraPos;
-};
-
-struct ViewProjection
-{
-	// 定数バッファ
-	Microsoft::WRL::ComPtr<ID3D12Resource> constBuff_;
-	// マッピング済みアドレス
-	ConstBufferDataViewProjection* constBuffMap = nullptr;
-};
 
 struct VertexPosNormalUv
 {
@@ -50,6 +28,7 @@ struct TextureData
 	D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle{};
 	// デスクリプタレンジ
 	D3D12_DESCRIPTOR_RANGE descriptorRange{};
+	int8_t pad1[4];
 
 	// 横幅
 	size_t width = 0;
@@ -62,6 +41,11 @@ struct ParticleConstBuffData
 {
 	MyMath::Matrix4 mat;
 	MyMath::Matrix4 matBillboard;
+
+	//コピーコンストラクタ削除
+	ParticleConstBuffData& operator=(const ParticleConstBuffData&) = delete;
+	//代入演算子削除
+	ParticleConstBuffData(const ParticleConstBuffData&) = delete;
 };
 
 //カメラ構造体
@@ -73,6 +57,14 @@ struct WorldvViewProCamera
 	MyMath::Matrix4 matWorld;
 	//カメラ座標(ワールド座標)
 	MyMath::Vector3 cameraPos;
+
+	WorldvViewProCamera() = default;
+
+	//コピーコンストラクタ削除
+	WorldvViewProCamera& operator=(const WorldvViewProCamera&) = delete;
+
+	//代入演算子削除
+	WorldvViewProCamera(const WorldvViewProCamera&) = delete;
 };
 
 struct VertexPos

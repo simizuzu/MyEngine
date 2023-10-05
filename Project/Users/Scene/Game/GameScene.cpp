@@ -1,4 +1,4 @@
-﻿#include "GameScene.h"
+#include "GameScene.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>

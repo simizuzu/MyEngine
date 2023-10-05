@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
@@ -15,7 +15,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
 class ObjObject3d
 {
 public:
-
+	ObjObject3d() = default;
 
 public: // 静的メンバ関数
 	static void StaticInitialize(ID3D12Device* device);
@@ -68,10 +68,17 @@ public:
 	MyMath::Vector3 position = { 0.0f,0.0f,0.0f };
 	// ワールド変換行列
 	MyMath::Matrix4 matWorld;
+	int8_t pad1[ 4 ];
 	// 親オブジェクト
 	ObjObject3d* parent = nullptr;
 	// モデル
 	ObjModel* model_ = nullptr;
+
+	//代入演算子削除
+	ObjObject3d& operator=(const ObjObject3d&) = delete;
+
+	//コピーコンストラクタ削除
+	ObjObject3d(const ObjObject3d&) = delete;
 };
 
 namespace MyMath

@@ -1,4 +1,4 @@
-﻿#include "FbxLoader.h"
+#include "FbxLoader.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
@@ -9,6 +9,8 @@ MYENGINE_SUPPRESS_WARNINGS_END
 /// </summary>
 const std::string FbxLoader::baseDirectory = "Resources/";
 const std::string FbxLoader::defaultTextureFileName = "white1x1.png";
+
+FbxLoader::FbxLoader() = default;
 
 void FbxLoader::Initialize(ID3D12Device* device)
 {
@@ -41,12 +43,12 @@ FbxLoader* FbxLoader::GetInstance()
 void FbxLoader::ConvertMatrixFromFbx(MyMath::Matrix4* dst, const FbxMatrix& src)
 {
 	//行
-	for (int i = 0; i < 4; i++)
+	for (size_t i = 0; i < 4; i++)
 	{
 		//列
-		for (int j = 0; j < 4; j++)
+		for ( size_t j = 0; j < 4; j++)
 		{
-			dst->m[i][j] = (float)src.Get(i, j);
+			dst->m[i][j] = (float)src.Get((int)i,(int)j);
 		}
 	}
 }
@@ -77,7 +79,7 @@ FbxModel* FbxLoader::LoadModelFromFile(const std::string& modelName)
 	//FBXノードの数を取得
 	int nodeCount = fbxScene->GetNodeCount();
 	//アドレスがずれるのを予防するためあらかじめ必要数分のメモリを確保する
-	model->nodes.reserve(nodeCount);
+	model->nodes.reserve((uint32_t)nodeCount);
 	//ルートノードから順に解析してモデルに流し込む
 	ParseNodeRecursive(model, fbxScene->GetRootNode());
 	//FBXシーン解放
@@ -197,7 +199,7 @@ void FbxLoader::ParseMeshVertices(FbxModel* model, FbxMesh* fbxMesh)
 	const int controlPointsCount = fbxMesh->GetControlPointsCount();
 	//必要数だけ頂点データ配列を確保
 	FbxModel::VertexPosNormalUvSkin vert{};
-	model->vertices.resize(controlPointsCount, vert);
+	model->vertices.resize((uint32_t)controlPointsCount, vert);
 
 	//FBXメッシュの頂点座標配列を取得
 	FbxVector4* pCoord = fbxMesh->GetControlPoints();
@@ -205,7 +207,7 @@ void FbxLoader::ParseMeshVertices(FbxModel* model, FbxMesh* fbxMesh)
 	//FBXメッシュの全頂点座標をモデル内の配列にコピーする
 	for (int i = 0; i < controlPointsCount; i++)
 	{
-		FbxModel::VertexPosNormalUvSkin& vertex = vertices[i];
+		FbxModel::VertexPosNormalUvSkin& vertex = vertices[(uint32_t)i];
 		//座標のコピー
 		vertex.pos.x = (float)pCoord[i][0];
 		vertex.pos.y = (float)pCoord[i][1];
@@ -242,7 +244,7 @@ void FbxLoader::ParseMeshFaces(FbxModel* model, FbxMesh* fbxMesh)
 			assert(index >= 0);
 
 			//頂点法線読み込み
-			FbxModel::VertexPosNormalUvSkin& vertex = vertices[index];
+			FbxModel::VertexPosNormalUvSkin& vertex = vertices[ ( uint32_t ) index];
 			FbxVector4 normal;
 			if (fbxMesh->GetPolygonVertexNormal(i, j, normal))
 			{
@@ -361,7 +363,7 @@ void FbxLoader::ParseSkin(FbxModel* model, FbxMesh* fbxMesh)
 
 	//ボーン数の数
 	int clusterCount = fbxSkin->GetClusterCount();
-	bones.reserve(clusterCount);
+	bones.reserve(( uint32_t ) clusterCount);
 
 	//初期姿勢行列読み取り
 	for (int i = 0; i < clusterCount; i++)
@@ -422,7 +424,7 @@ void FbxLoader::ParseSkin(FbxModel* model, FbxMesh* fbxMesh)
 			//スキンウェイト
 			float weight = (float)controlPointWeights[j];
 			//その頂点の影響を受けるボーンリストに、ボーンとウェイトのペアを追加
-			weightLists[vertIndex].emplace_back(WeightSet{ (UINT)i, weight });
+			weightLists[ ( uint32_t ) vertIndex].emplace_back(WeightSet{ (UINT)i, weight });
 		}
 	}
 

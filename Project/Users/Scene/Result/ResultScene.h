@@ -14,9 +14,6 @@ MYENGINE_SUPPRESS_WARNINGS_END
 class ResultScene : public BaseScene
 {
 public:
-	ResultScene() = default;
-	~ResultScene() = default;
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -37,6 +34,9 @@ public:
 	/// </summary>
 	void Finalize() override;
 
+	ResultScene() = default;
+	~ResultScene() = default;
+
 private:
 	Input* input_ = nullptr;
 	std::unique_ptr<Camera> camera;
@@ -44,6 +44,10 @@ private:
 	SceneManager* sceneManager_ = nullptr;
 
 private:
-	
+
+	//代入演算子削除
+	ResultScene& operator=(const ResultScene&) = delete;
+	//コピーコンストラクタ削除
+	ResultScene(const ResultScene&) = delete;
 };
 

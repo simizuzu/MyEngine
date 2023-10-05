@@ -1,4 +1,4 @@
-﻿#include "Player.h"
+#include "Player.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
@@ -256,6 +256,7 @@ void Player::Attack()
 		bullets.push_back(newBullet);
 	}
 }
+
 
 Player::~Player()
 {
