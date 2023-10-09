@@ -1,4 +1,5 @@
 #include "TitleAnimation.h"
+#include "FbxLoader.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
@@ -9,13 +10,13 @@ void TitleAnimation::Initalize(Camera* camera)
 	assert(camera);
 	camera_ = camera;
 
-	camera_->SetEye({6.0f,2.5f,-6.5f});
+	camera_->SetEye({6.0f,3.5f,-7.5f});
 	camera_->SetTarget({3.5f,2.0f,0.0f});
 
-	levelData_ = LevelLoader::LoadFile("titleSceneData");;
+	levelData_ = LevelLoader::LoadFile("titleSceneData");
 
 #pragma region Sprite
-	texBack = TextureManager::Load("Resources/Texture//Scene/title.png");
+	texBack = TextureManager::Load("Resources/Texture//Scene/Assault.png");
 	texClickStart = TextureManager::Load("Resources/Texture/Scene/clickStart.png");
 
 	spriteBack_ = std::make_unique<Sprite>();
@@ -27,7 +28,7 @@ void TitleAnimation::Initalize(Camera* camera)
 
 #pragma region Obj
 	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
-	groundModel_.reset(ObjModel::LoadFromObj("concrete"));
+	groundModel_.reset(ObjModel::LoadFromObj("concrete",true));
 	robotoModel_.reset(ObjModel::LoadFromObj("roboto"));
 
 	skydomeObj_.reset(ObjObject3d::Create());
@@ -46,18 +47,36 @@ void TitleAnimation::Initalize(Camera* camera)
 	skydomeTrans.SetScale({ scale,scale,scale });
 	//.SetScale({50.0f,50.0f ,50.0f });
 #pragma endregion
+
+#pragma region Fbx
+//
+//	pilotModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("pilot"));
+//	pilotObj_.reset(FbxObject3d::Create());
+//	pilotObj_->SetModel(pilotModel_.get());
+//	pilotObj_->PlayAnimation();
+//	pilotObj_->SetScale({0.0005f,0.0005f ,0.0005f });
+//
+#pragma endregion
+	rotation = 0;
+	translation = 0;
 }
 
 void TitleAnimation::Update()
 {
+#ifdef _DEBUG
 	ImGui::Begin("ClickFrame");
 	ImGui::Text("ClickFrame:%d",clickTime);
 	ImGui::End();
+#endif
 
+	rotation += 0.0005f;
+	skydomeTrans.SetRotation({0,rotation,0});
 
 	skydomeTrans.Update(camera_);
 	groundTrans.Update(camera_);
 	robotoTrans.Update(camera_);
+	//pilotObj_->Update(camera_);
+
 }
 
 void TitleAnimation::Draw()
@@ -65,7 +84,8 @@ void TitleAnimation::Draw()
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);
 	robotoObj_->Draw(&robotoTrans);
-	//spriteBack_->Draw(texBack, { 0,0 });
+	//pilotObj_->Draw();
+	spriteBack_->Draw(texBack, { 760,290 },{0.7f,0.7f});
 	ClickAnim();
 }
 
@@ -75,7 +95,7 @@ void TitleAnimation::Finalize()
 
 void TitleAnimation::ClickAnim()
 {
-	MyMath::Vector2 pos = {640,555};
+	MyMath::Vector2 pos = {640,580};
 
 	clickTime++;
 

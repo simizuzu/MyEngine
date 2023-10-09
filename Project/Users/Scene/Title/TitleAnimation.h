@@ -4,6 +4,8 @@
 
 #include "Sprite.h"
 #include "ObjObject3d.h"
+#include "FbxModel.h"
+#include "FbxObject3d.h"
 
 #include <map>
 
@@ -73,7 +75,14 @@ private: //メンバ変数
 
 	std::map<std::string, std::unique_ptr<ObjModel>>models;
 	std::vector<std::unique_ptr<ObjObject3d>> objects;
-#pragma endregion 
+#pragma endregion
+
+#pragma region fbx
+
+	std::unique_ptr<FbxObject3d> pilotObj_;
+	std::unique_ptr<FbxModel> pilotModel_;
+
+#pragma endregion
 
 #pragma region その他変数
 	
@@ -93,8 +102,12 @@ private: //メンバ変数
 	uint32_t elapsedCount = 0;
 	int8_t pad3[ 4 ];
 
-	float rotation = 0;
+	float rotation;
 	int8_t pad4[4 ];
+
+	float translation;
+	int8_t pad5[ 4 ];
+
 
 #pragma endregion
 

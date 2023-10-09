@@ -82,6 +82,9 @@ public:
 	void SetRotation(MyMath::Vector3 rotation);
 	void SetTranslation(MyMath::Vector3 translation);
 
+	FbxObject3d() = default;
+	~FbxObject3d() = default;
+
 protected:
 	//定数バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffTransform;
@@ -113,10 +116,9 @@ protected:
 	// モデル
 	FbxModel* model_ = nullptr;
 
-	FbxObject3d() = default;
 
 private:
-	~FbxObject3d() = default;
+
 	//代入演算子削除
 	FbxObject3d& operator=(const FbxObject3d&) = delete;
 	//コピーコンストラクタ削除
