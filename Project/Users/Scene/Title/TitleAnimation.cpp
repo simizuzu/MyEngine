@@ -9,7 +9,10 @@ void TitleAnimation::Initalize(Camera* camera)
 	assert(camera);
 	camera_ = camera;
 
-	demoCurve_ = LevelLoader::LoadFile("demoEnemyTest");;
+	camera_->SetEye({6.0f,2.5f,-6.5f});
+	camera_->SetTarget({3.5f,2.0f,0.0f});
+
+	levelData_ = LevelLoader::LoadFile("titleSceneData");;
 
 #pragma region Sprite
 	texBack = TextureManager::Load("Resources/Texture//Scene/title.png");
@@ -24,23 +27,24 @@ void TitleAnimation::Initalize(Camera* camera)
 
 #pragma region Obj
 	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
-	groundModel_.reset(ObjModel::LoadFromObj("ground"));
-	boxModel_.reset(ObjModel::LoadFromObj("box"));
+	groundModel_.reset(ObjModel::LoadFromObj("concrete"));
+	robotoModel_.reset(ObjModel::LoadFromObj("roboto"));
 
 	skydomeObj_.reset(ObjObject3d::Create());
 	groundObj_.reset(ObjObject3d::Create());
-	boxObj_.reset(ObjObject3d::Create());
+	robotoObj_.reset(ObjObject3d::Create());
 
 	skydomeObj_->SetModel(skydomeModel_.get());
 	groundObj_->SetModel(groundModel_.get());
-	boxObj_->SetModel(groundModel_.get());
+	robotoObj_->SetModel(robotoModel_.get());
 
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
-	boxTrans.Initialize();
+	robotoTrans.Initialize();
 
 	float scale = 900.0f;
 	skydomeTrans.SetScale({ scale,scale,scale });
+	//.SetScale({50.0f,50.0f ,50.0f });
 #pragma endregion
 }
 
@@ -50,23 +54,17 @@ void TitleAnimation::Update()
 	ImGui::Text("ClickFrame:%d",clickTime);
 	ImGui::End();
 
-	MyMath::Vector3 pos = MyMathUtility::SplinePosition(points, timeRate, startIndex);
-
-	nowCount++;
-	elapsedCount = nowCount - startCount;
-	float elapsedTime = static_cast<float> (elapsedCount) / 60.0f;
-	timeRate = elapsedTime / maxTime;
 
 	skydomeTrans.Update(camera_);
 	groundTrans.Update(camera_);
-	boxTrans.Update(camera_);
+	robotoTrans.Update(camera_);
 }
 
 void TitleAnimation::Draw()
 {
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);
-	boxObj_->Draw(&boxTrans);
+	robotoObj_->Draw(&robotoTrans);
 	//spriteBack_->Draw(texBack, { 0,0 });
 	ClickAnim();
 }

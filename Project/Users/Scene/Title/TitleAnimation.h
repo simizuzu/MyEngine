@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "ObjObject3d.h"
 
+#include <map>
 
 /// <summary>
 /// タイトルのアニメーション
@@ -34,6 +35,7 @@ public:
 
 	TitleAnimation() = default;
 	~TitleAnimation() = default;
+
 private:
 	/// <summary>
 	/// クリックするテクスチャのアニメーション処理
@@ -43,8 +45,7 @@ private:
 private: //メンバ変数
 	//カメラ
 	Camera* camera_ = nullptr;
-	LevelData* demoCurve_ = nullptr;
-	std::unique_ptr<LevelLoader> levelLoader_;
+	LevelData* levelData_ = nullptr;
 
 #pragma region Sprite
 	TextureData texBack;
@@ -59,16 +60,19 @@ private: //メンバ変数
 
 	std::unique_ptr<ObjObject3d> skydomeObj_;
 	std::unique_ptr<ObjObject3d> groundObj_;
-	std::unique_ptr<ObjObject3d> boxObj_;
+	std::unique_ptr<ObjObject3d> robotoObj_;
 
 
 	std::unique_ptr<ObjModel> skydomeModel_;
 	std::unique_ptr<ObjModel> groundModel_;
-	std::unique_ptr<ObjModel> boxModel_;
+	std::unique_ptr<ObjModel> robotoModel_;
 
 	WorldTransform skydomeTrans;
 	WorldTransform groundTrans;
-	WorldTransform boxTrans;
+	WorldTransform robotoTrans;
+
+	std::map<std::string, std::unique_ptr<ObjModel>>models;
+	std::vector<std::unique_ptr<ObjObject3d>> objects;
 #pragma endregion 
 
 #pragma region その他変数
@@ -88,6 +92,10 @@ private: //メンバ変数
 	uint32_t nowCount = 0;
 	uint32_t elapsedCount = 0;
 	int8_t pad3[ 4 ];
+
+	float rotation = 0;
+	int8_t pad4[4 ];
+
 #pragma endregion
 
 private:

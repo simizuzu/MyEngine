@@ -48,7 +48,7 @@ void TitleScene::Update()
 void TitleScene::Draw()
 {
 	titleAnimation_->Draw();
-	playerObj->Draw(&playerTrans);
+	//playerObj->Draw(&playerTrans);
 }
 
 void TitleScene::Finalize()

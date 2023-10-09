@@ -1,4 +1,4 @@
-﻿#include "MainGame.h"
+#include "MainGame.h"
 
 void MainGame::Initialize()
 {
@@ -17,7 +17,7 @@ void MainGame::Initialize()
 
 	sceneFactory_ = new SceneFactory();
 	SceneManager::GetInstance()->SetSceneFactory(sceneFactory_);
-	SceneManager::GetInstance()->ChangeScene("GAME");
+	SceneManager::GetInstance()->ChangeScene("TITLE");
 }
 
 void MainGame::Finalize()
