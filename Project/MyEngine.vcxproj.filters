@@ -378,6 +378,9 @@
     <ClCompile Include="Users\Player\PlayerBullet.cpp">
       <Filter>Application\ソースファイル\Player</Filter>
     </ClCompile>
+    <ClCompile Include="TransitionScene.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxObject3d.h">
@@ -532,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="lib\engine\Base\SuppressWarning.h">
       <Filter>Engine\ヘッダー ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="TransitionScene.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

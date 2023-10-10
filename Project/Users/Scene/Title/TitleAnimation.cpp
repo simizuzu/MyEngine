@@ -16,7 +16,7 @@ void TitleAnimation::Initalize(Camera* camera)
 	levelData_ = LevelLoader::LoadFile("titleSceneData");
 
 #pragma region Sprite
-	texBack = TextureManager::Load("Resources/Texture//Scene/Assault.png");
+	texBack = TextureManager::Load("Resources/Texture/Scene/Assault.png");
 	texClickStart = TextureManager::Load("Resources/Texture/Scene/clickStart.png");
 
 	spriteBack_ = std::make_unique<Sprite>();
