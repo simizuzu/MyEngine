@@ -1,4 +1,4 @@
-﻿#include "Pipeline.h"
+#include "Pipeline.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include<cassert>
@@ -20,6 +20,9 @@ void Pipeline::CreateSpritePipeline(ID3DBlob* vsBlob, ID3DBlob* psBlob, BlendMod
 		},
 		{ // uv座標
 			"TEXCOORD",0,DXGI_FORMAT_R32G32_FLOAT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0
+		},
+		{
+			"COLOR",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0
 		},
 	};
 	// グラフィックスパイプライン設定
@@ -101,7 +104,7 @@ void Pipeline::CreateSpritePipeline(ID3DBlob* vsBlob, ID3DBlob* psBlob, BlendMod
 	pipelineDesc.SampleDesc.Count = 1; // 1ピクセルにつき1回サンプリング
 
 	// ルートパラメータの設定
-	D3D12_ROOT_PARAMETER rootParams[2] = {};
+	D3D12_ROOT_PARAMETER rootParams[3] = {};
 	// ルートパラメータの設定
 	rootParams[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;	// 定数バッファビュー
 	rootParams[0].Descriptor.ShaderRegister = 0;					// 定数バッファ番号
@@ -119,6 +122,12 @@ void Pipeline::CreateSpritePipeline(ID3DBlob* vsBlob, ID3DBlob* psBlob, BlendMod
 	rootParams[1].DescriptorTable.pDescriptorRanges = &descritorRange;
 	rootParams[1].DescriptorTable.NumDescriptorRanges = 1;
 	rootParams[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+
+	//定数バッファ1番
+	rootParams[ 2 ].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;	//種類
+	rootParams[ 2 ].Descriptor.ShaderRegister = 1;					//デスクリプタレンジ
+	rootParams[ 2 ].Descriptor.RegisterSpace = 0;					//デスクリプタレンジ数
+	rootParams[ 2 ].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;	//すべてのシェーダから見えるバッファ
 
 	// テクスチャサンプラーの設定
 	D3D12_STATIC_SAMPLER_DESC sampleDesc{};
