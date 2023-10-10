@@ -58,5 +58,5 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 libfbxsdk*.lib filter=lfs diff=lfs merge=lfs -text
-DirectXTex*.lib filter=lfs diff=lfs merge=lfs -text
+lib\External\DirectXTex\lib\Debug\DirectXTex*.lib filter=lfs diff=lfs merge=lfs -text
 imgui*.lib filter=lfs diff=lfs merge=lfs -text
