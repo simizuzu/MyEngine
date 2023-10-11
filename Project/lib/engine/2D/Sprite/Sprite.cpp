@@ -99,10 +99,10 @@ void Sprite::Draw(TextureData& textureData, MyMath::Vector2 position, MyMath::Ve
 	//頂点データ
 	PosUvColor vertices[] =
 	{
-		{{left,top,0.0f},{0.0f,0.0f}},//左上インデックス0
-		{{left,bottom,0.0f},{0.0f,1.0f}},//左下インデックス1
-		{{right,top,0.0f},{1.0f,0.0f}},//右上インデックス2
-		{{right,bottom,0.0f},{1.0f,1.0f}},//右下インデックス3
+		{{left,top,0.0f},{0.0f,0.0f},color_},//左上インデックス0
+		{{left,bottom,0.0f},{0.0f,1.0f},color_},//左下インデックス1
+		{{right,top,0.0f},{1.0f,0.0f},color_},//右上インデックス2
+		{{right,bottom,0.0f},{1.0f,1.0f},color_},//右下インデックス3
 	};
 
 	//インデックスデータ
@@ -125,7 +125,6 @@ void Sprite::Draw(TextureData& textureData, MyMath::Vector2 position, MyMath::Ve
 
 	Update(position, scale, rotation);
 
-	// パイプラインステートとルートシグネチャの設定コマンド
 	SetBlendMode((BlendMode)blendMode);
 
 	DrawCommandList(textureData);

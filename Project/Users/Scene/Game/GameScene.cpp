@@ -49,8 +49,6 @@ void GameScene::Update()
 	light->Update();
 	gameCamera_->Update();
 	modelData_->Update();
-
-
 }
 
 void GameScene::Draw()

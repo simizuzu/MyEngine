@@ -76,7 +76,6 @@ void TitleAnimation::Update()
 	groundTrans.Update(camera_);
 	robotoTrans.Update(camera_);
 	//pilotObj_->Update(camera_);
-
 }
 
 void TitleAnimation::Draw()
