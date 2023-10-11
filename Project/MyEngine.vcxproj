@@ -266,13 +266,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)lib\engine\Editer;$(SolutionDir)lib\External\DirectXTex\inc;$(SolutionDir)lib\External\imgui\inc;$(SolutionDir)lib\External\fbx_sdk\include</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\External\DirectXTex\lib\;$(ProjectDir)lib\External\imgui\lib\$(Configuration);$(ProjectDir)lib\External\DirectXTex\lib\$(Configuration);$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib\External\imgui\lib\$(Configuration);$(ProjectDir)lib\External\DirectXTex\lib\$(Configuration);$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)lib\engine\Editer;$(SolutionDir)lib\External\DirectXTex\inc;$(SolutionDir)lib\External\imgui\inc;$(SolutionDir)lib\External\fbx_sdk\include</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\External\DirectXTex\lib\;$(ProjectDir)lib\External\imgui\lib\$(Configuration);$(ProjectDir)lib\External\DirectXTex\lib\$(Configuration);$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib\External\imgui\lib\$(Configuration);$(ProjectDir)lib\External\DirectXTex\lib\$(Configuration);$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>

@@ -36,11 +36,12 @@ public: // メンバ関数
 	/// </summary>
 	void Finalize() override;
 
-	/// <summary>
-	/// 点滅する処理
-	/// </summary>
-	void ClickBlinking();
+private:
 
+	/// <summary>
+	/// ゲームシーン移行時のロード用暗転
+	/// </summary>
+	void TransitionGame();
 
 private:
 	Input* input_ = nullptr;
@@ -49,19 +50,18 @@ private:
 	SceneManager* sceneManager_= nullptr;
 
 	std::unique_ptr<TitleAnimation> titleAnimation_;
-#pragma region OBJ
-	std::unique_ptr<ObjObject3d> playerObj;
-	std::unique_ptr<ObjModel> playerModel;
-	WorldTransform playerTrans;
-#pragma endregion
-
 
 	//ImGuiデバッグ用
 	MyMath::Vector3 cameraPos = { 0,0,0 };
-
 	MyMath::Vector2 pos = { 0,0 };
 
-	float rot = 0.0f;
+	uint8_t blackoutTimer = 60;
+	int8_t pad1[3 ];
+
+	
+
+	std::unique_ptr<Sprite> spriteBlackout;
+	TextureData texBlackout;
 
 private:
 

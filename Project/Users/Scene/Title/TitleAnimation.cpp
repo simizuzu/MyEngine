@@ -91,6 +91,7 @@ void TitleAnimation::Draw()
 
 void TitleAnimation::Finalize()
 {
+	clickTime = 0;
 }
 
 void TitleAnimation::ClickAnim()

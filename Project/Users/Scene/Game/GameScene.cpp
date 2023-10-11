@@ -4,6 +4,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+GameScene::~GameScene()
+{
+	//modelData_.reset();
+}
+
 void GameScene::Initialize()
 {
 	//ライト
@@ -22,7 +27,7 @@ void GameScene::Initialize()
 	modelData_ = std::make_unique<SceneData>();
 	modelData_->Initialize(camera.get());
 
-	player = new Player();
+	player = std::make_unique<Player>();
 	player->Initialize(camera.get());
 
 	sceneManager_ = SceneManager::GetInstance();
@@ -30,10 +35,10 @@ void GameScene::Initialize()
 
 void GameScene::Update()
 {
-	//if (input_->TriggerPushKey(DIK_SPACE) || input_->TriggerButton(A))
-	//{
-	//	sceneManager_->ChangeScene("TITLE");
-	//}]
+	if (input_->TriggerPushKey(DIK_SPACE) || input_->TriggerButton(A))
+	{
+		sceneManager_->ChangeScene("TITLE");
+	}
 
 #ifdef _DEBUG
 	ImGui::Begin("CameraPos");

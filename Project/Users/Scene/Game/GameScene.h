@@ -26,20 +26,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
 MYENGINE_SUPPRESS_WARNINGS_END
 
-
-//#include "SplinePosCamera.h"
-
-//#include "RailCamera.h"
-
-#pragma warning(push)
-#pragma warning(disable: 4091)
-#pragma warning(pop)
-
 class GameScene : public BaseScene
 {
 public: // メンバ関数
 	GameScene() = default;
-	~GameScene() = default;
+	~GameScene();
 	//　初期化
 	void Initialize() override;
 	// 更新
@@ -58,7 +49,7 @@ private: // メンバ変数
 	//AudioManager* audioManager_ = nullptr;
 	//uint32_t gameHandle_ = 0;
 
-	Player* player = nullptr;
+	std::unique_ptr<Player> player;
 
 	//宣言
 	INT32 sceneNum = 0;

@@ -108,7 +108,6 @@ private: //メンバ変数
 	float translation;
 	int8_t pad5[ 4 ];
 
-
 #pragma endregion
 
 private:
