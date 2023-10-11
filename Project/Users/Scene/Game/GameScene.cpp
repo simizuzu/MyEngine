@@ -4,11 +4,6 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
-GameScene::~GameScene()
-{
-	//modelData_.reset();
-}
-
 void GameScene::Initialize()
 {
 	//ライト
@@ -18,17 +13,17 @@ void GameScene::Initialize()
 
 	input_ = Input::GetInstance();
 
-	camera = std::make_unique<Camera>();
+	camera = new Camera();
 	camera->Initialize();
 
+	player = new Player();
+	player->Initialize(camera);
+
 	gameCamera_ = std::make_unique<GameCamera>();
-	gameCamera_->Initialize(camera.get(),input_);
+	gameCamera_->Initialize(camera,input_);
 
 	modelData_ = std::make_unique<SceneData>();
-	modelData_->Initialize(camera.get());
-
-	player = std::make_unique<Player>();
-	player->Initialize(camera.get());
+	modelData_->Initialize(camera);
 
 	sceneManager_ = SceneManager::GetInstance();
 }
@@ -47,8 +42,16 @@ void GameScene::Update()
 #endif
 	camera->Update();
 	light->Update();
-	gameCamera_->Update();
+
 	modelData_->Update();
+	gameCamera_->Update();
+
+	//if (gameCamera_->timeRate >= 1.0f)
+	//{
+	//	sceneManager_->ChangeScene("TITLE");
+	//}
+	//player->timeRate = 0.0f;
+
 }
 
 void GameScene::Draw()
@@ -58,11 +61,7 @@ void GameScene::Draw()
 
 void GameScene::Finalize()
 {
-	if (gameCamera_->timeRate >= 1.0f)
-	{
-		sceneManager_->ChangeScene("TITLE");
-	}
-	//player->timeRate = 0.0f;
+
 }
 	
 	

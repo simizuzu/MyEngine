@@ -30,7 +30,7 @@ class GameScene : public BaseScene
 {
 public: // メンバ関数
 	GameScene() = default;
-	~GameScene();
+	~GameScene() = default;
 	//　初期化
 	void Initialize() override;
 	// 更新
@@ -43,13 +43,13 @@ public: // メンバ関数
 
 private: // メンバ変数
 	Input* input_ = nullptr;
-	std::unique_ptr<Camera> camera;
+	Camera* camera = nullptr;
 	std::unique_ptr<Light> light;
 	// サウンド
 	//AudioManager* audioManager_ = nullptr;
 	//uint32_t gameHandle_ = 0;
 
-	std::unique_ptr<Player> player;
+	Player* player = nullptr;
 
 	//宣言
 	INT32 sceneNum = 0;

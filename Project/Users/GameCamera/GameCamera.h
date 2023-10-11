@@ -60,8 +60,8 @@ private:
 	MyMath::Vector3 pos;
 	MyMath::Vector3 target;
 
-	Input* input_;
-	Camera* camera_;
+	Input* input_ = nullptr;
+	Camera* camera_ = nullptr;
 
 private:
 	//代入演算子削除
