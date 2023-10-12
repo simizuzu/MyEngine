@@ -7,6 +7,14 @@
 
 #include"FbxLoader.h"
 
+/**
+ * @class FbxObject3d
+ * @brief FBXモデルを描画するクラス
+ */
+
+/// <summary>
+/// FBXオブジェクト
+/// </summary>
 class FbxObject3d
 {
 public: //静的メンバ関数

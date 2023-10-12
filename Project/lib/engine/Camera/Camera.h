@@ -6,6 +6,14 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <DirectXMath.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+/**
+ * @class Camera.h
+ * @brief カメラを作成する(ビュープロジェクション)クラス
+ */
+
+/// <summary>
+/// ビュープロジェクション頂点データ
+/// </summary>
 struct ConstBufferDataViewProjection
 {
 	// ワールド行列
@@ -28,6 +36,9 @@ struct ConstBufferDataViewProjection
 	ConstBufferDataViewProjection(const ConstBufferDataViewProjection&) = delete;
 };
 
+/// <summary>
+/// ビュープロジェクション
+/// </summary>
 struct ViewProjection
 {
 	// 定数バッファ
@@ -43,7 +54,9 @@ struct ViewProjection
 	ViewProjection(const ViewProjection&) = delete;
 };
 
-
+/// <summary>
+/// カメラ
+/// </summary>
 class Camera
 {
 public:

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -8,21 +8,32 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "Controller.h"
 #include "Mouse.h"
 
-using namespace DirectX;
+/**
+ * @class Input.h
+ * @brief 操作関連をまとめたクラス
+ */
 
+/// <summary>
+/// インプット
+/// </summary>
 class Input
 {
 private:
-	// テンプレート
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-	ComPtr<IDirectInput8> directInput;
+	Microsoft::WRL::ComPtr<IDirectInput8> directInput;
 	Keyboard* keyboard_ = nullptr;
 	Controller* controller_ = nullptr;
 	Mouse* mouse_ = nullptr;
 
 public:
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Initialize();
+
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
 
 	//キーボード

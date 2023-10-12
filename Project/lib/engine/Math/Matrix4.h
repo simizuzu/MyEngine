@@ -7,6 +7,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 MYENGINE_SUPPRESS_WARNINGS_END
 #include "Vector3.h"
 
+/**
+ * @class Matrix4.h
+ * @brief Matrix4x4のクラス
+ */
+
 namespace MyMath
 {
 	class Matrix4

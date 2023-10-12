@@ -1,3 +1,4 @@
+//3D変換行列
 cbuffer cbuff0 : register(b0)
 {
     matrix viewproj;
@@ -8,6 +9,7 @@ cbuffer cbuff0 : register(b0)
 //ボーンの最大数
 static const int MAX_BONES = 32;
 
+//スキニング
 cbuffer skinning : register(b3)
 {
 	matrix matSkinning[MAX_BONES];

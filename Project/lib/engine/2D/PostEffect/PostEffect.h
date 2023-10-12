@@ -4,6 +4,11 @@
 #include "Pipeline.h"
 #include "Shader.h"
 
+/**
+ * @class PostEffect.h
+ * @brief ポストエフェクトを作成するクラス
+ */
+
 //定数バッファ用データ（マテリアル）
 struct ConstBufferDataPE
 {
@@ -16,6 +21,9 @@ struct ConstBufferDataPE
 	ConstBufferDataPE(const ConstBufferDataPE&) = delete;
 };
 
+/// <summary>
+/// ポストエフェクト
+/// </summary>
 class PostEffect
 {
 public: // 静的メンバ関数

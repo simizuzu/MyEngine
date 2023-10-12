@@ -3,6 +3,14 @@
 #include "Camera.h"
 #include "Input.h"
 
+/**
+ * @class DebugCamera.h
+ * @brief デバッグカメラクラス
+ */
+
+/// <summary>
+/// デバッグカメラ
+/// </summary>
 class DebugCamera : public Camera
 {
 public:

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 #include "Vector2.h"
@@ -10,6 +10,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment (lib, "xinput.lib")
 
+/**
+ * @class Contoller.h
+ * @brief XBOXコントローラ-を設定するクラス
+ */
+
+/// <summary>
+/// 使うとき長くなるためenumに代入
+/// </summary>
 enum ControllerButton
 {
 	B = XINPUT_GAMEPAD_B,
@@ -24,12 +32,18 @@ enum ControllerButton
 	RT
 };
 
+/// <summary>
+/// スティック用enum
+/// </summary>
 enum ControllerStick
 {
 	L_UP, L_DOWN, L_LEFT, L_RIGHT,
 	R_UP, R_DOWN, R_LEFT, R_RIGHT, XBOX_STICK_NUM
 };
 
+/// <summary>
+/// コントローラ-
+/// </summary>
 class Controller
 {
 private:

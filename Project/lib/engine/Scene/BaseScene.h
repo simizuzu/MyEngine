@@ -1,4 +1,9 @@
-﻿#pragma once
+#pragma once
+
+/**
+ * @class BaseScene.h
+ * @brief 各シーンのための基底クラス
+ */
 
 // 前方宣言
 class SceneManager;

@@ -5,6 +5,14 @@
 #include "Vector4.h"
 #include "DirectX12Math.h"
 
+/**
+ * @class Light.h
+ * @brief ライトを設定するクラス
+ */
+
+/// <summary>
+/// 頂点データ
+/// </summary>
 struct ConstBufferData
 {
 	MyMath::Vector4 lightVec;		//ライトへの方向を表すベクトル

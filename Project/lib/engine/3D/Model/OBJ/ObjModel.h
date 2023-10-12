@@ -20,6 +20,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "DirectXCommon.h"
 #include "EngineUtility.h"
 
+/**
+ * @class ObjLoader.h
+ * @brief ファイルからOBJモデルを読み込むクラス
+ */
+
+/// <summary>
+/// マテリアル
+/// </summary>
 struct Material
 {
 	std::string name;				// マテリアル名
@@ -34,8 +42,6 @@ struct Material
 	// コンストラクタ
 	Material();
 };
-
-#pragma region OBJ
 
 /// <summary>
 /// 3Dモデル
@@ -179,5 +185,4 @@ private:
 	ObjModel& operator=(const ObjModel&) = delete;
 	ObjModel(const ObjModel&) = delete;
 };
-#pragma endregion
 

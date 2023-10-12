@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -9,6 +9,11 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix4.h"
+
+/**
+ * @class DirectX12Math.h
+ * @brief 数学関数をまとめたクラス
+ */
 
 namespace MyMathUtility
 {

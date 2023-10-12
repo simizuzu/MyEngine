@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -8,6 +8,14 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <wrl.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+/**
+ * @class WinApp.h
+ * @brief ウィンドウを生成するクラス
+ */
+
+/// <summary>
+/// ウィンドウズAPI
+/// </summary>
 class WinApp
 {
 public: // 静的メンバ関数

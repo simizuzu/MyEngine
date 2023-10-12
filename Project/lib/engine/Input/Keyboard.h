@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -15,13 +15,13 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #pragma comment(lib,"dinput8.lib")
 #pragma comment(lib,"dxguid.lib")
 
-using namespace DirectX;
+/**
+ * @class Keyboard.h
+ * @brief キーボードを設定するクラス
+ */
 
 class Keyboard
 {
-public:
-	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
-
 public:
 	/// <summary>
 	/// 初期化
@@ -63,7 +63,7 @@ private:
 
 	WinApp* winApp_ = nullptr;
 
-	ComPtr<IDirectInputDevice8> keyboard;
+	Microsoft::WRL::ComPtr<IDirectInputDevice8> keyboard;
 
 	BYTE oldkey[256] = {};
 	BYTE key[256] = {};

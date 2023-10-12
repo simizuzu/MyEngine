@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -20,6 +20,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #pragma comment(lib, "Mfreadwrite.lib")
 #pragma comment(lib, "mfuuid.lib")
 
+/**
+ * @class AudioManager.h
+ * @brief サウンド関連のクラス
+ */
+
+/// <summary>
+/// オーディオデータ
+/// </summary>
 class AudioData
 {
 public:
@@ -37,6 +45,9 @@ public:
 	void Unload();
 };
 
+/// <summary>
+/// XAudio2Voiceコールバック
+/// </summary>
 class XAudio2VoiceCallback : public IXAudio2VoiceCallback
 {
 public:
@@ -96,6 +107,9 @@ struct PlayAudioArray
 	PlayAudioArray(const std::vector<uint32_t>& Handles);
 };
 
+/// <summary>
+/// オーディオマネージャ
+/// </summary>
 class AudioManager
 {
 private:
@@ -107,24 +121,80 @@ private:
 	std::vector<PlayAudioArray>playHandleArray;
 
 public:
-
+	//インスタンス生成
 	static AudioManager* GetInstance();
+	//インスタンス破棄
 	void Destroy();
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Initialize();
+
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// 今音は流れているのか
+	/// </summary>
+	/// <param name="handle">ハンドル</param>
+	/// <returns>ture or false</returns>
 	bool NowPlay(const uint32_t& handle);
+
+	/// <summary>
+	/// 音のボリューム調整
+	/// </summary>
+	/// <param name="handle">ハンドル名</param>
+	/// <param name="volume">音量</param>
 	void ChangeVolume(const uint32_t& handle, float volume);
+
+	/// <summary>
+	/// 音のボリュームを取得
+	/// </summary>
+	/// <param name="handle">ハンドル</param>
+	/// <returns>音量</returns>
 	float GetVolume(const uint32_t& handle);
+
+	/// <summary>
+	/// ファイルから音の読み込み
+	/// </summary>
+	/// <param name="fileName">ファイル名</param>
+	/// <param name="volume">音量(デフォルトは1.0f)</param>
+	/// <returns>ハンドル</returns>
 	uint32_t LoadAudio(std::string fileName, const float& volume = 1.0f);
+
+	/// <summary>
+	/// 音楽を再生
+	/// </summary>
+	/// <param name="handle">ハンドル名</param>
+	/// <param name="loopFlag">ループさせるか(デフォルトはfalse)</param>
+	/// <returns>再生できている</returns>
 	int32_t PlayWave(const uint32_t& handle, bool loopFlag = false);
+
+	/// <summary>
+	/// 音楽を再生配列
+	/// </summary>
+	/// <param name="handles">ハンドル名</param>
+	/// <returns>再生できている</returns>
 	int32_t PlayWaveArray(const std::vector<uint32_t>& handles);
+
+	/// <summary>
+	/// 音楽を止める
+	/// </summary>
+	/// <param name="handle">ハンドル名</param>
 	void StopWave(const uint32_t& handle);
 
+	/// <summary>
+	/// stringからwstringへ
+	/// </summary>
+	/// <param name="string">string</param>
+	/// <returns>std::wstring(dest.begin(), dest.end())</returns>
 	std::wstring StringToWstring(const std::string& string);
 
 private:
-	AudioManager();
+	AudioManager() = default;
 	~AudioManager();
 
 	//コピーコンストラクタ・代入演算子削除

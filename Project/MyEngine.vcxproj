@@ -31,7 +31,6 @@
     <ClCompile Include="lib\engine\3D\Model\OBJ\ObjModel.cpp" />
     <ClCompile Include="lib\engine\3D\Model\OBJ\ObjObject3d.cpp" />
     <ClCompile Include="lib\engine\3D\Particle\ParticleManager.cpp" />
-    <ClCompile Include="lib\engine\3D\PrimitiveDrawer.cpp" />
     <ClCompile Include="lib\engine\3D\WorldTransform.cpp" />
     <ClCompile Include="lib\engine\Audio\AudioManager.cpp" />
     <ClCompile Include="lib\engine\Base\Core\DirectXCommon.cpp" />
@@ -84,7 +83,6 @@
     <ClInclude Include="lib\engine\3D\Model\OBJ\ObjModel.h" />
     <ClInclude Include="lib\engine\3D\Model\OBJ\ObjObject3d.h" />
     <ClInclude Include="lib\engine\3D\Particle\ParticleManager.h" />
-    <ClInclude Include="lib\engine\3D\PrimitiveDrawer.h" />
     <ClInclude Include="lib\engine\3D\WorldTransform.h" />
     <ClInclude Include="lib\engine\Audio\AudioManager.h" />
     <ClInclude Include="lib\engine\Base\Core\DirectXCommon.h" />

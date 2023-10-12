@@ -9,6 +9,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "FbxModel.h"
 
+/**
+ * @class FbxLoader.h
+ * @brief ファイルからFBXモデルを読み込むクラス
+ */
+
+/// <summary>
+/// FBXローダー
+/// </summary>
 class FbxLoader
 {
 public:
@@ -86,8 +94,6 @@ public:
 	static const std::string baseDirectory;
 
 	static const std::string defaultTextureFileName;
-
-
 
 private:
 	// privateなコンストラクタ（シングルトンパターン）

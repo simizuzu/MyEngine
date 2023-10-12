@@ -1,7 +1,15 @@
-﻿#pragma once
+#pragma once
 #include "BaseScene.h"
 #include "AbstractSceneFactory.h"
 
+/**
+ * @class SceneManager.h
+ * @brief 各シーンを管理するクラス
+ */
+
+/// <summary>
+/// シーンマネージャ
+/// </summary>
 class SceneManager final
 {
 public: // メンバ関数

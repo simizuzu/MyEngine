@@ -1,4 +1,9 @@
 #pragma once
+/**
+ * @class SuppressWarning.h
+ * @brief 警告を一括でまとめて削除するクラス
+ */
+
 #define MYENGINE_PRAGMA(x) __pragma(x)
 
 #define MYENGINE_SUPPRESS_WARNING_PUSH MYENGINE_PRAGMA(warning (push))

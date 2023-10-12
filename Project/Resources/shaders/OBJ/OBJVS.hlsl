@@ -2,6 +2,7 @@
 
 VSOutput main(float4 pos : POSITION, float2 uv : TEXCOORD, float3 normal : NORMAL)
 {
+	//Phong”½ŽË
 	float4 wnormal = normalize(mul(world, float4(normal, 0)));
 	float4 wpos = mul(world, pos);
 

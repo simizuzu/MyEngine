@@ -184,14 +184,8 @@
     <Filter Include="Engine\ソース ファイル\3D\Transform">
       <UniqueIdentifier>{2a3bad4b-3198-4895-92eb-e8a5e13de482}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\ソース ファイル\3D\Primitive">
-      <UniqueIdentifier>{0c3cbf90-5209-4489-a728-7b385205c897}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\ヘッダー ファイル\3D\Transform">
       <UniqueIdentifier>{ee0f5dd2-76f9-4d10-9470-3858d1bec2e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\ヘッダー ファイル\3D\Primitive">
-      <UniqueIdentifier>{bddbf111-9dff-49df-be25-bf4e8489f0af}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application\ソースファイル\Scene\BaseScene\Game">
       <UniqueIdentifier>{b223b6ff-ecac-439a-8810-8ae0a6feea65}</UniqueIdentifier>
@@ -338,9 +332,6 @@
     </ClCompile>
     <ClCompile Include="lib\engine\2D\PostEffect\PostEffect.cpp">
       <Filter>Engine\ソース ファイル\2D\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\engine\3D\PrimitiveDrawer.cpp">
-      <Filter>Engine\ソース ファイル\3D\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\Input\Mouse.cpp">
       <Filter>Engine\ソース ファイル\Input\Mouse</Filter>
@@ -493,9 +484,6 @@
     </ClInclude>
     <ClInclude Include="lib\engine\2D\PostEffect\PostEffect.h">
       <Filter>Engine\ヘッダー ファイル\2D\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\engine\3D\PrimitiveDrawer.h">
-      <Filter>Engine\ヘッダー ファイル\3D\Primitive</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\Input\Mouse.h">
       <Filter>Engine\ヘッダー ファイル\Input\Mouse</Filter>

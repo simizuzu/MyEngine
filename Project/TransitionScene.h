@@ -4,6 +4,11 @@
 #include "Sprite.h"
 #include "TextureManager.h"
 
+/**
+ * @class TransitionScene.h
+ * @brief BaseSceneにて管理するシーン遷移クラス
+ */
+
 /// <summary>
 /// シーン遷移用クラス
 /// </summary>

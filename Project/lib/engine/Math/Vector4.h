@@ -1,4 +1,9 @@
-﻿#pragma once
+#pragma once
+
+/**
+ * @class Vector4.h
+ * @brief Vector4のクラス
+ */
 
 namespace MyMath
 {

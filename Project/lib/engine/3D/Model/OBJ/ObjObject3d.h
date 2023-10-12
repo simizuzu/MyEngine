@@ -12,6 +12,11 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "Matrix4.h"
 
+/**
+ * @class ObjObject3d
+ * @brief OBJモデルを描画するクラス
+ */
+
 class ObjObject3d
 {
 public:

@@ -9,6 +9,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "WinApp.h"
 
+/**
+ * @class DirectXCommon.h
+ * @brief DirectX12の基盤クラス
+ */
+
+/// <summary>
+/// DirectX12基盤
+/// </summary>
 class DirectXCommon
 {
 private:
@@ -16,16 +24,27 @@ private:
 	HRESULT result;
 	int8_t pad1[ 4 ];
 
+	//デバイス
 	Microsoft::WRL::ComPtr<ID3D12Device> device;
+	//DXGIファクトリー
 	Microsoft::WRL::ComPtr<IDXGIFactory7> dxgiFactory;
+	//スワップチェーン
 	Microsoft::WRL::ComPtr<IDXGISwapChain4> swapChain;
+	//コマンドアロケータ
 	Microsoft::WRL::ComPtr<ID3D12CommandAllocator> cmdAllocator;
+	//コマンドリスト
 	Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> commandList;
+	//コマンドキュー
 	Microsoft::WRL::ComPtr<ID3D12CommandQueue> commandQueue;
+	//レンダーターゲットビューヒープ
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtvHeap;
+	//フェンス
 	Microsoft::WRL::ComPtr<ID3D12Fence> fence;
+	//深度バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> depthBuff;
+	//深度ビュー
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> dsvHeap;
+	//バックバッファ
 	std::vector< Microsoft::WRL::ComPtr<ID3D12Resource>> backBuffers;
 
 	// スワップチェーンの設定
@@ -60,6 +79,7 @@ private:
 	void EnableDebugLayer();
 	void BreakOnSeverity();
 
+	//WinAppポインタ
 	WinApp* winApp_ = nullptr;
 
 public:
@@ -88,11 +108,6 @@ public:
 	UINT64 GetFenceVal();
 
 	size_t GetBackBufferCount() const;
-
-	/// <summary>
-	/// 解放処理
-	/// </summary>
-	void Delete();
 
 private:
 	DirectXCommon() = default;

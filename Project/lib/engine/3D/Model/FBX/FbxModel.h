@@ -12,6 +12,14 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <fbxsdk.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+/**
+ * @class FbxModel.h
+ * @brief ローダーからバッファなどを生成するクラス
+ */
+
+/// <summary>
+/// ノード
+/// </summary>
 struct Node
 {
 	//名前
@@ -34,6 +42,9 @@ struct Node
 	Node() = default;
 };
 
+/// <summary>
+/// FBXモデル
+/// </summary>
 class FbxModel
 {
 public:
@@ -55,7 +66,9 @@ public: //サブクラス
 	};
 
 public:
-
+	/// <summary>
+	/// ボーン
+	/// </summary>
 	struct Bone
 	{
 		//名前

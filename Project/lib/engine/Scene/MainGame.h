@@ -8,6 +8,11 @@
 #include "Framework.h"
 #include "SceneFactory.h"
 
+/**
+ * @class MainGame.h
+ * @brief 自作したクラスの初期化をまとめて呼び出しするクラス
+ */
+
 // ゲーム全体
 class MainGame : public Framework
 {

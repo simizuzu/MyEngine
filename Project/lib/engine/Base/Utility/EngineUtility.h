@@ -11,13 +11,24 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "Vector3.h"
 #include "Vector4.h"
 
+/**
+ * @class EngineUtility.h
+ * @brief 構造体やらをまとめたクラス
+ */
+
+/// <summary>
+/// 頂点データ{pos,normal,uv}
+/// </summary>
 struct VertexPosNormalUv
 {
-	MyMath::Vector3 pos;		// xyz座標
+	MyMath::Vector3 pos;	// xyz座標
 	MyMath::Vector3 normal;	// 法線ベクトル
 	MyMath::Vector2 uv;		// uv座標
 };
 
+/// <summary>
+/// テクスチャデータ
+/// </summary>
 struct TextureData
 {
 	// テクスチャバッファ
@@ -67,6 +78,7 @@ struct WorldvViewProCamera
 	WorldvViewProCamera(const WorldvViewProCamera&) = delete;
 };
 
+//パーティクル用頂点データ
 struct VertexPos
 {
 	MyMath::Vector3 pos;	//xyz座標

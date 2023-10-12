@@ -2,6 +2,11 @@
 #include "Camera.h"
 #include "FbxModel.h"
 
+/**
+ * @class WorldTransform.h
+ * @brief トランスフォームを設定するクラス
+ */
+
 // 定数バッファ用データ構造体B0
 struct ConstBufferDataB0
 {
@@ -17,6 +22,9 @@ struct ConstBufferDataB0
 	ConstBufferDataB0(const ConstBufferDataB0&) = delete;
 };
 
+/// <summary>
+/// ワールドトランスフォーム
+/// </summary>
 class WorldTransform
 {
 public:

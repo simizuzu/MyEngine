@@ -1,10 +1,15 @@
-﻿#pragma once
+#pragma once
 
 #include "SuppressWarning.h"
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <string>
 MYENGINE_SUPPRESS_WARNINGS_END
 #include "BaseScene.h"
+
+/**
+ * @class AbstractSceneFactory.h
+ * @brief シーンファクトリークラス
+ */
 
 /// <summary>
 /// シーンファクトリー

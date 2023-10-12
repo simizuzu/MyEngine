@@ -1,8 +1,8 @@
-cbuffer cbuff : register(b0)
-{
+//cbuffer cbuff : register(b0)
+//{
     
     
-};
+//};
 
 struct VSOutput
 {

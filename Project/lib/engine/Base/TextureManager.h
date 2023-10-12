@@ -8,6 +8,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 MYENGINE_SUPPRESS_WARNINGS_END
 #include "EngineUtility.h"
 
+/**
+ * @class TextureManager.h
+ * @brief テクスチャ関連のクラス
+ */
+
 /// <summary>
 /// テクスチャマネージャ
 /// </summary>

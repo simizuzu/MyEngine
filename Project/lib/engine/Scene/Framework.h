@@ -13,6 +13,10 @@
 #include "SceneManager.h"
 #include "AbstractSceneFactory.h"
 
+/**
+ * @class Framework.h
+ * @brief Factory Methodパターン
+ */
 
 // ゲーム全体
 class Framework
@@ -40,6 +44,7 @@ protected:
 	bool endRequest_ = false;
 	int8_t pad1[7 ];
 
+	//クラス宣言
 	WinApp* winApp_ = nullptr;
 	DirectXCommon* dxCommon_ = nullptr;
 	AudioManager* audioManager = nullptr;

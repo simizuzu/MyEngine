@@ -1,6 +1,11 @@
-﻿#pragma once
+#pragma once
 #include"DirectX12Math.h"
 #include "WorldTransform.h"
+
+/**
+ * @class Quaternion.h
+ * @brief Quaternionのクラス
+ */
 
 namespace MyMath
 {

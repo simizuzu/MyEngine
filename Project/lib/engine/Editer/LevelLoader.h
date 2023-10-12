@@ -8,9 +8,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "DirectX12Math.h"
 
+/**
+ * @class LevelLoader.h
+ * @brief blenderからjsonファイルを読み取るクラス
+ */
+
 // レベルデータ
 struct LevelData {
-
+	//オブジェクトデータ
 	struct ObjectData {
 		// ファイル名
 		std::string fileName;
@@ -23,6 +28,7 @@ struct LevelData {
 		int8_t pad1[ 4 ];
 	};
 
+	//カーブデータ
 	struct CurveData {
 		// 真ん中
 		MyMath::Vector3 pointCeter;
@@ -33,6 +39,7 @@ struct LevelData {
 
 	};
 
+	//アニメーションキーフレームデータ
 	struct AnimData {
 		//現在のフレーム
 		float nowFrame;
@@ -45,7 +52,9 @@ struct LevelData {
 	// 3つ並べた制御点
 	std::vector<MyMath::Vector3> points;
 
+	//現在のトランスフォーム
 	std::vector<MyMath::Vector3> nowTransform;
+	//現在のフレーム
 	std::vector<float>nowFrame;
 
 	// オブジェクト配列
@@ -116,5 +125,5 @@ namespace MyMathUtility {
 	MyMath::Vector3 CalcTangentPosition(const MyMath::Vector3& prevPoint, const MyMath::Vector3& nextPoint);
 
 
-	MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame);
+	//MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame);
 }

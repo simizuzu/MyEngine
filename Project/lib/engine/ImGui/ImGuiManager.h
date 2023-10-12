@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -8,6 +8,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "WinApp.h"
 #include "DirectXCommon.h"
 
+/**
+ * @class ImGuiManager.h
+ * @brief imguiのマネージャクラス
+ */
+
+/// <summary>
+/// ImGuiマネージャ
+/// </summary>
 class ImGuiManager final
 {
 public:

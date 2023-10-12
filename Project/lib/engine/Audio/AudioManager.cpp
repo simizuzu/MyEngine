@@ -1,4 +1,4 @@
-﻿#include "AudioManager.h"
+#include "AudioManager.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
@@ -6,12 +6,6 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 MYENGINE_SUPPRESS_WARNINGS_END
 
 AudioManager* AudioManager::instance = nullptr;
-
-AudioManager::AudioManager()
-{
-
-}
-
 
 AudioManager::~AudioManager()
 {

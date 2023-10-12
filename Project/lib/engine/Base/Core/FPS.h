@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -6,6 +6,14 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <thread>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+/**
+ * @class FPS.h
+ * @brief FPSを設定するクラス
+ */
+
+/// <summary>
+/// FPS
+/// </summary>
 class FPS
 {
 public: // メンバ変数
