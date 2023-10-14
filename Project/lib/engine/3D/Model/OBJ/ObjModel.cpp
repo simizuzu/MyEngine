@@ -7,6 +7,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @file ObjModel.cpp
+ * @brief ObjModelの処理について書いてあります
+ */
+
 /// <summary>
 /// 静的メンバ変数の実態
 /// </summary>

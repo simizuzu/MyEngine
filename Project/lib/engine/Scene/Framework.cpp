@@ -1,5 +1,10 @@
 #include "Framework.h"
 
+ /**
+ * @file Framework.cpp
+ * @brief Frameworkの処理について書いてあります
+ */
+
 void Framework::Initialize()
 {
 	winApp_ = WinApp::GetInstance();

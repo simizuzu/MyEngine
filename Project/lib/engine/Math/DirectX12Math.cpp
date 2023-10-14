@@ -3,6 +3,11 @@
 #include <cmath>
 #include <cassert>
 
+ /**
+ * @file DirectX12Math.cpp
+ * @brief DirectX12Mathの処理について書いてあります
+ */
+
 using namespace MyMath;
 
 namespace MyMathUtility

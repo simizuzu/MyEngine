@@ -12,6 +12,11 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib,"d3dcompiler.lib")
 
+ /**
+ * @file PostEffect.cpp
+ * @brief PostEffectの処理について書いてあります
+ */
+
 Microsoft::WRL::ComPtr<ID3D12Device> PostEffect::device_;
 Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> PostEffect::cmdList_;
 const float PostEffect::clearColor[4] = { 0.5f,0.5f,0.0f,1.0f };

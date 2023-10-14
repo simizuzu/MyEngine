@@ -5,6 +5,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <xstring>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @file AudioManager.cpp
+ * @brief AudioManagerの処理について書いてあります
+ */
+
 AudioManager* AudioManager::instance = nullptr;
 
 AudioManager::~AudioManager()

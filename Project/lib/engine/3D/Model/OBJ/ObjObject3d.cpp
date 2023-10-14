@@ -1,9 +1,14 @@
-﻿#include "ObjObject3d.h"
+#include "ObjObject3d.h"
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <windows.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "DirectX12Math.h"
+
+ /**
+ * @file ObjObject3d.cpp
+ * @brief ObjObject3dの処理について書いてあります
+ */
 
 /// <summary>
 /// 静的メンバ変数の実態

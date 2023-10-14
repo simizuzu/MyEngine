@@ -1,4 +1,4 @@
-﻿#include "Shader.h"
+#include "Shader.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
@@ -7,6 +7,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib,"d3dcompiler.lib")
+
+ /**
+ * @file Shader.cpp
+ * @brief Shaderの処理について書いてあります
+ */
 
 void Shader::CreateSpriteShade(Microsoft::WRL::ComPtr<ID3DBlob>& vsBlob, Microsoft::WRL::ComPtr<ID3DBlob>& psBlob)
 {

@@ -1,7 +1,12 @@
-﻿#include "FbxObject3d.h"
+#include "FbxObject3d.h"
 
 #include "DirectXCommon.h"
 #include "Shader.h"
+
+ /**
+ * @file FbxObject3d.cpp
+ * @brief FbxObject3dの処理について書いてあります
+ */
 
 //静的メンバ変数の実態
 Microsoft::WRL::ComPtr<ID3D12Device> FbxObject3d::device_;

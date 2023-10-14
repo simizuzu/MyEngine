@@ -1,5 +1,10 @@
 #include "MainGame.h"
 
+ /**
+ * @file MainGame.cpp
+ * @brief MainGameの処理について書いてあります
+ */
+
 void MainGame::Initialize()
 {
 	//基底クラスの初期化処理

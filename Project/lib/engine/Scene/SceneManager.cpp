@@ -1,8 +1,13 @@
-﻿#include "SceneManager.h"
+#include "SceneManager.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+ /**
+ * @file SceneManager.cpp
+ * @brief SceneManagerの処理について書いてあります
+ */
 
 void SceneManager::Update()
 {

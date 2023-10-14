@@ -1,8 +1,13 @@
-﻿#include "Light.h"
+#include "Light.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+ /**
+ * @file Light.cpp
+ * @brief Lightの処理について書いてあります
+ */
 
 /// <summary>
 /// 静的メンバ変数の実態

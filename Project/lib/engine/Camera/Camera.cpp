@@ -9,6 +9,11 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "DirectXCommon.h"
 #include "WinApp.h"
 
+ /**
+ * @file Camera.cpp
+ * @brief Cameraの処理について書いてあります
+ */
+
 ViewProjection viewPro;
 ConstBufferDataViewProjection ConstMap;
 

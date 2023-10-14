@@ -1,8 +1,13 @@
-﻿#include "Controller.h"
+#include "Controller.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+ /**
+ * @file Controller.cpp
+ * @brief Controllerの処理について書いてあります
+ */
 
 bool Controller::StickDeadZone(MyMath::Vector2& stick, const MyMath::Vector2& deadZoneInitial)
 {

@@ -4,6 +4,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include<cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @file Pipeline.cpp
+ * @brief Pipelineの処理について書いてあります
+ */
+
 void Pipeline::CreateSpritePipeline(ID3DBlob* vsBlob, ID3DBlob* psBlob, BlendMode blend, ID3D12Device* device, std::array<RootsigSetPip, 6>& pipeline)
 {
 	HRESULT result;

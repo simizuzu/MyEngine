@@ -5,17 +5,18 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 #pragma comment(lib,"d3dcompiler.lib")
 
-using namespace Microsoft::WRL;
-using namespace DirectX;
-using namespace MyMathUtility;
+ /**
+ * @file Sprite.cpp
+ * @brief Spriteの処理について書いてあります
+ */
 
 /// <summary>
 /// 静的メンバ変数の実体
 /// </summary>
-ComPtr<ID3D12Device> Sprite::device_;
+Microsoft::WRL::ComPtr<ID3D12Device> Sprite::device_;
 UINT Sprite::descriptorSize_;
-ComPtr<ID3D12GraphicsCommandList> Sprite::commandList_;
-ComPtr<ID3D12RootSignature> Sprite::rootSignature_;
+Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> Sprite::commandList_;
+Microsoft::WRL::ComPtr<ID3D12RootSignature> Sprite::rootSignature_;
 std::array<RootsigSetPip, 6> Sprite::pipelineState;
 MyMath::Matrix4 Sprite::matProjection_;
 
@@ -74,9 +75,9 @@ void Sprite::Initialize()
 void Sprite::Update(const MyMath::Vector2 pos, const MyMath::Vector2 scale, float rot)
 {
 	MyMath::Matrix4 mTrans, mRot, mScale, matWorld;
-	mTrans = MakeTranslation({ pos.x,pos.y,0.0f });
-	mRot = MakeRotation({ 0.0f,0.0f,rot });
-	mScale = MakeScaling({ scale.x,scale.y,1.0f });
+	mTrans = MyMathUtility::MakeTranslation({ pos.x,pos.y,0.0f });
+	mRot = MyMathUtility::MakeRotation({ 0.0f,0.0f,rot });
+	mScale = MyMathUtility::MakeScaling({ scale.x,scale.y,1.0f });
 	matWorld = mScale * mRot * mTrans;
 
 	*constBuffMap = matWorld * matProjection_;

@@ -4,6 +4,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @file Mouse.cpp
+ * @brief Mouseの処理について書いてあります
+ */
+
 void Mouse::Initialize(IDirectInput8* dinput)
 {
 	HRESULT result;

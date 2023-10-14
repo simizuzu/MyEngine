@@ -9,6 +9,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <d3dx12.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @file ParticleManager.cpp
+ * @brief ParticleManagerの処理について書いてあります
+ */
+
 /// <summary>
 /// 静的メンバ変数の実態
 /// </summary>

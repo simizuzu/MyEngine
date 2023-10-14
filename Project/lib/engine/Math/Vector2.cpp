@@ -1,9 +1,14 @@
-﻿#include"Vector2.h"
+#include"Vector2.h"
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include<cmath>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+ /**
+ * @file Vector2.cpp
+ * @brief Vector2の処理について書いてあります
+ */
 
 namespace MyMath
 {

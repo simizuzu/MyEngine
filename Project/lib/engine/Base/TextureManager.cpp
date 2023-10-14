@@ -4,6 +4,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @file TextureManager.cpp
+ * @brief TextureManagerの処理について書いてあります
+ */
+
 TextureManager* TextureManager::textureManager_ = nullptr;
 std::string TextureManager::DefaultTextureDirectoryPath = "Resource/";
 

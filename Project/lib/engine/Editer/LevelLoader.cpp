@@ -1,10 +1,15 @@
-﻿#include "LevelLoader.h"
+#include "LevelLoader.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <json.hpp>
 #include <fstream>
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+ /**
+ * @file LevelLoader.cpp
+ * @brief LevelLoaderの処理について書いてあります
+ */
 
 const std::string LevelLoader::kDefaultBaseDirectory = "Resources/levels/";
 const std::string LevelLoader::kExtension = ".json";

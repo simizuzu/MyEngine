@@ -1,4 +1,4 @@
-﻿#include "DirectXCommon.h"
+#include "DirectXCommon.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <string>
@@ -8,7 +8,11 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
 
-using namespace Microsoft::WRL;
+ /**
+ * @file DirectXCommon.cpp
+ * @brief DirectXCommonの処理について書いてあります
+ */
+
 
 void DirectXCommon::Initialize()
 {
@@ -40,9 +44,9 @@ void DirectXCommon::InitializeDXGI()
 	assert(SUCCEEDED(result));
 
 	// アダプターの列挙用
-	std::vector<ComPtr<IDXGIAdapter4>> adapters;
+	std::vector<Microsoft::WRL::ComPtr<IDXGIAdapter4>> adapters;
 	// ここに特定の名前を持つアダプターオブジェクトが入る
-	ComPtr<IDXGIAdapter4> tmpAdapter;
+	Microsoft::WRL::ComPtr<IDXGIAdapter4> tmpAdapter;
 
 	// パフォーマンスが高いものから順に、すべてのアダプターを列挙する
 	for (UINT i = 0;
@@ -118,7 +122,7 @@ void DirectXCommon::InitializeRtv() {
 void DirectXCommon::InitializeSwapChain()
 {
 	// IDXGISwapChain1のComPtrを用意
-	ComPtr<IDXGISwapChain1> swapChain1;
+	Microsoft::WRL::ComPtr<IDXGISwapChain1> swapChain1;
 
 	// スワップチェーンの設定
 	swapChainDesc.Width = 1280;

@@ -1,5 +1,10 @@
 #include "FbxModel.h"
 
+ /**
+ * @file FbxModel.cpp
+ * @brief FbxModelの処理について書いてあります
+ */
+
 FbxModel::Bone::Bone(const std::string& name)
 {
 	name_ = name;

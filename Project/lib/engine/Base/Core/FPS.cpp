@@ -1,4 +1,9 @@
-﻿#include "FPS.h"
+#include "FPS.h"
+
+ /**
+ * @file FPS.cpp
+ * @brief FPSの処理について書いてあります
+ */
 
 void FPS::InitializeFixFps()
 {

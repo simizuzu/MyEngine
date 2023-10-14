@@ -1,5 +1,10 @@
 #include "TransitionScene.h"
 
+ /**
+ * @file TransitionScene.cpp
+ * @brief TransitionSceneの処理について書いてあります
+ */
+
 void TransitionScene::Initialize()
 {
 	spriteBlack_ = std::make_unique<Sprite>();

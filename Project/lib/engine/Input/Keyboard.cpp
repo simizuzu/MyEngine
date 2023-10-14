@@ -1,4 +1,9 @@
-﻿#include "Keyboard.h"
+#include "Keyboard.h"
+
+ /**
+ * @file Keyboard.cpp
+ * @brief Keyboardの処理について書いてあります
+ */
 
 void Keyboard::Initialize(IDirectInput8* directInput)
 {

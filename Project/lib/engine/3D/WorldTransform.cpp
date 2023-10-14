@@ -5,6 +5,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @file WorldTransform.cpp
+ * @brief WorldTransformの処理について書いてあります
+ */
+
 void WorldTransform::Initialize()
 {
 	CreateConstBuffer();

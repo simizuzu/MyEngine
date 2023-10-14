@@ -1,8 +1,13 @@
-﻿#include "Quaternion.h"
+#include "Quaternion.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include<cmath>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+ /**
+ * @file Quaternion.cpp
+ * @brief Quaternionの処理について書いてあります
+ */
 
 namespace MyMath
 {

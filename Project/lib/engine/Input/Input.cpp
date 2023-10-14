@@ -1,4 +1,9 @@
-﻿#include "Input.h"
+#include "Input.h"
+
+ /**
+ * @file Input.cpp
+ * @brief Inputの処理について書いてあります
+ */
 
 void Input::Initialize()
 {
