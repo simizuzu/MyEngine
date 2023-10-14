@@ -26,6 +26,14 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @class GameScene.h
+ * @brief GameSceneのクラス
+ */
+
+/// <summary>
+/// ゲームシーン
+/// </summary>
 class GameScene : public BaseScene
 {
 public: // メンバ関数

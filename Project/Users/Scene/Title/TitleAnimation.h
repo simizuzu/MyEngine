@@ -9,6 +9,11 @@
 
 #include <map>
 
+ /**
+ * @class TitleAnimation.h
+ * @brief TitleAnimationのクラス
+ */
+
 /// <summary>
 /// タイトルのアニメーション
 /// </summary>

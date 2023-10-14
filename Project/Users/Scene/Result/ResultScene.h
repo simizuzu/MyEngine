@@ -11,6 +11,14 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @class ResultScene.h
+ * @brief ResultSceneのクラス
+ */
+
+/// <summary>
+/// リザルトシーン
+/// </summary>
 class ResultScene : public BaseScene
 {
 public:

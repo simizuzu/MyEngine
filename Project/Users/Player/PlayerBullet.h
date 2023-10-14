@@ -3,6 +3,14 @@
 #include "ObjModel.h"
 #include "WorldTransform.h"
 
+ /**
+ * @class PlayerBullet.h
+ * @brief PlayerBulletのクラス
+ */
+
+/// <summary>
+/// プレイヤーバレット
+/// </summary>
 class PlayerBullet
 {
 public:

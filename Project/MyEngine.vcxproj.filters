@@ -217,12 +217,6 @@
     <Filter Include="Application\ヘッダーファイル\Player">
       <UniqueIdentifier>{e15142c0-2f1b-4b98-840e-5b59048a0153}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\ヘッダーファイル\Reticle">
-      <UniqueIdentifier>{ad282a86-b734-4112-8d16-559b6dda9a46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\ソースファイル\Reticle">
-      <UniqueIdentifier>{bdfe7a1a-b153-47f2-b75a-579d427f3b8e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\engine\main.cpp">
@@ -356,12 +350,6 @@
     </ClCompile>
     <ClCompile Include="Users\GameCamera\GameCamera.cpp">
       <Filter>Application\ソースファイル\GameCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Reticle\Raticle3D.cpp">
-      <Filter>Application\ソースファイル\Reticle</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Reticle\Raticle2D.cpp">
-      <Filter>Application\ソースファイル\Reticle</Filter>
     </ClCompile>
     <ClCompile Include="Users\Player\Player.cpp">
       <Filter>Application\ソースファイル\Player</Filter>
@@ -508,12 +496,6 @@
     </ClInclude>
     <ClInclude Include="Users\GameCamera\FPSCamera.h">
       <Filter>Application\ヘッダーファイル\GameCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Reticle\Raticle2D.h">
-      <Filter>Application\ヘッダーファイル\Reticle</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Reticle\Raticle3D.h">
-      <Filter>Application\ヘッダーファイル\Reticle</Filter>
     </ClInclude>
     <ClInclude Include="Users\Player\PlayerBullet.h">
       <Filter>Application\ヘッダーファイル\Player</Filter>

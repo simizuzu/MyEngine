@@ -1,7 +1,15 @@
-﻿#pragma once
+#pragma once
 
 #include "AbstractSceneFactory.h"
 
+ /**
+ * @class SceneFactory.h
+ * @brief SceneFactoryのクラス
+ */
+
+/// <summary>
+/// シーンファクトリー
+/// </summary>
 class SceneFactory : public AbstractSceneFactory
 {
 public:

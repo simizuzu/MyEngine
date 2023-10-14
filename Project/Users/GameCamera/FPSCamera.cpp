@@ -3,6 +3,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+/**
+ * @file FPSCamera.cpp
+ * @brief FPSCameraの処理
+ */
+
 void FPSCamera::Initialize(Camera* camera)
 {
 	assert(camera);

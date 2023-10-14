@@ -4,6 +4,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+/**
+ * @file Titlecene.cpp
+ * @brief TitleSceneの処理が書かれてあります
+ */
+
 void TitleScene::Initialize()
 {
 	input_ = Input::GetInstance();

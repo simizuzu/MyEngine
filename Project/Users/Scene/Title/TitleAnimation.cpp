@@ -5,6 +5,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+/**
+ * @file TitleAnimation.cpp
+ * @brief Titleの動きに関する処理が書かれてあります
+ */
+
 void TitleAnimation::Initalize(Camera* camera)
 {
 	assert(camera);

@@ -10,6 +10,14 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <list>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @class Player.h
+ * @brief Playerのクラス
+ */
+
+/// <summary>
+/// プレイヤー
+/// </summary>
 class Player
 {
 public:

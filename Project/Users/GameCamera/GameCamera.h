@@ -5,6 +5,14 @@
 #include "WorldTransform.h"
 #include "LevelLoader.h"
 
+ /**
+ * @class GameCamera.h
+ * @brief GameCameraのクラス
+ */
+
+/// <summary>
+/// ゲームカメラ
+/// </summary>
 class GameCamera
 {
 public:

@@ -10,6 +10,14 @@
 
 #include "Player.h"
 
+ /**
+ * @class SceneData.h
+ * @brief SceneDataのクラス
+ */
+
+/// <summary>
+/// シーンデータ
+/// </summary>
 class SceneData
 {
 public:

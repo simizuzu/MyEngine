@@ -7,8 +7,14 @@
 
 #include "TitleAnimation.h"
 
+ /**
+ * @class TitleScene.h
+ * @brief TitleSceneのクラス
+ */
 
-// タイトルシーン
+/// <summary>
+/// タイトルシーン
+/// </summary>
 class TitleScene : public BaseScene
 {
 public: // メンバ関数

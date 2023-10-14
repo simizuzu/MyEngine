@@ -1,5 +1,10 @@
 #include "SceneData.h"
 
+/**
+ * @file SceneData.cpp
+ * @brief GameSceneのリソースの読み込みについて書かれてあります
+ */
+
 void SceneData::Initialize(Camera* camera)
 {
 	assert(camera);

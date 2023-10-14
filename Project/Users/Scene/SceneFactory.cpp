@@ -4,6 +4,11 @@
 #include "ResultScene.h"
 #include "TransitionScene.h"
 
+/**
+ * @file SceneFactory.cpp
+ * @brief FactoryMethodの処理が書かれてあります
+ */
+
 BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 {
     

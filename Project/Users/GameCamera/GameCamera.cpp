@@ -1,8 +1,13 @@
-﻿#include "GameCamera.h"
+#include "GameCamera.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+/**
+ * @file GameCamera.cpp
+ * @brief Gameで使うカメラの処理が書かれてあります
+ */
 
 void GameCamera::Initialize(Camera* camera, Input* input)
 {

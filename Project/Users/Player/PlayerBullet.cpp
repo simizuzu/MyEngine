@@ -4,6 +4,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+/**
+ * @file PlayerBullet.cpp
+ * @brief Playerの弾に関するの処理が書かれてあります
+ */
+
 void PlayerBullet::Initialize(ObjModel* model, ObjObject3d* obj, const MyMath::Vector3& position, const MyMath::Vector3 velosity)
 {
 	//代入チェック

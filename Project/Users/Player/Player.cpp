@@ -4,6 +4,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+/**
+ * @file Player.cpp
+ * @brief Playerの処理が書かれてあります
+ */
+
 void Player::Initialize(Camera* camera)
 {
 	assert(camera);

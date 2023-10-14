@@ -59,8 +59,6 @@
     <ClCompile Include="lib\engine\Scene\MainGame.cpp" />
     <ClCompile Include="Users\Scene\Game\SceneData.cpp" />
     <ClCompile Include="lib\engine\Scene\SceneManager.cpp" />
-    <ClCompile Include="Users\Reticle\Raticle2D.cpp" />
-    <ClCompile Include="Users\Reticle\Raticle3D.cpp" />
     <ClCompile Include="Users\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="Users\GameCamera\GameCamera.cpp" />
     <ClCompile Include="Users\Player\Player.cpp" />
@@ -112,8 +110,6 @@
     <ClInclude Include="lib\engine\Scene\MainGame.h" />
     <ClInclude Include="Users\Scene\Game\SceneData.h" />
     <ClInclude Include="lib\engine\Scene\SceneManager.h" />
-    <ClInclude Include="Users\Reticle\Raticle2D.h" />
-    <ClInclude Include="Users\Reticle\Raticle3D.h" />
     <ClInclude Include="Users\Scene\Result\ResultScene.h" />
     <ClInclude Include="Users\GameCamera\GameCamera.h" />
     <ClInclude Include="Users\Player\Player.h" />

@@ -6,6 +6,14 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+ /**
+ * @class FPSCamera.h
+ * @brief FPSCameraのクラス
+ */
+
+/// <summary>
+/// FPSカメラ
+/// </summary>
 class FPSCamera
 {
 public:
