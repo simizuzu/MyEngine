@@ -4,6 +4,7 @@
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include<cmath>
+MYENGINE_SUPPRESS_WARNINGS_END
 
  /**
  * @file Vector4.cpp
