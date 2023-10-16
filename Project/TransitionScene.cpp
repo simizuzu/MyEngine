@@ -126,16 +126,6 @@ void TransitionScene::WhiteOut()
 	spriteBlack_->Draw(texBlack_,{ 0,0 },{ 1280,720 });
 }
 
-void TransitionScene::LineMove()
-{
-
-}
-
-void TransitionScene::rotCircle()
-{
-
-}
-
 void TransitionScene::Reset()
 {
 

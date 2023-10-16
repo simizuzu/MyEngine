@@ -53,8 +53,7 @@ private:
 	MyMath::Vector3 translation;
 
 	MyMath::Vector2 mousePos;
-	MyMath::Vector3 mouseVec;
-	MyMath::Vector3 mouseAngle;
+	MyMath::Vector3 rayDir;
 
 	float angle;
 
@@ -64,6 +63,7 @@ private:
 	float maxTime = 120.0f;				//全体時間[s]
 	
 	float targetTimeRate;
+	int8_t pad1[4 ];
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;

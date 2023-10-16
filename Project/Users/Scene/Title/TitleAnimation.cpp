@@ -54,13 +54,13 @@ void TitleAnimation::Initalize(Camera* camera)
 #pragma endregion
 
 #pragma region Fbx
-//
-//	pilotModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("pilot"));
-//	pilotObj_.reset(FbxObject3d::Create());
-//	pilotObj_->SetModel(pilotModel_.get());
-//	pilotObj_->PlayAnimation();
-//	pilotObj_->SetScale({0.0005f,0.0005f ,0.0005f });
-//
+
+	pilotModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("pilot"));
+	pilotObj_.reset(FbxObject3d::Create());
+	pilotObj_->SetModel(pilotModel_.get());
+	pilotObj_->PlayAnimation();
+	pilotObj_->SetScale({0.0005f,0.0005f ,0.0005f });
+
 #pragma endregion
 	rotation = 0;
 	translation = 0;
@@ -80,7 +80,7 @@ void TitleAnimation::Update()
 	skydomeTrans.Update(camera_);
 	groundTrans.Update(camera_);
 	robotoTrans.Update(camera_);
-	//pilotObj_->Update(camera_);
+	pilotObj_->Update(camera_);
 }
 
 void TitleAnimation::Draw()
@@ -88,7 +88,7 @@ void TitleAnimation::Draw()
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);
 	robotoObj_->Draw(&robotoTrans);
-	//pilotObj_->Draw();
+	pilotObj_->Draw();
 	spriteBack_->Draw(texBack, { 760,290 },{0.7f,0.7f});
 	ClickAnim();
 }

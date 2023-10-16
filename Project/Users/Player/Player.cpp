@@ -16,7 +16,7 @@ void Player::Initialize(Camera* camera)
 	input = Input::GetInstance();
 	camera_.reset(camera);
 
-	curveData = LevelLoader::LoadFile("curveData");
+	curveData = LevelLoader::LoadFile("curveTest");
 	texReticle = TextureManager::Load("Resources/Texture/reticle2.png");
 	sprite2DReticle = std::make_unique<Sprite>();
 	sprite2DReticle->Initialize();
@@ -51,19 +51,6 @@ void Player::Update()
 
 	//マウスカーソルの位置取得
 	mousePos = input->GetMousePos();
-	//mouseVec = { 0.0f,0.0f,0.0f };
-	//ウィンドウの中心点とマウスの現在点のベクトル
-	/*mouseVec.x = mousePos.x - WinApp::GetInstance()->window_width / 2;
-	mouseVec.y = mousePos.y - WinApp::GetInstance()->window_height / 2;*/
-
-	mouseVec.x = mousePos.x;
-	mouseVec.y = mousePos.y;
-	mouseVec.z = 0.0f;
-
-	//ベクトルを正規化
-	//mouseVec = MyMathUtility::MakeNormalize(mouseVec);
-	//角度を正規化
-	mouseAngle = MyMathUtility::MakeNormalize(mouseAngle);
 
 #ifdef _DEBUG
 	ImGui::Begin("MousePos");
@@ -71,7 +58,8 @@ void Player::Update()
 	ImGui::End();
 
 	ImGui::Begin("PlayerPos");
-	ImGui::Text("Position(%f,%f,%f)", playerTrans.GetTranslation().x, playerTrans.GetTranslation().y, playerTrans.GetTranslation().z);
+	ImGui::Text("Position(%f,%f,%f)",playerTrans.GetTranslation().x,playerTrans.GetTranslation().y,playerTrans.GetTranslation().z);
+	ImGui::Text("worldTransform3DReticle(%f,%f,%f)",worldTransform3DReticle.GetTranslation().x,worldTransform3DReticle.GetTranslation().y,worldTransform3DReticle.GetTranslation().z);
 	ImGui::End();
 #endif
 
@@ -88,7 +76,7 @@ void Player::Update()
 
 void Player::Draw()
 {
-	//playerObj->Draw(&playerTrans);
+	playerObj->Draw(&playerTrans);
 
 	//reticleObj->Draw(&worldTransform3DReticle);
 
@@ -100,27 +88,6 @@ void Player::Draw()
 
 void Player::Move()
 {
-
-	//if (input->PushKey(DIK_RIGHT)) {
-	//	rot.y += 0.02f;
-	//}
-	//else if (input->PushKey(DIK_LEFT)) {
-	//	rot.y -= 0.02f;
-	//}
-
-	//if (input->PushKey(DIK_A)) {
-	//	translation.x -= 0.5f;
-	//}
-	//else if (input->PushKey(DIK_D)) {
-	//	translation.x += 0.5f;
-	//}
-	//if (input->PushKey(DIK_W)) {
-	//	translation.y += 0.5f;
-	//}
-	//else if (input->PushKey(DIK_S)) {
-	//	translation.y -= 0.5f;
-	//}
-
 	//translation = mouseVec;
 	
 	PlayerTarget();
@@ -244,11 +211,16 @@ void Player::Attack()
 	const float bulletSpeed = 1.0f;
 	MyMath::Vector3 velosity(0, 0, bulletSpeed);
 
-	//速度ベクトルを自機の向きに合わせて回転させる
-	velosity = MyMath::Vec3Mat4Mul(velosity, playerTrans.matWorld);
+	//カメラからのレイを求める
+	rayDir = camera_->GetTarget() - camera_->GetEye();
+	//正規化
+	MyMathUtility::MakeNormalize(rayDir);
+
+	//速度ベクトルをカメラの向きに合わせて回転させる
+	//velosity = rayDir;
 
 	//自機から照準オブジェクトへのベクトル
-	velosity = worldTransform3DReticle.translation_ - playerTrans.translation_;
+	velosity = worldTransform3DReticle.translation_ - camera_->GetEye();
 	velosity = MyMathUtility::MakeNormalize(velosity) * bulletSpeed;
 
 	if (input->MouseButtonTrigger(LEFT)) {

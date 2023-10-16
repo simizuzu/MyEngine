@@ -39,16 +39,7 @@ private:
 	/// </summary>
 	void WhiteOut();
 
-	/// <summary>
-	/// 真ん中のラインの挙動
-	/// </summary>
-	void LineMove();
-
-	/// <summary>
-	/// 魔法陣の回転する挙動
-	/// </summary>
-	void rotCircle();
-
+	//リセット処理
 	void Reset();
 
 private:
