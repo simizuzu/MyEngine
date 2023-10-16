@@ -138,16 +138,15 @@ void TransitionScene::rotCircle()
 
 void TransitionScene::Reset()
 {
-	if ( input->TriggerPushKey(DIK_R) )
-	{
-		count = TRANSITION_COUNT::Reset;
-		color_ = { 0.0f,0.0f,0.0f,0.0f };
-		lineColor_ = { 1.0f,1.0f,1.0f,1.0f };
-		circleColor_ = { 0.3f,1.0f,0.3f,0.3f };
-		translation_.x = 0.0f;
-		circleRot = 0.0f;
-		adjustAlpha_ = 1.0f;
-		count = TRANSITION_COUNT::blackOut;
-	}
+
+	count = TRANSITION_COUNT::Reset;
+	color_ = { 0.0f,0.0f,0.0f,0.0f };
+	lineColor_ = { 1.0f,1.0f,1.0f,1.0f };
+	circleColor_ = { 0.3f,1.0f,0.3f,0.3f };
+	translation_.x = 0.0f;
+	circleRot = 0.0f;
+	adjustAlpha_ = 1.0f;
+	count = TRANSITION_COUNT::blackOut;
+
 
 }
