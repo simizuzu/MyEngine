@@ -12,7 +12,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  */
 
 /// <summary>
-/// ビュープロジェクション頂点データ
+/// ビュープロジェクションバッファデータ
 /// </summary>
 struct ConstBufferDataViewProjection
 {

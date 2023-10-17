@@ -349,8 +349,8 @@ void FbxLoader::ParseMaterial(FbxModel* model, FbxNode* fbxNode)
 void FbxLoader::ParseSkin(FbxModel* model, FbxMesh* fbxMesh)
 {
 	//スキニング情報読み取り
-	FbxSkin* fbxSkin =
-		static_cast<FbxSkin*>(fbxMesh->GetDeformer(0, FbxDeformer::eSkin));
+	FbxSkin* fbxSkin = static_cast<FbxSkin*>(fbxMesh->GetDeformer(0, FbxDeformer::eSkin));
+
 	//スキニング情報がなければ終了
 	if (fbxSkin == nullptr)
 	{
@@ -459,7 +459,7 @@ void FbxLoader::ParseSkin(FbxModel* model, FbxMesh* fbxMesh)
 			{
 				float weight = 0.0f;
 				//2番目以降のウェイトを合計
-				for (int j = 0; j < FbxModel::MAX_BONE_INDICES; j++)
+				for (int j = 1; j < FbxModel::MAX_BONE_INDICES; j++)
 				{
 					weight += vertices[i].boneWeight[j];
 				}

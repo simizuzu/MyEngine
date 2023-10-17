@@ -27,7 +27,7 @@ public: //静的メンバ関数
 
 private: //静的メンバ変数
 	//ボーンの最大数
-	static const int MAX_BONES = 32;
+	static const int MAX_BONES = 64;
 
 	//デバイス
 	static Microsoft::WRL::ComPtr<ID3D12Device> device_;

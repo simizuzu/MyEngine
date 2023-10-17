@@ -7,7 +7,7 @@ cbuffer cbuff0 : register(b0)
 };
 
 //ボーンの最大数
-static const int MAX_BONES = 32;
+static const int MAX_BONES = 64;
 
 //スキニング
 cbuffer skinning : register(b3)

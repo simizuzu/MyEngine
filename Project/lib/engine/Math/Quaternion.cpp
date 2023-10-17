@@ -159,19 +159,26 @@ namespace MyMath
 	//	w_ = cosf(theta / 2.0f);
 	//}
 
-	Quaternion Quaternion::DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v, WorldTransform transform)
+	Quaternion Quaternion::DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v)
 	{
-		//uとvの内積を求める
-		float dot = u.dot(v);
+		// uとvを正規化して内積を求める。u,vを単位ベクトル前提とするなら正規化は不要
+		float dot = u.x * v.x + u.y * v.y + u.z * v.z;
 
-		//uとvの外積を求める
-		MyMath::Vector3 cross = u.cross(v);
+		// 外積をとる
+		Vector3 cross = u.cross(v);
 
-		MyMath::Vector3 axis = cross.Norm();
+		// 軸は単位ベクトルである必要があるので正規化
+		Vector3 axis = cross.normalize();
 
-		float theta = std::acos(dot);
+		// 単位ベクトルでない席を取っているのでacosで角度を求める
+		float theta = acosf(dot);
 
-		return MakeAxisAngle(axis, theta);
+		// axisとthetaで任意軸回転を作って返す
+		Quaternion result;
+
+		result = MakeAxisAngle(axis,theta);
+
+		return result;
 	}
 
 	Quaternion Quaternion::Slerp(const Quaternion& p, float t)

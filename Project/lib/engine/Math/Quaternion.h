@@ -46,10 +46,8 @@ namespace MyMath
 		/// </summary>
 		/// <param name="u">無回転のときの向き</param>
 		/// <param name="v">向かせたい特定の方向</param>
-		/// <param name="transform"></param>
 		/// <returns>回転軸[w = u*v]</returns>
-		Quaternion DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v,WorldTransform transform);
-
+		Quaternion DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v);
 
 		//球面線形補間
 		Quaternion Slerp(const Quaternion& p, float t);
