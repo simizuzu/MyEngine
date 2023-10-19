@@ -27,7 +27,7 @@ public:
 	/// <summary>
 	/// 回転座標から3次元座標への変換
 	/// </summary>
-	void ConvertAngleToThreedimension();
+	void ConvertAngleToThreedimension(MyMath::Vector2 value);
 
 private:
 	/// <summary>

@@ -95,8 +95,8 @@ void Player::Move()
 	
 	PlayerTarget();
 
-	//Reticle3D();
-	//Reticle2D();
+	Reticle3D();
+	Reticle2D();
 	ReticleMouse();
 
 }
@@ -113,17 +113,67 @@ void Player::UIDraw()
 
 void Player::Reticle3D()
 {
-	
+	//自機から3Dレティクルへの距離
+	const float distancePlayerTo3DReticle = 10.0f;
+	//自機から3Dレティクルへのオフセット(Z+向き)
+	MyMath::Vector3 offset = { 0,0,1.0f };
+	//自機のワールド行列の回転を反映
+	offset = MyMath::Vec3Mat4Mul(offset,playerTrans.matWorld);
+	//ベクトルの長さを整える
+	offset = MyMathUtility::MakeNormalize(offset) * distancePlayerTo3DReticle;
+	//3Dレティクルの座標を設定
+	worldTransform3DReticle.translation_ = MyMath::GetWorldPosition(playerTrans) + offset;
+	worldTransform3DReticle.Update(camera_.get());
 }
 
 void Player::Reticle2D()
 {
+	const MyMath::Matrix4 matView = camera_->GetMatView();
+	const MyMath::Matrix4 matProjection = camera_->GetMatProjection();
 
+	//3Dレティクルのワールド行列から、ワールド座標を取得
+	MyMath::Vector3 positionReticle = MyMath::GetWorldPosition(worldTransform3DReticle);
+	//ビューポート行列
+	MyMath::Matrix4 matViewport = MyMathUtility::MakeViewport(matViewport);
+	//ビュー行列とプロジェクション行列、ビューポート行列を合成する
+	MyMath::Matrix4 matViewProViewport = matView * matProjection * matViewport;
+	//ワールド→スクリーン座標変換（ここで3Dから2Dになる）
+	positionReticle = MyMathUtility::MakeWDivision(positionReticle,matViewProViewport);
+	//スプライトのレティクルに座標設定
+	sprite2DReticle->SetPosiotion(MyMath::Vector2(positionReticle.x,positionReticle.y));
 }
 
 void Player::ReticleMouse()
 {
-	
+	const MyMath::Matrix4 matView = camera_->GetMatView();
+	const MyMath::Matrix4 matProjection = camera_->GetMatProjection();
+
+	//マウス座標の取得
+	sprite2DReticle->SetPosiotion(MyMath::Vector2(mousePos.x,mousePos.y));
+
+	//3Dレティクルのワールド行列から、ワールド座標を取得
+	MyMath::Vector3 positionReticle = MyMath::GetWorldPosition(worldTransform3DReticle);
+	//ビューポート行列
+	MyMath::Matrix4 matViewport = MyMathUtility::MakeViewport(matViewport);
+	//ビュー行列とプロジェクション行列、ビューポート行列を合成する
+	MyMath::Matrix4 matViewProViewport = matView * matProjection * matViewport;
+	//合成行列の逆行列を計算する
+	MyMath::Matrix4 matInverseVPV = MyMathUtility::MakeInverse(matViewProViewport);
+
+	//スクリーン座標
+	MyMath::Vector3 posNear = MyMath::Vector3(mousePos.x,mousePos.y,0);
+	MyMath::Vector3 posFar = MyMath::Vector3(mousePos.x,mousePos.y,1);
+	//スクリーン座標景からワールド座標系へ
+	posNear = MyMathUtility::MakeWDivision(posNear,matInverseVPV);
+	posFar = MyMathUtility::MakeWDivision(posFar,matInverseVPV);
+
+	//マウスレイの方向
+	MyMath::Vector3 mouseDirection = posFar - posNear;
+	mouseDirection = MyMathUtility::MakeNormalize(mouseDirection);
+	//カメラから標準オブジェクトの距離
+	const float distanceObject = 50.0f;
+	worldTransform3DReticle.translation_ = posNear + mouseDirection * distanceObject;
+	worldTransform3DReticle.Update(camera_.get());
 }
 
 void Player::Attack()
