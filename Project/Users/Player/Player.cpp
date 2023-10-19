@@ -92,13 +92,9 @@ void Player::Draw()
 void Player::Move()
 {
 	//translation = mouseVec;
-	
-	PlayerTarget();
-
 	Reticle3D();
 	Reticle2D();
 	ReticleMouse();
-
 }
 
 void Player::UIDraw()

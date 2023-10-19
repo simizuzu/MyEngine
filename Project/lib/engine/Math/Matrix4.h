@@ -5,7 +5,6 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cmath>
 #include <array>
 MYENGINE_SUPPRESS_WARNINGS_END
-#include "Vector3.h"
 
 /**
  * @class Matrix4.h
@@ -17,16 +16,16 @@ namespace MyMath
 	class Matrix4
 	{
 	public:
-		std::array<std::array<float, 4>, 4>m;
+		std::array<std::array<float,4>,4>m;
 
 		// コンストラクタ
 		Matrix4();
 
 		Matrix4(
-			float m00, float m01, float m02, float m03,
-			float m10, float m11, float m12, float m13,
-			float m20, float m21, float m22, float m23,
-			float m30, float m31, float m32, float m33);
+			float m00,float m01,float m02,float m03,
+			float m10,float m11,float m12,float m13,
+			float m20,float m21,float m22,float m23,
+			float m30,float m31,float m32,float m33);
 
 		~Matrix4() = default;
 

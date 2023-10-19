@@ -360,6 +360,9 @@
     <ClCompile Include="TransitionScene.cpp">
       <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="lib\engine\Math\Matrix3x4.cpp">
+      <Filter>Engine\ソース ファイル\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxObject3d.h">
@@ -508,6 +511,9 @@
     </ClInclude>
     <ClInclude Include="TransitionScene.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\Math\Matrix3x4.h">
+      <Filter>Engine\ヘッダー ファイル\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
