@@ -177,8 +177,10 @@ private:
 	void CalculateSmoothedVertexNormals();
 
 public:
+	//頂点データを取得
 	virtual const std::vector<VertexPosNormalUv> GetVertices();
 
+	//コピーコンストラクタを削除・代入演算子削除
 	ObjModel() = default;
 	virtual ~ObjModel() = default;
 private:

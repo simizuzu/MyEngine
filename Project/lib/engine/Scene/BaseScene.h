@@ -36,6 +36,10 @@ public: // メンバ関数
 	virtual void Finalize() = 0;
 
 public:
+	/// <summary>
+	/// シーンをセットする
+	/// </summary>
+	/// <param name="sceneManager">シーンマネージャ</param>
 	virtual void SetSceneManager(SceneManager* sceneManager);
 
 private:

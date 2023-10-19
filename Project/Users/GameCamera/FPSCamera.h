@@ -17,11 +17,20 @@ MYENGINE_SUPPRESS_WARNINGS_END
 class FPSCamera
 {
 public:
-
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="camera">カメラ</param>
 	void Initialize(Camera* camera);
 
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
 
+	/// <summary>
+	/// カメラの挙動
+	/// </summary>
 	void Move();
 
 	/// <summary>

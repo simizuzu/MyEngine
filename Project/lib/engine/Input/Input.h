@@ -36,26 +36,84 @@ public:
 	/// </summary>
 	void Update();
 
+public:
 	//キーボード
+	/// <summary>
+	/// どれだけ押しているか
+	/// </summary>
 	unsigned char GetKeyTime(BYTE keyName);
+
+	/// <summary>
+	/// 押し続けているか
+	/// </summary>
 	bool PushKey(BYTE keyNum);
+
+	/// <summary>
+	/// 離しているか
+	/// </summary>
 	bool ReleaseKey(BYTE keyNum);
+
+	/// <summary>
+	/// 一瞬クリックしたか
+	/// </summary>
 	bool TriggerPushKey(BYTE keyNum);
+
+	/// <summary>
+	/// 一瞬離したか
+	/// </summary>
 	bool TriggerReleaseKey(BYTE keyNum);
 
+
 	//コントローラー
+	/// <summary>
+	/// 一瞬押したか
+	/// </summary>
 	bool TriggerButton(ControllerButton button);
+
+	/// <summary>
+	/// 一瞬倒したか
+	/// </summary>
 	bool TriggerStick(ControllerStick stickInput, const float& deadZoneRange = 0.3f, const MyMath::Vector2& deadZoneInitial = { 1.0f,1.0f });
+
+	/// <summary>
+	/// 押し続けているか
+	/// </summary>
 	bool PushButton(ControllerButton button);
+
+	/// <summary>
+	/// 倒し続けているか
+	/// </summary>
 	bool InputStick(ControllerStick stickInput, const float& deadZoneRange = 0.3f, const MyMath::Vector2& deadZoneInitial = { 1.0f,1.0f });
+
+	/// <summary>
+	/// 一瞬離したか
+	/// </summary>
 	bool ReleaseTriggerButton(ControllerButton button);
+
+	/// <summary>
+	/// 一瞬離したか
+	/// </summary>
 	bool ReleaseTriggerStick(ControllerStick stickInput, const float& deadZoneRange = 0.3f, const MyMath::Vector2& deadZoneInitial = { 1.0f,1.0f });
+
+	/// <summary>
+	/// コントローラーを震わす
+	/// </summary>
+	/// <param name="power">パワー</param>
+	/// <param name="flame">時間</param>
 	void ShakeController(const float& power, const int& flame);
+
+	/// <summary>
+	/// 左スティックのベクトル
+	/// </summary>
 	MyMath::Vector2 GetLeftStickVec(const MyMath::Vector2& deadZoneRange = { 1.0f,1.0f });
+
+	/// <summary>
+	/// 右スティックのベクトル
+	/// </summary>
 	MyMath::Vector2 GetRightStickVec(const MyMath::Vector2& deadZoneRange = { 1.0f,1.0f });
 
-	//マウス
 
+	//マウス
 	/// <summary>
 	/// マウスボタンの入力
 	/// </summary>
@@ -95,7 +153,7 @@ public:
 	/// <returns></returns>
 	const MyMath::Vector3 GetMouseMove()const;
 
-
+	//シングルトン
 	static Input* GetInstance();
 private:
 	BYTE oldkey[256] = {};

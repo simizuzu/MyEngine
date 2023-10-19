@@ -37,6 +37,7 @@ public: // メンバ関数
 	// 実行
 	void Run();
 
+	//コンストラクタ
 	Framework() = default;
 
 protected:

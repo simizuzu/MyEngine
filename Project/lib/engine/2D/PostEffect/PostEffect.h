@@ -26,13 +26,6 @@ struct ConstBufferDataPE
 /// </summary>
 class PostEffect
 {
-public: // 静的メンバ関数
-
-	/// <summary>
-	/// パイプラインステート静的初期化
-	/// </summary>
-	void CreateGraphicsPipeline();
-
 private: // 静的メンバ変数
 	//デバイス
 	static Microsoft::WRL::ComPtr<ID3D12Device> device_;
@@ -62,6 +55,11 @@ public: // メンバ関数
 	/// シーン描画後
 	/// </summary>
 	void PostDrawScene(ID3D12GraphicsCommandList* cmdList_);
+
+	/// <summary>
+	/// パイプラインステート初期化
+	/// </summary>
+	void CreateGraphicsPipeline();
 
 private:
 	/// <summary>

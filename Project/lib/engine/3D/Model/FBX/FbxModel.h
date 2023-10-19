@@ -90,6 +90,7 @@ public:
 	//描画
 	void Draw(ID3D12GraphicsCommandList* cmdList);
 
+	//コンストラクタ・デストラクタ
 	FbxModel() = default;
 	~FbxModel();
 
@@ -97,6 +98,7 @@ public:
 	std::vector<Bone>& GetBones();
 	FbxScene* GetFbxScene();
 
+	//モデルのトランスフォームを取得
 	const MyMath::Matrix4& GetModelTransform();
 
 private:
@@ -140,6 +142,7 @@ private:
 	FbxScene* fbxScene = nullptr;
 
 private:
+	//コピーコンストラクタ削除・代入演算子削除
 	FbxModel& operator=(const FbxModel&) = delete;
 	FbxModel(const FbxModel&) = delete;
 };

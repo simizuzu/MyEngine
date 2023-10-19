@@ -42,6 +42,7 @@ public:
 	/// </summary>
 	void Finalize() override;
 
+	//コンストラクタ・デストラクタ
 	ResultScene() = default;
 	~ResultScene() = default;
 

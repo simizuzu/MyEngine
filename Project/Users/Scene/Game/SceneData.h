@@ -21,13 +21,23 @@
 class SceneData
 {
 public:
-	
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="camera">カメラ</param>
 	void Initialize(Camera* camera);
-	
+
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
-	
+
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw();
 
+	//コンストラクタ・デストラクタ
 	SceneData() = default;
 	~SceneData() = default;
 

@@ -20,6 +20,7 @@ class FbxObject3d
 public: //静的メンバ関数
 	static void StaticInitialize(ID3D12Device* device);
 
+	//3Dオブジェクトのインスタンスを生成
 	static FbxObject3d* Create();
 
 	//パイプライン初期化
@@ -86,10 +87,12 @@ public:
 	/// </summary>
 	void PlayAnimation();
 
+	//setter
 	void SetScale(MyMath::Vector3 scale);
 	void SetRotation(MyMath::Vector3 rotation);
 	void SetTranslation(MyMath::Vector3 translation);
 
+	//コンストラクタ・デストラクタ
 	FbxObject3d() = default;
 	~FbxObject3d() = default;
 

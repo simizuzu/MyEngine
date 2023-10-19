@@ -101,11 +101,6 @@ void Player::Move()
 
 }
 
-void Player::PlayerTarget()
-{
-
-}
-
 void Player::UIDraw()
 {
 	sprite2DReticle->Draw(texReticle, sprite2DReticle->GetPosition(), {0.2f,0.2f}, 0.0f, {0.5f,0.5f});

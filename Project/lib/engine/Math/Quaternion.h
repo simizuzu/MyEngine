@@ -17,6 +17,7 @@ namespace MyMath
 		float z_;
 		float w_;
 
+		//コンストラクタ
 		Quaternion();
 		Quaternion(float x, float y, float z, float w);
 
@@ -51,6 +52,7 @@ namespace MyMath
 
 		//球面線形補間
 		Quaternion Slerp(const Quaternion& p, float t);
+		//内積
 		float Dot(const Quaternion& q)const;
 
 

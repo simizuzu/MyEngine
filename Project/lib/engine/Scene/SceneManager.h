@@ -33,6 +33,7 @@ public: // メンバ関数
 	void SetSceneFactory(AbstractSceneFactory* sceneFactory);
 	void ChangeScene(const std::string& sceneName);
 
+	//シングルトン
 	static SceneManager* GetInstance();
 
 private:
@@ -43,6 +44,7 @@ private:
 	// シーンファクトリー
 	AbstractSceneFactory* sceneFactory_ = nullptr;
 
+	//コピーコンストラクタ削除
 	SceneManager() = default;
 	~SceneManager() = default;
 	SceneManager& operator=(const SceneManager&) = delete;

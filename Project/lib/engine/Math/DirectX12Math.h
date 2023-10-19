@@ -80,7 +80,7 @@ namespace MyMathUtility
 	/// <returns></returns>
 	MyMath::Vector3 HermiteGetPoint(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 v0, MyMath::Vector3 v1, float t);
 
-	// Sin,Cos,Tan関数
+	// Sin,Cos,Tan関数(float型)
 	float Sin(float sin);
 	float Cos(float cos);
 	float Tan(float tan);
@@ -91,9 +91,17 @@ namespace MyMathUtility
 	float Atan(float tan);
 	float Atan2(float y, float x);
 
+	//max関数(float型)
 	float Max(float a, float b);
+	//min関数(float型)
 	float Min(float a, float b);
 
+	/// <summary>
+	/// 距離をflameで割る
+	/// </summary>
+	/// <param name="x1">スタート地点</param>
+	/// <param name="x2">ゴール地点</param>
+	/// <param name="flame">フレーム</param>
 	void Complement(float& x1, float x2, float flame);
 
 	//vの値を範囲[low, high]に収める。
@@ -110,15 +118,16 @@ namespace MyMathUtility
 	/// <returns></returns>
 	float SimpleHarmonicMotion(float time, float amplitude = 10.0f, float period = 60.0f);
 
+	//イージング関数群
+	//参照元：https://easings.net/ja 
 	float EaseOutCubic(const float startPoint, const float endPoint, float nowFlame, float endFlame);
-	//float EaseOutCirc(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 	float EaseInSine(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 	float EaseOutSine(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 	float EaseOutQuint(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 	float EaseInExpo(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 	float EaseInOutBack(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 
-} // namespace MyMathUtility
+}
 
 namespace MyMath
 {

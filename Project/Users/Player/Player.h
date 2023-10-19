@@ -21,30 +21,55 @@ MYENGINE_SUPPRESS_WARNINGS_END
 class Player
 {
 public:
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="camera">カメラ</param>
 	void Initialize(Camera* camera);
 
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
 
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 攻撃したか
+	/// </summary>
 	void Attack();
 
+	/// <summary>
+	/// プレイヤーの挙動
+	/// </summary>
 	void Move();
 
-	void PlayerTarget();
-
+	/// <summary>
+	/// レティクルの描画
+	/// </summary>
 	void UIDraw();
 
-	//自機のワールド座標から3Dレティクルのワールド座標を計算
+	///</summary>
+	/// 自機のワールド座標から3Dレティクルのワールド座標を計算
+	///</summary>
 	void Reticle3D();
 
+	///</summary>
 	//マウスカーソルのスクリーン座標からワールド座標を取得して3Dレティクル配置
+	///</summary>
 	void Reticle2D();
 
+	/// <summary>
+	/// マウスで動くレティクルの処理
+	/// </summary>
 	void ReticleMouse();
 
 	//void Finalize();
 
+	//コンストラクタ・デストラクタ
 	Player() = default;
 	~Player();
 

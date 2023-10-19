@@ -40,6 +40,7 @@ public:
 	/// </summary>
 	void Finalize();
 
+	//コンストラクタ・デストラクタ
 	TitleAnimation() = default;
 	~TitleAnimation() = default;
 

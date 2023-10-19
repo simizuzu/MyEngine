@@ -85,12 +85,14 @@ private:
 public:
 	static DirectXCommon* GetInstance();
 
-	// DirectX毎フレーム処理ここから
+	//初期化
 	void Initialize();
+	//描画開始
 	void PreDraw(WinApp* winApp);
+	//描画終了
 	void PostDraw();
+	//コマンド処理を実行
 	void ExecuteCommand();
-	// DirectX毎フレーム処理ここまで
 
 	// セッター
 	//背景色変更(RGBA)

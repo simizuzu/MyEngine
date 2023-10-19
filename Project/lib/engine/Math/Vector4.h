@@ -50,7 +50,4 @@ namespace MyMath
 	const Vector4 operator*(float s, const Vector4& v);
 	const Vector4 operator/(const Vector4& v, float s);
 
-	void Vector4Lerp(const Vector4& src1, const Vector4& src2, float t, Vector4& dest);
-
-	Vector4 Vector4Lerp(const Vector4& src1, const Vector4& src2, float t);
 }

@@ -36,16 +36,25 @@ public:
 	void Update(Camera* camera);
 	void UpdateParticle(Camera* camera,bool billboradFlag = false);
 
+	//setter
 	void SetTranslation(MyMath::Vector3 translation);
 	void SetScale(MyMath::Vector3 scale);
 	void SetRotation(MyMath::Vector3 rotation);
 
+	//getter
 	MyMath::Vector3 GetTranslation();
 	MyMath::Vector3 GetScale();
 	MyMath::Vector3 GetRotation();
 
+	/// <summary>
+	/// マットワールドの生成
+	/// </summary>
 	void MakeMatWorld();
 
+	/// <summary>
+	/// GetGPUVirtualAddress()を返す関数
+	/// </summary>
+	/// <returns>GetGPUVirtualAddress()</returns>
 	D3D12_GPU_VIRTUAL_ADDRESS GetGpuAddress();
 
 private: //メンバ関数
@@ -77,5 +86,10 @@ private:
 };
 
 namespace MyMath {
+	/// <summary>
+	/// ワールド座標を取得
+	/// </summary>
+	/// <param name="transform">トランスフォーム</param>
+	/// <returns>ワールド座標</returns>
 	MyMath::Vector3 GetWorldPosition(WorldTransform& transform);
 }

@@ -48,7 +48,7 @@ struct ViewProjection
 
 	ViewProjection() = default;
 
-//代入演算子削除
+	//代入演算子削除
 	ViewProjection& operator=(const ViewProjection&) = delete;
 	//コピーコンストラクタ削除
 	ViewProjection(const ViewProjection&) = delete;
@@ -117,6 +117,7 @@ public:
 	void TransferMatrix();
 
 public:
+	//getter・setter
 	const MyMath::Matrix4& GetMatView();
 	const MyMath::Matrix4& GetMatViewInverse();
 	const MyMath::Matrix4& GetMatProjection();

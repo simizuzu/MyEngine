@@ -26,6 +26,7 @@ public: // メンバ関数
 	// 描画
 	void Draw() override;
 
+	//コンストラクタ・デストラクタ
 	MainGame() = default;
 	~MainGame() = default;
 

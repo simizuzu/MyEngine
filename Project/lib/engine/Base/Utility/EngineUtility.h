@@ -69,6 +69,7 @@ struct WorldvViewProCamera
 	//カメラ座標(ワールド座標)
 	MyMath::Vector3 cameraPos;
 
+	//コンストラクタ
 	WorldvViewProCamera() = default;
 
 	//コピーコンストラクタ削除

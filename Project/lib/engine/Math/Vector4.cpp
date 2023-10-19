@@ -151,18 +151,4 @@ namespace MyMath
 		return temp /= s;
 	}
 
-	Vector4 Vector4Lerp(const Vector4& src1, const Vector4& src2, float t)
-	{
-		Vector4 temp;
-		Vector4Lerp(src1, src2, t, temp);
-		return temp;
-	}
-
-	void Vector4Lerp(const Vector4& src1, const Vector4& src2, float t, Vector4& dest)
-	{
-		dest.x = src1.x + (src2.x - src1.x) * t;
-		dest.y = src1.y + (src2.y - src1.y) * t;
-		dest.z = src1.z + (src2.z - src1.z) * t;
-		dest.w = src1.w + (src2.w - src1.w) * t;
-	}
 }

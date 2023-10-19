@@ -37,6 +37,7 @@ public:
 	//getter
 	bool IsDead() const;
 
+	//コンストラクタ・デストラクタ
 	PlayerBullet() = default;
 	~PlayerBullet() = default;
 
