@@ -130,3 +130,16 @@ namespace MyMath
 
 	Matrix3x4::Matrix3x4(const Matrix3x4&) = default;
 }
+
+namespace MyMathUtility
+{
+	MyMath::Matrix3x4 MyMathUtility::MakeIdentity3x4()
+	{
+		MyMath::Matrix3x4 matIdentity;
+		matIdentity.m[ 0 ][ 0 ] = 1.0f;
+		matIdentity.m[ 1 ][ 1 ] = 1.0f;
+		matIdentity.m[ 2 ][ 2 ] = 1.0f;
+
+		return matIdentity;
+	}
+}

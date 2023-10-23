@@ -42,6 +42,9 @@ public:
 
 	float timeRate;						//何％時間が進んだか
 	int8_t pad1[4 ];
+
+	MyMath::Vector3 pos;
+	MyMath::Vector3 target;
 private:
 	//レベルエディタ(ベジェ曲線)
 	LevelData* curveData;
@@ -64,9 +67,6 @@ private:
 	int8_t pad2[ 4 ];
 
 	std::vector<LevelData::CurveData> points;
-
-	MyMath::Vector3 pos;
-	MyMath::Vector3 target;
 
 	Input* input_ = nullptr;
 	Camera* camera_ = nullptr;

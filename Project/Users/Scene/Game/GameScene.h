@@ -26,6 +26,14 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
 MYENGINE_SUPPRESS_WARNINGS_END
 
+enum COLOR
+{
+	red = 1,
+	green = 1,
+	blue = 1,
+	alpha
+};
+
  /**
  * @class GameScene.h
  * @brief GameSceneのクラス
@@ -48,6 +56,21 @@ public: // メンバ関数
 	// 終了処理
 	void Finalize() override;
 
+private:
+	/// <summary>
+	/// ゲームスタート時の演出
+	/// </summary>
+	void StartDirection();
+
+	/// <summary>
+	/// 上下に黒幕をはる
+	/// </summary>
+	void BlackMind();
+
+	/// <summary>
+	/// タイマーを止めて初期化する処理
+	/// </summary>
+	void StopTimer();
 
 private: // メンバ変数
 	Input* input_ = nullptr;
@@ -69,6 +92,46 @@ private: // メンバ変数
 	
 	//シーンマネージャ
 	SceneManager* sceneManager_ = nullptr;
+
+private: //スタート演出
+	float easingFrame = 5.0f;
+	float easingTimer = 0.0f;
+	float texAlpha = 1.0f;
+	uint8_t startCount = 0;
+
+	bool easingFlag = false;
+	int8_t pad1[2 ];
+
+	MyMath::Vector2 textureSize = {1280,0};
+
+	MyMath::Vector2 blackUpPos = { 0,0 };
+	MyMath::Vector2 blackDownPos = {1280,620};
+	MyMath::Vector2 blackSize = {0,100};
+	//int8_t pad2[4 ];
+
+	std::unique_ptr<Sprite> spriteWhite_;
+	std::unique_ptr<Sprite> spriteBlackUp_;
+	std::unique_ptr<Sprite> spriteBlackDown_;
+	TextureData texWhite_;
+	TextureData texBlackUp_;
+	TextureData texBlackDown_;
+
+	const float blackTimer_ = 50.0f;
+	const int8_t minus1 = -1;
+
+	int8_t pad2[3 ];
+
+private:
+	enum class SCENEFASE
+	{
+		BLACKMIND,
+		START,
+		GAME
+	};
+
+	SCENEFASE scene = SCENEFASE::BLACKMIND;
+	int8_t pad3[ 4 ];
+
 private:
 	//コピーコンストラクタ・代入演算子削除
 	GameScene& operator=(const GameScene&) = delete;

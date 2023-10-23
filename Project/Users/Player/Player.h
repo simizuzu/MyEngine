@@ -21,6 +21,10 @@ MYENGINE_SUPPRESS_WARNINGS_END
 class Player
 {
 public:
+	//コンストラクタ・デストラクタ
+	Player() = default;
+	~Player();
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -38,19 +42,11 @@ public:
 	void Draw();
 
 	/// <summary>
-	/// 攻撃したか
-	/// </summary>
-	void Attack();
-
-	/// <summary>
-	/// プレイヤーの挙動
-	/// </summary>
-	void Move();
-
-	/// <summary>
 	/// レティクルの描画
 	/// </summary>
 	void UIDraw();
+
+private:
 
 	///</summary>
 	/// 自機のワールド座標から3Dレティクルのワールド座標を計算
@@ -67,11 +63,17 @@ public:
 	/// </summary>
 	void ReticleMouse();
 
-	//void Finalize();
+	/// <summary>
+	/// 攻撃したか
+	/// </summary>
+	void Attack();
 
-	//コンストラクタ・デストラクタ
-	Player() = default;
-	~Player();
+	/// <summary>
+	/// プレイヤーの挙動
+	/// </summary>
+	void Move();
+
+	//void Finalize();
 
 private:
 	MyMath::Vector3 rot;

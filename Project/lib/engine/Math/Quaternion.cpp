@@ -138,27 +138,6 @@ namespace MyMath
 		return result;
 	}
 
-	//Quaternion Quaternion::DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v)
-	//{
-	//	Vector3 vecU = u.Norm();
-	//	Vector3 vecV = v.Norm();
-
-	//	float dot = vecU.dot(vecV);
-
-	//	Vector3 cross = vecU.cross(vecV);
-
-	//	Vector3 axis = cross.Norm();
-
-	//	float theta = acos(dot);
-
-	//	float sin = sinf(theta / 2.0f);
-
-	//	x_ = sin * axis.x;
-	//	y_ = sin * axis.y;
-	//	z_ = sin * axis.z;
-	//	w_ = cosf(theta / 2.0f);
-	//}
-
 	Quaternion Quaternion::DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v)
 	{
 		// uとvを正規化して内積を求める。u,vを単位ベクトル前提とするなら正規化は不要

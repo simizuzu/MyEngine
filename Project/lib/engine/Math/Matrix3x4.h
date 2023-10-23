@@ -51,4 +51,7 @@ namespace MyMath
 	};
 }
 
-
+namespace MyMathUtility
+{
+	MyMath::Matrix3x4 MakeIdentity3x4();
+}
