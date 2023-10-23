@@ -26,10 +26,6 @@ void GameCamera::Initialize(Camera* camera, Input* input)
 
 void GameCamera::Update()
 {
-	ImGui::Begin("Points");
-	ImGui::Text("Points(%d)", curveData->curves.size());
-	ImGui::End();
-
 	pos = MyMathUtility::SplinePosition(points, timeRate, startIndex);
 
 	nowCount++;

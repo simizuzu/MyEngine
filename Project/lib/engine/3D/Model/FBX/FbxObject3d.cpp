@@ -213,6 +213,21 @@ void FbxObject3d::SetTranslation(MyMath::Vector3 translation)
 	translation_ = translation;
 }
 
+MyMath::Vector3 FbxObject3d::GetScale()
+{
+	return scale_;
+}
+
+MyMath::Vector3 FbxObject3d::GetRotation()
+{
+	return rotation_;
+}
+
+MyMath::Vector3 FbxObject3d::GetTranslation()
+{
+	return translation_;
+}
+
 void FbxObject3d::CrateGrapicsPipeline()
 {
 	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob; // 頂点シェーダオブジェクト

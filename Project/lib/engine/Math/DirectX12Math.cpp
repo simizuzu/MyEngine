@@ -2,6 +2,7 @@
 #include "WinApp.h"
 #include <cmath>
 #include <cassert>
+#include <time.h>
 
  /**
  * @file DirectX12Math.cpp
@@ -523,6 +524,22 @@ namespace MyMathUtility
 			? len * ((pow(2.0f * (nowFlame / endFlame), 2.0f) * ((c2 + 1.0f) * 2.0f * (nowFlame / endFlame) - c2)) / 2.0f)
 			: endPoint + len * ((pow(2.0f * (nowFlame / endFlame) - 2.0f, 2.0f) * ((c2 + 1.0f) * ((nowFlame / endFlame) * 2.0f - 2.0f) + c2) + 2.0f) / 2.0f);
 	}
+
+	/*int GetRandom(int min,int max)
+	{
+		
+		int result;
+
+		if ( randFlag == false )
+		{
+			srand(( unsigned int ) time(NULL));
+			randFlag = true;
+		}
+
+		result = min + ( int ) ( rand() * ( max - min + 1.0 ) / ( 1.0 + RAND_MAX ) );
+
+		return result;
+	}*/
 }
 
 namespace MyMath

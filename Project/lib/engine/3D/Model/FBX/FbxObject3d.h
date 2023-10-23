@@ -92,6 +92,10 @@ public:
 	void SetRotation(MyMath::Vector3 rotation);
 	void SetTranslation(MyMath::Vector3 translation);
 
+	MyMath::Vector3 GetScale();
+	MyMath::Vector3 GetRotation();
+	MyMath::Vector3 GetTranslation();
+
 	//コンストラクタ・デストラクタ
 	FbxObject3d() = default;
 	~FbxObject3d() = default;

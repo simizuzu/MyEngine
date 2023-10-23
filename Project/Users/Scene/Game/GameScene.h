@@ -72,6 +72,11 @@ private:
 	/// </summary>
 	void StopTimer();
 
+	/// <summary>
+	/// スタート時のムービー演出
+	/// </summary>
+	void ModelMovie();
+
 private: // メンバ変数
 	Input* input_ = nullptr;
 	Camera* camera = nullptr;
@@ -89,6 +94,9 @@ private: // メンバ変数
 	std::unique_ptr<SceneData> modelData_;
 	std::unique_ptr<GameCamera> gameCamera_;
 	std::unique_ptr<PostEffect> postEffect_;
+
+	std::unique_ptr<FbxObject3d> robotoObj_;
+	std::unique_ptr<FbxModel> robotoModel_;
 	
 	//シーンマネージャ
 	SceneManager* sceneManager_ = nullptr;
@@ -96,7 +104,8 @@ private: // メンバ変数
 private: //スタート演出
 	float easingFrame = 5.0f;
 	float easingTimer = 0.0f;
-	float texAlpha = 1.0f;
+	float texAlpha = 0.0f;
+	float texBlackAlpha = 0.0f;
 	uint8_t startCount = 0;
 
 	bool easingFlag = false;
@@ -107,29 +116,31 @@ private: //スタート演出
 	MyMath::Vector2 blackUpPos = { 0,0 };
 	MyMath::Vector2 blackDownPos = {1280,620};
 	MyMath::Vector2 blackSize = {0,100};
-	//int8_t pad2[4 ];
+	int8_t pad2[4 ];
 
 	std::unique_ptr<Sprite> spriteWhite_;
+	std::unique_ptr<Sprite> spriteBlack_;
 	std::unique_ptr<Sprite> spriteBlackUp_;
 	std::unique_ptr<Sprite> spriteBlackDown_;
 	TextureData texWhite_;
+	TextureData texBlack_;
 	TextureData texBlackUp_;
 	TextureData texBlackDown_;
 
 	const float blackTimer_ = 50.0f;
 	const int8_t minus1 = -1;
-
-	int8_t pad2[3 ];
+	int8_t pad4[3 ];
 
 private:
 	enum class SCENEFASE
 	{
+		MOVIE,
 		BLACKMIND,
 		START,
 		GAME
 	};
 
-	SCENEFASE scene = SCENEFASE::BLACKMIND;
+	SCENEFASE scene = SCENEFASE::MOVIE;
 	int8_t pad3[ 4 ];
 
 private:

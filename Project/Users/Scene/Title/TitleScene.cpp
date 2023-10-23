@@ -27,6 +27,9 @@ void TitleScene::Initialize()
 	spriteBlackout->Initialize();
 	texBlackout = TextureManager::Load("Resources/Texture/Scene/title.png");
 
+	transition_ = std::make_unique<TransitionScene>();
+	transition_->Initialize();
+
 	sceneManager_ = SceneManager::GetInstance();
 }
 

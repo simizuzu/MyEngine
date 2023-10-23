@@ -6,6 +6,7 @@
 #include "Light.h"
 
 #include "TitleAnimation.h"
+#include "TransitionScene.h"
 
  /**
  * @class TitleScene.h
@@ -56,6 +57,8 @@ private:
 	SceneManager* sceneManager_= nullptr;
 
 	std::unique_ptr<TitleAnimation> titleAnimation_;
+
+	std::unique_ptr<TransitionScene> transition_;
 
 	//ImGuiデバッグ用
 	MyMath::Vector3 cameraPos = { 0,0,0 };

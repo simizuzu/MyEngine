@@ -31,17 +31,29 @@ MYENGINE_SUPPRESS_WARNINGS_END
 	modelData_->Initialize(camera);
 
 	spriteWhite_ = std::make_unique<Sprite>();
+	spriteBlack_ = std::make_unique<Sprite>();
 	spriteBlackUp_ = std::make_unique<Sprite>();
 	spriteBlackDown_ = std::make_unique<Sprite>();
 
 	spriteWhite_->Initialize();
+	spriteBlack_->Initialize();
 	spriteBlackUp_->Initialize();
 	spriteBlackDown_->Initialize();
 
 	texWhite_ = TextureManager::Load("Resources/Texture/white1x1.png");
+	texBlack_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackUp_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackDown_ = TextureManager::Load("Resources/Texture/black1x1.png");
 
+	robotoModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("roboto"));
+	robotoObj_.reset(FbxObject3d::Create());
+	robotoObj_->SetModel(robotoModel_.get());
+	robotoObj_->PlayAnimation();
+	robotoObj_->SetScale({ 0.009f,0.009f ,0.009f });
+	//robotoObj_->SetTranslation({ -0.9f,0.0f,-1.2f });
+
+	
+	spriteBlack_->SetColor({ COLOR::red,COLOR::green,COLOR::blue,texBlackAlpha });
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
 
@@ -60,16 +72,31 @@ void GameScene::Update()
 	light->Update();
 
 	//カメラの挙動
-	gameCamera_->Update();
+	if ( scene != SCENEFASE::MOVIE )
+	{
+		if ( scene != SCENEFASE::BLACKMIND )
+		{
+			gameCamera_->Update();
+		}
+
+	}
 
 	modelData_->Update();
+	spriteBlack_->SetColor({ COLOR::red,COLOR::green,COLOR::blue,texBlackAlpha });
 
 	switch ( scene )
 	{
-	case GameScene::SCENEFASE::BLACKMIND:
+	case GameScene::SCENEFASE::MOVIE:
 
 		//スタート演出
 		BlackMind();
+
+		break;
+	case GameScene::SCENEFASE::BLACKMIND:
+
+		//モデルのムービー演出
+		ModelMovie();
+
 		break;
 	case GameScene::SCENEFASE::START:
 
@@ -97,12 +124,36 @@ void GameScene::Update()
 void GameScene::Draw()
 {
 	modelData_->Draw();
-	spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 
 	spriteBlackUp_->Draw(texBlackUp_,blackUpPos,{ blackSize.x,blackSize.y });
 	spriteBlackDown_->Draw(texBlackDown_,blackDownPos,{ blackSize.x * minus1,blackSize.y });
 
+
+	switch ( scene )
+	{
+	case GameScene::SCENEFASE::MOVIE:
+
+		//スタート演出
+		BlackMind();
+
+		break;
+	case GameScene::SCENEFASE::BLACKMIND:
+
+		robotoObj_->Draw();
+
+		break;
+	case GameScene::SCENEFASE::START:
+		texBlackAlpha -= 0.1f;
+		spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
+		break;
+	case GameScene::SCENEFASE::GAME:
+		break;
+	default:
+		break;
+	}
+	spriteBlack_->Draw(texBlackUp_,blackUpPos,{ 1280,720 });
 }
+
 
 void GameScene::Finalize()
 {
@@ -119,6 +170,7 @@ void GameScene::StartDirection()
 		}
 		else
 		{
+			texAlpha = 1.0f;
 			easingTimer = 0.0f;
 			easingFlag = true;
 		}
@@ -153,12 +205,15 @@ void GameScene::StartDirection()
 
 void GameScene::BlackMind()
 {
+	camera->SetEye({ -2.2f,1,-4 });
+	camera->SetTarget({ -3,2,0 });
+
 	blackSize.x += blackTimer_;
 
 	if ( blackSize.x > 1300.0f )
 	{
 		blackSize.x = 1300.0f;
-		scene = SCENEFASE::START;
+		scene = SCENEFASE::BLACKMIND;
 	}
 }
 
@@ -168,6 +223,25 @@ void GameScene::StopTimer()
 	{
 		blackUpPos.y = -200.0f;
 		blackDownPos.y = 800.0f;
+	}
+}
+
+void GameScene::ModelMovie()
+{
+	startCount++;
+	robotoObj_->Update(camera);
+	camera->SetEye({ -2.2f,1,-4 });
+	camera->SetTarget({ -3,2,0 });
+
+	if ( startCount > 170 )
+	{
+		texBlackAlpha += 0.1f;
+		if ( startCount > 250 )
+		{
+			texBlackAlpha = 1.0f;
+			startCount = 0;
+			scene = SCENEFASE::START;
+		}
 	}
 }
 

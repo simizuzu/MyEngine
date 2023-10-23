@@ -127,6 +127,14 @@ namespace MyMathUtility
 	float EaseInExpo(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 	float EaseInOutBack(const float startPoint, const float endPoint, float nowFlame, float endFlame);
 
+	/// <summary>
+	/// ランダム関数
+	/// </summary>
+	/// <param name="min">最小値</param>
+	/// <param name="max"最大値></param>
+	/// <returns>ランダムした結果</returns>
+	/*int GetRandom(int min,int max);
+	bool randFlag;*/
 }
 
 namespace MyMath
