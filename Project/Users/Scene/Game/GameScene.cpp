@@ -34,16 +34,19 @@ MYENGINE_SUPPRESS_WARNINGS_END
 	spriteBlack_ = std::make_unique<Sprite>();
 	spriteBlackUp_ = std::make_unique<Sprite>();
 	spriteBlackDown_ = std::make_unique<Sprite>();
+	spriteStageName01_ = std::make_unique<Sprite>();
 
 	spriteWhite_->Initialize();
 	spriteBlack_->Initialize();
 	spriteBlackUp_->Initialize();
 	spriteBlackDown_->Initialize();
+	spriteStageName01_->Initialize();
 
 	texWhite_ = TextureManager::Load("Resources/Texture/white1x1.png");
 	texBlack_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackUp_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackDown_ = TextureManager::Load("Resources/Texture/black1x1.png");
+	texStageName01_ = TextureManager::Load("Resources/Texture/Scene/stagename01.png");
 
 	robotoModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("roboto"));
 	robotoObj_.reset(FbxObject3d::Create());
@@ -127,6 +130,11 @@ void GameScene::Draw()
 
 	spriteBlackUp_->Draw(texBlackUp_,blackUpPos,{ blackSize.x,blackSize.y });
 	spriteBlackDown_->Draw(texBlackDown_,blackDownPos,{ blackSize.x * minus1,blackSize.y });
+
+	if ( scene == SCENEFASE::MOVIE || scene == SCENEFASE::BLACKMIND )
+	{
+		spriteStageName01_->Draw(texStageName01_,{50,300});
+	}
 
 
 	switch ( scene )

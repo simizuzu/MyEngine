@@ -122,10 +122,13 @@ private: //スタート演出
 	std::unique_ptr<Sprite> spriteBlack_;
 	std::unique_ptr<Sprite> spriteBlackUp_;
 	std::unique_ptr<Sprite> spriteBlackDown_;
+	std::unique_ptr<Sprite> spriteStageName01_;
+
 	TextureData texWhite_;
 	TextureData texBlack_;
 	TextureData texBlackUp_;
 	TextureData texBlackDown_;
+	TextureData texStageName01_;
 
 	const float blackTimer_ = 50.0f;
 	const int8_t minus1 = -1;
