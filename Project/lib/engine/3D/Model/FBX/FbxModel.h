@@ -63,6 +63,7 @@ public: //サブクラス
 		MyMath::Vector2 uv; //uv座標
 		UINT boneIndex[ MAX_BONE_INDICES ];	//ボーン番号
 		float boneWeight[ MAX_BONE_INDICES ];	//ボーン重み
+		std::vector<std::pair<UINT,float>> boneData;
 	};
 
 public:

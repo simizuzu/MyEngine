@@ -112,7 +112,7 @@ void FbxObject3d::Update(Camera* camera)
 	//アニメーション
 	if (isPlay)
 	{
-		//1フレーm、宇進める
+		//1フレーム、宇進める
 		currentTime += frameTime;
 		//最後まで再生したら先頭に戻す
 		if (currentTime > endTime)

@@ -2,7 +2,11 @@
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
+#include <algorithm>
+#include <stdlib.h>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+#define NOMINMAX
 
  /**
  * @file FbxLoader.cpp
@@ -168,7 +172,7 @@ void FbxLoader::ParseMesh(FbxModel* model, FbxNode* fbxNode)
 	//頂点座標読み取り
 	ParseMeshVertices(model, fbxMesh);
 	//面を構成するデータ読み取り
-	ParseMeshFaces(model, fbxMesh);
+	//ParseMeshFaces(model, fbxMesh);
 	//マテリアルの読み取り
 	ParseMaterial(model, fbxNode);
 	//スキニング情報の読み取り
@@ -199,24 +203,118 @@ std::string FbxLoader::ExtractFileName(const std::string& path)
 void FbxLoader::ParseMeshVertices(FbxModel* model, FbxMesh* fbxMesh)
 {
 	auto& vertices = model->vertices;
+	auto& indices = model->indices;
 
 	//頂点座標データの数
-	const int controlPointsCount = fbxMesh->GetControlPointsCount();
+	//const int controlPointsCount = fbxMesh->GetControlPointsCount();
 	//必要数だけ頂点データ配列を確保
-	FbxModel::VertexPosNormalUvSkin vert{};
-	model->vertices.resize((uint32_t)controlPointsCount, vert);
+	//FbxModel::VertexPosNormalUvSkin vert{};
+	//model->vertices.resize((uint32_t)controlPointsCount, vert);
 
 	//FBXメッシュの頂点座標配列を取得
-	FbxVector4* pCoord = fbxMesh->GetControlPoints();
+	//FbxVector4* pCoord = fbxMesh->GetControlPoints();
 
 	//FBXメッシュの全頂点座標をモデル内の配列にコピーする
-	for (int i = 0; i < controlPointsCount; i++)
+	//for (int i = 0; i < controlPointsCount; i++)
+	//{
+	//	FbxModel::VertexPosNormalUvSkin& vertex = vertices[(uint32_t)i];
+	//	//座標のコピー
+	//	vertex.pos.x = (float)pCoord[i][0];
+	//	vertex.pos.y = (float)pCoord[i][1];
+	//	vertex.pos.z = (float)pCoord[i][2];
+	//}
+
+	FbxStringList uvSetNameList;
+	fbxMesh->GetUVSetNames(uvSetNameList);
+	const char* uvSetName = uvSetNameList.GetStringAt(0);
+
+	// 頂点座標情報のリストを生成
+	std::vector<std::vector<float>> vertexInfoList;
+	for ( int i = 0; i < fbxMesh->GetControlPointsCount(); i++ )
 	{
-		FbxModel::VertexPosNormalUvSkin& vertex = vertices[(uint32_t)i];
-		//座標のコピー
-		vertex.pos.x = (float)pCoord[i][0];
-		vertex.pos.y = (float)pCoord[i][1];
-		vertex.pos.z = (float)pCoord[i][2];
+		// 頂点座標を読み込んで設定
+		FbxVector4 point = fbxMesh->GetControlPointAt(i);
+
+		std::vector<float> vertex;
+		vertex.push_back(static_cast< float >( point[ 0 ] ));
+		vertex.push_back(static_cast< float >( point[ 1 ] ));
+		vertex.push_back(static_cast< float >( point[ 2 ] ));
+
+		vertexInfoList.push_back(vertex);
+	}
+
+	int forCalc = 0;
+
+	// 頂点毎の情報を取得する
+	std::vector<std::array<int,2>> oldNewIndexPairList;
+	for ( int polIndex = 0; polIndex < fbxMesh->GetPolygonCount(); polIndex++ ) // ポリゴン毎のループ
+	{
+		FbxVector4 v1,v2,v3,faceNorm;
+		/*if ( smoothing == true )
+		{
+
+			fbxMesh->GetPolygonVertexNormal(polIndex,0,v1);
+			fbxMesh->GetPolygonVertexNormal(polIndex,1,v2);
+			fbxMesh->GetPolygonVertexNormal(polIndex,2,v3);
+
+			faceNorm = {
+				( v2.mData[ 1 ] - v1.mData[ 1 ] ) * ( v3.mData[ 2 ] - v1.mData[ 2 ] ) - ( v2.mData[ 2 ] - v1.mData[ 2 ] ) * ( v3.mData[ 1 ] - v1.mData[ 1 ] ),
+				( v2.mData[ 2 ] - v1.mData[ 2 ] ) * ( v3.mData[ 0 ] - v1.mData[ 0 ] ) - ( v2.mData[ 0 ] - v1.mData[ 0 ] ) * ( v3.mData[ 2 ] - v1.mData[ 2 ] ),
+				( v2.mData[ 0 ] - v1.mData[ 0 ] ) * ( v3.mData[ 1 ] - v1.mData[ 1 ] ) - ( v2.mData[ 1 ] - v1.mData[ 1 ] ) * ( v3.mData[ 0 ] - v1.mData[ 0 ] ),
+				0
+			};
+		}*/
+		for ( int polVertexIndex = 0; polVertexIndex < 3; polVertexIndex++ ) // 頂点毎のループ
+		{
+
+			// インデックス座標
+			auto vertexIndex = fbxMesh->GetPolygonVertex(polIndex,polVertexIndex);
+
+			// 頂点座標
+			std::vector<float> vertexInfo = vertexInfoList[ (uint64_t)vertexIndex ];
+
+			// 法線座標
+			FbxVector4 normalVec4;
+			fbxMesh->GetPolygonVertexNormal(polIndex,polVertexIndex,normalVec4);
+
+			/*if ( smoothing == true )
+			{
+				normalVec4 += faceNorm;
+				float len = static_cast< float >( normalVec4.Length() );
+
+				if ( len != 0.0f )
+				{
+					normalVec4 /= len;
+				}
+
+			}*/
+
+			// UV座標
+			FbxVector2 uvVec2;
+			bool isUnMapped;
+			fbxMesh->GetPolygonVertexUV(polIndex,polVertexIndex,uvSetName,uvVec2,isUnMapped);
+
+			FbxModel::VertexPosNormalUvSkin nowProtVertice = {};
+			nowProtVertice.pos = { vertexInfo[ 0 ] ,vertexInfo[ 1 ] ,vertexInfo[ 2 ] };
+
+			nowProtVertice.normal = {
+				static_cast< float >( normalVec4[ 0 ] ),
+				static_cast< float >( normalVec4[ 1 ] ),
+				static_cast< float >( normalVec4[ 2 ] ) };
+
+			nowProtVertice.uv = {
+				static_cast< float >( uvVec2[ 0 ] ) ,
+				static_cast< float >( 1.0f - uvVec2[ 1 ] )
+			};
+
+			vertices.push_back(nowProtVertice);
+
+			int controlPointIndex = fbxMesh->GetPolygonVertex(polIndex,polVertexIndex);
+			meshVerticeControlpoints[ controlPointIndex ].push_back(static_cast< int >( indices.size() ));
+			// インデックス座標を設定
+			indices.push_back(static_cast< unsigned short >( forCalc ));
+			forCalc++;
+		}
 	}
 }
 
@@ -240,7 +338,7 @@ void FbxLoader::ParseMeshFaces(FbxModel* model, FbxMesh* fbxMesh)
 	{
 		//面を構成する頂点の数を取得（3なら三角形ポリゴン）
 		const int polygonSize = fbxMesh->GetPolygonSize(i);
-		assert(polygonSize <= 4);
+		assert(polygonSize <= 32);
 
 		//1頂点ずつ処理
 		for (int j = 0; j < polygonSize; j++)
@@ -410,65 +508,67 @@ void FbxLoader::ParseSkin(FbxModel* model, FbxMesh* fbxMesh)
 	//vector:それを全頂点分
 	std::vector<std::list<WeightSet>>weightLists(model->vertices.size());
 
-	//全てのボーンについて
-	for (int i = 0; i < clusterCount; i++)
-	{
-		//FBXボーン情報
-		FbxCluster* fbxCluster = fbxSkin->GetCluster(i);
-		//このボーンに影響を受ける頂点の数
-		int controlPointIndicesCount = fbxCluster->GetControlPointIndicesCount();
-		//このボーンに影響を受ける頂点の配列
-		int* controlPointIndices = fbxCluster->GetControlPointIndices();
-		double* controlPointWeights = fbxCluster->GetControlPointWeights();
+	////全てのボーンについて
+	//for (int i = 0; i < clusterCount; i++)
+	//{
+	//	//FBXボーン情報
+	//	FbxCluster* fbxCluster = fbxSkin->GetCluster(i);
+	//	//このボーンに影響を受ける頂点の数
+	//	int controlPointIndicesCount = fbxCluster->GetControlPointIndicesCount();
+	//	//このボーンに影響を受ける頂点の配列
+	//	int* controlPointIndices = fbxCluster->GetControlPointIndices();
+	//	double* controlPointWeights = fbxCluster->GetControlPointWeights();
 
-		//影響を受ける全頂点について
-		for (int j = 0; j < controlPointIndicesCount; j++)
-		{
-			//頂点番号
-			int vertIndex = controlPointIndices[j];
-			//スキンウェイト
-			float weight = (float)controlPointWeights[j];
-			//その頂点の影響を受けるボーンリストに、ボーンとウェイトのペアを追加
-			weightLists[ ( uint32_t ) vertIndex].emplace_back(WeightSet{ (UINT)i, weight });
-		}
-	}
+	//	//影響を受ける全頂点について
+	//	for (int j = 0; j < controlPointIndicesCount; j++)
+	//	{
+	//		//頂点番号
+	//		int vertIndex = controlPointIndices[j];
+	//		//スキンウェイト
+	//		float weight = (float)controlPointWeights[j];
+	//		//その頂点の影響を受けるボーンリストに、ボーンとウェイトのペアを追加
+	//		weightLists[ ( uint32_t ) vertIndex].emplace_back(WeightSet{ (UINT)i, weight });
+	//	}
+	//}
 
 	//スキンウェイトの整理
 	//頂点配列書き換え用の参照
 	auto& vertices = model->vertices;
-	//各頂点についての処理
-	for (size_t i = 0; i < vertices.size(); i++)
-	{
-		//頂点のウェイトから最も大きい4つを選択
-		auto& weightList = weightLists[i];
-		//大小比較用のラムダ式を指定して降順にソート
-		weightList.sort(
-			[](auto const& lhs, auto const& rhs) {
-				return lhs.weight > rhs.weight;
-			});
+	////各頂点についての処理
+	//for (size_t i = 0; i < vertices.size(); i++)
+	//{
+	//	//頂点のウェイトから最も大きい4つを選択
+	//	auto& weightList = weightLists[i];
+	//	//大小比較用のラムダ式を指定して降順にソート
+	//	weightList.sort(
+	//		[](auto const& lhs, auto const& rhs) {
+	//			return lhs.weight > rhs.weight;
+	//		});
 
-		int weightArrayIndex = 0;
-		//降順ソート済みのウェイトリストから
-		for (auto& weightSet : weightList)
-		{
-			//頂点データに書き込み
-			vertices[i].boneIndex[weightArrayIndex] = weightSet.index;
-			vertices[i].boneWeight[weightArrayIndex] = weightSet.weight;
-			//4つに達したら終了
-			if (++weightArrayIndex >= FbxModel::MAX_BONE_INDICES)
-			{
-				float weight = 0.0f;
-				//2番目以降のウェイトを合計
-				for (int j = 1; j < FbxModel::MAX_BONE_INDICES; j++)
-				{
-					weight += vertices[i].boneWeight[j];
-				}
-				//合計で1.0f(100%)になるように調整
-				vertices[i].boneWeight[0] = 1.0f - weight;
-				break;
-			}
-		}
-	}
+	//	int weightArrayIndex = 0;
+	//	//降順ソート済みのウェイトリストから
+	//	for (auto& weightSet : weightList)
+	//	{
+	//		//頂点データに書き込み
+	//		vertices[i].boneIndex[weightArrayIndex] = weightSet.index;
+	//		vertices[i].boneWeight[weightArrayIndex] = weightSet.weight;
+	//		//4つに達したら終了
+	//		if (++weightArrayIndex >= FbxModel::MAX_BONE_INDICES)
+	//		{
+	//			float weight = 0.0f;
+	//			//2番目以降のウェイトを合計
+	//			for (int j = 1; j < FbxModel::MAX_BONE_INDICES; j++)
+	//			{
+	//				weight += vertices[i].boneWeight[j];
+	//			}
+	//			//合計で1.0f(100%)になるように調整
+	//			vertices[i].boneWeight[0] = 1.0f - weight;
+	//			break;
+	//		}
+	//	}
+	//}
+
+	SetBoneDataToVertices(fbxMesh,model,vertices);
 }
 
 void FbxLoader::LoadTexture(FbxModel* model, const std::string& fullpath)
@@ -487,4 +587,117 @@ void FbxLoader::LoadTexture(FbxModel* model, const std::string& fullpath)
 	{
 		assert(0);
 	}
+}
+
+bool FbxLoader::IsExistNormalUVInfo(const std::vector<float>& vertexInfo)
+{
+	return vertexInfo.size() == 8; // 頂点3 + 法線3 + UV2
+}
+
+std::vector<float> FbxLoader::CreateVertexInfo(const std::vector<float>& vertex,const FbxVector4& normalVec4,const FbxVector2& uvVec2)
+{
+	std::vector<float> newVertexInfo;
+
+	// 位置座標
+	newVertexInfo.push_back(static_cast< float >( vertex[ 0 ] ));
+	newVertexInfo.push_back(static_cast< float >( vertex[ 1 ] ));
+	newVertexInfo.push_back(static_cast< float >( vertex[ 2 ] ));
+	// 法線座標
+	newVertexInfo.push_back(static_cast< float >( normalVec4[ 0 ] ));
+	newVertexInfo.push_back(static_cast< float >( normalVec4[ 1 ] ));
+	newVertexInfo.push_back(static_cast< float >( normalVec4[ 2 ] ));
+	// UV座標
+	newVertexInfo.push_back(static_cast< float >( uvVec2[ 0 ] ));
+	newVertexInfo.push_back(static_cast< float >( uvVec2[ 1 ] ));
+
+	return newVertexInfo;
+}
+
+int FbxLoader::CreateNewVertexIndex(const std::vector<float>& vertexInfo,const FbxVector4& normalVec4,const FbxVector2& uvVec2,
+			std::vector<std::vector<float>>& vertexInfoList,int oldIndex,std::vector<std::array<int,2>>& oldNewIndexPairList)
+{
+	// 作成済でない場合、新たな頂点インデックスとして作成
+	std::vector<float> newVertexInfo = CreateVertexInfo(vertexInfo,normalVec4,uvVec2);
+	vertexInfoList.push_back(newVertexInfo);
+	// 作成したインデックス情報を設定
+	int newIndex = static_cast< int >( vertexInfoList.size() ) - 1;
+	std::array<int,2> oldNewIndexPair{ oldIndex , newIndex };
+	oldNewIndexPairList.push_back(oldNewIndexPair);
+	return newIndex;
+}
+
+bool FbxLoader::IsSetNormalUV(const std::vector<float> vertexInfo,const FbxVector4& normalVec4,const FbxVector2& uvVec2)
+{
+	// 法線、UV座標が同値なら設定済とみなす
+	return fabs(vertexInfo[ 3 ] - normalVec4[ 0 ]) < FLT_EPSILON
+		&& fabs(vertexInfo[ 4 ] - normalVec4[ 1 ]) < FLT_EPSILON
+		&& fabs(vertexInfo[ 5 ] - normalVec4[ 2 ]) < FLT_EPSILON
+		&& fabs(vertexInfo[ 6 ] - uvVec2[ 0 ]) < FLT_EPSILON
+		&& fabs(vertexInfo[ 7 ] - uvVec2[ 1 ]) < FLT_EPSILON;
+}
+
+void FbxLoader::SetBoneDataToVertices(FbxMesh* pMesh,FbxModel* pModel,std::vector<FbxModel::VertexPosNormalUvSkin>& vertices)
+{
+	int32_t skinCount = pMesh->GetDeformerCount(FbxDeformer::eSkin);
+
+	for ( int32_t i = 0; i < skinCount; ++i )
+	{
+		FbxSkin* skin = static_cast< FbxSkin* >( pMesh->GetDeformer(i,FbxDeformer::eSkin) );
+		int32_t clusterCount = skin->GetClusterCount();
+
+		for ( int32_t j = 0; j < clusterCount; ++j )
+		{
+			FbxCluster* cluster = skin->GetCluster(j);
+			int32_t jointIndex = FindJointIndexByName(cluster->GetLink()->GetName(),pModel);
+
+			for ( int32_t k = 0; k < cluster->GetControlPointIndicesCount(); ++k )
+			{
+				int32_t controlPointIndex = cluster->GetControlPointIndices()[ k ];
+				float weight = static_cast< float >( cluster->GetControlPointWeights()[ k ] );
+
+				for ( int32_t l = 0; l < pMesh->GetPolygonCount(); ++l )
+				{
+					for ( int32_t m = 0; m < 3; ++m )
+					{
+						int32_t vertexIndexInArray = l * 3 + m;
+
+						if ( pMesh->GetPolygonVertex(l,m) == controlPointIndex )
+						{
+							vertices[ (uint64_t)vertexIndexInArray ].boneData.push_back({ jointIndex, weight });
+						}
+					}
+				}
+			}
+		}
+	}
+
+	for ( auto& vertex : vertices )
+	{
+		// ボーンの情報から要素を何番に入れるかソート
+		std::sort(vertex.boneData.begin(),vertex.boneData.end(),
+			[ ] (const std::pair<uint32_t,float>& a,const std::pair<uint32_t,float>& b)
+			{
+				return a.second > b.second;
+			});
+
+		// 4つの順番通りに並び替え
+		for ( uint32_t i = 0; i < Min(static_cast< uint32_t >( vertex.boneData.size() ),4u); ++i )
+		{
+			vertex.boneIndex[ i ] = vertex.boneData[ i ].first;
+			vertex.boneWeight[ i ] = vertex.boneData[ i ].second;
+		}
+	}
+}
+
+int FbxLoader::FindJointIndexByName(const std::string& name,FbxModel* model)
+{
+	for (size_t i = 0; i < model->GetBones().size(); ++i )
+	{
+		if ( model->GetBones()[ i ].name_ == name )
+		{
+			return (int32_t)i;
+		}
+	}
+
+	return -1;
 }
