@@ -9,7 +9,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief TransitionSceneの処理について書いてあります
  */
 
-	void TransitionScene::Initialize()
+
+TransitionScene* TransitionScene::GetInstance()
+{
+	static TransitionScene instance;
+	return &instance;
+}
+
+void TransitionScene::Initialize()
 {
 	input = Input::GetInstance();
 

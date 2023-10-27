@@ -1,6 +1,4 @@
 #pragma once
-#include "BaseScene.h"
-
 #include "Sprite.h"
 #include "TextureManager.h"
 #include "Input.h"
@@ -13,20 +11,26 @@
 /// <summary>
 /// シーン遷移用クラス
 /// </summary>
-class TransitionScene : public BaseScene
+class TransitionScene
 {
 public:
 	TransitionScene() = default;
 	~TransitionScene() = default;
 
 	//　初期化
-	void Initialize() override;
+	void Initialize();
 	// 更新
-	void Update() override;
+	void Update();
 	// 描画
-	void Draw() override;
+	void Draw();
 	// 終了処理
-	void Finalize() override;
+	void Finalize();
+
+public:
+	/// <summary>
+	/// インスタンス生成
+	/// </summary>
+	static TransitionScene* GetInstance();
 
 private:
 	/// <summary>
