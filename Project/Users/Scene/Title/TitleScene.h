@@ -58,10 +58,10 @@ private:
 	MyMath::Vector2 pos = { 0,0 };
 
 	uint8_t blackoutTimer = 60;
-	int8_t pad1[3 ];	
+	int8_t pad1[3 ];
 
-	std::unique_ptr<Sprite> spriteBlackout;
-	TextureData texBlackout;
+	bool flag = false;
+	int8_t pad2[7 ];
 
 private:
 
