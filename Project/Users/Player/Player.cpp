@@ -62,6 +62,11 @@ void Player::Update()
 	ImGui::Text("Position(%f,%f,%f)",playerTrans.GetTranslation().x,playerTrans.GetTranslation().y,playerTrans.GetTranslation().z);
 	ImGui::Text("worldTransform3DReticle(%f,%f,%f)",worldTransform3DReticle.GetTranslation().x,worldTransform3DReticle.GetTranslation().y,worldTransform3DReticle.GetTranslation().z);
 	ImGui::End();
+
+	ImGui::Begin("CameraAngle");
+	ImGui::Text("CameraAngle(%f,%f)",cameraHAngle,cameraVAngle );
+	ImGui::End();
+
 #endif
 
 	//移動処理
@@ -79,8 +84,6 @@ void Player::Update()
 
 void Player::Draw()
 {
-	//playerObj->Draw(&playerTrans);
-
 	reticleObj->Draw(&worldTransform3DReticle);
 
 	//弾描画
@@ -108,6 +111,10 @@ void Player::Reticle3D()
 	const float distancePlayerTo3DReticle = 10.0f;
 	//自機から3Dレティクルへのオフセット(Z+向き)
 	MyMath::Vector3 offset = { 0,0,1.0f };
+	//カメラの角度を取得する
+	cameraHAngle = camera_->GetHAngle(camera_->GetEye(),camera_->GetTarget()); //水平方向
+	cameraVAngle = camera_->GetVAngle(camera_->GetEye(),camera_->GetTarget()); //垂直方向
+	
 	//自機のワールド行列の回転を反映
 	offset = MyMath::Vec3Mat4Mul(offset,playerTrans.matWorld);
 	//ベクトルの長さを整える

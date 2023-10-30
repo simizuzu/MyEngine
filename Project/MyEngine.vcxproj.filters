@@ -217,6 +217,30 @@
     <Filter Include="Application\ヘッダーファイル\Player">
       <UniqueIdentifier>{e15142c0-2f1b-4b98-840e-5b59048a0153}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\Math\Vector">
+      <UniqueIdentifier>{66703576-aeca-44fa-8a7f-d1dd9a249b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\Math\Matrix">
+      <UniqueIdentifier>{d0d83b18-10e2-4f3a-8d21-9e63b1afb7a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\Math\Quaternion">
+      <UniqueIdentifier>{046079a3-b23b-4251-b610-f80b34d54d9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\Math\Vector">
+      <UniqueIdentifier>{c550eb75-c341-4b90-8474-baf02c4c5db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\Math\Matrix">
+      <UniqueIdentifier>{dca43525-697b-4b6c-85e9-e023524c665a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\Math\Quaternion">
+      <UniqueIdentifier>{e306260b-5e23-4804-9b48-35f6460c2dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ソースファイル\Enemy">
+      <UniqueIdentifier>{81dd9848-6016-4e8a-8b1c-8e8002ac5f56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Enemy">
+      <UniqueIdentifier>{4a6968f4-a255-449f-bc92-641f90a15b21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\engine\main.cpp">
@@ -230,18 +254,6 @@
     </ClCompile>
     <ClCompile Include="lib\engine\Input\Input.cpp">
       <Filter>Engine\ソース ファイル\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\engine\Math\Matrix4.cpp">
-      <Filter>Engine\ソース ファイル\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\engine\Math\Vector4.cpp">
-      <Filter>Engine\ソース ファイル\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\engine\Math\Vector2.cpp">
-      <Filter>Engine\ソース ファイル\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\engine\Math\Vector3.cpp">
-      <Filter>Engine\ソース ファイル\Math</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\Math\DirectX12Math.cpp">
       <Filter>Engine\ソース ファイル\Math</Filter>
@@ -287,9 +299,6 @@
     </ClCompile>
     <ClCompile Include="lib\engine\Scene\MainGame.cpp">
       <Filter>Engine\ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\engine\Math\Quaternion.cpp">
-      <Filter>Engine\ソース ファイル\Math</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\Base\TextureManager.cpp">
       <Filter>Engine\ソース ファイル\Base</Filter>
@@ -357,11 +366,29 @@
     <ClCompile Include="Users\Player\PlayerBullet.cpp">
       <Filter>Application\ソースファイル\Player</Filter>
     </ClCompile>
-    <ClCompile Include="TransitionScene.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
+    <ClCompile Include="Users\Scene\TransitionScene.cpp">
+      <Filter>Application\ソースファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\engine\Math\Vector4.cpp">
+      <Filter>Engine\ソース ファイル\Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\engine\Math\Vector3.cpp">
+      <Filter>Engine\ソース ファイル\Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\engine\Math\Vector2.cpp">
+      <Filter>Engine\ソース ファイル\Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\engine\Math\Matrix4.cpp">
+      <Filter>Engine\ソース ファイル\Math\Matrix</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\Math\Matrix3x4.cpp">
-      <Filter>Engine\ソース ファイル\Math</Filter>
+      <Filter>Engine\ソース ファイル\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\engine\Math\Quaternion.cpp">
+      <Filter>Engine\ソース ファイル\Math\Quaternion</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Application\ソースファイル\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -401,18 +428,6 @@
     <ClInclude Include="lib\engine\Input\Input.h">
       <Filter>Engine\ヘッダー ファイル\Input</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\Math\Matrix4.h">
-      <Filter>Engine\ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\engine\Math\Vector4.h">
-      <Filter>Engine\ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\engine\Math\Vector3.h">
-      <Filter>Engine\ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\engine\Math\Vector2.h">
-      <Filter>Engine\ヘッダー ファイル\Math</Filter>
-    </ClInclude>
     <ClInclude Include="lib\engine\Base\Core\WinApp.h">
       <Filter>Engine\ヘッダー ファイル\Base\Core</Filter>
     </ClInclude>
@@ -435,9 +450,6 @@
       <Filter>Application\ヘッダーファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\Math\DirectX12Math.h">
-      <Filter>Engine\ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\engine\Math\Quaternion.h">
       <Filter>Engine\ヘッダー ファイル\Math</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\2D\Sprite\Sprite.h">
@@ -509,11 +521,29 @@
     <ClInclude Include="lib\engine\Base\SuppressWarning.h">
       <Filter>Engine\ヘッダー ファイル\Base</Filter>
     </ClInclude>
-    <ClInclude Include="TransitionScene.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
+    <ClInclude Include="Users\Scene\TransitionScene.h">
+      <Filter>Application\ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\Math\Vector4.h">
+      <Filter>Engine\ヘッダー ファイル\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\Math\Vector3.h">
+      <Filter>Engine\ヘッダー ファイル\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\Math\Vector2.h">
+      <Filter>Engine\ヘッダー ファイル\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\Math\Matrix3x4.h">
-      <Filter>Engine\ヘッダー ファイル\Math</Filter>
+      <Filter>Engine\ヘッダー ファイル\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\Math\Matrix4.h">
+      <Filter>Engine\ヘッダー ファイル\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\Math\Quaternion.h">
+      <Filter>Engine\ヘッダー ファイル\Math\Quaternion</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Application\ヘッダーファイル\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

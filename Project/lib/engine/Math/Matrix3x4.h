@@ -1,5 +1,6 @@
 #pragma once
 #include "SuppressWarning.h"
+#include "Vector3.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cmath>
@@ -53,5 +54,12 @@ namespace MyMath
 
 namespace MyMathUtility
 {
+	//単位行列
 	MyMath::Matrix3x4 MakeIdentity3x4();
+	// 拡大縮小を求める
+	MyMath::Matrix3x4 MakeScaling3x4(const MyMath::Vector3& scale);
+	// 回転行列を求める
+	MyMath::Matrix3x4 MakeRotation3x4(const MyMath::Vector3& rot);
+	// 平行移動行列を求める
+	MyMath::Matrix3x4 MakeTranslation3x4(const MyMath::Vector3& trans);
 }

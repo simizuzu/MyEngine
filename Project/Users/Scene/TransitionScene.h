@@ -17,14 +17,18 @@ public:
 	TransitionScene() = default;
 	~TransitionScene() = default;
 
-	//　初期化
+	//初期化
 	void Initialize();
-	// 更新
-	void Update();
-	// 描画
-	void Draw();
-	// 終了処理
-	void Finalize();
+
+	/// <summary>
+	/// 暗転時の挙動
+	/// </summary>
+	void DrawBlackOut();
+
+	/// <summary>
+	/// 明転時の挙動
+	/// </summary>
+	void DrawWhiteOut();
 
 public:
 	/// <summary>
@@ -33,16 +37,6 @@ public:
 	static TransitionScene* GetInstance();
 
 private:
-	/// <summary>
-	/// 暗転時の挙動
-	/// </summary>
-	void BlackOut();
-
-	/// <summary>
-	/// 明転時の挙動
-	/// </summary>
-	void WhiteOut();
-
 	//リセット処理
 	void Reset();
 
@@ -90,6 +84,13 @@ private:
 		blackOut,
 		whiteOut,
 		Reset
+	};
+
+	enum COLOR
+	{
+		red = 1,
+		green = 1,
+		blue = 1
 	};
 
 	TRANSITION_COUNT count = TRANSITION_COUNT::blackOut;

@@ -142,4 +142,22 @@ namespace MyMathUtility
 
 		return matIdentity;
 	}
+
+	//MyMath::Matrix3x4 MakeScaling3x4(const MyMath::Vector3& scale)
+	//{
+	//	MyMath::Matrix3x4 matScaling;
+	//	return MyMath::Matrix3x4();
+	//}
+
+	//MyMath::Matrix3x4 MakeRotation3x4(const MyMath::Vector3& rot)
+	//{
+	//	MyMath::Matrix3x4 matRot;
+	//	return MyMath::Matrix3x4();
+	//}
+
+	//MyMath::Matrix3x4 MakeTranslation3x4(const MyMath::Vector3& trans)
+	//{
+	//	MyMath::Matrix3x4 matTrans;
+	//	return MyMath::Matrix3x4();
+	//}
 }

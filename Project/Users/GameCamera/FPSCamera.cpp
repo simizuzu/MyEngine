@@ -1,4 +1,6 @@
 #include "FPSCamera.h"
+#include "Matrix3x4.h"
+
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
@@ -8,7 +10,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief FPSCameraの処理
  */
 
-	void FPSCamera::Initialize(Camera* camera)
+void FPSCamera::Initialize(Camera* camera)
 {
 	assert(camera);
 
@@ -45,6 +47,8 @@ void FPSCamera::ConvertAngleToThreedimension(MyMath::Vector2 value)
 	MyMath::Vector3 vTarget(0.0f,0.0f,0.0f);
 
 	//HAngle,VAngleを行列に変換する
+	MyMath::Matrix3x4 mRot;
+	mRot = MyMathUtility::MakeIdentity3x4();
 
 
 	//視点座標を取得する

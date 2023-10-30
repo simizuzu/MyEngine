@@ -9,7 +9,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief GameSceneの処理が書かれてあります
  */
 
-	void GameScene::Initialize()
+void GameScene::Initialize()
 {
 	//ライト
 	light.reset(Light::Create());
@@ -20,6 +20,9 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 	camera = new Camera();
 	camera->Initialize();
+
+	transition_ = TransitionScene::GetInstance();
+	transition_->Initialize();
 
 	player = new Player();
 	player->Initialize(camera);
@@ -53,8 +56,6 @@ MYENGINE_SUPPRESS_WARNINGS_END
 	robotoObj_->SetModel(robotoModel_.get());
 	robotoObj_->PlayAnimation();
 	robotoObj_->SetScale({ 0.009f,0.009f ,0.009f });
-	//robotoObj_->SetTranslation({ -0.9f,0.0f,-1.2f });
-
 	
 	spriteBlack_->SetColor({ COLOR::red,COLOR::green,COLOR::blue,texBlackAlpha });
 	spriteBlackUp_->SetSize({ 1280,100 });
@@ -81,7 +82,6 @@ void GameScene::Update()
 		{
 			gameCamera_->Update();
 		}
-
 	}
 
 	modelData_->Update();
@@ -136,23 +136,21 @@ void GameScene::Draw()
 		spriteStageName01_->Draw(texStageName01_,{50,300});
 	}
 
-
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::MOVIE:
 
-		//スタート演出
-		BlackMind();
 
 		break;
 	case GameScene::SCENEFASE::BLACKMIND:
-
 		robotoObj_->Draw();
 
 		break;
 	case GameScene::SCENEFASE::START:
+		
 		texBlackAlpha -= 0.1f;
-		spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
+		//transition_->DrawWhiteOut();
+		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
 	case GameScene::SCENEFASE::GAME:
 		break;
@@ -183,6 +181,7 @@ void GameScene::StartDirection()
 			easingFlag = true;
 		}
 	}
+
 	if ( easingFlag == true )
 	{
 		easingTimer++;

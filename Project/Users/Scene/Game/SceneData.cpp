@@ -36,30 +36,11 @@ void SceneData::Initialize(Camera* camera)
 void SceneData::Update()
 {
 	skydomeTrans.Update(camera_);
+	skydomeTrans.SetTranslation({camera_->GetEye()});
 	//buildingTrans.Update(camera_);
 	groundTrans.Update(camera_);
 
 	player_->Update();
-
-	//nowCount++;
-	//elapsedCount = nowCount - startCount;
-	//float elapsedTime = static_cast<float> (elapsedCount) / 60.0f;
-	//timeRate = elapsedTime / maxTime;
-
-
-	//if (timeRate >= 1.0f)
-	//{
-	//	if (startIndex < curveData2->curves.size() - 3)
-	//	{
-	//		startIndex += 1;
-	//		timeRate -= 1.0f;
-	//		startCount = nowCount;
-	//	}
-	//	else
-	//	{
-	//		timeRate = 1.0f;
-	//	}
-	//}
 }
 
 void SceneData::Draw()

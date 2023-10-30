@@ -44,13 +44,6 @@ public: // メンバ関数
 	void Finalize() override;
 
 private:
-
-	/// <summary>
-	/// ゲームシーン移行時のロード用暗転
-	/// </summary>
-	void TransitionGame();
-
-private:
 	Input* input_ = nullptr;
 	std::unique_ptr<Camera> camera;
 	std::unique_ptr<Light> light;
@@ -58,16 +51,14 @@ private:
 
 	std::unique_ptr<TitleAnimation> titleAnimation_;
 
-	std::unique_ptr<TransitionScene> transition_;
+	TransitionScene* transition_ = nullptr;
 
 	//ImGuiデバッグ用
 	MyMath::Vector3 cameraPos = { 0,0,0 };
 	MyMath::Vector2 pos = { 0,0 };
 
 	uint8_t blackoutTimer = 60;
-	int8_t pad1[3 ];
-
-	
+	int8_t pad1[3 ];	
 
 	std::unique_ptr<Sprite> spriteBlackout;
 	TextureData texBlackout;

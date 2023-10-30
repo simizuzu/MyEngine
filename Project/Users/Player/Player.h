@@ -129,6 +129,9 @@ private:
 	std::unique_ptr<Sprite> sprite2DReticle;
 	TextureData texReticle;
 
+	float cameraHAngle;
+	float cameraVAngle;
+
 private:
 	//代入演算子削除
 	Player& operator=(const Player&) = delete;

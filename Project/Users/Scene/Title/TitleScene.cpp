@@ -27,7 +27,7 @@ void TitleScene::Initialize()
 	spriteBlackout->Initialize();
 	texBlackout = TextureManager::Load("Resources/Texture/Scene/title.png");
 
-	transition_ = std::make_unique<TransitionScene>();
+	transition_ = TransitionScene::GetInstance();
 	transition_->Initialize();
 
 	sceneManager_ = SceneManager::GetInstance();
@@ -57,27 +57,22 @@ void TitleScene::Update()
 	camera->Update();
 	light->Update();
 
+	//タイトルシーン内の各モデルの挙動
 	titleAnimation_->Update();
 }
 
 void TitleScene::Draw()
 {
+	//タイトルシーン内の各モデルの描画
 	titleAnimation_->Draw();
 
 	if ( blackoutTimer < 59 )
 	{
-		spriteBlackout->Draw(texBlackout,{ 0,0 });
+		transition_->DrawBlackOut();
 	}
-
-
 }
 
 void TitleScene::Finalize()
 {
 	blackoutTimer = 60;
-}
-
-void TitleScene::TransitionGame()
-{
-
 }

@@ -23,10 +23,6 @@ BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
     else if (sceneName == "RESULT") {
         newScene = new ResultScene();
     }
-	else if ( sceneName == "TRANSITION" )
-	{
-		newScene = new TransitionScene();
-	}
 
     return newScene;
 }
