@@ -23,10 +23,6 @@ void TitleScene::Initialize()
 	titleAnimation_ = std::make_unique<TitleAnimation>();
 	titleAnimation_->Initalize(camera.get());
 
-	spriteBlackout = std::make_unique<Sprite>();
-	spriteBlackout->Initialize();
-	texBlackout = TextureManager::Load("Resources/Texture/Scene/title.png");
-
 	transition_ = TransitionScene::GetInstance();
 	transition_->Initialize();
 

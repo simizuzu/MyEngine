@@ -15,8 +15,8 @@ void TitleAnimation::Initalize(Camera* camera)
 	assert(camera);
 	camera_ = camera;
 
-	camera_->SetEye({6.0f,3.5f,-7.5f});
-	camera_->SetTarget({3.5f,2.0f,0.0f});
+	camera_->SetEye({ 6.0f,3.5f,-7.5f });
+	camera_->SetTarget({ 3.5f,2.0f,0.0f });
 
 	levelData_ = LevelLoader::LoadFile("titleSceneData");
 
@@ -32,7 +32,7 @@ void TitleAnimation::Initalize(Camera* camera)
 #pragma endregion
 
 #pragma region Obj
-	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
+	skydomeModel_.reset(ObjModel::LoadFromObj("skydome",true));
 	groundModel_.reset(ObjModel::LoadFromObj("concrete",true));
 	robotoModel_.reset(ObjModel::LoadFromObj("roboto"));
 
@@ -48,9 +48,7 @@ void TitleAnimation::Initalize(Camera* camera)
 	groundTrans.Initialize();
 	robotoTrans.Initialize();
 
-	float scale = 900.0f;
-	skydomeTrans.SetScale({ scale,scale,scale });
-	//.SetScale({50.0f,50.0f ,50.0f });
+	skydomeTrans.SetScale({ skydomeScale,skydomeScale,skydomeScale });
 #pragma endregion
 
 #pragma region Fbx
@@ -59,8 +57,8 @@ void TitleAnimation::Initalize(Camera* camera)
 	pilotObj_.reset(FbxObject3d::Create());
 	pilotObj_->SetModel(pilotModel_.get());
 	pilotObj_->PlayAnimation();
-	pilotObj_->SetScale({0.006f,0.006f ,0.006f });
-	pilotObj_->SetTranslation({-0.9f,0.0f,-1.2f});
+	pilotObj_->SetScale({ 0.006f,0.006f ,0.006f });
+	pilotObj_->SetTranslation({ -0.9f,0.0f,-1.2f });
 
 #pragma endregion
 	rotation = 0;
@@ -76,7 +74,7 @@ void TitleAnimation::Update()
 #endif
 
 	rotation += 0.0005f;
-	skydomeTrans.SetRotation({0,rotation,0});
+	skydomeTrans.SetRotation({ 0,rotation,0 });
 
 	skydomeTrans.Update(camera_);
 	groundTrans.Update(camera_);
@@ -90,7 +88,7 @@ void TitleAnimation::Draw()
 	groundObj_->Draw(&groundTrans);
 	robotoObj_->Draw(&robotoTrans);
 	pilotObj_->Draw();
-	spriteBack_->Draw(texBack, { 760,290 },{0.7f,0.7f});
+	spriteBack_->Draw(texBack,{ 950,320 },scale,texRot,anchorpoint);
 	ClickAnim();
 }
 
@@ -101,17 +99,17 @@ void TitleAnimation::Finalize()
 
 void TitleAnimation::ClickAnim()
 {
-	MyMath::Vector2 pos = {640,580};
+	MyMath::Vector2 pos = { 640,580 };
 
 	clickTime++;
 
-	if (clickTime < 60)	//0~30F以内の時
+	if ( clickTime < 60 )	//0~30F以内の時
 	{
-		spriteClickStart_->Draw(texClickStart, { pos.x,pos.y }, { 1,1 }, 0, { 0.5f,0.5f });
+		spriteClickStart_->Draw(texClickStart,{ pos.x,pos.y },scale,texRot,anchorpoint);
 	}
-	else if (clickTime > 70 && clickTime <= 130)
+	else if ( clickTime > 70 && clickTime <= 130 )
 	{
-		spriteClickStart_->Draw(texClickStart, { pos.x,pos.y }, { 1,1 }, 0, { 0.5f,0.5f });
+		spriteClickStart_->Draw(texClickStart,{ pos.x,pos.y },scale,texRot,anchorpoint);
 		clickTime = 0;
 	}
 }

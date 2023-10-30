@@ -43,7 +43,6 @@ public:
 
 private:
 	Camera* camera_;
-	LevelData* levelData;
 	LevelData* curveData2;
 
 	std::unique_ptr<Player> player_;

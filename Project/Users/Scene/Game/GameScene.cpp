@@ -75,6 +75,8 @@ void GameScene::Update()
 	camera->Update();
 	light->Update();
 
+	cameraTimeRate = gameCamera_->timeRate;
+
 	//カメラの挙動
 	if ( scene != SCENEFASE::MOVIE )
 	{
@@ -114,7 +116,7 @@ void GameScene::Update()
 		StopTimer();
 
 		//シーン移行
-		if ( input_->TriggerPushKey(DIK_SPACE) || input_->TriggerButton(A) )
+		if ( cameraTimeRate >= 1.0f )
 		{
 			sceneManager_->ChangeScene("TITLE");
 		}

@@ -51,8 +51,10 @@ void GameCamera::Update()
 
 	MyMath::Vector3 up(0, 1, 0);
 	camera_->SetUp(up);
-	/*camera_->SetEye({0,5.0f,0});
-	camera_->SetTarget({ 0,5.0f,1.0f });*/
+	/*camera_->SetEye({0,100.0f,0});
+	camera_->SetTarget({ 0,0.0f,0.0f });*/
+
+	//pos.y = 100.0f;
 
 	camera_->SetEye(pos);
 	camera_->SetTarget(target);

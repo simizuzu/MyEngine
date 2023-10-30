@@ -138,6 +138,8 @@ private: //スタート演出
 	const int8_t minus1 = -1;
 	int8_t pad4[3 ];
 
+	float cameraTimeRate;
+	int8_t pad3[ 4 ];
 private:
 	enum class SCENEFASE
 	{
@@ -148,7 +150,7 @@ private:
 	};
 
 	SCENEFASE scene = SCENEFASE::MOVIE;
-	int8_t pad3[ 4 ];
+	int8_t pad5[ 4 ];
 
 private:
 	//コピーコンストラクタ・代入演算子削除

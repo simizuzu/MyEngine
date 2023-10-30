@@ -9,7 +9,6 @@ void SceneData::Initialize(Camera* camera)
 {
 	assert(camera);
 	camera_ = camera;
-	levelData = LevelLoader::LoadFile("levelData");
 	curveData2 = LevelLoader::LoadFile("curveData");
 	
 	player_ = std::make_unique<Player>();
@@ -30,11 +29,13 @@ void SceneData::Initialize(Camera* camera)
 	skydomeTrans.Initialize();
 	//buildingTrans.Initialize();
 	groundTrans.Initialize();
-	skydomeTrans.SetScale({ 500.0f,500.0f,500.0f });
+	//
+	skydomeTrans.SetScale({ 900.0f,900.0f,900.0f });
 }
 
 void SceneData::Update()
 {
+	//groundTrans.SetRotation({ 0,90.0f * MyMathUtility::degree2Radius,0 });
 	skydomeTrans.Update(camera_);
 	skydomeTrans.SetTranslation({camera_->GetEye()});
 	//buildingTrans.Update(camera_);

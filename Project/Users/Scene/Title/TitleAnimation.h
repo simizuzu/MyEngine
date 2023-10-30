@@ -19,6 +19,14 @@
 /// </summary>
 class TitleAnimation
 {
+private: //定数
+	const MyMath::Vector2 anchorpoint = { 0.5f,0.5f };
+	const MyMath::Vector2 scale = {1.0f,1.0f};
+	const float texRot = 0.0f;
+	int8_t pad6[ 4 ];
+
+	const float skydomeScale = 900.0f;
+	int8_t pad7[ 4 ];
 public:
 	/// <summary>
 	/// 初期化
