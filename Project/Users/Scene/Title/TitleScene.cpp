@@ -37,18 +37,18 @@ void TitleScene::Update()
 	ImGui::End();
 #endif
 
-	//if ( input_->MouseButtonTrigger(LEFT) )
-	//{
-	//	blackoutTimer--;
-	//}
-	//if ( blackoutTimer < 59 )
-	//{
-	//	blackoutTimer--;
-	//	if ( blackoutTimer < 2 )
-	//	{
-	//		sceneManager_->ChangeScene("GAME");
-	//	}
-	//}
+	if ( input_->MouseButtonTrigger(LEFT)) 
+	{
+		blackoutTimer--;
+	}
+	if ( blackoutTimer < 59 )
+	{
+		blackoutTimer--;
+		if ( blackoutTimer < 2 )
+		{
+			sceneManager_->ChangeScene("GAME");
+		}
+	}
 
 	camera->Update();
 	light->Update();
@@ -62,27 +62,27 @@ void TitleScene::Draw()
 	//タイトルシーン内の各モデルの描画
 	titleAnimation_->Draw();
 
-	//if ( blackoutTimer < 59 )
+	if ( blackoutTimer < 59 )
+	{
+		transition_->DrawBlackOut();
+	}
+
+	//if ( input_->MouseButtonTrigger(RIGHT) )
 	//{
-	//	transition_->DrawBlackOut();
+	//	flag = true;
 	//}
 
-	if ( input_->MouseButtonTrigger(RIGHT) )
-	{
-		flag = true;
-	}
-
-	if ( flag == true )
-	{
-		transition_->GameOver();
-		blackoutTimer--;
-		if ( blackoutTimer < 24 )
-		{
-			flag = false;
-			blackoutTimer = 60;
-			sceneManager_->ChangeScene("TITLE");
-		}
-	}
+	//if ( flag == true )
+	//{
+	//	transition_->GameOver();
+	//	blackoutTimer--;
+	//	if ( blackoutTimer < 24 )
+	//	{
+	//		flag = false;
+	//		blackoutTimer = 60;
+	//		sceneManager_->ChangeScene("TITLE");
+	//	}
+	//}
 }
 
 void TitleScene::Finalize()
