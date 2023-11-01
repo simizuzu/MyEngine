@@ -390,6 +390,12 @@
     <ClCompile Include="Users\Enemy\Enemy.cpp">
       <Filter>Application\ソースファイル\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyNormal.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxObject3d.h">
@@ -544,6 +550,12 @@
     </ClInclude>
     <ClInclude Include="Users\Enemy\Enemy.h">
       <Filter>Application\ヘッダーファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyNormal.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

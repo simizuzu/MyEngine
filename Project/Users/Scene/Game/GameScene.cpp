@@ -9,6 +9,16 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief GameSceneの処理が書かれてあります
  */
 
+void GameScene::GameTimer()
+{
+	oneSecond--;
+	if ( oneSecond == 0 )
+	{
+		oneSecond = 60;
+		gameTimer_++;
+	}
+}
+
 void GameScene::Initialize()
 {
 	//ライト
@@ -56,7 +66,7 @@ void GameScene::Initialize()
 	robotoObj_->SetModel(robotoModel_.get());
 	robotoObj_->PlayAnimation();
 	robotoObj_->SetScale({ 0.009f,0.009f ,0.009f });
-	
+
 	spriteBlack_->SetColor({ COLOR::red,COLOR::green,COLOR::blue,texBlackAlpha });
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
@@ -66,11 +76,18 @@ void GameScene::Initialize()
 
 void GameScene::Update()
 {
+	GameTimer();
+
 #ifdef _DEBUG
-	ImGui::Begin("CameraPos");
+	ImGui::Begin("debug");
 	ImGui::Text("Position(%f,%f,%f)",camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
 	ImGui::Text("size(%f,%f)",blackUpPos.y,blackDownPos.y);
 	ImGui::End();
+
+	ImGui::Begin("GameTimer");
+	ImGui::Text("GameTimer(%d,%d)",gameTimer_,oneSecond);
+	ImGui::End();
+
 #endif
 	camera->Update();
 	light->Update();
@@ -78,12 +95,10 @@ void GameScene::Update()
 	cameraTimeRate = gameCamera_->timeRate;
 
 	//カメラの挙動
-	if ( scene != SCENEFASE::MOVIE )
+	if ( scene == SCENEFASE::START || scene == SCENEFASE::GAME )
 	{
-		if ( scene != SCENEFASE::BLACKMIND )
-		{
-			gameCamera_->Update();
-		}
+		gameCamera_->Update();
+
 	}
 
 	modelData_->Update();
@@ -92,17 +107,12 @@ void GameScene::Update()
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::MOVIE:
-
 		//スタート演出
 		BlackMind();
-
-		break;
-	case GameScene::SCENEFASE::BLACKMIND:
-
 		//モデルのムービー演出
 		ModelMovie();
-
 		break;
+
 	case GameScene::SCENEFASE::START:
 
 		//スタート演出
@@ -130,26 +140,15 @@ void GameScene::Draw()
 {
 	modelData_->Draw();
 
-	spriteBlackUp_->Draw(texBlackUp_,blackUpPos,{ blackSize.x,blackSize.y });
-	spriteBlackDown_->Draw(texBlackDown_,blackDownPos,{ blackSize.x * minus1,blackSize.y });
-
-	if ( scene == SCENEFASE::MOVIE || scene == SCENEFASE::BLACKMIND )
-	{
-		spriteStageName01_->Draw(texStageName01_,{50,300});
-	}
-
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::MOVIE:
-
-
-		break;
-	case GameScene::SCENEFASE::BLACKMIND:
+		spriteStageName01_->Draw(texStageName01_,{ 50,300 });
 		robotoObj_->Draw();
 
 		break;
 	case GameScene::SCENEFASE::START:
-		
+
 		texBlackAlpha -= 0.1f;
 		//transition_->DrawWhiteOut();
 		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
@@ -158,6 +157,12 @@ void GameScene::Draw()
 		break;
 	default:
 		break;
+	}
+
+	if ( scene != SCENEFASE::GAME )
+	{
+		spriteBlackUp_->Draw(texBlackUp_,blackUpPos,{ blackSize.x,blackSize.y });
+		spriteBlackDown_->Draw(texBlackDown_,blackDownPos,{ blackSize.x * minus1,blackSize.y });
 	}
 	spriteBlack_->Draw(texBlackUp_,blackUpPos,{ 1280,720 });
 }
@@ -222,7 +227,7 @@ void GameScene::BlackMind()
 	if ( blackSize.x > 1300.0f )
 	{
 		blackSize.x = 1300.0f;
-		scene = SCENEFASE::BLACKMIND;
+		//scene = SCENEFASE::BLACKMIND;
 	}
 }
 

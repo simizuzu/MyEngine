@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="EnemyNormal.cpp" />
     <ClCompile Include="Users\Enemy\Enemy.cpp" />
     <ClCompile Include="lib\engine\Camera\DebugCamera.cpp" />
     <ClCompile Include="lib\engine\Math\Matrix3x4.cpp" />
@@ -70,6 +72,8 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="EnemyNormal.h" />
     <ClInclude Include="Users\Enemy\Enemy.h" />
     <ClInclude Include="lib\engine\Camera\DebugCamera.h" />
     <ClInclude Include="lib\engine\Base\SuppressWarning.h" />

@@ -46,6 +46,13 @@ enum COLOR
 /// </summary>
 class GameScene : public BaseScene
 {
+private:
+	//1ステージ分の経過時間
+	uint8_t gameTimer_ = 0;
+	//1s = 60f
+	uint8_t oneSecond = 60;
+	int8_t pad6[6 ];
+
 public: // メンバ関数
 	GameScene() = default;
 	~GameScene() = default;
@@ -59,6 +66,11 @@ public: // メンバ関数
 	void Finalize() override;
 
 private:
+	/// <summary>
+	/// ゲームの経過時間
+	/// </summary>
+	void GameTimer();
+
 	/// <summary>
 	/// ゲームスタート時の演出
 	/// </summary>
@@ -144,7 +156,6 @@ private:
 	enum class SCENEFASE
 	{
 		MOVIE,
-		BLACKMIND,
 		START,
 		GAME
 	};
