@@ -1,4 +1,5 @@
 #include "TitleScene.h"
+#include "Numbers.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
@@ -62,27 +63,22 @@ void TitleScene::Draw()
 	//タイトルシーン内の各モデルの描画
 	titleAnimation_->Draw();
 
-	if ( blackoutTimer < 59 )
+	if ( input_->MouseButtonTrigger(RIGHT) )
 	{
-		transition_->DrawBlackOut();
+		flag = true;
 	}
 
-	//if ( input_->MouseButtonTrigger(RIGHT) )
-	//{
-	//	flag = true;
-	//}
-
-	//if ( flag == true )
-	//{
-	//	transition_->GameOver();
-	//	blackoutTimer--;
-	//	if ( blackoutTimer < 24 )
-	//	{
-	//		flag = false;
-	//		blackoutTimer = 60;
-	//		sceneManager_->ChangeScene("TITLE");
-	//	}
-	//}
+	if ( flag == true )
+	{
+		transition_->GameOver();
+		blackoutTimer--;
+		if ( blackoutTimer < 24 )
+		{
+			flag = false;
+			blackoutTimer = oneSecondFrame;
+			sceneManager_->ChangeScene("TITLE");
+		}
+	}
 }
 
 void TitleScene::Finalize()

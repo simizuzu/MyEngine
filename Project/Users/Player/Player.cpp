@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Numbers.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
@@ -102,7 +103,7 @@ void Player::Move()
 
 void Player::UIDraw()
 {
-	sprite2DReticle->Draw(texReticle, sprite2DReticle->GetPosition(), {0.2f,0.2f}, 0.0f, {0.5f,0.5f});
+	sprite2DReticle->Draw(texReticle, sprite2DReticle->GetPosition(),UIReticleScale, UIReticleRot,UIReticleAnchorpoint);
 }
 
 void Player::Reticle3D()
@@ -159,8 +160,8 @@ void Player::ReticleMouse()
 	MyMath::Matrix4 matInverseVPV = MyMathUtility::MakeInverse(matViewProViewport);
 
 	//スクリーン座標
-	MyMath::Vector3 posNear = MyMath::Vector3(mousePos.x,mousePos.y,0);
-	MyMath::Vector3 posFar = MyMath::Vector3(mousePos.x,mousePos.y,1);
+	MyMath::Vector3 posNear = MyMath::Vector3(mousePos.x,mousePos.y,zero);
+	MyMath::Vector3 posFar = MyMath::Vector3(mousePos.x,mousePos.y,one);
 	//スクリーン座標景からワールド座標系へ
 	posNear = MyMathUtility::MakeWDivision(posNear,matInverseVPV);
 	posFar = MyMathUtility::MakeWDivision(posFar,matInverseVPV);

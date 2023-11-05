@@ -2,6 +2,7 @@
 #include "Sprite.h"
 #include "TextureManager.h"
 #include "Input.h"
+#include "Numbers.h"
 
 /**
  * @class TransitionScene.h
@@ -51,6 +52,9 @@ private:
 private:
 	Input* input = nullptr;
 
+	DecimalNumbers decimal;
+	int8_t pad8[4 ];
+
 	//暗幕
 	std::unique_ptr<Sprite> spriteBlack_;
 	//縦のライン
@@ -76,8 +80,12 @@ private:
 	MyMath::Vector4 circleColor_;
 
 	MyMath::Vector2 wavePos_;
+	MyMath::Vector2 texSizeZero = { 0.0f,0.0f };
+	MyMath::Vector2 texSizeOne = { 1.0f,1.0f };
+	MyMath::Vector2 anchorpoint = {0.5f,0.0f};
+	MyMath::Vector2 black1x1Size = { 0,0.05f };
 
-	float circleRot = 0.0f;
+	float texRot = 0.0f;
 	int8_t pad1[4 ];
 
 	float adjustAlpha_ = 1.0f;
@@ -91,6 +99,12 @@ private:
 
 	bool gameOverFlag = false;
 	int8_t pad5[7 ];
+
+	const float initWavePos = 730.0f;
+	int8_t pad6[4 ];
+
+	const float black1x1PosY = 680.0f;
+	int8_t pad7[ 4 ];
 
 	MyMath::Vector2 translation_;
 
@@ -109,8 +123,25 @@ private:
 		blue = 1
 	};
 
+	struct COLOR_ALPHA
+	{
+		const float black1x1Alpha = 0.09f;
+		const float lineAlpha = 0.03f;
+		const float adjustAlpha = 0.04f;
+		const MyMath::Vector4 initAlphaZero{ 0.0f,0.0f,0.0f,0.0f };
+		const MyMath::Vector4 initAlphaOne { 0.0f,0.0f,0.0f,0.0f };
+
+		COLOR_ALPHA() = default;
+
+		//代入演算子削除
+		COLOR_ALPHA& operator=(const COLOR_ALPHA&) = delete;
+		//コピーコンストラクタ削除
+		COLOR_ALPHA(const COLOR_ALPHA&) = delete;
+	};
+
+	COLOR_ALPHA texAlpha;
+
 	TRANSITION_COUNT count = TRANSITION_COUNT::blackOut;
-	int8_t pad6[4 ];
 
 private:
 	//代入演算子削除

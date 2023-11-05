@@ -66,8 +66,8 @@ void GameScene::Initialize()
 	robotoObj_->SetModel(robotoModel_.get());
 	robotoObj_->PlayAnimation();
 	robotoObj_->SetScale({ 0.009f,0.009f ,0.009f });
-
-	spriteBlack_->SetColor({ COLOR::red,COLOR::green,COLOR::blue,texBlackAlpha });
+	
+	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
 
@@ -102,7 +102,7 @@ void GameScene::Update()
 	}
 
 	modelData_->Update();
-	spriteBlack_->SetColor({ COLOR::red,COLOR::green,COLOR::blue,texBlackAlpha });
+	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 
 	switch ( scene )
 	{
@@ -120,8 +120,8 @@ void GameScene::Update()
 
 		break;
 	case GameScene::SCENEFASE::GAME:
-		blackUpPos.y -= 10.0f;
-		blackDownPos.y += 10.0f;
+		blackUpPos.y -= static_cast< float >(zero);
+		blackDownPos.y += static_cast< float >( zero );
 
 		StopTimer();
 
@@ -143,13 +143,12 @@ void GameScene::Draw()
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::MOVIE:
-		spriteStageName01_->Draw(texStageName01_,{ 50,300 });
+		spriteStageName01_->Draw(texStageName01_, fieldNameSize);
 		robotoObj_->Draw();
 
 		break;
 	case GameScene::SCENEFASE::START:
-
-		texBlackAlpha -= 0.1f;
+		texBlackAlpha -= decimal.zeroPointOne;
 		//transition_->DrawWhiteOut();
 		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
@@ -164,7 +163,7 @@ void GameScene::Draw()
 		spriteBlackUp_->Draw(texBlackUp_,blackUpPos,{ blackSize.x,blackSize.y });
 		spriteBlackDown_->Draw(texBlackDown_,blackDownPos,{ blackSize.x * minus1,blackSize.y });
 	}
-	spriteBlack_->Draw(texBlackUp_,blackUpPos,{ 1280,720 });
+	spriteBlack_->Draw(texBlackUp_,blackUpPos,windowSize);
 }
 
 
@@ -177,14 +176,14 @@ void GameScene::StartDirection()
 {
 	if ( easingFlag == false )
 	{
-		if ( startCount == 3 )
+		if ( startCount == three )
 		{
 			scene = SCENEFASE::GAME;
 		}
 		else
 		{
-			texAlpha = 1.0f;
-			easingTimer = 0.0f;
+			texAlpha = static_cast<float>(one);
+			easingTimer = static_cast< float >(zero);
 			easingFlag = true;
 		}
 	}
@@ -192,26 +191,27 @@ void GameScene::StartDirection()
 	if ( easingFlag == true )
 	{
 		easingTimer++;
-		texAlpha -= 0.04f;
+		decimalAlpha = 0.04f;
+		texAlpha -= decimalAlpha;
 
-		textureSize.y = MyMathUtility::EaseOutQuint(0.0f,1.0f,easingTimer,easingFrame);
+		textureSize.y = MyMathUtility::EaseOutQuint(static_cast< float >( zero ),static_cast< float >( one ),easingTimer,easingFrame);
 		spriteWhite_->SetColor({ COLOR::red,COLOR::green,COLOR::blue,texAlpha });
 
-		if ( textureSize.y > 520.0f )
+		/*if ( textureSize.y > 520.0f )
 		{
 			textureSize.y = 520.0f;
+		}*/
+
+		if ( texAlpha < static_cast< float >( zero ) )
+		{
+			texAlpha = static_cast< float >( zero );
 		}
 
-		if ( texAlpha < 0.0f )
+		if ( easingTimer > oneSecondFrame )
 		{
-			texAlpha = 0.0f;
-		}
-
-		if ( easingTimer > 60.0f )
-		{
-			easingTimer = 0.0f;
+			easingTimer = static_cast< float >( zero );
 			easingFlag = false;
-			texAlpha = 1.0f;
+			texAlpha = static_cast< float >( one );
 			startCount++;
 		}
 	}
@@ -224,19 +224,19 @@ void GameScene::BlackMind()
 
 	blackSize.x += blackTimer_;
 
-	if ( blackSize.x > 1300.0f )
+	if ( blackSize.x > stopBlackSize )
 	{
-		blackSize.x = 1300.0f;
-		//scene = SCENEFASE::BLACKMIND;
+		blackSize.x = stopBlackSize;
+		scene = SCENEFASE::BLACKMIND;
 	}
 }
 
 void GameScene::StopTimer()
 {
-	if ( blackUpPos.y < -200.0f )
+	if ( blackUpPos.y < -stopBlackPos.x )
 	{
-		blackUpPos.y = -200.0f;
-		blackDownPos.y = 800.0f;
+		blackUpPos.y = -stopBlackPos.x;
+		blackDownPos.y = stopBlackPos.y;
 	}
 }
 
@@ -249,11 +249,11 @@ void GameScene::ModelMovie()
 
 	if ( startCount > 170 )
 	{
-		texBlackAlpha += 0.1f;
+		texBlackAlpha += decimal.zeroPointOne;
 		if ( startCount > 250 )
 		{
-			texBlackAlpha = 1.0f;
-			startCount = 0;
+			texBlackAlpha = static_cast< float >( one );
+			startCount = zero;
 			scene = SCENEFASE::START;
 		}
 	}

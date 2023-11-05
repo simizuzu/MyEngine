@@ -1,5 +1,6 @@
 #include "TitleAnimation.h"
 #include "FbxLoader.h"
+#include "Numbers.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
@@ -61,8 +62,8 @@ void TitleAnimation::Initalize(Camera* camera)
 	pilotObj_->SetTranslation({ -0.9f,0.0f,-1.2f });
 
 #pragma endregion
-	rotation = 0;
-	translation = 0;
+	rotation = zero;
+	translation = zero;
 }
 
 void TitleAnimation::Update()
@@ -73,7 +74,7 @@ void TitleAnimation::Update()
 	ImGui::End();
 #endif
 
-	rotation += 0.0005f;
+	rotation += desimalRot;
 	skydomeTrans.SetRotation({ 0,rotation,0 });
 
 	skydomeTrans.Update(camera_);
@@ -88,13 +89,13 @@ void TitleAnimation::Draw()
 	groundObj_->Draw(&groundTrans);
 	robotoObj_->Draw(&robotoTrans);
 	pilotObj_->Draw();
-	spriteBack_->Draw(texBack,{ 950,320 },scale,texRot,anchorpoint);
+	spriteBack_->Draw(texBack,black1x1Size,scale,texRot,anchorpoint);
 	ClickAnim();
 }
 
 void TitleAnimation::Finalize()
 {
-	clickTime = 0;
+	clickTime = zero;
 }
 
 void TitleAnimation::ClickAnim()
@@ -103,13 +104,13 @@ void TitleAnimation::ClickAnim()
 
 	clickTime++;
 
-	if ( clickTime < 60 )	//0~30F以内の時
+	if ( clickTime < 60 )	//0~60F以内の時
 	{
 		spriteClickStart_->Draw(texClickStart,{ pos.x,pos.y },scale,texRot,anchorpoint);
 	}
-	else if ( clickTime > 70 && clickTime <= 130 )
+	else if ( clickTime > 70 && clickTime <= 130 ) //70~130F以内の時
 	{
 		spriteClickStart_->Draw(texClickStart,{ pos.x,pos.y },scale,texRot,anchorpoint);
-		clickTime = 0;
+		clickTime = zero;
 	}
 }

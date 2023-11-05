@@ -56,10 +56,17 @@ private:
 	float GetVAngle(const MyMath::Vector3& eye, const MyMath::Vector3& target);
 
 private:
+	//全体のカメラの角度(360°)
+	float cameraAngle = 360.0f;
+	int8_t pad1[4 ];
+
 	std::unique_ptr<Camera> camera_;
+
+	MyMath::Vector3 initTarget = {0,0,0};
 
 	float HAngle;
 	float VAngle;
+	int8_t pad2[ 4 ];
 
 private:
 	//コピーコンストラクタ・代入演算子削除

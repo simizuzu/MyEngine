@@ -1,4 +1,5 @@
 #include "PlayerBullet.h"
+#include "Numbers.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
@@ -34,7 +35,7 @@ void PlayerBullet::Update(Camera* camera)
 	bulletTrans_.Update(camera);
 
 	//時間経過でデスフラグをtrueに
-	if (--deathTimer_ <= 0) {
+	if (--deathTimer_ <= zero) {
 		isDead_ = true;
 	}
 }

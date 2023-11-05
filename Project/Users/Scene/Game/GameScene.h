@@ -2,6 +2,8 @@
 #include "BaseScene.h"
 #include "SceneManager.h"
 
+#include "Numbers.h"
+
 #include "Input.h"
 #include "Camera.h"
 #include "Light.h"
@@ -52,6 +54,9 @@ private:
 	//1s = 60f
 	uint8_t oneSecond = 60;
 	int8_t pad6[6 ];
+
+private:
+	MyMath::Vector2 windowSize = {1280.0f,720.0f};
 
 public: // メンバ関数
 	GameScene() = default;
@@ -122,6 +127,14 @@ private: //スタート演出
 	float easingTimer = 0.0f;
 	float texAlpha = 0.0f;
 	float texBlackAlpha = 0.0f;
+	const float stopBlackSize = 1300.0f;
+
+	//上下用座標[x=up,y=down]
+	const MyMath::Vector2 stopBlackPos = {200.0f,800.0f};
+
+	//1秒60フレーム
+	const float oneSecondFrame = 60.0f;
+	float decimalAlpha = 0.0f;
 	uint8_t startCount = 0;
 
 	bool easingFlag = false;
@@ -131,8 +144,8 @@ private: //スタート演出
 
 	MyMath::Vector2 blackUpPos = { 0,0 };
 	MyMath::Vector2 blackDownPos = {1280,620};
-	MyMath::Vector2 blackSize = {0,100};
-	int8_t pad2[4 ];
+	MyMath::Vector2 blackSize = { 0,100 };
+	MyMath::Vector2 fieldNameSize = {50,300};
 
 	std::unique_ptr<Sprite> spriteWhite_;
 	std::unique_ptr<Sprite> spriteBlack_;
@@ -162,6 +175,9 @@ private:
 
 	SCENEFASE scene = SCENEFASE::MOVIE;
 	int8_t pad5[ 4 ];
+
+	DecimalNumbers decimal;
+	int8_t pad2[ 4 ];
 
 private:
 	//コピーコンストラクタ・代入演算子削除

@@ -82,6 +82,10 @@ private:
 	MyMath::Vector3 mousePos;
 	MyMath::Vector3 rayDir;
 
+	MyMath::Vector2 UIReticleScale = { 0.2f,0.2f };
+	float UIReticleRot = 0.0f;
+	MyMath::Vector2 UIReticleAnchorpoint = {0.5f,0.5f};
+
 	float angle;
 
 public:
@@ -90,6 +94,7 @@ private:
 	float maxTime = 120.0f;				//全体時間[s]
 	
 	float targetTimeRate;
+	int8_t pad1[ 4 ];
 
 	size_t startIndex = 1;
 	uint32_t startCount = 0;

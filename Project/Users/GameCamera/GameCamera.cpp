@@ -1,4 +1,5 @@
 #include "GameCamera.h"
+#include "Numbers.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
@@ -17,7 +18,7 @@ void GameCamera::Initialize(Camera* camera, Input* input)
 	input_ = input;
 
 	//視野角の設定
-	camera_->SetFovAngleY(MyMathUtility::degree2Radius * 90.0f);
+	camera_->SetFovAngleY(MyMathUtility::degree2Radius * degree90);
 	curveData = LevelLoader::LoadFile("curveData");
 
 	nowCount = startCount;
@@ -30,20 +31,20 @@ void GameCamera::Update()
 
 	nowCount++;
 	elapsedCount = nowCount - startCount;
-	float elapsedTime = static_cast<float> (elapsedCount) / 60.0f;
+	float elapsedTime = static_cast<float> (elapsedCount) / oneSecondFrame;
 	timeRate = elapsedTime / maxTime;
 
-	if (timeRate >= 1.0f)
+	if (timeRate >= static_cast<float>(one))
 	{
-		if (startIndex < points.size() - 3)
+		if (startIndex < points.size() - three)
 		{
-			startIndex += 1;
-			timeRate -= 1.0f;
+			startIndex += static_cast< size_t >(one);
+			timeRate -= static_cast< float >(one);
 			startCount = nowCount;
 		}
 		else
 		{
-			timeRate = 1.0f;
+			timeRate = static_cast< float >(one);
 		}
 	}
 
@@ -51,11 +52,6 @@ void GameCamera::Update()
 
 	MyMath::Vector3 up(0, 1, 0);
 	camera_->SetUp(up);
-	/*camera_->SetEye({0,100.0f,0});
-	camera_->SetTarget({ 0,0.0f,0.0f });*/
-
-	//pos.y = 100.0f;
-
 	camera_->SetEye(pos);
 	camera_->SetTarget(target);
 }
@@ -66,15 +62,15 @@ void GameCamera::Reset()
 
 void GameCamera::SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint)
 {
-	points.resize(curvePoint.size() + 2);
-	for (size_t i = 0; i < curvePoint.size(); i++)
+	points.resize(curvePoint.size() + two);
+	for (size_t i = zero; i < curvePoint.size(); i++)
 	{
-		points[i + 1] = curvePoint[i];
-		if (i == 0)
+		points[i + one] = curvePoint[i];
+		if (i == zero)
 		{
 			points[i] = curvePoint[i];
 		}
-		if (i == curvePoint.size() - 1)
+		if (i == curvePoint.size() - one)
 		{
 			points[i + 2] = curvePoint[i];
 		}

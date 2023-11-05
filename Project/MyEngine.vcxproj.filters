@@ -551,6 +551,9 @@
     <ClInclude Include="Users\Enemy\Enemy.h">
       <Filter>Application\ヘッダーファイル\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Numbers.h">
+      <Filter>Engine\ヘッダー ファイル\Math</Filter>
+    </ClInclude>
     <ClInclude Include="EnemyNormal.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>

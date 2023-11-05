@@ -23,10 +23,10 @@ private: //定数
 	const MyMath::Vector2 anchorpoint = { 0.5f,0.5f };
 	const MyMath::Vector2 scale = {1.0f,1.0f};
 	const float texRot = 0.0f;
+	const float desimalRot = 0.0005f; //skydome用回転速度
 	int8_t pad6[ 4 ];
 
 	const float skydomeScale = 900.0f;
-	int8_t pad7[ 4 ];
 public:
 	/// <summary>
 	/// 初期化
@@ -78,7 +78,6 @@ private: //メンバ変数
 	std::unique_ptr<ObjObject3d> groundObj_;
 	std::unique_ptr<ObjObject3d> robotoObj_;
 
-
 	std::unique_ptr<ObjModel> skydomeModel_;
 	std::unique_ptr<ObjModel> groundModel_;
 	std::unique_ptr<ObjModel> robotoModel_;
@@ -121,6 +120,8 @@ private: //メンバ変数
 
 	float translation;
 	int8_t pad5[ 4 ];
+
+	MyMath::Vector2 black1x1Size = { 950,320 };
 
 #pragma endregion
 

@@ -58,8 +58,16 @@ private:
 	WorldTransform cameraTrans;
 
 	float maxTime = 0.5f;				//全体時間[s]
-	
+
+	//1秒60フレーム
+	const float oneSecondFrame = 60.0f;
+	//90度
+	const float degree90 = 90.0f;
+	//レート最大数[0~1]
+	const float maxRate = 1.0f;
+
 	float targetTimeRate;
+	int8_t pad3[4 ];
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;

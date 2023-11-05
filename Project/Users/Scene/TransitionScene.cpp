@@ -54,81 +54,67 @@ void TransitionScene::DrawBlackOut()
 	if ( alphaFlag )
 	{
 		color_.w += 0.05f;
-		if ( color_.w > 3.0f )
+		if ( color_.w > static_cast<float>(three) )
 		{
 			alphaFlag = false;
-			color_.w = 1.0f;
+			color_.w = decimal.zeroPointOne;
 		}
 	}
 
-	spriteBlack_->SetColor({ 0.0f,0.0f,0.0f,color_.w });
-	spriteBlack_->Draw(texBlack_,{ 0,0 },windowSize);
+	spriteBlack_->SetColor(color_);
+	spriteBlack_->Draw(texBlack_,{ zero,zero },windowSize);
 }
 
 void TransitionScene::DrawWhiteOut()
 {
-	if ( color_.w == 0.0f )
+	if ( color_.w == static_cast< float >( zero) )
 	{
-		color_.w = 1.0f;
+		color_.w = static_cast< float >( one );
 	}
 	else
 	{
-		color_.w -= 0.09f;
-		lineColor_.w += 0.03f;
-		translation_.x += 40.0f;
-		adjustAlpha_ -= 0.04f;
+		color_.w -= texAlpha.black1x1Alpha;
+		lineColor_.w += texAlpha.lineAlpha;
+		adjustAlpha_ -= texAlpha.adjustAlpha;
 
-		//if ( lineColor_.w > 1.0f )
-		//{
-		//	lineColor_.w = 1.0f;
-		//}
-
-		spriteLineLeft_->SetColor({ red,green,blue,lineColor_.w });
-		spriteLineRight_->SetColor({ red,green,blue,lineColor_.w });
+		spriteLineLeft_->SetColor(lineColor_);
+		spriteLineRight_->SetColor(lineColor_);
 
 		spriteTriangleLeft_->SetColor({ red,green,blue,lineColor_.w - adjustAlpha_ });
 		spriteTriangleRight_->SetColor({ red,green,blue,lineColor_.w - adjustAlpha_ });
 
-		spriteLineLeft_->Draw(texLine_,{ 600 - translation_.x,0 },{ 1,1 },0,{ 0.5f,0.0f });
-		spriteLineRight_->Draw(texLine_,{ 680 + translation_.x,0 },{ 1,1 },0,{ 0.5f,0.0f },true);
-
-		spriteTriangleLeft_->Draw(texTriangleBack_,{ 300 - translation_.x,0 },{ 1,1 },0,{ 0.5f,0.0f });
-		spriteTriangleRight_->Draw(texTriangleBack_,{ 980 + translation_.x,0 },{ 1,1 },0,{ 0.5f,0.0f },true);
-
-		spriteBlack_->SetColor({ 0.0f,0.0f,0.0f,color_.w });
-		spriteBlack_->Draw(texBlack_,{ 0,0 },windowSize);
+		spriteBlack_->SetColor(color_);
+		spriteBlack_->Draw(texBlack_,texSizeZero,windowSize);
 	}
 
-	if ( color_.w < 0.0f )
+	if ( color_.w < static_cast< float >( zero ) )
 	{
-		color_.w = 0.0f;
+		color_.w = static_cast< float >( zero );
 		Reset();
 	}
 }
 
 void TransitionScene::GameOver()
 {
-	color_.w = 1.0f;
+	color_.w = static_cast<float>(one);
 
-	wavePos_.y += 20.0f;
+	wavePos_.y += static_cast< float >( twenty );
 
-	if ( wavePos_.y > 10.0f )
+	if ( wavePos_.y > static_cast< float >( ten ) )
 	{
-		wavePos_.y = -730.0f;
+		wavePos_.y = -initWavePos;
 		Reset();
 	}
 
 	spriteBlack_->SetColor({ color_ });
-	spriteBlack_->Draw(texBlack_,wavePos_,windowSize,0,{0,0.05f});
-	spriteWave_->Draw(texWave_,{ wavePos_.x,wavePos_.y + 680.0f });
+	spriteBlack_->Draw(texBlack_,wavePos_,windowSize,texRot,black1x1Size);
+	spriteWave_->Draw(texWave_,{ wavePos_.x, wavePos_.y + black1x1PosY });
 }
 
 void TransitionScene::Reset()
 {
-	color_ = { 0.0f,0.0f,0.0f,0.0f };
-	lineColor_ = { 1.0f,1.0f,1.0f,1.0f };
-	circleColor_ = { 0.3f,1.0f,0.3f,0.3f };
-	translation_.x = 0.0f;
-	circleRot = 0.0f;
-	adjustAlpha_ = 1.0f;
+	color_ = texAlpha.initAlphaZero;
+	lineColor_ = texAlpha.initAlphaOne;
+	texRot = static_cast< float >( zero );
+	adjustAlpha_ = static_cast< float >( one );
 }

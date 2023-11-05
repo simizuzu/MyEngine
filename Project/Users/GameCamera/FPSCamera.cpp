@@ -44,7 +44,7 @@ void FPSCamera::ConvertAngleToThreedimension(MyMath::Vector2 value)
 	vEye = camera_->GetEye();
 
 	//注視点座標の初期化(後で代入する)
-	MyMath::Vector3 vTarget(0.0f,0.0f,0.0f);
+	MyMath::Vector3 vTarget(initTarget);
 
 	//HAngle,VAngleを行列に変換する
 	MyMath::Matrix3x4 mRot;
@@ -71,13 +71,13 @@ float FPSCamera::GetHAngle(const MyMath::Vector3& eye,const MyMath::Vector3& tar
 	deg += adjustmentAngle;
 
 	// -180～180に丸める
-	if ( deg > 180.0f )
+	if ( deg > cameraAngle/2.0f )
 	{
-		deg -= 360.0f;
+		deg -= cameraAngle;
 	}
-	if ( deg < -180.0f )
+	if ( deg < -cameraAngle/2.0f )
 	{
-		deg += 360.0f;
+		deg += cameraAngle;
 	}
 
 	return deg;
@@ -102,13 +102,13 @@ float FPSCamera::GetVAngle(const MyMath::Vector3& eye,const MyMath::Vector3& tar
 	deg *= MyMathUtility::degree2Radius;
 
 	// 可動範囲は -90～90
-	if ( deg > 90.0f )
+	if ( deg > cameraAngle/4.0f )
 	{
-		deg = 180.0f - deg;
+		deg = cameraAngle/2.0f - deg;
 	}
-	if ( deg < -90.0f )
+	if ( deg < -cameraAngle / 4.0f )
 	{
-		deg = -180.0f - deg;
+		deg = -cameraAngle / 2.0f - deg;
 	}
 
 	return deg;
