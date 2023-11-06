@@ -34,6 +34,9 @@ void GameScene::Initialize()
 	transition_ = TransitionScene::GetInstance();
 	transition_->Initialize();
 
+	clearDirection = ClearScene::GetInstance();
+	clearDirection->Initialize(camera);
+
 	player = new Player();
 	player->Initialize(camera);
 
@@ -98,7 +101,6 @@ void GameScene::Update()
 	if ( scene == SCENEFASE::START || scene == SCENEFASE::GAME )
 	{
 		gameCamera_->Update();
-
 	}
 
 	modelData_->Update();
@@ -128,7 +130,8 @@ void GameScene::Update()
 		//シーン移行
 		if ( cameraTimeRate >= 1.0f )
 		{
-			sceneManager_->ChangeScene("TITLE");
+			clearDirection->Update();
+			//sceneManager_->ChangeScene("TITLE");
 		}
 		break;
 	default:
@@ -153,6 +156,17 @@ void GameScene::Draw()
 		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
 	case GameScene::SCENEFASE::GAME:
+			//シーン移行
+		if ( cameraTimeRate >= 1.0f )
+		{
+			clearDirection->Draw();
+			texBlackAlpha += decimal.zeroPointOne / static_cast< float >( two);
+			if ( texBlackAlpha > static_cast< float >( one ) )
+			{
+				sceneManager_->ChangeScene("RESULT");
+			}
+			
+		}
 		break;
 	default:
 		break;
@@ -227,7 +241,6 @@ void GameScene::BlackMind()
 	if ( blackSize.x > stopBlackSize )
 	{
 		blackSize.x = stopBlackSize;
-		scene = SCENEFASE::BLACKMIND;
 	}
 }
 

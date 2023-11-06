@@ -63,9 +63,9 @@ void TitleScene::Draw()
 	//タイトルシーン内の各モデルの描画
 	titleAnimation_->Draw();
 
-	if ( input_->MouseButtonTrigger(RIGHT) )
+	if ( blackoutTimer < 59 )
 	{
-		flag = true;
+		transition_->DrawBlackOut();
 	}
 
 	if ( flag == true )
@@ -75,7 +75,7 @@ void TitleScene::Draw()
 		if ( blackoutTimer < 24 )
 		{
 			flag = false;
-			blackoutTimer = oneSecondFrame;
+			blackoutTimer = (uint8_t)oneSecondFrame;
 			sceneManager_->ChangeScene("TITLE");
 		}
 	}

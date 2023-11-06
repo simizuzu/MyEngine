@@ -25,6 +25,7 @@
 #include "GameCamera.h"
 
 #include "TransitionScene.h"
+#include "ClearScene.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
@@ -100,6 +101,7 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Camera* camera = nullptr;
 	TransitionScene* transition_ = nullptr;
+	ClearScene* clearDirection = nullptr;
 
 	std::unique_ptr<Light> light;
 	// サウンド

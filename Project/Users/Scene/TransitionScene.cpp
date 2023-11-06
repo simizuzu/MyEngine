@@ -118,3 +118,4 @@ void TransitionScene::Reset()
 	texRot = static_cast< float >( zero );
 	adjustAlpha_ = static_cast< float >( one );
 }
+

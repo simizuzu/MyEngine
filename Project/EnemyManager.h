@@ -71,6 +71,7 @@ private:
 	int32_t waitTime;
 	//待機用タイム変数(現在進行形)
 	int32_t waitTimer;
+	int8_t pad2[ 4 ];
 
 private:
 	//代入演算子削除

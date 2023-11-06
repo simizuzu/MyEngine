@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyNormal.cpp" />
     <ClCompile Include="Users\Enemy\Enemy.cpp" />
@@ -72,6 +73,7 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Numbers.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyNormal.h" />

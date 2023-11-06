@@ -2,6 +2,7 @@
 #include "BaseScene.h"
 #include "SceneManager.h"
 #include "TransitionScene.h"
+#include "TitleAnimation.h"
 
 #include "Input.h"
 #include "Light.h"
@@ -50,14 +51,26 @@ public:
 
 private:
 	Input* input_ = nullptr;
-	TransitionScene* transition_ = nullptr;
 	std::unique_ptr<Camera> camera;
 	std::unique_ptr<Light> light;
-
 	SceneManager* sceneManager_ = nullptr;
 
+	std::unique_ptr<TitleAnimation> titleAnimation_;
+
+	TransitionScene* transition_ = nullptr;
+
+	TextureData texClear;
+	std::unique_ptr<Sprite> spriteClear;
+
+	//ImGuiデバッグ用
+	MyMath::Vector3 cameraPos = { 0,0,0 };
+	MyMath::Vector2 pos = { 0,0 };
+
 	uint8_t blackoutTimer = 60;
-	int8_t pad1[ 7 ];
+	int8_t pad1[ 3 ];
+
+	bool flag = false;
+	int8_t pad2[ 7 ];
 
 private:
 
