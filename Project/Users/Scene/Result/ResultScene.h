@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "Camera.h"
 #include "ObjObject3d.h"
+#include "ObjModel.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
@@ -62,15 +63,21 @@ private:
 	TextureData texClear;
 	std::unique_ptr<Sprite> spriteClear;
 
+	WorldTransform trans;
+	std::unique_ptr<ObjObject3d> objSkydome;
+	std::unique_ptr<ObjModel> modelSkydome;
+
 	//ImGuiデバッグ用
 	MyMath::Vector3 cameraPos = { 0,0,0 };
 	MyMath::Vector2 pos = { 0,0 };
+	MyMath::Vector3 cameraRot;
 
 	uint8_t blackoutTimer = 60;
 	int8_t pad1[ 3 ];
 
 	bool flag = false;
-	int8_t pad2[ 7 ];
+	int8_t pad2[ 3 ];
+
 
 private:
 

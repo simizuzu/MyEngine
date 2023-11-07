@@ -39,8 +39,8 @@ namespace MyMath
 		MyMath::Matrix4 MakeRotateMatrix();
 		//任意軸回転を表すQuaternionの生成
 		Quaternion MakeAxisAngle(const MyMath::Vector3& axsi, float angle);
-		// uからvへの回転を生成
-		//Quaternion DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v);
+		//クォータニオンからオイラー角へ変換
+		MyMath::Vector3 QuaternionToEulerAngles(float q0,float q1,float q2,float q3);
 		
 		/// <summary>
 		/// 特定の方向に向かせる

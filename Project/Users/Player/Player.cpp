@@ -54,13 +54,17 @@ void Player::Update()
 	mousePos.x = input->GetMousePos().x;
 	mousePos.y = input->GetMousePos().y;
 
+	//カメラの角度を取得する
+	cameraHAngle = camera_->GetHAngle(camera_->GetEye(),camera_->GetTarget()); //水平方向
+	cameraVAngle = camera_->GetVAngle(camera_->GetEye(),camera_->GetTarget()); //垂直方向
+
 #ifdef _DEBUG
 	ImGui::Begin("MousePos");
 	ImGui::Text("Position(%f,%f)", mousePos.x, mousePos.y);
 	ImGui::End();
 
 	ImGui::Begin("PlayerPos");
-	ImGui::Text("Position(%f,%f,%f)",playerTrans.GetTranslation().x,playerTrans.GetTranslation().y,playerTrans.GetTranslation().z);
+	ImGui::Text("CameraEye(%f,%f,%f)",playerTrans.GetTranslation().x,playerTrans.GetTranslation().y,playerTrans.GetTranslation().z);
 	ImGui::Text("worldTransform3DReticle(%f,%f,%f)",worldTransform3DReticle.GetTranslation().x,worldTransform3DReticle.GetTranslation().y,worldTransform3DReticle.GetTranslation().z);
 	ImGui::End();
 
@@ -111,11 +115,7 @@ void Player::Reticle3D()
 	//自機から3Dレティクルへの距離
 	const float distancePlayerTo3DReticle = 10.0f;
 	//自機から3Dレティクルへのオフセット(Z+向き)
-	MyMath::Vector3 offset = { 0,0,1.0f };
-	//カメラの角度を取得する
-	cameraHAngle = camera_->GetHAngle(camera_->GetEye(),camera_->GetTarget()); //水平方向
-	cameraVAngle = camera_->GetVAngle(camera_->GetEye(),camera_->GetTarget()); //垂直方向
-	
+	MyMath::Vector3 offset = { 0,0,1.0f };	
 	//自機のワールド行列の回転を反映
 	offset = MyMath::Vec3Mat4Mul(offset,playerTrans.matWorld);
 	//ベクトルの長さを整える

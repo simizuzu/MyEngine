@@ -16,10 +16,10 @@ MYENGINE_SUPPRESS_WARNINGS_END
 /// </summary>
 struct ConstBufferDataViewProjection
 {
-	// ワールド行列
-	MyMath::Matrix4 world;
-	// ワールド座標
-	MyMath::Matrix4 matWorld;
+	//// ワールド行列
+	//MyMath::Matrix4 world;
+	//// ワールド座標
+	//MyMath::Matrix4 matWorld;
 
 	// ワールド → ビュー変換行列
 	MyMath::Matrix4 view;
@@ -151,6 +151,8 @@ public:
 	/// <param name="target">注視点</param>
 	/// <returns></returns>
 	float GetVAngle(const MyMath::Vector3& eye,const MyMath::Vector3& target);
+
+	void SetCameraRot(MyMath::Vector3& rotation);
 
 	//コピーコンストラクタ削除
 	Camera& operator=(const Camera&) = delete;

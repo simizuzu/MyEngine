@@ -21,11 +21,12 @@ void EnemyManager::EnemyNormalEmit()
 {
 }
 
-void EnemyManager::LoadEnemyPopData()
+void EnemyManager::LoadEnemyPopData(const std::string& filePath)
 {
 	//ファイルを開く
 	std::ifstream file;
-	file.open(" CSVファイルパス ");
+
+	file.open(filePath);
 	assert(file.is_open());
 
 	//ファイルの内容を文字列ストリームにコピー

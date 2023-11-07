@@ -51,9 +51,10 @@ public:
 
 private:
 	/// <summary>
-	/// 敵発生データの読み込み
+	/// 敵発生データの読み込み("Resources/filePath/fname.csv")
 	/// </summary>
-	void LoadEnemyPopData();
+	/// <param name="filePath">ファイルパス</param>
+	void LoadEnemyPopData(const std::string& filePath);
 
 	/// <summary>
 	/// 敵発生コマンドの更新

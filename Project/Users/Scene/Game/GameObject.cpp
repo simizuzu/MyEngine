@@ -1,11 +1,11 @@
-#include "SceneData.h"
+#include "GameObject.h"
 
 /**
- * @file SceneData.cpp
+ * @file GameObject.cpp
  * @brief GameSceneのリソースの読み込みについて書かれてあります
  */
 
-void SceneData::Initialize(Camera* camera)
+void GameObject::Initialize(Camera* camera)
 {
 	assert(camera);
 	camera_ = camera;
@@ -28,7 +28,7 @@ void SceneData::Initialize(Camera* camera)
 	skydomeTrans.SetScale({ 900.0f,900.0f,900.0f });
 }
 
-void SceneData::Update()
+void GameObject::Update()
 {
 	skydomeTrans.Update(camera_);
 	skydomeTrans.SetTranslation({camera_->GetEye()});
@@ -37,7 +37,7 @@ void SceneData::Update()
 	player_->Update();
 }
 
-void SceneData::Draw()
+void GameObject::Draw()
 {
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);

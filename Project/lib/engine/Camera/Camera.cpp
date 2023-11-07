@@ -82,9 +82,9 @@ void Camera::UpdateMatrix()
 {
 	// ビュー行列の生成
 	matView_ = MyMathUtility::MakeLookAtLH(eye_, target_, up_);
-	// 逆行列
-	matViewInverse_ = MyMathUtility::MakeInverse(matView_);
-	matView_ = matViewInverse_;
+	//// 逆行列
+	//matViewInverse_ = MyMathUtility::MakeInverse(matView_);
+	//matView_ = matViewInverse_;
 	// 透視投影の生成
 	matProjection_ = MyMathUtility::MakePerspective(fovAngleY, aspect, nearZ_, farZ_);
 	// 定数バッファに転送
@@ -217,5 +217,18 @@ float Camera::GetVAngle(const MyMath::Vector3& eye, const MyMath::Vector3& targe
 	}
 
 	return deg;
+}
+
+void Camera::SetCameraRot(MyMath::Vector3& rotation)
+{
+	MyMath::Vector3 oldTarget = target_;
+
+	MyMath::Vector3 offset = {0,rotation.x,0};
+	
+	offset = MyMath::Vec3Mat4Mul(offset, matView_);
+
+	MyMath::Vector3 target = target_ + offset;
+
+	target_ = target;
 }
 #pragma endregion

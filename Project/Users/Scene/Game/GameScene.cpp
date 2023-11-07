@@ -43,7 +43,7 @@ void GameScene::Initialize()
 	gameCamera_ = std::make_unique<GameCamera>();
 	gameCamera_->Initialize(camera,input_);
 
-	modelData_ = std::make_unique<SceneData>();
+	modelData_ = std::make_unique<GameObject>();
 	modelData_->Initialize(camera);
 
 	spriteWhite_ = std::make_unique<Sprite>();

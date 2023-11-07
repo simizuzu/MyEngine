@@ -11,14 +11,14 @@
 #include "Player.h"
 
  /**
- * @class SceneData.h
- * @brief SceneDataのクラス
+ * @class GameObject.h
+ * @brief GameObjectのクラス
  */
 
 /// <summary>
-/// シーンデータ
+/// ゲームオブジェクト
 /// </summary>
-class SceneData
+class GameObject
 {
 public:
 	/// <summary>
@@ -38,8 +38,8 @@ public:
 	void Draw();
 
 	//コンストラクタ・デストラクタ
-	SceneData() = default;
-	~SceneData() = default;
+	GameObject() = default;
+	~GameObject() = default;
 
 private:
 	Camera* camera_;
@@ -81,8 +81,8 @@ private:
 
 private:
 	//代入演算子削除
-	SceneData& operator=(const SceneData&) = delete;
+	GameObject& operator=(const GameObject&) = delete;
 	//コピーコンストラクタ削除
-	SceneData(const SceneData&) = delete;
+	GameObject(const GameObject&) = delete;
 };
 

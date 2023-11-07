@@ -55,24 +55,24 @@ void WorldTransform::UpdateParticle(Camera* camera, bool billboradFlag)
 		constMap->cameraPos = cameraPos;
 		constBuffer_->Unmap(0, nullptr);
 	}
-	//else
-	//{
-	//	Mathematics::Matrix4 mat = camera->GetMatViewInverse();
+	else
+	{
+		MyMath::Matrix4 mat = camera->GetMatViewInverse();
 
-	//	mat.m[3][0] = 0;
-	//	mat.m[3][1] = 0;
-	//	mat.m[3][2] = 0;
-	//	mat.m[3][3] = 1;
+		mat.m[3][0] = 0;
+		mat.m[3][1] = 0;
+		mat.m[3][2] = 0;
+		mat.m[3][3] = 1;
 
-	//	matWorld = matScale * matRot * mat * matTrans * camera->GetMatView() * camera->GetMatProjection();
+		matWorld = matScale * matRot * mat * matTrans * camera->GetMatView() * camera->GetMatProjection();
 
-	//	//定数バッファへデータ転送
-	//	ConstBufferDataB0* constMap = nullptr;
-	//	result = constBuffer_->Map(0, nullptr, (void**)&constMap);
-	//	assert(SUCCEEDED(result));
-	//	constMap->mat = matWorld;
-	//	constBuffer_->Unmap(0, nullptr);
-	//}
+		//定数バッファへデータ転送
+		ConstBufferDataB0* constMap = nullptr;
+		result = constBuffer_->Map(0, nullptr, (void**)&constMap);
+		assert(SUCCEEDED(result));
+		constMap->world = matWorld;
+		constBuffer_->Unmap(0, nullptr);
+	}
 }
 
 

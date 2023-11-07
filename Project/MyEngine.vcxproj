@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ClearScene.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="EnemyNormal.cpp" />
+    <ClCompile Include="Users\Scene\Result\ClearScene.cpp" />
+    <ClCompile Include="Users\Enemy\EnemyManager.cpp" />
+    <ClCompile Include="Users\Enemy\EnemyNormal.cpp" />
     <ClCompile Include="Users\Enemy\Enemy.cpp" />
     <ClCompile Include="lib\engine\Camera\DebugCamera.cpp" />
     <ClCompile Include="lib\engine\Math\Matrix3x4.cpp" />
@@ -62,7 +62,7 @@
     <ClCompile Include="lib\engine\Scene\BaseScene.cpp" />
     <ClCompile Include="lib\engine\Scene\Framework.cpp" />
     <ClCompile Include="lib\engine\Scene\MainGame.cpp" />
-    <ClCompile Include="Users\Scene\Game\SceneData.cpp" />
+    <ClCompile Include="Users\Scene\Game\GameObject.cpp" />
     <ClCompile Include="lib\engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Users\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="Users\GameCamera\GameCamera.cpp" />
@@ -73,10 +73,10 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClearScene.h" />
-    <ClInclude Include="Numbers.h" />
-    <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="EnemyNormal.h" />
+    <ClInclude Include="Users\Scene\Result\ClearScene.h" />
+    <ClInclude Include="lib\engine\Math\Numbers.h" />
+    <ClInclude Include="Users\Enemy\EnemyManager.h" />
+    <ClInclude Include="Users\Enemy\EnemyNormal.h" />
     <ClInclude Include="Users\Enemy\Enemy.h" />
     <ClInclude Include="lib\engine\Camera\DebugCamera.h" />
     <ClInclude Include="lib\engine\Base\SuppressWarning.h" />
@@ -119,7 +119,7 @@
     <ClInclude Include="lib\engine\Scene\BaseScene.h" />
     <ClInclude Include="lib\engine\Scene\Framework.h" />
     <ClInclude Include="lib\engine\Scene\MainGame.h" />
-    <ClInclude Include="Users\Scene\Game\SceneData.h" />
+    <ClInclude Include="Users\Scene\Game\GameObject.h" />
     <ClInclude Include="lib\engine\Scene\SceneManager.h" />
     <ClInclude Include="Users\Scene\Result\ResultScene.h" />
     <ClInclude Include="Users\GameCamera\GameCamera.h" />

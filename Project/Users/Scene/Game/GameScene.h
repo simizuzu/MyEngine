@@ -21,7 +21,7 @@
 
 #include "PostEffect.h"
 
-#include "SceneData.h"
+#include "GameObject.h"
 #include "GameCamera.h"
 
 #include "TransitionScene.h"
@@ -114,7 +114,7 @@ private: // メンバ変数
 	INT32 sceneNum = 0;
 	char PADING[4]{};
 
-	std::unique_ptr<SceneData> modelData_;
+	std::unique_ptr<GameObject> modelData_;
 	std::unique_ptr<GameCamera> gameCamera_;
 	std::unique_ptr<PostEffect> postEffect_;
 
