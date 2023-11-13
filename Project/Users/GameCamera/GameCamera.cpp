@@ -1,5 +1,6 @@
 #include "GameCamera.h"
 #include "Numbers.h"
+#include "Quaternion.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
@@ -75,4 +76,19 @@ void GameCamera::SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint)
 			points[i + 2] = curvePoint[i];
 		}
 	}
+}
+
+void GameCamera::SetCameraRot(MyMath::Vector3& rotation)
+{
+	
+	
+	MyMath::Vector3 oldTarget = target_;
+
+	MyMath::Vector3 offset = { 0,rotation.x,0 };
+
+	offset = MyMath::Vec3Mat4Mul(offset,matView_);
+
+	MyMath::Vector3 target = target_ + offset;
+
+	target_ = target;
 }

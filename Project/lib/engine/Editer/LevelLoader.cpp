@@ -107,25 +107,12 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 			// トランスフォームのパラメータ読み込み
 			nlohmann::json& transform = curve;
 
-			// 左ハンドル
-			/*curveData.pointLeft.x = (float)transform["HandlePointL"][0];
-			curveData.pointLeft.y = (float)transform["HandlePointL"][2];
-			curveData.pointLeft.z = (float)transform["HandlePointL"][1];*/
-
 			// 制御点
 			curveData.pointCeter.x = (float)transform["ControlPoint"][0];
 			curveData.pointCeter.y = (float)transform["ControlPoint"][2];
 			curveData.pointCeter.z = (float)transform["ControlPoint"][1];
 
-			// 右ハンドル
-			/*curveData.pointRight.x = (float)transform["HandlePointR"][0];
-			curveData.pointRight.y = (float)transform["HandlePointR"][2];
-			curveData.pointRight.z = (float)transform["HandlePointR"][1];*/
-
-
-			//levelData->points.push_back(curveData.pointLeft);
 			levelData->points.push_back(curveData.pointCeter);
-			//levelData->points.push_back(curveData.pointRight);
 		}
 	}
 

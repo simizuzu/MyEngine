@@ -1,6 +1,7 @@
-#include "Quaternion.h"
+#include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
+#include "Quaternion.h"
 #include<cmath>
 MYENGINE_SUPPRESS_WARNINGS_END
 
@@ -9,9 +10,8 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief Quaternionの処理について書いてあります
  */
 
-	namespace MyMath
+namespace MyMath
 {
-
 	Quaternion::Quaternion()
 	{
 		w_ = 1;
@@ -138,15 +138,27 @@ MYENGINE_SUPPRESS_WARNINGS_END
 		return result;
 	}
 
-	MyMath::Vector3 Quaternion::QuaternionToEulerAngles()
+	MyMath::Vector3 Quaternion::QuaternionToEuler()
 	{
 		MyMath::Vector3 result;
 
-		float q0
+		float ww = w_ * w_;
+		float wx = w_ * x_;
+		float wy = w_ * y_;
+		float wz = w_ * z_;
 
-		result.x = atan2(2.0f * ( q2q3 + q0q1 ),q0q0 - q1q1 - q2q2 + q3q3);
-		result.y = asin(2.0f * ( q0q2 - q1q3 ));
-		result.z = atan2(2.0f * ( q1q2 + q0q3 ),q0q0 + q1q1 - q2q2 - q3q3);
+		float xx = x_ * x_;
+		float xy = x_ * y_;
+		float xz = x_ * z_;
+
+		float yy = y_ * y_;
+		float yz = y_ * z_;
+
+		float zz = z_ * z_;
+
+		result.x = atan2(twice * ( yz + wx ),ww - xx - yy + zz);
+		result.y = asin(twice * ( wy - xz ));
+		result.z = atan2(twice * ( xy + wz ),ww + xx - yy - zz);
 
 		return result;
 	}
@@ -213,6 +225,16 @@ MYENGINE_SUPPRESS_WARNINGS_END
 	Quaternion Quaternion::operator-()const
 	{
 		return Quaternion(-x_,-y_,-z_,-w_);
+	}
+
+	Quaternion& Quaternion::operator=(const Quaternion& q)
+	{
+		x_ = q.x_;
+		y_ = q.y_;
+		z_ = q.z_;
+		w_ = q.w_;
+
+		return *this;
 	}
 
 	Quaternion& Quaternion::operator+=(const Quaternion& q)

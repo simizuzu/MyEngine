@@ -9,6 +9,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix4.h"
+#include "Quaternion.h"
 
 /**
  * @class DirectX12Math.h
@@ -136,6 +137,12 @@ namespace MyMathUtility
 	/// <returns>ランダムした結果</returns>
 	/*int GetRandom(int min,int max);
 	bool randFlag;*/
+
+	/// <summary>
+	/// オイラー角からクォータニオンへ変換する
+	/// </summary>
+	/// <param name="rot">オイラー角</param>
+	MyMath::Quaternion EulerToQuaternion(MyMath::Vector3 rot);
 }
 
 namespace MyMath

@@ -40,7 +40,10 @@ namespace MyMath
 		//任意軸回転を表すQuaternionの生成
 		Quaternion MakeAxisAngle(const MyMath::Vector3& axsi, float angle);
 		//クォータニオンからオイラー角へ変換
-		MyMath::Vector3 QuaternionToEulerAngles(float q0,float q1,float q2,float q3);
+		MyMath::Vector3 QuaternionToEuler();
+		//オイラー角からクォータニオンへ変換
+		Quaternion EulerToQuaternion();
+		const float twice = 2.0f;
 		
 		/// <summary>
 		/// 特定の方向に向かせる
@@ -61,6 +64,7 @@ namespace MyMath
 		Quaternion operator - ()const;
 
 		//代入演算子オーバーロード
+		Quaternion& operator = (const Quaternion& q);
 		Quaternion& operator += (const Quaternion& q);
 		Quaternion& operator -= (const Quaternion& q);
 		Quaternion& operator *= (float s);

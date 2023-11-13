@@ -5,6 +5,7 @@
 #include "WorldTransform.h"
 #include "LevelLoader.h"
 
+
  /**
  * @class GameCamera.h
  * @brief GameCameraのクラス
@@ -79,6 +80,15 @@ private:
 	Input* input_ = nullptr;
 	Camera* camera_ = nullptr;
 
+	WorldTransform worldTransform_;
+	MyMath::Quaternion quaternion;
+
+private:
+	/// <summary>
+	/// カメラの回転角を取得
+	/// </summary>
+	/// <param name="rotation"></param>
+	void SetCameraRot(MyMath::Vector3& rotation);
 private:
 	//代入演算子削除
 	GameCamera& operator=(const GameCamera&) = delete;

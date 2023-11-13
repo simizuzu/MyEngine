@@ -87,6 +87,10 @@ void WorldTransform::Update(Camera* camera)
 	matRot = MyMathUtility::MakeRotation(rotation_);
 	matTrans = MyMathUtility::MakeTranslation(translation_);
 
+	//クォータニオンの回転行列を代入
+	/*MyMath::Quaternion ajaba;
+	matRot = ajaba.MakeRotateMatrix();*/
+
 	// ワールド行列の合成
 	matWorld = MyMathUtility::MakeIdentity();
 	matWorld *= matScale;

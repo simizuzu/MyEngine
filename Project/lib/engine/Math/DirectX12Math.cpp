@@ -525,6 +525,25 @@ namespace MyMathUtility
 			: endPoint + len * ((pow(2.0f * (nowFlame / endFlame) - 2.0f, 2.0f) * ((c2 + 1.0f) * ((nowFlame / endFlame) * 2.0f - 2.0f) + c2) + 2.0f) / 2.0f);
 	}
 
+	MyMath::Quaternion EulerToQuaternion(MyMath::Vector3 rot)
+	{
+		MyMath::Quaternion result;
+		float twice = 2.0f;
+
+		//回転軸(x=roll,y=pitch,z=yaw)
+		float cosRoll = cosf(rot.x / twice);
+		float sinRoll = sin(rot.x / twice);
+		float cosPitch = cosf(rot.y / twice);
+		float sinPitch = sin(rot.y / twice);
+		float cosYaw = cosf(rot.z / twice);
+		float sinYaw = sin(rot.z / twice);
+
+		result.w_ = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
+		result.x_ = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
+		result.y_ = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
+		result.z_ = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
+	}
+
 	/*int GetRandom(int min,int max)
 	{
 		
