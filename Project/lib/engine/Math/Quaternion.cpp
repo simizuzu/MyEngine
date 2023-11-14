@@ -1,4 +1,5 @@
 #include "SuppressWarning.h"
+#include "WorldTransform.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include "Quaternion.h"
@@ -288,6 +289,10 @@ namespace MyMath
 		w_ = rw;
 
 		return *this;
+	}
+
+	Quaternion::Quaternion(const Quaternion&)
+	{
 	}
 
 	const Quaternion operator+(const Quaternion& q1,const Quaternion& q2)

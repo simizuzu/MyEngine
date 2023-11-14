@@ -542,6 +542,8 @@ namespace MyMathUtility
 		result.x_ = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
 		result.y_ = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
 		result.z_ = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
+
+		return result;
 	}
 
 	/*int GetRandom(int min,int max)

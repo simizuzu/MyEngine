@@ -1,6 +1,8 @@
 #pragma once
-#include"DirectX12Math.h"
-#include "WorldTransform.h"
+#include "Vector3.h"
+#include "Matrix4.h"
+
+class WorldTransform;
 
 /**
  * @class Quaternion.h
@@ -41,8 +43,6 @@ namespace MyMath
 		Quaternion MakeAxisAngle(const MyMath::Vector3& axsi, float angle);
 		//クォータニオンからオイラー角へ変換
 		MyMath::Vector3 QuaternionToEuler();
-		//オイラー角からクォータニオンへ変換
-		Quaternion EulerToQuaternion();
 		const float twice = 2.0f;
 		
 		/// <summary>
@@ -70,6 +70,11 @@ namespace MyMath
 		Quaternion& operator *= (float s);
 		Quaternion& operator /= (float s);
 		Quaternion& operator *= (const Quaternion& q);
+
+		//代入演算子削除
+		//Quaternion& operator=(const Quaternion&) = delete;
+		//コピーコンストラクタ削除
+		Quaternion(const Quaternion&);
 	};
 
 	//2項演算子オーバーロード

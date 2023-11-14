@@ -16,10 +16,10 @@ MYENGINE_SUPPRESS_WARNINGS_END
 /// </summary>
 struct ConstBufferDataViewProjection
 {
-	//// ワールド行列
-	//MyMath::Matrix4 world;
-	//// ワールド座標
-	//MyMath::Matrix4 matWorld;
+	// ワールド行列
+	MyMath::Matrix4 world;
+	// ワールド座標
+	MyMath::Matrix4 matWorld;
 
 	// ワールド → ビュー変換行列
 	MyMath::Matrix4 view;
@@ -89,6 +89,12 @@ private:
 	// アスペクト比(画面横幅/画面縦幅)
 	float aspect = 0.0f;
 #pragma endregion
+	//回転
+	MyMath::Vector3 rotation_;
+	//平行移動
+	MyMath::Vector3 translation_;
+	//カメラのワールド
+	MyMath::Matrix4 matCameraWorld_;
 
 public:
 	/// <summary>
@@ -98,7 +104,9 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update(bool isMatrix = false);
+
+private:
 	/// <summary>
 	/// 定数バッファ生成
 	/// </summary>
@@ -108,7 +116,11 @@ public:
 	/// </summary>
 	void Map();
 	/// <summary>
-	/// ビュー行列の更新
+	/// ビュー行列の更新(LoodAt方式)
+	/// </summary>
+	void UpdateLookAt();
+	/// <summary>
+	/// ビュー行列の更新(Matrix方式)
 	/// </summary>
 	void UpdateMatrix();
 	/// <summary>

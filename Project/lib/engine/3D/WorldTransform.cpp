@@ -10,15 +10,15 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief WorldTransformの処理について書いてあります
  */
 
-void WorldTransform::Initialize()
+	void WorldTransform::Initialize()
 {
 	CreateConstBuffer();
 }
 
-void WorldTransform::UpdateParticle(Camera* camera, bool billboradFlag)
+void WorldTransform::UpdateParticle(Camera* camera,bool billboradFlag)
 {
 	HRESULT result;
-	MyMath::Matrix4 matScale, matRot, matTrans;
+	MyMath::Matrix4 matScale,matRot,matTrans;
 
 	//スケール、回転平行移動行列の計算
 	matScale = MyMathUtility::MakeScaling(scale_);
@@ -34,12 +34,12 @@ void WorldTransform::UpdateParticle(Camera* camera, bool billboradFlag)
 	//ワールド行列に平行移動を反映
 	matWorld *= matTrans;
 	//親行列の指定がある場合は、掛け算する
-	if (parent != nullptr)
+	if ( parent != nullptr )
 	{
 		matWorld *= parent->matWorld;
 	}
 
-	if (!billboradFlag)
+	if ( !billboradFlag )
 	{
 		const MyMath::Matrix4 matView = camera->GetMatView();
 		const MyMath::Matrix4 matProjection = camera->GetMatProjection();
@@ -47,39 +47,39 @@ void WorldTransform::UpdateParticle(Camera* camera, bool billboradFlag)
 
 		// 定数バッファへデータ転送
 		ConstBufferDataB0* constMap = nullptr;
-		result = constBuffer_->Map(0, nullptr, (void**)&constMap);
+		result = constBuffer_->Map(0,nullptr,( void** ) &constMap);
 		assert(SUCCEEDED(result));
 		//constMap->mat = matWorld* matView * matProjection;
 		constMap->viewproj = matView * matProjection;
 		constMap->world = matWorld;
 		constMap->cameraPos = cameraPos;
-		constBuffer_->Unmap(0, nullptr);
+		constBuffer_->Unmap(0,nullptr);
 	}
 	else
 	{
 		MyMath::Matrix4 mat = camera->GetMatViewInverse();
 
-		mat.m[3][0] = 0;
-		mat.m[3][1] = 0;
-		mat.m[3][2] = 0;
-		mat.m[3][3] = 1;
+		mat.m[ 3 ][ 0 ] = 0;
+		mat.m[ 3 ][ 1 ] = 0;
+		mat.m[ 3 ][ 2 ] = 0;
+		mat.m[ 3 ][ 3 ] = 1;
 
 		matWorld = matScale * matRot * mat * matTrans * camera->GetMatView() * camera->GetMatProjection();
 
 		//定数バッファへデータ転送
 		ConstBufferDataB0* constMap = nullptr;
-		result = constBuffer_->Map(0, nullptr, (void**)&constMap);
+		result = constBuffer_->Map(0,nullptr,( void** ) &constMap);
 		assert(SUCCEEDED(result));
 		constMap->world = matWorld;
-		constBuffer_->Unmap(0, nullptr);
+		constBuffer_->Unmap(0,nullptr);
 	}
 }
 
 
-void WorldTransform::Update(Camera* camera)
+void WorldTransform::Update(Camera* camera,bool isRotQuaternion)
 {
 	HRESULT result;
-	MyMath::Matrix4 matScale, matRot, matTrans;
+	MyMath::Matrix4 matScale,matRot,matTrans;
 
 	// スケール、回転、平行移動行列の計算
 	matScale = MyMathUtility::MakeScaling(scale_);
@@ -87,9 +87,12 @@ void WorldTransform::Update(Camera* camera)
 	matRot = MyMathUtility::MakeRotation(rotation_);
 	matTrans = MyMathUtility::MakeTranslation(translation_);
 
-	//クォータニオンの回転行列を代入
-	/*MyMath::Quaternion ajaba;
-	matRot = ajaba.MakeRotateMatrix();*/
+	if ( isRotQuaternion )
+	{
+		//クォータニオンの回転行列を代入
+		MyMath::Quaternion qRot;
+		matRot = qRot.MakeRotateMatrix();
+	}
 
 	// ワールド行列の合成
 	matWorld = MyMathUtility::MakeIdentity();
@@ -103,12 +106,12 @@ void WorldTransform::Update(Camera* camera)
 
 	// 定数バッファへデータ転送
 	ConstBufferDataB0* constMap = nullptr;
-	result = constBuffer_->Map(0, nullptr, (void**)&constMap);
+	result = constBuffer_->Map(0,nullptr,( void** ) &constMap);
 	assert(SUCCEEDED(result));
 	constMap->viewproj = matView * matProjection;
 	constMap->world = matWorld;
 	constMap->cameraPos = cameraPos;
-	constBuffer_->Unmap(0, nullptr);
+	constBuffer_->Unmap(0,nullptr);
 }
 
 void WorldTransform::CreateConstBuffer()
@@ -121,7 +124,7 @@ void WorldTransform::CreateConstBuffer()
 	//リソース設定
 	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-	resDesc.Width = (sizeof(ConstBufferDataB0) + 0xff) & ~0xff;//頂点データ全体のサイズ
+	resDesc.Width = ( sizeof(ConstBufferDataB0) + 0xff ) & ~0xff;//頂点データ全体のサイズ
 	resDesc.Height = 1;
 	resDesc.DepthOrArraySize = 1;
 	resDesc.MipLevels = 1;
@@ -172,7 +175,7 @@ MyMath::Vector3 WorldTransform::GetRotation()
 
 void WorldTransform::MakeMatWorld()
 {
-	MyMath::Matrix4 matScale, matRot, matTrans;
+	MyMath::Matrix4 matScale,matRot,matTrans;
 
 	// スケール、回転、平行移動行列の計算
 	matScale = MyMathUtility::MakeScaling(scale_);
@@ -199,9 +202,9 @@ namespace MyMath
 		// ワールド座標を入れる変数
 		Vector3 worldPos;
 		// ワールド行列の平行移動成分を取得
-		worldPos.x = transform.matWorld.m[3][0];
-		worldPos.y = transform.matWorld.m[3][1];
-		worldPos.z = transform.matWorld.m[3][2];
+		worldPos.x = transform.matWorld.m[ 3 ][ 0 ];
+		worldPos.y = transform.matWorld.m[ 3 ][ 1 ];
+		worldPos.z = transform.matWorld.m[ 3 ][ 2 ];
 
 		return worldPos;
 	}

@@ -33,7 +33,7 @@ public:
 	//初期化
 	void Initialize();
 	//更新
-	void Update(Camera* camera);
+	void Update(Camera* camera, bool isRotQuaternion = false);
 	void UpdateParticle(Camera* camera,bool billboradFlag = false);
 
 	//setter

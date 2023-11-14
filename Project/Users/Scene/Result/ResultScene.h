@@ -78,6 +78,9 @@ private:
 	bool flag = false;
 	int8_t pad2[ 3 ];
 
+	//void SetCameraRot(MyMath::Vector3& rotation);
+
+	WorldTransform cameraTransform_;
 
 private:
 

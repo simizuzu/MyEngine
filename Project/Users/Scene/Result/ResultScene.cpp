@@ -38,35 +38,38 @@ void ResultScene::Initialize()
 
 	trans.Initialize();
 	trans.SetScale({ 900.0f,900.0f,900.0f });
+
+	cameraTransform_.Initialize();
 }
 
 void ResultScene::Update()
 {
 	transition_->DrawWhiteOut();
+	cameraTransform_.Update(camera.get());
 
-	if ( input_->MouseButtonTrigger(LEFT) )
-	{
-		blackoutTimer--;
-	}
-	if ( blackoutTimer < 59 )
-	{
-		blackoutTimer--;
-		if ( blackoutTimer < 2 )
-		{
-			sceneManager_->ChangeScene("TITLE");
-		}
-	}
+	//if ( input_->MouseButtonTrigger(LEFT) )
+	//{
+	//	blackoutTimer--;
+	//}
+	//if ( blackoutTimer < 59 )
+	//{
+	//	blackoutTimer--;
+	//	if ( blackoutTimer < 2 )
+	//	{
+	//		sceneManager_->ChangeScene("TITLE");
+	//	}
+	//}
 
 	if ( input_->PushKey(DIK_G) )
 	{
 		cameraRot.x = 0.1f;
-		cameraRot.z = 1.0f;
+		
 		camera->SetCameraRot(cameraRot);
 	}
 	if ( input_->PushKey(DIK_H) )
 	{
 		cameraRot.x = -0.1f;
-		cameraRot.z = 1.0f;
+		
 		camera->SetCameraRot(cameraRot);
 	}
 
@@ -99,3 +102,16 @@ void ResultScene::Finalize()
 {
 	blackoutTimer = 60;
 }
+
+//void ResultScene::SetCameraRot(MyMath::Vector3& rotation)
+//{
+//	MyMath::Vector3 oldTarget = camera->GetTarget();
+//
+//	MyMath::Vector3 offset = { rotation.x,0,0 };
+//
+//	offset = MyMath::Vec3Mat4Mul(offset,cameraTransform_.matWorld);
+//
+//	MyMath::Vector3 target = oldTarget + offset;
+//
+//	camera->SetTarget(target);
+//}

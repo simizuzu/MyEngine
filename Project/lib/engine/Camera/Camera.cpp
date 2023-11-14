@@ -33,12 +33,19 @@ void Camera::Initialize()
 
 	CreateConstBuffer();
 	Map();
-	UpdateMatrix();
+	UpdateLookAt();
 }
 
-void Camera::Update()
+void Camera::Update(bool isMatrix)
 {
-	UpdateMatrix();
+	if ( isMatrix )
+	{
+		UpdateMatrix();
+	}
+	else
+	{
+		UpdateLookAt();
+	}
 }
 
 void Camera::CreateConstBuffer()
@@ -78,7 +85,7 @@ void Camera::Map()
 	assert(SUCCEEDED(result));
 }
 
-void Camera::UpdateMatrix()
+void Camera::UpdateLookAt()
 {
 	// ビュー行列の生成
 	matView_ = MyMathUtility::MakeLookAtLH(eye_, target_, up_);
@@ -87,6 +94,28 @@ void Camera::UpdateMatrix()
 	matView_ = matViewInverse_;
 	// 透視投影の生成
 	matProjection_ = MyMathUtility::MakePerspective(fovAngleY, aspect, nearZ_, farZ_);
+	// 定数バッファに転送
+	TransferMatrix();
+}
+void Camera::UpdateMatrix()
+{
+	//カメラのワールド行列（スケールは無し）
+	MyMath::Matrix4 matTrans,matRot;
+
+	//回転、平行移動行列の計算
+	matRot = MyMathUtility::MakeIdentity();
+	matRot = MyMathUtility::MakeRotation(rotation_);
+	matTrans = MyMathUtility::MakeTranslation(translation_);
+
+	//ワールド行列の合成
+	matCameraWorld_ = MyMathUtility::MakeIdentity();
+	matCameraWorld_ *= matRot;
+	matCameraWorld_ *= matTrans;
+
+	matView_ = MyMathUtility::MakeInverse(matCameraWorld_);
+
+	// 透視投影の生成
+	matProjection_ = MyMathUtility::MakePerspective(fovAngleY,aspect,nearZ_,farZ_);
 	// 定数バッファに転送
 	TransferMatrix();
 }
@@ -223,7 +252,7 @@ void Camera::SetCameraRot(MyMath::Vector3& rotation)
 {
 	MyMath::Vector3 oldTarget = target_;
 
-	MyMath::Vector3 offset = {0,rotation.x,0};
+	MyMath::Vector3 offset = { 0,rotation.x,0};
 	
 	offset = MyMath::Vec3Mat4Mul(offset, matView_);
 

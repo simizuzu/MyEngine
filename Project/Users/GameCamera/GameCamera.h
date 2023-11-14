@@ -2,9 +2,10 @@
 #include "DirectX12Math.h"
 #include "Camera.h"
 #include "Input.h"
-#include "WorldTransform.h"
+
 #include "LevelLoader.h"
 
+class WorldTransform;
 
  /**
  * @class GameCamera.h
@@ -56,7 +57,7 @@ private:
 	MyMath::Vector3 endPoint;
 
 	//カメラのトランスフォーム
-	WorldTransform cameraTrans;
+	WorldTransform* cameraTrans = nullptr;
 
 	float maxTime = 0.5f;				//全体時間[s]
 
@@ -80,8 +81,9 @@ private:
 	Input* input_ = nullptr;
 	Camera* camera_ = nullptr;
 
-	WorldTransform worldTransform_;
+	WorldTransform* worldTransform_ = nullptr;
 	MyMath::Quaternion quaternion;
+	int8_t pad4[4 ];
 
 private:
 	/// <summary>
