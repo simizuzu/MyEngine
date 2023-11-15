@@ -120,7 +120,7 @@ private:
 	/// </summary>
 	void UpdateLookAt();
 	/// <summary>
-	/// ビュー行列の更新(Matrix方式)
+	/// ビュー行列の更新(ワールド座標方式)
 	/// </summary>
 	void UpdateMatrix();
 	/// <summary>
@@ -137,6 +137,12 @@ public:
 	const MyMath::Vector3& GetEye();
 	const MyMath::Vector3& GetTarget();
 	const MyMath::Vector3& GetUp();
+
+	const MyMath::Vector3 GetTranslation();
+	const MyMath::Vector3 GetRotation();
+
+	void SetTranslation(MyMath::Vector3 translation);
+	void SetRotation(MyMath::Vector3 rotation);
 
 	//視点距離
 	void SetEye(const MyMath::Vector3& eye);

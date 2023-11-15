@@ -71,12 +71,13 @@ private:
 	MyMath::Vector3 cameraPos = { 0,0,0 };
 	MyMath::Vector2 pos = { 0,0 };
 	MyMath::Vector3 cameraRot;
+	MyMath::Vector3 cameraTrans;
 
 	uint8_t blackoutTimer = 60;
 	int8_t pad1[ 3 ];
 
 	bool flag = false;
-	int8_t pad2[ 3 ];
+	int8_t pad2[ 7 ];
 
 	//void SetCameraRot(MyMath::Vector3& rotation);
 

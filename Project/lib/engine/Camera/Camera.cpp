@@ -159,6 +159,26 @@ const MyMath::Vector3& Camera::GetUp()
 	return up_;
 }
 
+const MyMath::Vector3 Camera::GetTranslation()
+{
+	return translation_;
+}
+
+const MyMath::Vector3 Camera::GetRotation()
+{
+	return rotation_;
+}
+
+void Camera::SetTranslation(MyMath::Vector3 translation)
+{
+	translation_ = translation;
+}
+
+void Camera::SetRotation(MyMath::Vector3 rotation)
+{
+	rotation_ = rotation;
+}
+
 void Camera::SetEye(const MyMath::Vector3& eye)
 {
 	eye_ = eye;

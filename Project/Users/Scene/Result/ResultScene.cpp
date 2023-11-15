@@ -62,24 +62,31 @@ void ResultScene::Update()
 
 	if ( input_->PushKey(DIK_G) )
 	{
-		cameraRot.x = 0.1f;
-		
-		camera->SetCameraRot(cameraRot);
+		cameraRot.x += 0.1f;
 	}
 	if ( input_->PushKey(DIK_H) )
 	{
-		cameraRot.x = -0.1f;
-		
-		camera->SetCameraRot(cameraRot);
+		cameraRot.x -= 0.1f;
 	}
 
-	camera->Update();
+	if ( input_->PushKey(DIK_D) )
+	{
+		cameraTrans.x += 10.0f;
+	}
+	if ( input_->PushKey(DIK_A) )
+	{
+		cameraTrans.x -= 10.0f;
+	}
+	camera->SetRotation(cameraRot);
+	camera->SetTranslation(cameraTrans);
+	camera->Update(true);
 	light->Update();
 
 	trans.Update(camera.get());
 
 	ImGui::Begin("camera");
 	ImGui::SetWindowPos({300,100});
+	ImGui::Text("translation:%f,%f,%f",camera->GetTranslation().x,camera->GetTranslation().y,camera->GetTranslation().z);
 	ImGui::SliderFloat3("target",&camera->target_.x,-500.0f,500.0f);
 
 	ImGui::End();
