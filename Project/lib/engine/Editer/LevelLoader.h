@@ -108,7 +108,7 @@ namespace MyMathUtility {
 	MyMath::Vector3 SplinePosition(std::vector<LevelData::CurveData>& points, float t,size_t startIndex = 1);
 
 	/// <summary>
-	/// スプライン曲線
+	/// スプライン曲線()
 	/// </summary>
 	/// <param name="points">アニメーションフレーム</param>
 	/// <param name="t">全体の時間</param>

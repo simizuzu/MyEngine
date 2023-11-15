@@ -160,6 +160,8 @@ class MYADDON_OT_export_animdata(bpy.types.Operator, bpy_extras.io_utils.ExportH
         #保存する情報をまとめるdict
         json_object_root = dict()
 
+        #ノード名
+        json_object_root["name"] = "scene"
         #オブジェクトリストを作成
         json_object_root["animdata"] = list()
 

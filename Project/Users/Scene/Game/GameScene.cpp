@@ -83,7 +83,7 @@ void GameScene::Update()
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
-	ImGui::Text("Position(%f,%f,%f)",camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
+	ImGui::Text("Position(%f,%f,%f)",camera->GetTranslation().x,camera->GetTranslation().y,camera->GetTranslation().z);
 	ImGui::Text("size(%f,%f)",blackUpPos.y,blackDownPos.y);
 	ImGui::End();
 
@@ -92,7 +92,7 @@ void GameScene::Update()
 	ImGui::End();
 
 #endif
-	camera->Update();
+	camera->Update(true);
 	light->Update();
 
 	cameraTimeRate = gameCamera_->timeRate;

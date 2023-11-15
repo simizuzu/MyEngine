@@ -130,12 +130,12 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		animData.nowFrame = (float)transform["nowframe"];
 		//座標
 		animData.trans.x = (float)transform["translation"][0];
-		animData.trans.y = (float)transform["translation"][2];
-		animData.trans.z = (float)transform["translation"][1];
+		animData.trans.y = (float)transform["translation"][1];
+		animData.trans.z = (float)transform["translation"][2];
 		//回転角
 		animData.rot.x = (float)transform["rotation"][0];
-		animData.rot.y = (float)transform["rotation"][2];
-		animData.rot.z = (float)transform["rotation"][1];
+		animData.rot.y = (float)transform["rotation"][1];
+		animData.rot.z = (float)transform["rotation"][2];
 
 		levelData->nowFrame.push_back(animData.nowFrame);
 		levelData->nowTransform.push_back(animData.trans);
@@ -159,12 +159,6 @@ namespace MyMathUtility {
 
 	MyMath::Vector3 SplinePosition(std::vector<LevelData::CurveData>& points, float t, size_t startIndex)
 	{
-		//制御点のindexをずらしていく処理
-		/*float length = static_cast<float>(points.size());
-		float progress = (length - 1) * t;
-		float index = std::floor(progress);
-		float weight = progress - index;*/
-
 		size_t n = points.size() - 2;
 
 		if (startIndex > n) return points[n].pointCeter; //Pnの値を返す
@@ -185,30 +179,27 @@ namespace MyMathUtility {
 		return position;
 	}
 
-	//MyMath::Vector3 SplinePositionAnim(std::vector<LevelData::AnimData>& points, size_t startIndex, float t)
-	//{
-	//	//制御点のindexをずらしていく処理
-	//	float length = static_cast<float>(points.size());
-	//	float progress = (length - 1) * t;
-	//	float index = std::floor(progress);
-	//	float weight = progress - index;
+	MyMath::Vector3 SplinePositionAnim(std::vector<LevelData::AnimData>& points,float t,size_t startIndex)
+	{
+		size_t n = points.size() - 2;
 
-	//	//1秒あたり60フレーム
-	//	float timeStep = 1.0f / 60.0f;
+		if ( startIndex > n ) return points[ n ].trans; //Pnの値を返す
+		if ( startIndex < 1 ) return points[ 1 ].trans; //Pnの値を返す
 
+		//始点
+		MyMath::Vector3 p0 = points[ startIndex - 1 ].trans;
+		//制御点1
+		MyMath::Vector3 p1 = points[ startIndex ].trans;
+		//制御点2
+		MyMath::Vector3 p2 = points[ startIndex + 1 ].trans;
+		//終点
+		MyMath::Vector3 p3 = points[ startIndex + 2 ].trans;
 
+		//ベジェ曲線を代入
+		MyMath::Vector3 position = MyMathUtility::HermiteGetPoint(p0,p1,p2,p3,t);
 
-	//	//p0~p3 の制御点を取得する ※p1~p2 を補間する
-	//	MyMath::Vector3 p0 = points[static_cast<size_t>(index) - 1].trans;
-	//	MyMath::Vector3 p1 = points[static_cast<size_t>(index)].trans;
-	//	MyMath::Vector3 p2 = points[static_cast<size_t>(index) + 1].trans;
-	//	MyMath::Vector3 p3 = points[static_cast<size_t>(index) + 2].trans;
-
-	//	//Catmull-Romの式による補間
-	//	MyMath::Vector3 position = MyMathUtility::HermiteGetPoint(p0, p1, p2, p3, weight);
-
-	//	return position;
-	//}
+		return position;
+	}
 
 	MyMath::Vector3 CalcTangentPosition(const MyMath::Vector3& prevPoint, const MyMath::Vector3& nextPoint)
 	{
