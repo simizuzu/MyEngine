@@ -33,6 +33,24 @@ class MYADDON_OT_export_animdata(bpy.types.Operator, bpy_extras.io_utils.ExportH
         file.write(str)
         file.write('\n')
 
+    def get_keyframes(self,file):
+        """キーフレームの取得関数"""
+
+        #キーフレームを格納する配列
+        keyframes = []
+
+        #アニメーションのActionEditorから情報を読み取る
+        action = bpy.data.actions['CubeAction']
+        if action is not None and action is not None:
+            for fcu in action.fcurves:
+                for keyframe in fcu.keyframe_points:
+                    x, y = keyframe.co
+                    #最低限出力するためにif文を追加
+                    if x not in keyframes:
+                        keyframes.append((math.ceil(x)))
+                        self.write_and_print(file, "Trans(%d,%f):" % (x,y))
+        return keyframes
+
     def parse_scene_recursive(self, file):
         """シーン解析用再帰関数"""
 
@@ -50,7 +68,7 @@ class MYADDON_OT_export_animdata(bpy.types.Operator, bpy_extras.io_utils.ExportH
             ro2 = 0
             ro3 = 0
 
-
+ 
             for fc in object.animation_data.action.fcurves:
                 if fc.data_path.endswith(('location')):
                     for key in fc.keyframe_points :
@@ -151,7 +169,8 @@ class MYADDON_OT_export_animdata(bpy.types.Operator, bpy_extras.io_utils.ExportH
         #スコープを抜けると自動的にクローズされる
         with open(self.filepath, "wt") as file:
             #ファイルに文字列を書き込む
-            self.parse_scene_recursive(file)
+            #self.parse_scene_recursive(file)
+            self.get_keyframes(file)
             print()
 
     def export_json(self):
@@ -184,7 +203,7 @@ class MYADDON_OT_export_animdata(bpy.types.Operator, bpy_extras.io_utils.ExportH
         print("シーン情報をExportします")
 
         #ファイルに出力
-        self.export_json()
+        self.export()
 
         print("シーン情報をExportしました")
         self.report({'INFO'}, "シーン情報をExportしました")
