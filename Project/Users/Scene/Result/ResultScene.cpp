@@ -84,12 +84,14 @@ void ResultScene::Update()
 
 	trans.Update(camera.get());
 
+#ifdef _DEBUG
 	ImGui::Begin("camera");
-	ImGui::SetWindowPos({300,100});
+	ImGui::SetWindowPos({ 300,100 });
 	ImGui::Text("translation:%f,%f,%f",camera->GetTranslation().x,camera->GetTranslation().y,camera->GetTranslation().z);
 	ImGui::SliderFloat3("target",&camera->target_.x,-500.0f,500.0f);
 
 	ImGui::End();
+#endif
 }
 
 void ResultScene::Draw()

@@ -31,7 +31,7 @@ void GameObject::Initialize(Camera* camera)
 void GameObject::Update()
 {
 	skydomeTrans.Update(camera_);
-	skydomeTrans.SetTranslation({camera_->GetEye()});
+	skydomeTrans.SetTranslation({camera_->GetTranslation()});
 	groundTrans.Update(camera_);
 
 	player_->Update();

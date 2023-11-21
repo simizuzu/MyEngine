@@ -21,15 +21,15 @@ void GameCamera::Initialize(Camera* camera, Input* input)
 
 	//視野角の設定
 	camera_->SetFovAngleY(MyMathUtility::degree2Radius * degree90);
-	curveData = LevelLoader::LoadFile("keyTest");
+	curveData = LevelLoader::LoadFile("curveData");
 
 	nowCount = startCount;
-	SplinePointLineUp(curveData->anims);
+	SplinePointLineUp(curveData->curves);
 }
 
 void GameCamera::Update()
 {
-	pos = MyMathUtility::SplinePositionAnim(points, timeRate, startIndex);
+	pos = MyMathUtility::SplinePosition(points, timeRate, startIndex);
 
 	nowCount++;
 	elapsedCount = nowCount - startCount;
@@ -64,7 +64,7 @@ void GameCamera::Reset()
 {
 }
 
-void GameCamera::SplinePointLineUp(std::vector<LevelData::AnimData> curvePoint)
+void GameCamera::SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint)
 {
 	points.resize(curvePoint.size() + two);
 	for (size_t i = zero; i < curvePoint.size(); i++)

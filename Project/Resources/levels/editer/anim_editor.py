@@ -38,18 +38,26 @@ class MYADDON_OT_export_animdata(bpy.types.Operator, bpy_extras.io_utils.ExportH
 
         #キーフレームを格納する配列
         keyframes = []
-
+        objTrans = []
+       
+        obj = bpy.data.objects['Cube']
         #アニメーションのActionEditorから情報を読み取る
         action = bpy.data.actions['CubeAction']
+
         if action is not None and action is not None:
             for fcu in action.fcurves:
                 for keyframe in fcu.keyframe_points:
                     x, y = keyframe.co
                     #最低限出力するためにif文を追加
                     if x not in keyframes:
-                        keyframes.append((math.ceil(x)))
-                        self.write_and_print(file, "Trans(%d,%f):" % (x,y))
-        return keyframes
+                        keyframes.append((math.ceil(x))) #ceil():小数点切り捨て
+                        objTrans.append(obj.location.x)
+                        self.write_and_print(file, "Frame(%d):" % (x))
+                        self.write_and_print(file, "Trans(%f):" % (obj.location.x))
+        #return keyframes
+
+        #self.write_and_print(file, "Trans(%f,%f,%f):" % (obj.location.x,obj.location.y,obj.location.z))
+        #self.write_and_print(file, "Trans(%f,%f,%f):" % (obj.rotation_euler.x,obj.rotation_euler.y,obj.rotation_euler.z))
 
     def parse_scene_recursive(self, file):
         """シーン解析用再帰関数"""

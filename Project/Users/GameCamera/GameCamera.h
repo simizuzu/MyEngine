@@ -40,7 +40,7 @@ public:
 	/// startとendをfor文で作る処理 {start,start,P1…Pn,end,end}
 	/// </summary>
 	/// <param name="curvePoint">カーブのデータ</param>
-	void SplinePointLineUp(std::vector<LevelData::AnimData> curvePoint);
+	void SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint);
 
 	float timeRate;//何％時間が進んだか
 	int8_t pad1[4 ];
@@ -76,7 +76,7 @@ private:
 	uint32_t elapsedCount = 0;
 	int8_t pad2[ 4 ];
 
-	std::vector<LevelData::AnimData> points;
+	std::vector<LevelData::CurveData> points;
 
 	Input* input_ = nullptr;
 	Camera* camera_ = nullptr;
