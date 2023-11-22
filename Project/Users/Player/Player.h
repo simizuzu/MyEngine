@@ -98,6 +98,15 @@ private:
 
 	float angle;
 
+	int8_t xPos_absolute,yPos_absolute;
+	uint8_t xPos,yPos;
+	
+	POINT mousePosition;
+	MyMath::Vector2 windowWH;
+	MyMath::Vector2 mouseMove;
+	MyMath::Vector2 mouseMoved;
+
+
 public:
 	float timeRate;						//何％時間が進んだか
 private:

@@ -83,7 +83,9 @@ void Player::Update()
 	for (PlayerBullet* bullet : bullets) {
 		bullet->Update(camera_.get());
 	}
-		playerTrans.Update(camera_.get());
+	playerTrans.Update(camera_.get());
+
+
 }
 
 void Player::Draw()
@@ -106,13 +108,34 @@ void Player::Move()
 
 void Player::RotateCamera()
 {
-	//mousePos.x = input->GetMousePos().x;
-	//mousePos.y = input->GetMousePos().y;
+	windowWH = MyMath::Vector2((float)WinApp::GetInstance()->window_width/2,( float ) WinApp::GetInstance()->window_height / 2);
 
-	////マウスカーソルの位置を中心にセットする
-	//mousePos.x = (float)WinApp::GetInstance()->window_width / 2.0f;
-	//mousePos.y = ( float ) WinApp::GetInstance()->window_height / 2.0f;
+	//マウス座標(スクリーン座標)を取得する
+	GetCursorPos(&mousePosition);
 
+	//クライアントエリア座標に変換する
+	HWND hwnd = WinApp::GetInstance()->GetHwnd();
+	ScreenToClient(hwnd,&mousePosition);
+
+	//移動させたいx,y座標（ウィンドウ内の相対座標）
+	xPos = (uint8_t)windowWH.x;
+	yPos = ( uint8_t ) windowWH.y;
+
+	WINDOWINFO windowInfo;
+	//ウィンドウの位置を取得
+	windowInfo.cbSize = sizeof(WINDOWINFO);
+	GetWindowInfo(hwnd,&windowInfo);
+
+	//マウスの移動先の絶対座標（モニター左上からの座標）
+	xPos_absolute = xPos + static_cast<uint8_t>(windowInfo.rcWindow.left) + eight;
+	yPos_absolute =  yPos + static_cast< uint8_t >( windowInfo.rcWindow.top) + 31; //ウィンドウのタイトルバーの分（31px）をプラス
+
+	//マウスの移動量を取得
+	mouseMove = MyMath::Vector2(0,0);
+	mouseMove = (MyMath::Vector2(( float ) mousePosition.y,( float ) mousePosition.x) -MyMath::Vector2(windowWH.y, windowWH.x));
+	mouseMoved += MyMath::Vector2(mouseMove.x,mouseMove.y) / 500;
+
+	SetCursorPos(xPos_absolute,yPos_absolute);//移動させる
 
 	//カメラの回転制御
 	if ( input->PushKey(DIK_RIGHT) || input->InputStick(R_RIGHT))
@@ -230,7 +253,7 @@ void Player::Attack()
 
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(bulletModel.get(), bulletObj.get(),mousePos,velosity);
+		newBullet->Initialize(bulletModel.get(), bulletObj.get(),camera_->GetTranslation(),velosity);
 
 		//弾を登録する
 		bullets.push_back(newBullet);
