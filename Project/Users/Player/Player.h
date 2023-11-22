@@ -20,6 +20,11 @@ MYENGINE_SUPPRESS_WARNINGS_END
 /// </summary>
 class Player
 {
+private:
+	const float rotationSpeed = 0.1f;
+	const float maxRotate = 1.3f;
+	const float maxValueRotate = 1.5f;
+
 public:
 	//コンストラクタ・デストラクタ
 	Player() = default;
@@ -72,6 +77,11 @@ private:
 	/// プレイヤーの挙動
 	/// </summary>
 	void Move();
+
+	/// <summary>
+	/// カメラの回転処理
+	/// </summary>
+	void RotateCamera();
 
 	//void Finalize();
 

@@ -50,9 +50,7 @@ void Player::Update()
 		return false;
 		});
 
-	//マウスカーソルの位置取得
-	mousePos.x = input->GetMousePos().x;
-	mousePos.y = input->GetMousePos().y;
+	RotateCamera();
 
 	//カメラの角度を取得する
 	cameraHAngle = camera_->GetHAngle(camera_->GetEye(),camera_->GetTarget()); //水平方向
@@ -69,8 +67,9 @@ void Player::Update()
 	ImGui::End();
 
 	ImGui::Begin("CameraAngle");
-	ImGui::Text("CameraAngle(%f,%f)",cameraHAngle,cameraVAngle );
+	ImGui::Text("CameraAngle(%f,%f)",camera_->GetRotation().x,camera_->GetRotation().y);
 	ImGui::End();
+
 
 #endif
 
@@ -103,6 +102,52 @@ void Player::Move()
 	Reticle3D();
 	Reticle2D();
 	ReticleMouse();
+}
+
+void Player::RotateCamera()
+{
+	//mousePos.x = input->GetMousePos().x;
+	//mousePos.y = input->GetMousePos().y;
+
+	////マウスカーソルの位置を中心にセットする
+	//mousePos.x = (float)WinApp::GetInstance()->window_width / 2.0f;
+	//mousePos.y = ( float ) WinApp::GetInstance()->window_height / 2.0f;
+
+
+	//カメラの回転制御
+	if ( input->PushKey(DIK_RIGHT) || input->InputStick(R_RIGHT))
+	{
+		rot.y += rotationSpeed;
+		camera_->SetRotation({rot.x,rot.y,zero});
+	}
+	if ( input->PushKey(DIK_LEFT) || input->InputStick(R_LEFT) )
+	{
+		rot.y -= rotationSpeed;
+		camera_->SetRotation({ rot.x,rot.y,zero });
+	}
+
+	//回転が[180°,-180°]以内に制御する
+	if ( rot.x > -maxValueRotate && rot.x < maxValueRotate )
+	{
+		if ( input->PushKey(DIK_DOWN) || input->InputStick(R_DOWN) )
+		{
+			rot.x += rotationSpeed;
+			camera_->SetRotation({ rot.x,rot.y,zero });
+			if ( rot.x > maxRotate )
+			{
+				rot.x = maxRotate;
+			}
+		}
+		if ( input->PushKey(DIK_UP) || input->InputStick(R_UP) )
+		{
+			rot.x -= rotationSpeed;
+			camera_->SetRotation({ rot.x,rot.y,zero });
+			if ( rot.x < -maxRotate )
+			{
+				rot.x = -maxRotate;
+			}
+		}
+	}
 }
 
 void Player::UIDraw()
