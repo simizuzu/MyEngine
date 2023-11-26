@@ -38,7 +38,7 @@ void TitleScene::Update()
 	ImGui::End();
 #endif
 
-	if ( input_->MouseButtonTrigger(LEFT)) 
+	if ( input_->PushKey(DIK_SPACE) || input_->PushButton(A)) 
 	{
 		blackoutTimer--;
 	}

@@ -1,8 +1,8 @@
 #pragma once
-#include "PlayerBullet.h"
+#include "Camera.h"
 #include "Input.h"
 #include "LevelLoader.h"
-#include "Camera.h"
+#include "PlayerBullet.h"
 #include "Sprite.h"
 #include "TextureManager.h"
 
@@ -46,37 +46,11 @@ public:
 	/// </summary>
 	void Draw();
 
-	/// <summary>
-	/// レティクルの描画
-	/// </summary>
-	void UIDraw();
-
 private:
-
-	///</summary>
-	/// 自機のワールド座標から3Dレティクルのワールド座標を計算
-	///</summary>
-	void Reticle3D();
-
-	///</summary>
-	//マウスカーソルのスクリーン座標からワールド座標を取得して3Dレティクル配置
-	///</summary>
-	void Reticle2D();
-
-	/// <summary>
-	/// マウスで動くレティクルの処理
-	/// </summary>
-	void ReticleMouse();
-
 	/// <summary>
 	/// 攻撃したか
 	/// </summary>
 	void Attack();
-
-	/// <summary>
-	/// プレイヤーの挙動
-	/// </summary>
-	void Move();
 
 	/// <summary>
 	/// カメラの回転処理
@@ -105,7 +79,6 @@ private:
 	MyMath::Vector2 windowWH;
 	MyMath::Vector2 mouseMove;
 	MyMath::Vector2 mouseMoved;
-
 
 public:
 	float timeRate;						//何％時間が進んだか

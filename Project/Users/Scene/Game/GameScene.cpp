@@ -37,9 +37,6 @@ void GameScene::Initialize()
 	clearDirection = ClearScene::GetInstance();
 	clearDirection->Initialize(camera);
 
-	player = new Player();
-	player->Initialize(camera);
-
 	gameCamera_ = std::make_unique<GameCamera>();
 	gameCamera_->Initialize(camera,input_);
 
@@ -92,7 +89,7 @@ void GameScene::Update()
 	ImGui::End();
 
 #endif
-	camera->Update(true);
+
 	light->Update();
 
 	cameraTimeRate = gameCamera_->timeRate;
@@ -101,6 +98,11 @@ void GameScene::Update()
 	if ( scene == SCENEFASE::START || scene == SCENEFASE::GAME )
 	{
 		gameCamera_->Update();
+		camera->Update(true);
+	}
+	else
+	{
+		camera->Update();
 	}
 
 	modelData_->Update();
@@ -130,9 +132,11 @@ void GameScene::Update()
 		//シーン移行
 		if ( cameraTimeRate >= 1.0f )
 		{
-			clearDirection->Update();
-			//sceneManager_->ChangeScene("TITLE");
+			scene = SCENEFASE::RESULT;
 		}
+		break;
+	case GameScene::SCENEFASE::RESULT:
+		clearDirection->Update();
 		break;
 	default:
 		break;
@@ -156,16 +160,14 @@ void GameScene::Draw()
 		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
 	case GameScene::SCENEFASE::GAME:
-			//シーン移行
-		if ( cameraTimeRate >= 1.0f )
+
+		break;
+	case GameScene::SCENEFASE::RESULT:
+		clearDirection->Draw();
+		texBlackAlpha += decimal.zeroPointOne / static_cast< float >( two );
+		if ( texBlackAlpha > static_cast< float >( one ) )
 		{
-			clearDirection->Draw();
-			texBlackAlpha += decimal.zeroPointOne / static_cast< float >( two);
-			if ( texBlackAlpha > static_cast< float >( one ) )
-			{
-				sceneManager_->ChangeScene("RESULT");
-			}
-			
+			sceneManager_->ChangeScene("RESULT");
 		}
 		break;
 	default:

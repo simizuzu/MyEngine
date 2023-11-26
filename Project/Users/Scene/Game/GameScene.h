@@ -4,13 +4,13 @@
 
 #include "Numbers.h"
 
-#include "Input.h"
-#include "Camera.h"
-#include "Light.h"
-#include "Sprite.h"
-#include "ObjObject3d.h"
-#include "ObjModel.h"
 #include "AudioManager.h"
+#include "Camera.h"
+#include "Input.h"
+#include "Light.h"
+#include "ObjModel.h"
+#include "ObjObject3d.h"
+#include "Sprite.h"
 
 #include "TextureManager.h"
 #include "WorldTransform.h"
@@ -21,11 +21,11 @@
 
 #include "PostEffect.h"
 
-#include "GameObject.h"
 #include "GameCamera.h"
+#include "GameObject.h"
 
-#include "TransitionScene.h"
 #include "ClearScene.h"
+#include "TransitionScene.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
@@ -172,7 +172,8 @@ private:
 	{
 		MOVIE,
 		START,
-		GAME
+		GAME,
+		RESULT
 	};
 
 	SCENEFASE scene = SCENEFASE::MOVIE;

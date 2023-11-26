@@ -23,6 +23,14 @@ void GameObject::Initialize(Camera* camera)
 	skydomeObj_->SetModel(skydomeModel_.get());
 	groundObj_->SetModel(groundModel_.get());
 
+	display = std::make_unique<Sprite>();
+	reticle = std::make_unique<Sprite>();
+	display->Initialize();
+	reticle->Initialize();
+
+	displayTex = TextureManager::Load("Resources/Texture/display.png");
+	reticleTex = TextureManager::Load("Resources/Texture/reticle.png");
+
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
 	skydomeTrans.SetScale({ 900.0f,900.0f,900.0f });
@@ -42,5 +50,7 @@ void GameObject::Draw()
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);
 	player_->Draw();
-	player_->UIDraw();
+
+	display->Draw(displayTex,{ 0,0 });
+	reticle->Draw(reticleTex,{640,360},{1.5f,1.5f},0,{0.5f,0.5f});
 }

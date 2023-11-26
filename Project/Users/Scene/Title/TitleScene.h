@@ -2,8 +2,8 @@
 #include "BaseScene.h"
 
 #include "Input.h"
-#include "SceneManager.h"
 #include "Light.h"
+#include "SceneManager.h"
 
 #include "TitleAnimation.h"
 #include "TransitionScene.h"

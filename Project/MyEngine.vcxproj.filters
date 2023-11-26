@@ -330,9 +330,6 @@
     <ClCompile Include="lib\engine\3D\WorldTransform.cpp">
       <Filter>Engine\ソース ファイル\3D\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="Users\Scene\Game\SceneData.cpp">
-      <Filter>Application\ソースファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="lib\engine\2D\PostEffect\PostEffect.cpp">
       <Filter>Engine\ソース ファイル\2D\PostEffect</Filter>
     </ClCompile>
@@ -390,14 +387,17 @@
     <ClCompile Include="Users\Enemy\Enemy.cpp">
       <Filter>Application\ソースファイル\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyNormal.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
+    <ClCompile Include="Users\Enemy\EnemyNormal.cpp">
+      <Filter>Application\ソースファイル\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
+    <ClCompile Include="Users\Enemy\EnemyManager.cpp">
+      <Filter>Application\ソースファイル\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="ClearScene.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
+    <ClCompile Include="Users\Scene\Result\ClearScene.cpp">
+      <Filter>Application\ソースファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Scene\Game\GameObject.cpp">
+      <Filter>Application\ソースファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -491,9 +491,6 @@
     <ClInclude Include="lib\engine\3D\WorldTransform.h">
       <Filter>Engine\ヘッダー ファイル\3D\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="Users\Scene\Game\SceneData.h">
-      <Filter>Application\ヘッダーファイル\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="lib\engine\2D\PostEffect\PostEffect.h">
       <Filter>Engine\ヘッダー ファイル\2D\PostEffect</Filter>
     </ClInclude>
@@ -554,17 +551,20 @@
     <ClInclude Include="Users\Enemy\Enemy.h">
       <Filter>Application\ヘッダーファイル\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Numbers.h">
-      <Filter>Engine\ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyNormal.h">
+    <ClInclude Include="lib\engine\Math\Numbers.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
+    <ClInclude Include="Users\Enemy\EnemyNormal.h">
+      <Filter>Application\ヘッダーファイル\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="ClearScene.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
+    <ClInclude Include="Users\Enemy\EnemyManager.h">
+      <Filter>Application\ヘッダーファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Scene\Result\ClearScene.h">
+      <Filter>Application\ヘッダーファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Scene\Game\GameObject.h">
+      <Filter>Application\ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

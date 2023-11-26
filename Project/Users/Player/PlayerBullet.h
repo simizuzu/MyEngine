@@ -45,7 +45,7 @@ private:
 	//速度
 	MyMath::Vector3 velocity_;
 	//寿命<frm>
-	static const int32_t lifeTime = 60 * 5;
+	static const int32_t lifeTime = 60 * 3;
 
 	//デスタイマー
 	int32_t deathTimer_ = lifeTime;

@@ -48,7 +48,9 @@ private:
 	std::unique_ptr<Player> player_;
 	
 	TextureData displayTex;
+	TextureData reticleTex;
 	std::unique_ptr<Sprite> display;
+	std::unique_ptr<Sprite> reticle;
 
 	std::unique_ptr<ObjObject3d> skydomeObj_;
 	std::unique_ptr<ObjObject3d> buildingObj_;

@@ -78,6 +78,8 @@ public:
 	// カメラ距離
 	float distance_ = 50.0f;
 
+	//カメラのワールド
+	MyMath::Matrix4 matCameraWorld_;
 private:
 #pragma region 射影行列設定
 	// カメラ画角
@@ -93,8 +95,6 @@ private:
 	MyMath::Vector3 rotation_;
 	//平行移動
 	MyMath::Vector3 translation_;
-	//カメラのワールド
-	MyMath::Matrix4 matCameraWorld_;
 
 public:
 	/// <summary>
