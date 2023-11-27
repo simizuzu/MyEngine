@@ -16,7 +16,7 @@ void MainGame::Initialize()
 	//スプライト静的初期化
 	Sprite::StaticInitialize();
 	//パーティクルマネージャー静的初期化
-	ParticleManager::StaticInitialize(dxCommon_->GetDevice(), dxCommon_->GetCommandList());
+	//ParticleManager::StaticInitialize(dxCommon_->GetDevice(), dxCommon_->GetCommandList());
 	//3Dオブジェクト静的初期化(Fbx版)
 	FbxObject3d::StaticInitialize(dxCommon_->GetDevice());
 
