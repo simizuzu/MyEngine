@@ -402,16 +402,16 @@
     <ClCompile Include="Users\Scene\Game\GameObject.cpp">
       <Filter>Application\ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="BaseParticle.cpp">
+    <ClCompile Include="Users\3D\BaseParticle.cpp">
       <Filter>Application\ソースファイル\Particle</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\Particle\ParticleManager.cpp">
       <Filter>Application\ソースファイル\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="DamegeEffect.cpp">
+    <ClCompile Include="Users\3D\DamegeEffect.cpp">
       <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Easing.cpp">
+    <ClCompile Include="lib\engine\Math\Easing.cpp">
       <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -581,16 +581,16 @@
     <ClInclude Include="ParticleGrain.h">
       <Filter>Application\ヘッダーファイル\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="BaseParticle.h">
+    <ClInclude Include="Users\3D\BaseParticle.h">
       <Filter>Application\ヘッダーファイル\Particle</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\3D\Particle\ParticleManager.h">
       <Filter>Application\ヘッダーファイル\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="DamegeEffect.h">
+    <ClInclude Include="Users\3D\DamegeEffect.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Easing.h">
+    <ClInclude Include="lib\engine\Math\Easing.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
