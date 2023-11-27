@@ -47,18 +47,18 @@ void ResultScene::Update()
 	transition_->DrawWhiteOut();
 	cameraTransform_.Update(camera.get());
 
-	//if ( input_->MouseButtonTrigger(LEFT) )
-	//{
-	//	blackoutTimer--;
-	//}
-	//if ( blackoutTimer < 59 )
-	//{
-	//	blackoutTimer--;
-	//	if ( blackoutTimer < 2 )
-	//	{
-	//		sceneManager_->ChangeScene("TITLE");
-	//	}
-	//}
+	if ( input_->PushKey(DIK_SPACE) ||input_->PushButton(A))
+	{
+		blackoutTimer--;
+	}
+	if ( blackoutTimer < 59 )
+	{
+		blackoutTimer--;
+		if ( blackoutTimer < 2 )
+		{
+			sceneManager_->ChangeScene("TITLE");
+		}
+	}
 
 	if ( input_->PushKey(DIK_G) )
 	{

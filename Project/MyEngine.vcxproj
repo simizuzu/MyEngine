@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseParticle.cpp" />
+    <ClCompile Include="DamegeEffect.cpp" />
+    <ClCompile Include="Easing.cpp" />
     <ClCompile Include="Users\Scene\Result\ClearScene.cpp" />
     <ClCompile Include="Users\Enemy\EnemyManager.cpp" />
     <ClCompile Include="Users\Enemy\EnemyNormal.cpp" />
@@ -73,6 +76,10 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseParticle.h" />
+    <ClInclude Include="DamegeEffect.h" />
+    <ClInclude Include="Easing.h" />
+    <ClInclude Include="ParticleGrain.h" />
     <ClInclude Include="Users\Scene\Result\ClearScene.h" />
     <ClInclude Include="lib\engine\Math\Numbers.h" />
     <ClInclude Include="Users\Enemy\EnemyManager.h" />

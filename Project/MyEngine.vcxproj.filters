@@ -241,6 +241,12 @@
     <Filter Include="Application\ヘッダーファイル\Enemy">
       <UniqueIdentifier>{4a6968f4-a255-449f-bc92-641f90a15b21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\ソースファイル\Particle">
+      <UniqueIdentifier>{44100de0-8da6-4562-bcc7-a9ff468ab512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Particle">
+      <UniqueIdentifier>{38b8885a-a517-4b5c-a790-1324662642e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\engine\main.cpp">
@@ -305,9 +311,6 @@
     </ClCompile>
     <ClCompile Include="lib\engine\Scene\BaseScene.cpp">
       <Filter>Engine\ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\engine\3D\Particle\ParticleManager.cpp">
-      <Filter>Engine\ソース ファイル\3D\Particle</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\2D\Sprite\Sprite.cpp">
       <Filter>Engine\ソース ファイル\2D\Sprite</Filter>
@@ -399,6 +402,18 @@
     <ClCompile Include="Users\Scene\Game\GameObject.cpp">
       <Filter>Application\ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="BaseParticle.cpp">
+      <Filter>Application\ソースファイル\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\engine\3D\Particle\ParticleManager.cpp">
+      <Filter>Application\ソースファイル\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="DamegeEffect.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Easing.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxObject3d.h">
@@ -463,9 +478,6 @@
     </ClInclude>
     <ClInclude Include="lib\engine\2D\Sprite\Sprite.h">
       <Filter>Engine\ヘッダー ファイル\2D\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\engine\3D\Particle\ParticleManager.h">
-      <Filter>Engine\ヘッダー ファイル\3D\Particle</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\ImGui\ImGuiManager.h">
       <Filter>Engine\ヘッダー ファイル\Imgui</Filter>
@@ -565,6 +577,21 @@
     </ClInclude>
     <ClInclude Include="Users\Scene\Game\GameObject.h">
       <Filter>Application\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleGrain.h">
+      <Filter>Application\ヘッダーファイル\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseParticle.h">
+      <Filter>Application\ヘッダーファイル\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\3D\Particle\ParticleManager.h">
+      <Filter>Application\ヘッダーファイル\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="DamegeEffect.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Easing.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
