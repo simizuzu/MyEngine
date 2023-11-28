@@ -10,7 +10,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief WorldTransformの処理について書いてあります
  */
 
-	void WorldTransform::Initialize()
+void WorldTransform::Initialize()
 {
 	CreateConstBuffer();
 }

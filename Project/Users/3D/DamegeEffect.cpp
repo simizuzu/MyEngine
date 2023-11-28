@@ -19,7 +19,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
 void DamegeEffect::Initialize(ObjModel* model,Camera* camera)
 {
 	assert(camera);
-	camera_.reset(camera);
+	camera_=camera;
 
 	colorStart = 0.1f;
 	colorEnd = 0.8f;
@@ -35,15 +35,15 @@ void DamegeEffect::Initialize(ObjModel* model,Camera* camera)
 	//乱数シード生成器
 	std::random_device seed_gen;
 	//メルセンヌ・ツイスターの乱数エンジン
-	std::mt19937 engine(seed_gen);
+	std::mt19937 engine(seed_gen());
 
 	//乱数
 	std::uniform_real_distribution<float> posDist(-0.75f,0.75f);
 	std::uniform_real_distribution<float> valueDistXZ(-0.1f,0.1f);
-	std::uniform_real_distribution<float> valueDistY(0.15f,0.2f);
+	std::uniform_real_distribution<float> valueDistY(0.05f,0.1f);
 	std::uniform_real_distribution<float> rotValue(-180.0f,180.0f);
 
-	//乱数エンジンを渡し、指定範囲かっランダムな数値を得る
+	//乱数エンジンを渡し、指定範囲かつランダムな数値を得る
 	MyMath::Vector3 pos = { 0,0,0 };
 	pos = { posDist(engine),0.0f,posDist(engine) };
 	oneGrain.pos += pos;
@@ -75,7 +75,7 @@ void DamegeEffect::Update()
 	transform.SetTranslation(oneGrain.pos);
 	transform.SetScale({ oneGrain.scale, oneGrain.scale, oneGrain.scale });
 	//model_->SetColor({ colorStart,colorStart,colorStart,1.0f });
-	transform.Update(camera_.get());
+	transform.Update(camera_);
 }
 
 void DamegeEffect::Draw()

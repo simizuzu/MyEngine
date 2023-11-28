@@ -27,6 +27,8 @@
 #include "ClearScene.h"
 #include "TransitionScene.h"
 
+#include "ParticleManager.h"
+
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
 MYENGINE_SUPPRESS_WARNINGS_END
@@ -104,6 +106,9 @@ private: // メンバ変数
 	ClearScene* clearDirection = nullptr;
 
 	std::unique_ptr<Light> light;
+
+	ParticleManager* damageParticle = nullptr;
+
 	// サウンド
 	//AudioManager* audioManager_ = nullptr;
 	//uint32_t gameHandle_ = 0;
@@ -160,6 +165,9 @@ private: //スタート演出
 	TextureData texBlackUp_;
 	TextureData texBlackDown_;
 	TextureData texStageName01_;
+
+	//std::unique_ptr<ObjObject3d> damageObj;
+	std::unique_ptr<ObjModel> damageModel;
 
 	const float blackTimer_ = 50.0f;
 	const int8_t minus1 = -1;
