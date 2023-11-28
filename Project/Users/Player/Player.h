@@ -84,9 +84,11 @@ public:
 	float timeRate;						//何％時間が進んだか
 private:
 	float maxTime = 120.0f;				//全体時間[s]
-	
+
 	float targetTimeRate;
-	int8_t pad1[ 4 ];
+	bool bulletIntervalFlag = false;
+	uint8_t bulletIntervalTimer = 6;
+	int8_t pad1[ 2 ];
 
 	size_t startIndex = 1;
 	uint32_t startCount = 0;

@@ -280,8 +280,6 @@ void GameScene::ModelMovie()
 	{
 		texBlackAlpha += decimal.zeroPointOne;
 
-
-
 		if ( startCount > 250 )
 		{
 			texBlackAlpha = static_cast< float >( one );

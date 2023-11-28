@@ -25,7 +25,7 @@
     <ClCompile Include="Users\Scene\Result\ClearScene.cpp" />
     <ClCompile Include="Users\Enemy\EnemyManager.cpp" />
     <ClCompile Include="Users\Enemy\EnemyNormal.cpp" />
-    <ClCompile Include="Users\Enemy\Enemy.cpp" />
+    <ClCompile Include="Users\Enemy\BaseEnemy.cpp" />
     <ClCompile Include="lib\engine\Camera\DebugCamera.cpp" />
     <ClCompile Include="lib\engine\Math\Matrix3x4.cpp" />
     <ClCompile Include="Users\Scene\TransitionScene.cpp" />
@@ -84,7 +84,7 @@
     <ClInclude Include="lib\engine\Math\Numbers.h" />
     <ClInclude Include="Users\Enemy\EnemyManager.h" />
     <ClInclude Include="Users\Enemy\EnemyNormal.h" />
-    <ClInclude Include="Users\Enemy\Enemy.h" />
+    <ClInclude Include="Users\Enemy\BaseEnemy.h" />
     <ClInclude Include="lib\engine\Camera\DebugCamera.h" />
     <ClInclude Include="lib\engine\Base\SuppressWarning.h" />
     <ClInclude Include="lib\engine\Math\Matrix3x4.h" />

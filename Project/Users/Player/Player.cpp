@@ -132,22 +132,34 @@ void Player::RotateCamera()
 
 void Player::Attack()
 {
+	//弾の速度
+	const float bulletSpeed = 8.0f;
+	MyMath::Vector3 velosity(0,0,bulletSpeed);
+
+	//速度ベクトルを自機の向きに合わせて回転させる
+	velosity = MyMath::Vec3Mat4Mul(velosity,camera_->matCameraWorld_);
+	
 	//スペースキーまたはRトリガーを押したとき弾を発射
 	if (input->PushKey(DIK_SPACE) || input->PushButton(RT)) {
+		bulletIntervalFlag = true;
+	}
 
-		//弾の速度
-		const float bulletSpeed = 10.0f;
-		MyMath::Vector3 velosity(0,0,bulletSpeed);
+	if ( bulletIntervalFlag )
+	{
+		bulletIntervalTimer--;
+	}
 
-		//速度ベクトルを自機の向きに合わせて回転させる
-		velosity = MyMath::Vec3Mat4Mul(velosity,camera_->matCameraWorld_);
-		
+	if ( bulletIntervalTimer == zero )
+	{
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(bulletModel.get(), bulletObj.get(),camera_->GetTranslation(),velosity);
+		newBullet->Initialize(bulletModel.get(),bulletObj.get(),camera_->GetTranslation(),velosity);
 
 		//弾を登録する
 		bullets.push_back(newBullet);
+
+		bulletIntervalFlag = false;
+		bulletIntervalTimer = 6;
 	}
 }
 

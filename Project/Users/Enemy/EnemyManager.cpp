@@ -1,5 +1,7 @@
 #include "EnemyManager.h"
 
+#include "Enmuno"
+
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <fstream>
 #include <cassert>
@@ -7,14 +9,20 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 void EnemyManager::Initialize()
 {
+	
 }
 
 void EnemyManager::Update()
 {
+	for ( std::unique_ptr<BaseEnemy>& enemy : enemys)
+	{
+		
+	}
 }
 
 void EnemyManager::Draw()
 {
+	
 }
 
 void EnemyManager::EnemyNormalEmit()

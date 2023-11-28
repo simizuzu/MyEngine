@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Enemy.h"
+#include "BaseEnemy.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <list>
@@ -20,7 +20,7 @@ class EnemyManager
 {
 private:
 	//敵の数
-	std::list<std::unique_ptr<Enemy>>enemys;
+	std::list<std::unique_ptr<BaseEnemy>>enemys;
 
 	//敵発生コマンド
 	std::stringstream enemyPospCommands;

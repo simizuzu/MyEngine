@@ -10,12 +10,12 @@
 /// <summary>
 /// エネミー
 /// </summary>
-class Enemy
+class BaseEnemy
 {
 protected:
 
-	Enemy() = default;
-	virtual ~Enemy() = default;
+	BaseEnemy() = default;
+	virtual ~BaseEnemy() = default;
 
 	virtual void Update() = 0;
 

@@ -31,7 +31,7 @@ void PlayerBullet::Initialize(ObjModel* model, ObjObject3d* obj, const MyMath::V
 void PlayerBullet::Update(Camera* camera)
 {
 	bulletTrans_.translation_ += velocity_;
-	bulletTrans_.SetScale({0.2f,0.2f,0.2f});
+	bulletTrans_.SetScale({0.8f,0.8f,0.8f});
 	bulletTrans_.Update(camera);
 
 	//時間経過でデスフラグをtrueに

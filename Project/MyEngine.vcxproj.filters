@@ -387,7 +387,7 @@
     <ClCompile Include="lib\engine\Math\Quaternion.cpp">
       <Filter>Engine\ソース ファイル\Math\Quaternion</Filter>
     </ClCompile>
-    <ClCompile Include="Users\Enemy\Enemy.cpp">
+    <ClCompile Include="Users\Enemy\BaseEnemy.cpp">
       <Filter>Application\ソースファイル\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Users\Enemy\EnemyNormal.cpp">
@@ -560,7 +560,7 @@
     <ClInclude Include="lib\engine\Math\Quaternion.h">
       <Filter>Engine\ヘッダー ファイル\Math\Quaternion</Filter>
     </ClInclude>
-    <ClInclude Include="Users\Enemy\Enemy.h">
+    <ClInclude Include="Users\Enemy\BaseEnemy.h">
       <Filter>Application\ヘッダーファイル\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\Math\Numbers.h">
