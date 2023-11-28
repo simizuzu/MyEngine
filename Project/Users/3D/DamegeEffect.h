@@ -34,7 +34,7 @@ public:
 private:
 	//3dオブジェクト
 	std::unique_ptr<ObjObject3d> obj;
-	std::unique_ptr<Camera> camera_;
+	Camera* camera_ = nullptr;
 	WorldTransform transform;
 	//std::unique_ptr<ObjModel> model_;
 	//加速度

@@ -71,6 +71,11 @@ void GameScene::Initialize()
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
 
+	damageModel.reset(ObjModel::LoadFromObj("box"));
+
+	damageParticle = new ParticleManager();
+	damageParticle->Initialize(damageModel.get(),camera);
+
 	sceneManager_ = SceneManager::GetInstance();
 }
 
@@ -91,7 +96,7 @@ void GameScene::Update()
 #endif
 
 	light->Update();
-
+	
 	cameraTimeRate = gameCamera_->timeRate;
 
 	//カメラの挙動
@@ -115,6 +120,12 @@ void GameScene::Update()
 		BlackMind();
 		//モデルのムービー演出
 		ModelMovie();
+
+
+			damageParticle->Add("1",1,60,{ 0.0f,0.0f,0.0f },1,2);
+			damageParticle->Update();
+
+		
 		break;
 
 	case GameScene::SCENEFASE::START:
@@ -152,7 +163,10 @@ void GameScene::Draw()
 	case GameScene::SCENEFASE::MOVIE:
 		spriteStageName01_->Draw(texStageName01_, fieldNameSize);
 		robotoObj_->Draw();
-
+		
+		damageParticle->Draw();
+		
+		
 		break;
 	case GameScene::SCENEFASE::START:
 		texBlackAlpha -= decimal.zeroPointOne;
@@ -265,6 +279,9 @@ void GameScene::ModelMovie()
 	if ( startCount > 170 )
 	{
 		texBlackAlpha += decimal.zeroPointOne;
+
+
+
 		if ( startCount > 250 )
 		{
 			texBlackAlpha = static_cast< float >( one );
