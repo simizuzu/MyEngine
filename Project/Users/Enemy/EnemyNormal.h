@@ -1,5 +1,5 @@
 #pragma once
-#include "Enemy.h"
+#include "BaseEnemy.h"
 
 #include "Camera.h"
 
@@ -15,7 +15,7 @@
 /// <summary>
 /// ノーマルエネミー
 /// </summary>
-class EnemyNormal final : public Enemy
+class EnemyNormal final : public BaseEnemy
 {
 public:
 	//コンストラクタ・デストラクタ

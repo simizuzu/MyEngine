@@ -1,6 +1,6 @@
 #include "EnemyManager.h"
 
-#include "Enmuno"
+#include "EnemyNormal.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <fstream>
@@ -14,19 +14,25 @@ void EnemyManager::Initialize()
 
 void EnemyManager::Update()
 {
-	for ( std::unique_ptr<BaseEnemy>& enemy : enemys)
+	for ( std::unique_ptr<BaseEnemy>& enemy : enemys )
 	{
-		
+		enemy->Update();
 	}
 }
 
 void EnemyManager::Draw()
 {
-	
+	for ( std::unique_ptr<BaseEnemy>& enemy : enemys )
+	{
+		enemy->Draw();
+	}
 }
 
 void EnemyManager::EnemyNormalEmit()
 {
+	std::unique_ptr<BaseEnemy> enemy = std::make_unique<EnemyNormal>();
+	
+	enemys.push_back(std::move(enemy));
 }
 
 void EnemyManager::LoadEnemyPopData(const std::string& filePath)
@@ -46,24 +52,24 @@ void EnemyManager::LoadEnemyPopData(const std::string& filePath)
 
 void EnemyManager::UpdateEnemyPopCommands()
 {
+			//待機処理
+	if ( waitFlag )
+	{
+		waitTimer--;
+		if ( waitTimer <= 0 )
+		{
+			//待機完了
+			waitFlag = false;
+		}
+		return;
+	}
+
 	//1行分の文字列を入れる変数
 	std::string line;
 
 	//コマンド実行ループ
 	while ( getline(enemyPospCommands,line) )
 	{
-		//待機処理
-		if ( waitFlag )
-		{
-			waitTimer--;
-			if ( waitTimer <= 0 )
-			{
-				//待機完了
-				waitFlag = false;
-			}
-			return;
-		}
-
 		//1行分の文字列をストリームに変換して解析しやすくする
 		std::istringstream line_stream(line);
 
@@ -94,9 +100,10 @@ void EnemyManager::UpdateEnemyPopCommands()
 			enemysPos_.z = ( float ) std::atof(word.c_str());
 
 			//敵を発生させる
+			std::unique_ptr<BaseEnemy> enemy;
 			//敵発生(enemysPos_);
 		}
-		else if ( word.find("POP") == 0 )
+		else if ( word.find("WAIT") == 0 )
 		{
 			getline(line_stream,word,',');
 

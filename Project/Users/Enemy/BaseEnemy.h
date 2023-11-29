@@ -12,7 +12,14 @@
 /// </summary>
 class BaseEnemy
 {
-protected:
+public:
+	enum class EnemyPhase
+	{
+		SHOT,
+		WAIT,
+
+	};
+
 
 	BaseEnemy() = default;
 	virtual ~BaseEnemy() = default;
