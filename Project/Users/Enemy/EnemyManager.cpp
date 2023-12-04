@@ -7,13 +7,34 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
-void EnemyManager::Initialize()
+EnemyManager* EnemyManager::Create(const std::string& filePath,FbxModel* model,Camera* camera)
 {
-	
+	//インスタンス生成
+	EnemyManager* instance = new EnemyManager();
+	if ( instance == nullptr )
+	{
+		return nullptr;
+	}
+
+	instance->Initialize(model,camera);
+	instance->LoadEnemyPopData(filePath);
+
+	return instance;
+}
+
+void EnemyManager::Initialize(FbxModel* model,Camera* camera)
+{
+	assert(camera);
+	assert(model);
+	camera_ = camera;
+	model_ = model;
 }
 
 void EnemyManager::Update()
 {
+	//敵出現
+	UpdateEnemyPopCommands();
+
 	for ( std::unique_ptr<BaseEnemy>& enemy : enemys )
 	{
 		enemy->Update();
@@ -30,9 +51,9 @@ void EnemyManager::Draw()
 
 void EnemyManager::EnemyNormalEmit()
 {
-	std::unique_ptr<BaseEnemy> enemy = std::make_unique<EnemyNormal>();
+	//std::unique_ptr<BaseEnemy> enemy = std::make_unique<EnemyNormal>();
 	
-	enemys.push_back(std::move(enemy));
+	//enemys.push_back(std::move(enemy));
 }
 
 void EnemyManager::LoadEnemyPopData(const std::string& filePath)
@@ -52,7 +73,7 @@ void EnemyManager::LoadEnemyPopData(const std::string& filePath)
 
 void EnemyManager::UpdateEnemyPopCommands()
 {
-			//待機処理
+	//待機処理
 	if ( waitFlag )
 	{
 		waitTimer--;
@@ -77,7 +98,7 @@ void EnemyManager::UpdateEnemyPopCommands()
 		//[,]区切りで行の先頭文字列を取得
 		getline(line_stream,word,',');
 
-		//["//"]から始まる行はコメント
+		//["//"]から始まる行はコメントアウト扱い
 		if ( word.find("//") == 0 )
 		{
 			//コメント行は飛ばす
@@ -87,21 +108,35 @@ void EnemyManager::UpdateEnemyPopCommands()
 		//POPコマンド
 		if ( word.find("POP") == 0 )
 		{
-			//x座標
 			getline(line_stream,word,',');
-			enemysPos_.x = (float )std::atof(word.c_str());
+			size_t enemyType = static_cast<size_t>(std::atoi(word.c_str()));
 
-			//x座標
-			getline(line_stream,word,',');
-			enemysPos_.y = ( float ) std::atof(word.c_str());
+			//std::unique_ptr<BaseEnemy> enemy;
 
-			//x座標
-			getline(line_stream,word,',');
-			enemysPos_.z = ( float ) std::atof(word.c_str());
+			//該当する敵の属性ごとに生成
+			if ( enemyType == BaseEnemy::EnemyType::NONE )
+			{
+				//敵を発生させる
+				std::unique_ptr<EnemyNormal> enemy = std::make_unique<EnemyNormal>();
+				enemy->Initialize(model_,camera_);
 
-			//敵を発生させる
-			std::unique_ptr<BaseEnemy> enemy;
-			//敵発生(enemysPos_);
+				//x座標
+				getline(line_stream,word,',');
+				enemysPos_.x = ( float ) std::atof(word.c_str());
+
+				//y座標
+				getline(line_stream,word,',');
+				enemysPos_.y = ( float ) std::atof(word.c_str());
+
+				//z座標
+				getline(line_stream,word,',');
+				enemysPos_.z = ( float ) std::atof(word.c_str());
+
+				enemy->translation = enemysPos_;
+				enemy->Initialize(model_,camera_);
+
+				enemys.push_back(std::move(enemy));
+			}
 		}
 		else if ( word.find("WAIT") == 0 )
 		{

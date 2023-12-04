@@ -6,11 +6,6 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <random>
 MYENGINE_SUPPRESS_WARNINGS_END
 
-//namespace std
-//{
-//#include <random>
-//}
-
 /**
  * @class DmageEffect.cpp
  * @brief BaseParticleを継承したヒット時のパーティクル演出
@@ -28,7 +23,6 @@ void DamegeEffect::Initialize(ObjModel* model,Camera* camera)
 
 	obj.reset(ObjObject3d::Create());
 	obj->SetModel(model);
-	//model->SetColor({ colorStart,colorStart,colorStart,1.0f });
 
 	transform.Initialize();
 
@@ -74,7 +68,6 @@ void DamegeEffect::Update()
 
 	transform.SetTranslation(oneGrain.pos);
 	transform.SetScale({ oneGrain.scale, oneGrain.scale, oneGrain.scale });
-	//model_->SetColor({ colorStart,colorStart,colorStart,1.0f });
 	transform.Update(camera_);
 }
 

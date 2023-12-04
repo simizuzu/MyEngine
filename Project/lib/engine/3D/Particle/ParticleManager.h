@@ -54,7 +54,7 @@ public:
 
 private:
 	std::forward_list<std::unique_ptr<BaseParticle>> particles;
-	std::unique_ptr <ObjModel> model_;
+	ObjModel* model_ = nullptr;
 	Camera* camera_ = nullptr;
 
 private:

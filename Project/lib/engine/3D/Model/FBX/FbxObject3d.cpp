@@ -147,7 +147,6 @@ void FbxObject3d::Update(Camera* camera)
 	constBuffSkin->Unmap(0, nullptr);
 }
 
-
 void FbxObject3d::Draw()
 {
 	cmdList_ = DirectXCommon::GetInstance()->GetCommandList();
@@ -208,7 +207,7 @@ void FbxObject3d::SetRotation(MyMath::Vector3 rotation)
 	rotation_ = rotation;
 }
 
-void FbxObject3d::SetTranslation(MyMath::Vector3 translation)
+void FbxObject3d::SetTranslation(const MyMath::Vector3 translation)
 {
 	translation_ = translation;
 }

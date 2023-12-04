@@ -1,24 +1,26 @@
 #include "EnemyNormal.h"
 
-void EnemyNormal::Initialize(Camera* camera)
+void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 {
 	//渡されたかチェック
 	assert(camera);
+	assert(model);
 	camera_ = camera;
+	EnemyModel_ = model;
 
-	EnemyNModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("enemyNormal"));
-	EnemyNObj_.reset(FbxObject3d::Create());
-	EnemyNObj_->SetModel(EnemyNModel_.get());
-	EnemyNObj_->PlayAnimation();
-	EnemyNObj_->SetScale({ 0.009f,0.009f ,0.009f });
+	EnemyObj_.reset(FbxObject3d::Create());
+	EnemyObj_->SetModel(EnemyModel_);
+	EnemyObj_->PlayAnimation();
+	EnemyObj_->SetScale({ 0.009f,0.009f ,0.009f });
 }
 
 void EnemyNormal::Update()
 {
-	EnemyNObj_->Update(camera_);
+	EnemyObj_->SetTranslation(translation);
+	EnemyObj_->Update(camera_);
 }
 
 void EnemyNormal::Draw()
 {
-	EnemyNObj_->Draw();
+	EnemyObj_->Draw();
 }

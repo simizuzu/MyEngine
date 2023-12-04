@@ -13,10 +13,9 @@
 class BaseEnemy
 {
 public:
-	enum class EnemyPhase
+	enum EnemyType
 	{
-		SHOT,
-		WAIT,
+		NONE,
 
 	};
 

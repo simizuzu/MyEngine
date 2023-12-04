@@ -26,7 +26,7 @@ public:
 	/// 初期化
 	/// </summary>
 	/// <param name="camera">カメラ</param>
-	void Initialize(Camera* camera);
+	void Initialize(FbxModel* model,Camera* camera);
 
 	/// <summary>
 	/// 更新
@@ -38,12 +38,15 @@ public:
 	/// </summary>
 	void Draw() override;
 
+public:
+	MyMath::Vector3 translation;
+	int8_t pad1[4 ];
+
 private:
 	Camera* camera_ = nullptr;
 	
-	std::unique_ptr<FbxObject3d> EnemyNObj_;
-	std::unique_ptr<FbxModel> EnemyNModel_;
-
+	std::unique_ptr<FbxObject3d> EnemyObj_;
+	FbxModel* EnemyModel_ = nullptr;
 
 private:
 	//代入演算子削除

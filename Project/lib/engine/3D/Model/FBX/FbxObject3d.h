@@ -90,7 +90,7 @@ public:
 	//setter
 	void SetScale(MyMath::Vector3 scale);
 	void SetRotation(MyMath::Vector3 rotation);
-	void SetTranslation(MyMath::Vector3 translation);
+	void SetTranslation(const MyMath::Vector3 translation);
 
 	MyMath::Vector3 GetScale();
 	MyMath::Vector3 GetRotation();

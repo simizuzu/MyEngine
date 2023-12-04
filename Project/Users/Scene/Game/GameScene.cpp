@@ -121,11 +121,9 @@ void GameScene::Update()
 		//モデルのムービー演出
 		ModelMovie();
 
+		damageParticle->Add("1",1,60,{ 0.0f,0.0f,0.0f },1,2);
+		damageParticle->Update();
 
-			damageParticle->Add("1",1,60,{ 0.0f,0.0f,0.0f },1,2);
-			damageParticle->Update();
-
-		
 		break;
 
 	case GameScene::SCENEFASE::START:

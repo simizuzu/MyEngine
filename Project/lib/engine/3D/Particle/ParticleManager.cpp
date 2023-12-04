@@ -11,7 +11,7 @@ void ParticleManager::Initialize(ObjModel* model, Camera* camera)
 {
 	assert(model);
 	assert(camera);
-	model_.reset(model);
+	model_=model;
 	camera_=camera;
 }
 
@@ -50,7 +50,7 @@ void ParticleManager::Add(const std::string& name,uint16_t amout,uint8_t life,My
 		p->oneGrain.endFrame = life;
 		p->oneGrain.startScale = startScale;
 		p->oneGrain.endScale = endScale;
-		p->Initialize(model_.get(),camera_);
+		p->Initialize(model_,camera_);
 		particles.emplace_front(std::move(p));
 	}
 }

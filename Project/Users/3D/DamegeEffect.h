@@ -36,7 +36,6 @@ private:
 	std::unique_ptr<ObjObject3d> obj;
 	Camera* camera_ = nullptr;
 	WorldTransform transform;
-	//std::unique_ptr<ObjModel> model_;
 	//加速度
 	MyMath::Vector3 accel;
 	//移動

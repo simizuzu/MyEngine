@@ -65,13 +65,13 @@ public: // メンバ関数
 	GameScene() = default;
 	~GameScene() = default;
 	//　初期化
-	void Initialize() override;
+	virtual void Initialize() override;
 	// 更新
-	void Update() override;
+	virtual void Update() override;
 	// 描画
-	void Draw() override;
+	virtual void Draw() override;
 	// 終了処理
-	void Finalize() override;
+	virtual void Finalize() override;
 
 private:
 	/// <summary>

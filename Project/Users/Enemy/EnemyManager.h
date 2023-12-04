@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseEnemy.h"
+#include "FbxModel.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <list>
@@ -26,13 +27,16 @@ private:
 	std::stringstream enemyPospCommands;
 
 public:
+	static EnemyManager* Create(const std::string& filePath, FbxModel* model, Camera* camera);
+
+public:
 	EnemyManager() = default;
 	~EnemyManager() = default;
 
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	void Initialize(FbxModel* model,Camera* camera);
 
 	/// <summary>
 	/// 更新
@@ -73,6 +77,9 @@ private:
 	//待機用タイム変数(現在進行形)
 	int32_t waitTimer;
 	int8_t pad2[ 4 ];
+
+	Camera* camera_ = nullptr;
+	FbxModel* model_ = nullptr;
 
 private:
 	//代入演算子削除
