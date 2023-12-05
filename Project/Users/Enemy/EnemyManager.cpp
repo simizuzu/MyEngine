@@ -52,7 +52,7 @@ void EnemyManager::Draw()
 void EnemyManager::EnemyNormalEmit()
 {
 	//std::unique_ptr<BaseEnemy> enemy = std::make_unique<EnemyNormal>();
-	
+
 	//enemys.push_back(std::move(enemy));
 }
 
@@ -108,35 +108,32 @@ void EnemyManager::UpdateEnemyPopCommands()
 		//POPコマンド
 		if ( word.find("POP") == 0 )
 		{
-			getline(line_stream,word,',');
-			size_t enemyType = static_cast<size_t>(std::atoi(word.c_str()));
+			
+			//size_t enemyType = static_cast< size_t >( std::atoi(word.c_str()) );
 
 			//std::unique_ptr<BaseEnemy> enemy;
 
 			//該当する敵の属性ごとに生成
-			if ( enemyType == BaseEnemy::EnemyType::NONE )
-			{
+
 				//敵を発生させる
-				std::unique_ptr<EnemyNormal> enemy = std::make_unique<EnemyNormal>();
-				enemy->Initialize(model_,camera_);
+			//x座標
+			getline(line_stream, word, ',');
+			enemysPos_.x = ( float ) std::atof(word.c_str());
 
-				//x座標
-				getline(line_stream,word,',');
-				enemysPos_.x = ( float ) std::atof(word.c_str());
+			//y座標
+			getline(line_stream, word, ',');
+			enemysPos_.y = ( float ) std::atof(word.c_str());
 
-				//y座標
-				getline(line_stream,word,',');
-				enemysPos_.y = ( float ) std::atof(word.c_str());
+			//z座標
+			getline(line_stream, word, ',');
+			enemysPos_.z = ( float ) std::atof(word.c_str());
 
-				//z座標
-				getline(line_stream,word,',');
-				enemysPos_.z = ( float ) std::atof(word.c_str());
+			std::unique_ptr<EnemyNormal> enemy = std::make_unique<EnemyNormal>();
+  			enemy->Initialize(model_,camera_);
 
-				enemy->translation = enemysPos_;
-				enemy->Initialize(model_,camera_);
+			enemy->translation = enemysPos_;
+			enemys.push_back(std::move(enemy));
 
-				enemys.push_back(std::move(enemy));
-			}
 		}
 		else if ( word.find("WAIT") == 0 )
 		{
@@ -146,7 +143,7 @@ void EnemyManager::UpdateEnemyPopCommands()
 			waitTime = atoi(word.c_str());
 
 			//待機開始
-			waitFlag =true;
+			waitFlag = true;
 			waitTimer = waitTime;
 
 			//コマンドループを抜ける

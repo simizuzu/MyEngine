@@ -50,7 +50,10 @@ void GameObject::Draw()
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);
 	player_->Draw();
+}
 
+void GameObject::TexDraw()
+{
 	display->Draw(displayTex,{ 0,0 });
-	reticle->Draw(reticleTex,{640,360},{1.5f,1.5f},0,{0.5f,0.5f});
+	reticle->Draw(reticleTex,{ 640,360 },{ 1.5f,1.5f },0,{ 0.5f,0.5f });
 }

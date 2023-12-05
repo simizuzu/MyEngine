@@ -72,9 +72,12 @@ void GameScene::Initialize()
 	spriteBlackDown_->SetSize({ 1280,100 });
 
 	damageModel.reset(ObjModel::LoadFromObj("box"));
-
 	damageParticle = new ParticleManager();
 	damageParticle->Initialize(damageModel.get(),camera);
+
+	enemyModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("boneTest"));
+	enemyManager_ = std::make_unique<EnemyManager>();
+	enemyManager_.reset(EnemyManager::Create("Resources/enemyNomal/enemyPop.csv",enemyModel_.get(),camera));
 
 	sceneManager_ = SceneManager::GetInstance();
 }
@@ -113,6 +116,8 @@ void GameScene::Update()
 	modelData_->Update();
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 
+	enemyManager_->Update();
+
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::MOVIE:
@@ -135,6 +140,8 @@ void GameScene::Update()
 	case GameScene::SCENEFASE::GAME:
 		blackUpPos.y -= static_cast< float >(zero);
 		blackDownPos.y += static_cast< float >( zero );
+
+		
 
 		StopTimer();
 
@@ -172,7 +179,8 @@ void GameScene::Draw()
 		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
 	case GameScene::SCENEFASE::GAME:
-
+		enemyManager_->Draw();
+		modelData_->TexDraw();
 		break;
 	case GameScene::SCENEFASE::RESULT:
 		clearDirection->Draw();

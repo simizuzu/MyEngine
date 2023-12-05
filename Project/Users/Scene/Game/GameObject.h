@@ -37,6 +37,11 @@ public:
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// テクスチャ描画
+	/// </summary>
+	void TexDraw();
+
 	//コンストラクタ・デストラクタ
 	GameObject() = default;
 	~GameObject() = default;
