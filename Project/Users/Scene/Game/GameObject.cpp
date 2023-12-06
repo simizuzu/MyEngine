@@ -10,9 +10,6 @@ void GameObject::Initialize(Camera* camera)
 	assert(camera);
 	camera_ = camera;
 	curveData2 = LevelLoader::LoadFile("curveData");
-	
-	player_ = std::make_unique<Player>();
-	player_->Initialize(camera_);
 
 	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
 	groundModel_.reset(ObjModel::LoadFromObj("ground"));
@@ -41,15 +38,12 @@ void GameObject::Update()
 	skydomeTrans.Update(camera_);
 	skydomeTrans.SetTranslation({camera_->GetTranslation()});
 	groundTrans.Update(camera_);
-
-	player_->Update();
 }
 
 void GameObject::Draw()
 {
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);
-	player_->Draw();
 }
 
 void GameObject::TexDraw()

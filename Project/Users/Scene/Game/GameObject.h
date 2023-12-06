@@ -8,7 +8,8 @@
 #include "FbxModel.h"
 #include "FbxObject3d.h"
 
-#include "Player.h"
+#include "ObjObject3d.h"
+#include "ObjModel.h"
 
  /**
  * @class GameObject.h
@@ -49,8 +50,6 @@ public:
 private:
 	Camera* camera_;
 	LevelData* curveData2;
-
-	std::unique_ptr<Player> player_;
 	
 	TextureData displayTex;
 	TextureData reticleTex;

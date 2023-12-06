@@ -247,6 +247,12 @@
     <Filter Include="Application\ヘッダーファイル\Particle">
       <UniqueIdentifier>{38b8885a-a517-4b5c-a790-1324662642e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\ソースファイル\Collision">
+      <UniqueIdentifier>{1b6a0de7-ee3a-4e39-bca7-0f4811152993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Collision">
+      <UniqueIdentifier>{125fcef8-7bdf-4c53-ad6b-13a67ac1a4b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\engine\main.cpp">
@@ -414,6 +420,15 @@
     <ClCompile Include="lib\engine\Math\Easing.cpp">
       <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Application\ソースファイル\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Application\ソースファイル\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBullet.cpp">
+      <Filter>Application\ソースファイル\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxObject3d.h">
@@ -563,9 +578,6 @@
     <ClInclude Include="Users\Enemy\BaseEnemy.h">
       <Filter>Application\ヘッダーファイル\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="lib\engine\Math\Numbers.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Users\Enemy\EnemyNormal.h">
       <Filter>Application\ヘッダーファイル\Enemy</Filter>
     </ClInclude>
@@ -592,6 +604,18 @@
     </ClInclude>
     <ClInclude Include="lib\engine\Math\Easing.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\engine\Math\Numbers.h">
+      <Filter>Engine\ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Application\ヘッダーファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Application\ヘッダーファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
+      <Filter>Application\ヘッダーファイル\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

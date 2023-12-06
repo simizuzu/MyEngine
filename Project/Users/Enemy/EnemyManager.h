@@ -41,7 +41,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update(Player* player);
 
 	/// <summary>
 	/// 描画
@@ -63,7 +63,7 @@ private:
 	/// <summary>
 	/// 敵発生コマンドの更新
 	/// </summary>
-	void UpdateEnemyPopCommands();
+	void UpdateEnemyPopCommands(Player* player);
 
 private:
 	//各敵キャラのXYZ座標

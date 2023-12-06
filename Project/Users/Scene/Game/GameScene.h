@@ -30,6 +30,7 @@
 #include "ParticleManager.h"
 
 #include "EnemyManager.h"
+#include "Player.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
@@ -113,6 +114,8 @@ private: // メンバ変数
 
 	std::unique_ptr<EnemyManager> enemyManager_ = nullptr;
 	std::unique_ptr<FbxModel> enemyModel_ = nullptr;
+
+	std::unique_ptr<Player> player_;
 
 	// サウンド
 	//AudioManager* audioManager_ = nullptr;

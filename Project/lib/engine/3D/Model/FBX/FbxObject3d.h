@@ -95,6 +95,7 @@ public:
 	MyMath::Vector3 GetScale();
 	MyMath::Vector3 GetRotation();
 	MyMath::Vector3 GetTranslation();
+	MyMath::Matrix4 GetMatWorld();
 
 	//コンストラクタ・デストラクタ
 	FbxObject3d() = default;

@@ -130,14 +130,28 @@ void Player::RotateCamera()
 	}
 }
 
+void Player::OnCollision()
+{
+}
+
+const std::list<PlayerBullet*>& Player::GetBullets() const
+{
+	return bullets;
+}
+
+MyMath::Vector3 Player::GetPlayerWorldPosition()
+{
+	return MyMath::GetWorldPosition(playerTrans);
+}
+
 void Player::Attack()
 {
 	//弾の速度
 	const float bulletSpeed = 8.0f;
-	MyMath::Vector3 velosity(0,0,bulletSpeed);
+	MyMath::Vector3 velocity(0,0,bulletSpeed);
 
 	//速度ベクトルを自機の向きに合わせて回転させる
-	velosity = MyMath::Vec3Mat4Mul(velosity,camera_->matCameraWorld_);
+	velocity = MyMath::Vec3Mat4Mul(velocity,camera_->matCameraWorld_);
 	
 	//スペースキーまたはRトリガーを押したとき弾を発射
 	if (input->PushKey(DIK_SPACE) || input->PushButton(RT)) {
@@ -153,7 +167,7 @@ void Player::Attack()
 	{
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(bulletModel.get(),bulletObj.get(),camera_->GetTranslation(),velosity);
+		newBullet->Initialize(bulletModel.get(),bulletObj.get(),camera_->GetTranslation(),velocity);
 
 		//弾を登録する
 		bullets.push_back(newBullet);

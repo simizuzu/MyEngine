@@ -7,10 +7,15 @@
 #include "FbxModel.h"
 #include "FbxObject3d.h"
 
+#include "EnemyBullet.h"
+
 /**
  * @class EnemyNormal.h
  * @brief 敵キャラの派生クラス（通常の敵キャラ）
  */
+
+ //クラスの前方宣言
+ class Player;
 
 /// <summary>
 /// ノーマルエネミー
@@ -20,7 +25,7 @@ class EnemyNormal final : public BaseEnemy
 public:
 	//コンストラクタ・デストラクタ
 	EnemyNormal() = default;
-	~EnemyNormal() = default;
+	~EnemyNormal();
 
 	/// <summary>
 	/// 初期化
@@ -38,15 +43,46 @@ public:
 	/// </summary>
 	void Draw() override;
 
+	//衝突を検出したら呼び出されるコールバック関数
+	void OnCollision();
+
+	const std::list<EnemyBullet*>& GetBullets() const;
+
+	void SetPlayer(Player* player);
+
+private:
+	/// <summary>
+	///	弾発射
+	/// </summary>
+	void Fire();
+
+	MyMath::Vector3 GetEnemyWorldPostition();
+
 public:
 	MyMath::Vector3 translation;
 	int8_t pad1[4 ];
 
 private:
 	Camera* camera_ = nullptr;
-	
+	//自キャラ
+	Player* player_ = nullptr;
+
+	MyMath::Vector3 worldPosition;
+
+	//敵のモデル
 	std::unique_ptr<FbxObject3d> EnemyObj_;
 	FbxModel* EnemyModel_ = nullptr;
+
+	//弾のモデル
+	std::unique_ptr<ObjObject3d> bulletObj;
+	std::unique_ptr<ObjModel> bulletModel;
+
+	//弾のリスト
+	std::list<EnemyBullet*> bullets;
+	bool bulletIntervalFlag = false;
+	const uint8_t resetTimer = 20;
+	uint8_t bulletIntervalTimer;
+	int8_t pad2[5 ];
 
 private:
 	//代入演算子削除

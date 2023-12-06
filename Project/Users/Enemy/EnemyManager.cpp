@@ -30,10 +30,10 @@ void EnemyManager::Initialize(FbxModel* model,Camera* camera)
 	model_ = model;
 }
 
-void EnemyManager::Update()
+void EnemyManager::Update(Player* player)
 {
 	//敵出現
-	UpdateEnemyPopCommands();
+	UpdateEnemyPopCommands(player);
 
 	for ( std::unique_ptr<BaseEnemy>& enemy : enemys )
 	{
@@ -71,7 +71,7 @@ void EnemyManager::LoadEnemyPopData(const std::string& filePath)
 	file.close();
 }
 
-void EnemyManager::UpdateEnemyPopCommands()
+void EnemyManager::UpdateEnemyPopCommands(Player* player)
 {
 	//待機処理
 	if ( waitFlag )
@@ -130,6 +130,7 @@ void EnemyManager::UpdateEnemyPopCommands()
 
 			std::unique_ptr<EnemyNormal> enemy = std::make_unique<EnemyNormal>();
   			enemy->Initialize(model_,camera_);
+			enemy->SetPlayer(player);
 
 			enemy->translation = enemysPos_;
 			enemys.push_back(std::move(enemy));

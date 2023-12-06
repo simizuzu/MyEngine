@@ -43,6 +43,9 @@ void GameScene::Initialize()
 	modelData_ = std::make_unique<GameObject>();
 	modelData_->Initialize(camera);
 
+	player_ = std::make_unique<Player>();
+	player_->Initialize(camera);
+
 	spriteWhite_ = std::make_unique<Sprite>();
 	spriteBlack_ = std::make_unique<Sprite>();
 	spriteBlackUp_ = std::make_unique<Sprite>();
@@ -77,7 +80,8 @@ void GameScene::Initialize()
 
 	enemyModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("boneTest"));
 	enemyManager_ = std::make_unique<EnemyManager>();
-	enemyManager_.reset(EnemyManager::Create("Resources/enemyNomal/enemyPop.csv",enemyModel_.get(),camera));
+	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv",enemyModel_.get(),camera));
+
 
 	sceneManager_ = SceneManager::GetInstance();
 }
@@ -114,9 +118,10 @@ void GameScene::Update()
 	}
 
 	modelData_->Update();
+	player_->Update();
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 
-	enemyManager_->Update();
+	enemyManager_->Update(player);
 
 	switch ( scene )
 	{
@@ -140,9 +145,6 @@ void GameScene::Update()
 	case GameScene::SCENEFASE::GAME:
 		blackUpPos.y -= static_cast< float >(zero);
 		blackDownPos.y += static_cast< float >( zero );
-
-		
-
 		StopTimer();
 
 		//シーン移行
@@ -162,6 +164,7 @@ void GameScene::Update()
 void GameScene::Draw()
 {
 	modelData_->Draw();
+	player_->Draw();
 
 	switch ( scene )
 	{
@@ -169,9 +172,7 @@ void GameScene::Draw()
 		spriteStageName01_->Draw(texStageName01_, fieldNameSize);
 		robotoObj_->Draw();
 		
-		damageParticle->Draw();
-		
-		
+		damageParticle->Draw();		
 		break;
 	case GameScene::SCENEFASE::START:
 		texBlackAlpha -= decimal.zeroPointOne;
@@ -179,7 +180,6 @@ void GameScene::Draw()
 		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
 	case GameScene::SCENEFASE::GAME:
-		enemyManager_->Draw();
 		modelData_->TexDraw();
 		break;
 	case GameScene::SCENEFASE::RESULT:
@@ -193,6 +193,9 @@ void GameScene::Draw()
 	default:
 		break;
 	}
+
+	//敵の描画
+	enemyManager_->Draw();
 
 	if ( scene != SCENEFASE::GAME )
 	{

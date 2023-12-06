@@ -227,6 +227,11 @@ MyMath::Vector3 FbxObject3d::GetTranslation()
 	return translation_;
 }
 
+MyMath::Matrix4 FbxObject3d::GetMatWorld()
+{
+	return matWorld;
+}
+
 void FbxObject3d::CrateGrapicsPipeline()
 {
 	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob; // 頂点シェーダオブジェクト

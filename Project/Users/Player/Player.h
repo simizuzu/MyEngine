@@ -46,6 +46,8 @@ public:
 	/// </summary>
 	void Draw();
 
+	MyMath::Vector3 GetPlayerWorldPosition();
+
 private:
 	/// <summary>
 	/// 攻撃したか
@@ -56,6 +58,12 @@ private:
 	/// カメラの回転処理
 	/// </summary>
 	void RotateCamera();
+
+	//衝突を検出したら呼び出されるコールバック関数
+	void OnCollision();
+
+	//弾リストを取得
+	const std::list<PlayerBullet*>& GetBullets() const;
 
 	//void Finalize();
 
