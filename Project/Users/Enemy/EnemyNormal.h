@@ -68,6 +68,7 @@ private:
 	Player* player_ = nullptr;
 
 	MyMath::Vector3 worldPosition;
+	int8_t pad3[ 4 ];
 
 	//敵のモデル
 	std::unique_ptr<FbxObject3d> EnemyObj_;

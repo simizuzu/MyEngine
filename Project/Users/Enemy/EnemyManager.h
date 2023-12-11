@@ -2,6 +2,7 @@
 
 #include "BaseEnemy.h"
 #include "FbxModel.h"
+#include "Player.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <list>
