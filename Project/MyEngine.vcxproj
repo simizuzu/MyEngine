@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="CollisionTypes.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="Users\3D\BaseParticle.h" />
     <ClInclude Include="Users\3D\DamegeEffect.h" />

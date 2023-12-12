@@ -298,3 +298,14 @@ void GameScene::ModelMovie()
 	}
 }
 
+void GameScene::CheckAllCollilsions()
+{
+	//判定対象AとBの座標
+	MyMath::Vector3 posA, posB;
+
+	//自弾リストの取得
+	//const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	//敵弾リストの取得
+	//const std::list<EnemyManager;
+}
+

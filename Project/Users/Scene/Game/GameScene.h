@@ -102,6 +102,11 @@ private:
 	/// </summary>
 	void ModelMovie();
 
+	/// <summary>
+	/// 衝突判定と応答
+	/// </summary>
+	void CheckAllCollilsions();
+
 private: // メンバ変数
 	Input* input_ = nullptr;
 	Camera* camera = nullptr;

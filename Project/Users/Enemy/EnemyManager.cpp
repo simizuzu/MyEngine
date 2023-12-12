@@ -115,7 +115,7 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player)
 
 			//該当する敵の属性ごとに生成
 
-				//敵を発生させる
+			//敵を発生させる
 			//x座標
 			getline(line_stream, word, ',');
 			enemysPos_.x = ( float ) std::atof(word.c_str());

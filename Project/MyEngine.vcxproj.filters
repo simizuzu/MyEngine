@@ -617,6 +617,9 @@
     <ClInclude Include="EnemyBullet.h">
       <Filter>Application\ヘッダーファイル\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionTypes.h">
+      <Filter>Application\ヘッダーファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\FBX\FBX.hlsli">

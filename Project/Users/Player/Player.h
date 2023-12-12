@@ -5,6 +5,7 @@
 #include "PlayerBullet.h"
 #include "Sprite.h"
 #include "TextureManager.h"
+#include "Collider.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <list>
@@ -48,6 +49,9 @@ public:
 
 	MyMath::Vector3 GetPlayerWorldPosition();
 
+	//弾リストを取得
+	const std::list<PlayerBullet*>& GetBullets() const;
+
 private:
 	/// <summary>
 	/// 攻撃したか
@@ -62,8 +66,6 @@ private:
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
-	//弾リストを取得
-	const std::list<PlayerBullet*>& GetBullets() const;
 
 	//void Finalize();
 
