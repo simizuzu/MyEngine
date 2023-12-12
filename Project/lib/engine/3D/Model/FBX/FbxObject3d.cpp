@@ -232,6 +232,18 @@ MyMath::Matrix4 FbxObject3d::GetMatWorld()
 	return matWorld;
 }
 
+MyMath::Vector3 FbxObject3d::GetWorldPosition(const MyMath::Vector3& worldPos)
+{
+	MyMath::Vector3 worldPos_ = worldPos;
+
+	// ワールド行列の平行移動成分を取得
+	worldPos_.x = matWorld.m[ 3 ][ 0 ];
+	worldPos_.y = matWorld.m[ 3 ][ 1 ];
+	worldPos_.z = matWorld.m[ 3 ][ 2 ];
+
+	return worldPos_;
+}
+
 void FbxObject3d::CrateGrapicsPipeline()
 {
 	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob; // 頂点シェーダオブジェクト

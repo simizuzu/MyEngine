@@ -121,8 +121,6 @@ private: // メンバ変数
 	//AudioManager* audioManager_ = nullptr;
 	//uint32_t gameHandle_ = 0;
 
-	Player* player = nullptr;
-
 	//宣言
 	INT32 sceneNum = 0;
 	char PADING[4]{};

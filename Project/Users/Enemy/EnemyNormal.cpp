@@ -17,12 +17,15 @@ void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 	assert(camera);
 	assert(model);
 	camera_ = camera;
-	EnemyModel_ = model;
+	enemyModel_ = model;
 
-	EnemyObj_.reset(FbxObject3d::Create());
-	EnemyObj_->SetModel(EnemyModel_);
-	EnemyObj_->PlayAnimation();
-	EnemyObj_->SetScale({ 0.009f,0.009f ,0.009f });
+	enemyObj_.reset(FbxObject3d::Create());
+	enemyObj_->SetModel(enemyModel_);
+	enemyObj_->PlayAnimation();
+	enemyObj_->SetScale({ 0.009f,0.009f ,0.009f });
+
+	player_ = new Player();
+	player_->Initialize(camera_);
 
 	bulletModel.reset(ObjModel::LoadFromObj("box"));
 	bulletObj.reset(ObjObject3d::Create());
@@ -50,13 +53,13 @@ void EnemyNormal::Update()
 	//弾発射
 	Fire();
 
-	EnemyObj_->SetTranslation(translation);
-	EnemyObj_->Update(camera_);
+	enemyObj_->SetTranslation(translation);
+	enemyObj_->Update(camera_);
 }
 
 void EnemyNormal::Draw()
 {
-	EnemyObj_->Draw();
+	enemyObj_->Draw();
 
 	//弾の描画
 	for ( EnemyBullet* bullet : bullets )
@@ -86,25 +89,25 @@ void EnemyNormal::Fire()
 	bulletIntervalTimer--;
 
 	//弾の速度
-	const float bulletSpeed = 5.0f;
+	const float bulletSpeed = 10.0f;
 	MyMath::Vector3 velocity(0,0,bulletSpeed);
 
 	//自キャラのワールド座標を取得する
-	MyMath::Vector3 playerWorldPos =  player_->GetPlayerWorldPosition();
+	MyMath::Vector3 playerWorldPos = player_->GetPlayerWorldPosition();
 	//敵キャラのワールド座標を取得する
-	MyMath::Vector3 EnemyWorldPos = GetEnemyWorldPostition();
+	MyMath::Vector3 enemyWorldPos = enemyObj_->GetWorldPosition(enemyWorldPos);
 	//敵キャラ→自キャラの差分ベクトルを求める
-
+	MyMath::Vector3 enemyToPlayerVec = playerWorldPos - enemyWorldPos;
 	//ベクトルの正規化
-
+	MyMath::Vector3 enemyDir = MyMathUtility::MakeNormalize(enemyToPlayerVec);
 	//ベクトルの長さを、早さに合わせる
-
+	velocity = enemyDir * bulletSpeed;
 
 	if ( bulletIntervalTimer == zero )
 	{
 		//弾を生成し、初期化
 		EnemyBullet* newBullet = new EnemyBullet();
-		newBullet->Initialize(bulletModel.get(),bulletObj.get(),EnemyObj_->GetTranslation(),velocity);
+		newBullet->Initialize(bulletModel.get(),bulletObj.get(),enemyObj_->GetTranslation(),velocity);
 
 		//弾を登録する
 		bullets.push_back(newBullet);
@@ -112,11 +115,11 @@ void EnemyNormal::Fire()
 	}
 }
 
-MyMath::Vector3 EnemyNormal::GetEnemyWorldPostition()
-{
-	MyMath::Vector3 worldPos;
-
-	MyMathUtility::MakeTranslation(worldPos);
-
-	return worldPos;
-}
+//MyMath::Vector3 EnemyNormal::GetEnemyWorldPostition()
+//{
+//	MyMath::Vector3 worldPos;
+//
+//	MyMathUtility::MakeTranslation(worldPos);
+//
+//	return worldPos;
+//}

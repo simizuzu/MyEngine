@@ -121,7 +121,7 @@ void GameScene::Update()
 	player_->Update();
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 
-	enemyManager_->Update(player);
+	enemyManager_->Update(player_.get());
 
 	switch ( scene )
 	{

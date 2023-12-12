@@ -71,8 +71,8 @@ private:
 	int8_t pad3[ 4 ];
 
 	//敵のモデル
-	std::unique_ptr<FbxObject3d> EnemyObj_;
-	FbxModel* EnemyModel_ = nullptr;
+	std::unique_ptr<FbxObject3d> enemyObj_;
+	FbxModel* enemyModel_ = nullptr;
 
 	//弾のモデル
 	std::unique_ptr<ObjObject3d> bulletObj;

@@ -71,7 +71,8 @@ void Player::Update()
 	ImGui::End();
 #endif
 
-	playerTrans.Update(camera_.get());
+	playerTrans.SetTranslation(camera_->GetTranslation());
+
 	//攻撃処理
 	Attack();
 
