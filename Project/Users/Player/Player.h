@@ -47,6 +47,7 @@ public:
 	/// </summary>
 	void Draw();
 
+	//プレイヤーのワールド座標を取得する
 	MyMath::Vector3 GetPlayerWorldPosition();
 
 	//弾リストを取得

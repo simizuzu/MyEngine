@@ -87,6 +87,11 @@ public:
 	/// </summary>
 	void PlayAnimation();
 
+	/// <summary>
+	/// 時間を進める
+	/// </summary>
+	void UpdateTime();
+
 	//setter
 	void SetScale(MyMath::Vector3 scale);
 	void SetRotation(MyMath::Vector3 rotation);

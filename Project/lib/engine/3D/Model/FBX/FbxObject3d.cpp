@@ -28,13 +28,13 @@ FbxObject3d* FbxObject3d::Create()
 {
 	// 3Dオブジェクトのインスタンスを生成
 	FbxObject3d* object3d = new FbxObject3d();
-	if (object3d == nullptr)
+	if ( object3d == nullptr )
 	{
 		return nullptr;
 	}
 
 	// 初期化
-	if (!object3d->Initialize())
+	if ( !object3d->Initialize() )
 	{
 		delete object3d;
 		assert(0);
@@ -49,7 +49,7 @@ bool FbxObject3d::Initialize()
 	HRESULT result;
 
 	CD3DX12_HEAP_PROPERTIES HEAP_PROP = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-	CD3DX12_RESOURCE_DESC RESOURCE_DESC = CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstBufferDataTransformFbx) + 0xff) & ~0xff);
+	CD3DX12_RESOURCE_DESC RESOURCE_DESC = CD3DX12_RESOURCE_DESC::Buffer(( sizeof(ConstBufferDataTransformFbx) + 0xff ) & ~0xff);
 
 	result = device_->CreateCommittedResource(
 		&HEAP_PROP,
@@ -61,7 +61,7 @@ bool FbxObject3d::Initialize()
 	);
 
 	CD3DX12_HEAP_PROPERTIES HEAP_PROP_SKIN = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-	CD3DX12_RESOURCE_DESC RESOURCE_DESC_SKIN = CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstBufferDataSkin) + 0xff) & ~0xff);
+	CD3DX12_RESOURCE_DESC RESOURCE_DESC_SKIN = CD3DX12_RESOURCE_DESC::Buffer(( sizeof(ConstBufferDataSkin) + 0xff ) & ~0xff);
 
 	result = device_->CreateCommittedResource(
 		&HEAP_PROP_SKIN,
@@ -80,8 +80,9 @@ bool FbxObject3d::Initialize()
 
 void FbxObject3d::Update(Camera* camera)
 {
+
 	HRESULT result;
-	MyMath::Matrix4 matScale, matRot, matTrans;
+	MyMath::Matrix4 matScale,matRot,matTrans;
 
 	// スケール、回転、平行移動行列の計算
 	matScale = MyMathUtility::MakeScaling(scale_);
@@ -102,49 +103,12 @@ void FbxObject3d::Update(Camera* camera)
 
 	// 定数バッファへデータ転送
 	ConstBufferDataTransformFbx* constMap = nullptr;
-	result = constBuffTransform->Map(0, nullptr, (void**)&constMap);
+	result = constBuffTransform->Map(0,nullptr,( void** ) &constMap);
 	assert(SUCCEEDED(result));
 	constMap->viewproj = matView * matProjection;
 	constMap->world = modelTransform * matWorld;
 	constMap->cameraPos = cameraPos;
-	constBuffTransform->Unmap(0, nullptr);
-
-	//アニメーション
-	if (isPlay)
-	{
-		//1フレーム、宇進める
-		currentTime += frameTime;
-		//最後まで再生したら先頭に戻す
-		if (currentTime > endTime)
-		{
-			currentTime = startTime;
-		}
-	}
-
-	//ボーン配列
-	std::vector<FbxModel::Bone>& bones = model_->GetBones();
-
-	//定数バッファへデータ転送
-	ConstBufferDataSkin* constMapSkin = nullptr;
-	result = constBuffSkin->Map(0, nullptr, (void**)&constMapSkin);
-	for (int i = 0; i > MAX_BONES; i++)
-	{
-		constMapSkin->bones[i] = MyMathUtility::MakeIdentity();
-	}
-
-	for (size_t i = 0; i < bones.size(); i++)
-	{
-		//今の姿勢行列
-		MyMath::Matrix4 matCurrentPose;
-		//指定時間(currentTime)の姿勢行列を取得
-		FbxAMatrix fbxCurrengPose = 
-		bones[i].fbxCluster->GetLink()->EvaluateGlobalTransform(currentTime);
-		//Matrix4に変換
-		FbxLoader::ConvertMatrixFromFbx(&matCurrentPose, fbxCurrengPose);
-		//合成してスキニング行列に
-		constMapSkin->bones[i] = bones[i].invInitialPose * matCurrentPose;
-	}
-	constBuffSkin->Unmap(0, nullptr);
+	constBuffTransform->Unmap(0,nullptr);
 }
 
 void FbxObject3d::Draw()
@@ -152,7 +116,7 @@ void FbxObject3d::Draw()
 	cmdList_ = DirectXCommon::GetInstance()->GetCommandList();
 
 	//モデルの割り当てがなければ描画しない
-	if (model_ == nullptr)
+	if ( model_ == nullptr )
 	{
 		return;
 	}
@@ -164,9 +128,9 @@ void FbxObject3d::Draw()
 	//プリミティブ形状を設定
 	cmdList_->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	//定数バッファビューをセット
-	cmdList_->SetGraphicsRootConstantBufferView(0, constBuffTransform->GetGPUVirtualAddress());
+	cmdList_->SetGraphicsRootConstantBufferView(0,constBuffTransform->GetGPUVirtualAddress());
 	//定数バッファビューをセット
-	cmdList_->SetGraphicsRootConstantBufferView(2, constBuffSkin->GetGPUVirtualAddress());
+	cmdList_->SetGraphicsRootConstantBufferView(2,constBuffSkin->GetGPUVirtualAddress());
 
 	//モデル描画
 	model_->Draw(cmdList_.Get());
@@ -195,6 +159,47 @@ void FbxObject3d::PlayAnimation()
 	currentTime = startTime;
 	//再生中状態にする
 	isPlay = true;
+}
+
+void FbxObject3d::UpdateTime()
+{
+	HRESULT result;
+	//アニメーション
+	if ( isPlay )
+	{
+		//1フレーム、宇進める
+		currentTime += frameTime;
+		//最後まで再生したら先頭に戻す
+		if ( currentTime > endTime )
+		{
+			currentTime = startTime;
+		}
+	}
+
+	//ボーン配列
+	std::vector<FbxModel::Bone>& bones = model_->GetBones();
+
+	//定数バッファへデータ転送
+	ConstBufferDataSkin* constMapSkin = nullptr;
+	result = constBuffSkin->Map(0,nullptr,( void** ) &constMapSkin);
+	for ( int i = 0; i > MAX_BONES; i++ )
+	{
+		constMapSkin->bones[ i ] = MyMathUtility::MakeIdentity();
+	}
+
+	for ( size_t i = 0; i < bones.size(); i++ )
+	{
+		//今の姿勢行列
+		MyMath::Matrix4 matCurrentPose;
+		//指定時間(currentTime)の姿勢行列を取得
+		FbxAMatrix fbxCurrengPose =
+			bones[ i ].fbxCluster->GetLink()->EvaluateGlobalTransform(currentTime);
+			//Matrix4に変換
+		FbxLoader::ConvertMatrixFromFbx(&matCurrentPose,fbxCurrengPose);
+		//合成してスキニング行列に
+		constMapSkin->bones[ i ] = bones[ i ].invInitialPose * matCurrentPose;
+	}
+	constBuffSkin->Unmap(0,nullptr);
 }
 
 void FbxObject3d::SetScale(MyMath::Vector3 scale)
@@ -251,5 +256,5 @@ void FbxObject3d::CrateGrapicsPipeline()
 
 	Shader::CreateFBXShade(vsBlob,psBlob);
 
-	Pipeline::CreateFBXPipeline(vsBlob.Get(),psBlob.Get(),device_.Get(), pip);
+	Pipeline::CreateFBXPipeline(vsBlob.Get(),psBlob.Get(),device_.Get(),pip);
 }

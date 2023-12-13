@@ -9,6 +9,7 @@
 
 #include "EnemyBullet.h"
 
+
 /**
  * @class EnemyNormal.h
  * @brief 敵キャラの派生クラス（通常の敵キャラ）
@@ -56,7 +57,7 @@ private:
 	/// </summary>
 	void Fire();
 
-	MyMath::Vector3 GetEnemyWorldPostition();
+	MyMath::Vector3 GetCenterPosition() const override;
 
 public:
 	MyMath::Vector3 translation;

@@ -1,6 +1,6 @@
 #pragma once
-
 #include "Camera.h"
+#include "Collider.h"
 
 /**
  * @class Enemy.h
@@ -10,7 +10,7 @@
 /// <summary>
 /// エネミー
 /// </summary>
-class BaseEnemy
+class BaseEnemy : public Collider
 {
 public:
 	enum EnemyType
@@ -19,12 +19,16 @@ public:
 
 	};
 
-
+public:
 	BaseEnemy() = default;
 	virtual ~BaseEnemy() = default;
 
 	virtual void Update() = 0;
 
 	virtual void Draw() = 0;
+
+public:
+	//中心座標を取得
+	virtual MyMath::Vector3 GetCenterPosition() const override = 0;
 };
 

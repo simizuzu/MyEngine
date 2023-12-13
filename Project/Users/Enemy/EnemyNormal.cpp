@@ -115,11 +115,8 @@ void EnemyNormal::Fire()
 	}
 }
 
-//MyMath::Vector3 EnemyNormal::GetEnemyWorldPostition()
-//{
-//	MyMath::Vector3 worldPos;
-//
-//	MyMathUtility::MakeTranslation(worldPos);
-//
-//	return worldPos;
-//}
+MyMath::Vector3 EnemyNormal::GetCenterPosition() const
+{
+	return MyMath::Vector3();
+}
+
