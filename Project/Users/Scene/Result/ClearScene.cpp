@@ -24,7 +24,7 @@ void ClearScene::Initialize(Camera* camera)
 	clearObj_=FbxObject3d::Create();
 	clearObj_->SetModel(clearModel_);
 	clearObj_->PlayAnimation();
-	clearObj_->SetScale({ 0.009f,0.009f ,0.009f });
+	//clearObj_->SetScale({ 0.009f,0.009f ,0.009f });
 
 	spriteBlackUp = std::make_unique<Sprite>();
 	spriteBlackDown = std::make_unique<Sprite>();
@@ -34,6 +34,9 @@ void ClearScene::Initialize(Camera* camera)
 
 	texBlackUp = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackDown = TextureManager::Load("Resources/Texture/black1x1.png");
+
+	clearTrans.Initialize();
+	clearTrans.SetScale({ 0.009f,0.009f ,0.009f });
 
 	drawFlag = true;
 	sceneTimer = 0;
@@ -51,8 +54,9 @@ void ClearScene::Update()
 	camera_->SetTarget({ 0.0f,2,-10 });
 
 	BlackMind();
-	clearObj_->SetTranslation({ modelPos_ });
-	clearObj_->Update(camera_);
+	clearTrans.SetTranslation({ modelPos_ });
+	clearTrans.Update(camera_);
+	clearObj_->Update();
 
 #ifdef _DEBUG
 	ImGui::Begin("sceneTimer");
@@ -66,7 +70,7 @@ void ClearScene::Draw()
 {
 	if ( drawFlag )
 	{
-		clearObj_->Draw();
+		clearObj_->Draw(&clearTrans);
 	}
 
 	spriteBlackUp->Draw(texBlackUp,blackUpPos,{ blackSize.x,blackSize.y });

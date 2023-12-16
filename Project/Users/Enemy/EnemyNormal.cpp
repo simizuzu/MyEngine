@@ -22,7 +22,10 @@ void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 	enemyObj_.reset(FbxObject3d::Create());
 	enemyObj_->SetModel(enemyModel_);
 	enemyObj_->PlayAnimation();
-	enemyObj_->SetScale({ 0.009f,0.009f ,0.009f });
+
+	enemyTrans.Initialize();
+	enemyTrans.SetScale({ 0.009f,0.009f ,0.009f });
+	//enemyObj_->SetScale({ 0.009f,0.009f ,0.009f });
 
 	player_ = new Player();
 	player_->Initialize(camera_);
@@ -53,13 +56,14 @@ void EnemyNormal::Update()
 	//弾発射
 	Fire();
 
-	enemyObj_->SetTranslation(translation);
-	enemyObj_->Update(camera_);
+	enemyTrans.SetTranslation(translation);
+	enemyTrans.Update(camera_);
+	enemyObj_->Update();
 }
 
 void EnemyNormal::Draw()
 {
-	enemyObj_->Draw();
+	enemyObj_->Draw(&enemyTrans);
 
 	//弾の描画
 	for ( EnemyBullet* bullet : bullets )
@@ -107,7 +111,7 @@ void EnemyNormal::Fire()
 	{
 		//弾を生成し、初期化
 		EnemyBullet* newBullet = new EnemyBullet();
-		newBullet->Initialize(bulletModel.get(),bulletObj.get(),enemyObj_->GetTranslation(),velocity);
+		newBullet->Initialize(bulletModel.get(),bulletObj.get(),enemyTrans.GetTranslation(),velocity);
 
 		//弾を登録する
 		bullets.push_back(newBullet);

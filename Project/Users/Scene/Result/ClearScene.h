@@ -61,6 +61,7 @@ private:
 	//モデル
 	FbxObject3d* clearObj_ = nullptr;
 	FbxModel* clearModel_ = nullptr;
+	WorldTransform clearTrans;
 
 	//テクスチャ
 	TextureData texBlackUp;

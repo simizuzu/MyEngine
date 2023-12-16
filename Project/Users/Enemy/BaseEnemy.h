@@ -30,5 +30,11 @@ public:
 public:
 	//中心座標を取得
 	virtual MyMath::Vector3 GetCenterPosition() const override = 0;
+
+private:
+//代入演算子削除
+	BaseEnemy& operator=(const BaseEnemy&) = delete;
+	//コピーコンストラクタ削除
+	BaseEnemy(const BaseEnemy&) = delete;
 };
 

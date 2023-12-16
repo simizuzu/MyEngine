@@ -136,6 +136,7 @@ private: // メンバ変数
 
 	std::unique_ptr<FbxObject3d> robotoObj_;
 	std::unique_ptr<FbxModel> robotoModel_;
+	WorldTransform robotoTrans;
 	
 	//シーンマネージャ
 	SceneManager* sceneManager_ = nullptr;

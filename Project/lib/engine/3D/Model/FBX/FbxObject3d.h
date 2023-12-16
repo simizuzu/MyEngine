@@ -68,13 +68,13 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update(Camera* camera);
+	void Update();
 
 	/// <summary>
 	/// 描画
 	/// </summary>
 	/// <param name="transform">トランスフォーム</param>
-	void Draw();
+	void Draw(WorldTransform* transform);
 
 	/// <summary>
 	/// モデルをセット
@@ -93,13 +93,6 @@ public:
 	void UpdateTime();
 
 	//setter
-	void SetScale(MyMath::Vector3 scale);
-	void SetRotation(MyMath::Vector3 rotation);
-	void SetTranslation(const MyMath::Vector3 translation);
-
-	MyMath::Vector3 GetScale();
-	MyMath::Vector3 GetRotation();
-	MyMath::Vector3 GetTranslation();
 	MyMath::Matrix4 GetMatWorld();
 	MyMath::Vector3 GetWorldPosition(const MyMath::Vector3& worldPos);
 

@@ -74,6 +74,7 @@ private:
 	//敵のモデル
 	std::unique_ptr<FbxObject3d> enemyObj_;
 	FbxModel* enemyModel_ = nullptr;
+	WorldTransform enemyTrans;
 
 	//弾のモデル
 	std::unique_ptr<ObjObject3d> bulletObj;

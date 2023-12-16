@@ -85,6 +85,7 @@ private: //メンバ変数
 	WorldTransform skydomeTrans;
 	WorldTransform groundTrans;
 	WorldTransform robotoTrans;
+	WorldTransform pilotTrans;
 
 	std::map<std::string, std::unique_ptr<ObjModel>>models;
 	std::vector<std::unique_ptr<ObjObject3d>> objects;

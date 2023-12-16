@@ -48,6 +48,7 @@ void TitleAnimation::Initalize(Camera* camera)
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
 	robotoTrans.Initialize();
+	pilotTrans.Initialize();
 
 	skydomeTrans.SetScale({ skydomeScale,skydomeScale,skydomeScale });
 #pragma endregion
@@ -58,8 +59,10 @@ void TitleAnimation::Initalize(Camera* camera)
 	pilotObj_.reset(FbxObject3d::Create());
 	pilotObj_->SetModel(pilotModel_.get());
 	pilotObj_->PlayAnimation();
-	pilotObj_->SetScale({ 0.006f,0.006f ,0.006f });
-	pilotObj_->SetTranslation({ -0.9f,0.0f,-1.2f });
+	//pilotObj_->SetScale({ 0.006f,0.006f ,0.006f });
+	pilotTrans.SetScale({ 0.006f,0.006f ,0.006f });
+	pilotTrans.SetTranslation({ -0.9f,0.0f,-1.2f });
+	//pilotObj_->SetTranslation({ -0.9f,0.0f,-1.2f });
 
 #pragma endregion
 	rotation = zero;
@@ -80,7 +83,8 @@ void TitleAnimation::Update()
 	skydomeTrans.Update(camera_);
 	groundTrans.Update(camera_);
 	robotoTrans.Update(camera_);
-	pilotObj_->Update(camera_);
+	pilotTrans.Update(camera_);
+	pilotObj_->Update();
 }
 
 void TitleAnimation::Draw()
@@ -88,7 +92,7 @@ void TitleAnimation::Draw()
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);
 	robotoObj_->Draw(&robotoTrans);
-	pilotObj_->Draw();
+	pilotObj_->Draw(&pilotTrans);
 	spriteBack_->Draw(texBack,black1x1Size,scale,texRot,anchorpoint);
 	ClickAnim();
 }

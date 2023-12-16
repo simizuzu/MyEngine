@@ -68,7 +68,10 @@ void GameScene::Initialize()
 	robotoObj_.reset(FbxObject3d::Create());
 	robotoObj_->SetModel(robotoModel_.get());
 	robotoObj_->PlayAnimation();
-	robotoObj_->SetScale({ 0.009f,0.009f ,0.009f });
+
+	robotoTrans.Initialize();
+	robotoTrans.SetScale({ 0.009f,0.009f ,0.009f });
+	//robotoObj_->SetScale({ 0.009f,0.009f ,0.009f });
 	
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 	spriteBlackUp_->SetSize({ 1280,100 });
@@ -170,7 +173,7 @@ void GameScene::Draw()
 	{
 	case GameScene::SCENEFASE::MOVIE:
 		spriteStageName01_->Draw(texStageName01_, fieldNameSize);
-		robotoObj_->Draw();
+		robotoObj_->Draw(&robotoTrans);
 		
 		damageParticle->Draw();		
 		break;
@@ -281,7 +284,8 @@ void GameScene::StopTimer()
 void GameScene::ModelMovie()
 {
 	startCount++;
-	robotoObj_->Update(camera);
+	robotoTrans.Update(camera);
+	robotoObj_->Update();
 	camera->SetEye({ -2.2f,1,-4 });
 	camera->SetTarget({ -3,2,0 });
 
