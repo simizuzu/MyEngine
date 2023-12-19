@@ -414,9 +414,6 @@
     <ClCompile Include="lib\engine\3D\Particle\ParticleManager.cpp">
       <Filter>Application\ソースファイル\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Users\3D\DamegeEffect.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="lib\engine\Math\Easing.cpp">
       <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
@@ -428,6 +425,9 @@
     </ClCompile>
     <ClCompile Include="EnemyBullet.cpp">
       <Filter>Application\ソースファイル\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\3D\DamegeEffect.cpp">
+      <Filter>Application\ソースファイル\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -599,9 +599,6 @@
     <ClInclude Include="lib\engine\3D\Particle\ParticleManager.h">
       <Filter>Application\ヘッダーファイル\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Users\3D\DamegeEffect.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="lib\engine\Math\Easing.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
@@ -619,6 +616,9 @@
     </ClInclude>
     <ClInclude Include="CollisionTypes.h">
       <Filter>Application\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\3D\DamegeEffect.h">
+      <Filter>Application\ヘッダーファイル\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
