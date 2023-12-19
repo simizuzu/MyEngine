@@ -45,7 +45,7 @@ public:
 	void Draw() override;
 
 	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision();
+	void OnCollision() override;
 
 	const std::list<EnemyBullet*>& GetBullets() const;
 
@@ -85,7 +85,8 @@ private:
 	bool bulletIntervalFlag = false;
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;
-	int8_t pad2[5 ];
+	bool flag = false;
+	int8_t pad2[ 4 ];
 
 private:
 	//代入演算子削除

@@ -91,5 +91,5 @@ namespace MyMath {
 	/// </summary>
 	/// <param name="transform">トランスフォーム</param>
 	/// <returns>ワールド座標</returns>
-	MyMath::Vector3 GetWorldPosition(WorldTransform& transform);
+	MyMath::Vector3 GetWorldPosition(const WorldTransform& transform);
 }

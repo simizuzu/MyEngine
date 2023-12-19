@@ -46,6 +46,9 @@ void GameScene::Initialize()
 	player_ = std::make_unique<Player>();
 	player_->Initialize(camera);
 
+	//衝突マネージャの生成
+	collisionManager_ = std::make_unique<CollisionManager>();
+
 	spriteWhite_ = std::make_unique<Sprite>();
 	spriteBlack_ = std::make_unique<Sprite>();
 	spriteBlackUp_ = std::make_unique<Sprite>();
@@ -85,6 +88,7 @@ void GameScene::Initialize()
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv",enemyModel_.get(),camera));
 
+	collisionManager_->Initialize();
 
 	sceneManager_ = SceneManager::GetInstance();
 }
@@ -92,6 +96,9 @@ void GameScene::Initialize()
 void GameScene::Update()
 {
 	GameTimer();
+
+	//衝突判定と応答
+	CheckAllCollilsions();
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
@@ -304,12 +311,20 @@ void GameScene::ModelMovie()
 
 void GameScene::CheckAllCollilsions()
 {
-	//判定対象AとBの座標
-	MyMath::Vector3 posA, posB;
+	//衝突マネージャのリセット
+	collisionManager_->Reset();
 
-	//自弾リストの取得
-	//const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
-	//敵弾リストの取得
-	//const std::list<EnemyManager;
+	//コライダーをリストに登録
+	collisionManager_->AddCollider(player_.get());
+	//敵全てについて
+	for ( auto& enemy : enemyManager_->GetEnemys() )
+	{
+		collisionManager_->AddCollider(enemy.get());
+		enemy->SetRadius(5.0f);
+	}
+	player_->SetRadius(5.0f);
+
+	//衝突判定と応答
+	collisionManager_->CheckAllCollisions();
 }
 

@@ -34,6 +34,8 @@ void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 	bulletObj.reset(ObjObject3d::Create());
 
 	bulletIntervalTimer = resetTimer;
+
+	Collider::Initialize();
 }
 
 void EnemyNormal::Update()
@@ -63,7 +65,10 @@ void EnemyNormal::Update()
 
 void EnemyNormal::Draw()
 {
-	enemyObj_->Draw(&enemyTrans);
+	if ( !flag )
+	{
+		enemyObj_->Draw(&enemyTrans);
+	}
 
 	//弾の描画
 	for ( EnemyBullet* bullet : bullets )
@@ -74,6 +79,7 @@ void EnemyNormal::Draw()
 
 void EnemyNormal::OnCollision()
 {
+	flag = true;
 }
 
 const std::list<EnemyBullet*>& EnemyNormal::GetBullets() const
@@ -121,6 +127,8 @@ void EnemyNormal::Fire()
 
 MyMath::Vector3 EnemyNormal::GetCenterPosition() const
 {
-	return MyMath::Vector3();
+	//ワールド座標に変換
+	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(enemyTrans);
+	return worldPos;
 }
 

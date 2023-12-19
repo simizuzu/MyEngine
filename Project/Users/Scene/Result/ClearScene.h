@@ -86,7 +86,6 @@ private:
 	int8_t pad2[2 ];
 
 
-	//int8_t pad3[7 ];
 private:
 	//コピーコンストラクタ・代入演算子削除
 	ClearScene& operator=(const ClearScene&) = delete;

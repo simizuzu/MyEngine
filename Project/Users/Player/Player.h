@@ -19,10 +19,10 @@ MYENGINE_SUPPRESS_WARNINGS_END
 /// <summary>
 /// プレイヤー
 /// </summary>
-class Player
+class Player : public Collider
 {
 private:
-	const float rotationSpeed = 0.1f;
+	const float rotationSpeed = 0.05f;
 	const float maxRotate = 1.3f;
 	const float maxValueRotate = 1.5f;
 
@@ -53,6 +53,8 @@ public:
 	//弾リストを取得
 	const std::list<PlayerBullet*>& GetBullets() const;
 
+	MyMath::Vector3 GetCenterPosition() const override;
+
 private:
 	/// <summary>
 	/// 攻撃したか
@@ -65,8 +67,7 @@ private:
 	void RotateCamera();
 
 	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision();
-
+	void OnCollision() override;
 
 	//void Finalize();
 

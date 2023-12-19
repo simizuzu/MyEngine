@@ -32,6 +32,8 @@
 #include "EnemyManager.h"
 #include "Player.h"
 
+#include "CollisionManager.h"
+
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
 MYENGINE_SUPPRESS_WARNINGS_END
@@ -121,6 +123,8 @@ private: // メンバ変数
 	std::unique_ptr<FbxModel> enemyModel_ = nullptr;
 
 	std::unique_ptr<Player> player_;
+
+	std::unique_ptr<CollisionManager> collisionManager_;
 
 	// サウンド
 	//AudioManager* audioManager_ = nullptr;

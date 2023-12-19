@@ -140,6 +140,13 @@ const std::list<PlayerBullet*>& Player::GetBullets() const
 	return bullets;
 }
 
+MyMath::Vector3 Player::GetCenterPosition() const
+{
+	//ワールド座標に変換
+	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(playerTrans);
+	return worldPos;
+}
+
 MyMath::Vector3 Player::GetPlayerWorldPosition()
 {
 	return MyMath::GetWorldPosition(playerTrans);

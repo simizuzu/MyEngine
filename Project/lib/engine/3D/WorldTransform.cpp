@@ -197,7 +197,7 @@ D3D12_GPU_VIRTUAL_ADDRESS WorldTransform::GetGpuAddress()
 
 namespace MyMath
 {
-	MyMath::Vector3 GetWorldPosition(WorldTransform& transform)
+	MyMath::Vector3 GetWorldPosition(const WorldTransform& transform)
 	{
 		// ワールド座標を入れる変数
 		Vector3 worldPos;

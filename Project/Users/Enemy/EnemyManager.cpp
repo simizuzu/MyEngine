@@ -56,6 +56,11 @@ void EnemyManager::EnemyNormalEmit()
 	//enemys.push_back(std::move(enemy));
 }
 
+const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemys()
+{
+	return enemys;
+}
+
 void EnemyManager::LoadEnemyPopData(const std::string& filePath)
 {
 	//ファイルを開く

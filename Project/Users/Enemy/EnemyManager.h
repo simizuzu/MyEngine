@@ -54,6 +54,8 @@ public:
 	/// </summary>
 	void EnemyNormalEmit();
 
+	const std::list<std::unique_ptr<BaseEnemy>>& GetEnemys();
+
 private:
 	/// <summary>
 	/// 敵発生データの読み込み("Resources/filePath/fname.csv")

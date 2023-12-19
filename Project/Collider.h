@@ -1,6 +1,11 @@
 #pragma once
+#include "SuppressWarning.h"
+MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <stdint.h>
+MYENGINE_SUPPRESS_WARNINGS_END
+
 #include "Vector3.h"
+#include "WorldTransform.h"
 
  /**
  * @class Collider.h
@@ -12,6 +17,8 @@ private:
 	//半径
 	float radius_ = 1.5f;
 	int8_t pad1[4 ];
+
+	WorldTransform worldTransform_;
 public:
 	//衝突時に呼ばれる関数
 	virtual void OnCollision();
@@ -20,6 +27,9 @@ public:
 	virtual MyMath::Vector3 GetCenterPosition() const = 0;
 
 public:
+	//初期化
+	void Initialize();
+
 	//衝突判定を取得する
 	float GetRadius();
 	//衝突判定を設定する

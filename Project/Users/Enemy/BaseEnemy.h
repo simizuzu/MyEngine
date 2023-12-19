@@ -16,7 +16,6 @@ public:
 	enum EnemyType
 	{
 		NONE,
-
 	};
 
 public:
