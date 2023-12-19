@@ -126,6 +126,11 @@ private: // メンバ変数
 
 	std::unique_ptr<CollisionManager> collisionManager_;
 
+	//中心地点
+	std::unique_ptr<ObjObject3d> colliderObj_;
+	std::unique_ptr<ObjModel> colliderModel_;
+	WorldTransform colliderTrans;
+
 	// サウンド
 	//AudioManager* audioManager_ = nullptr;
 	//uint32_t gameHandle_ = 0;

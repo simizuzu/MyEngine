@@ -20,14 +20,9 @@ private:
 	//コライダー
 	std::list<Collider*> colliders_;
 
-	std::unique_ptr<ObjModel> model_;
-
 public:
 	CollisionManager() = default;
 	~CollisionManager() = default;
-
-	//初期化
-	void Initialize();
 
 	/// <summary>
 	/// コライダー2つの衝突判定と応答

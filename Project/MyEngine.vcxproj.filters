@@ -253,6 +253,9 @@
     <Filter Include="Application\ヘッダーファイル\Collision">
       <UniqueIdentifier>{125fcef8-7bdf-4c53-ad6b-13a67ac1a4b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\ソースファイル\Bullet">
+      <UniqueIdentifier>{5ab78036-3910-4860-ac03-b2a9d70c9f93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\engine\main.cpp">
@@ -428,6 +431,12 @@
     </ClCompile>
     <ClCompile Include="Users\3D\DamegeEffect.cpp">
       <Filter>Application\ソースファイル\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -619,6 +628,12 @@
     </ClInclude>
     <ClInclude Include="Users\3D\DamegeEffect.h">
       <Filter>Application\ヘッダーファイル\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

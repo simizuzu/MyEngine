@@ -5,11 +5,6 @@ void Collider::OnCollision()
 	
 }
 
-void Collider::Initialize()
-{
-	worldTransform_.Initialize();
-}
-
 float Collider::GetRadius()
 {
 	return radius_;

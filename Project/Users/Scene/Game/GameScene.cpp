@@ -49,6 +49,12 @@ void GameScene::Initialize()
 	//衝突マネージャの生成
 	collisionManager_ = std::make_unique<CollisionManager>();
 
+	colliderModel_.reset(ObjModel::LoadFromObj("collider"));
+	colliderObj_.reset(ObjObject3d::Create());
+	colliderObj_->SetModel(colliderModel_.get());
+	colliderTrans.Initialize();
+	colliderTrans.SetScale({5,5,5});
+
 	spriteWhite_ = std::make_unique<Sprite>();
 	spriteBlack_ = std::make_unique<Sprite>();
 	spriteBlackUp_ = std::make_unique<Sprite>();
@@ -88,8 +94,6 @@ void GameScene::Initialize()
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv",enemyModel_.get(),camera));
 
-	collisionManager_->Initialize();
-
 	sceneManager_ = SceneManager::GetInstance();
 }
 
@@ -99,6 +103,8 @@ void GameScene::Update()
 
 	//衝突判定と応答
 	CheckAllCollilsions();
+	colliderTrans.Update(camera);
+
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
@@ -175,6 +181,8 @@ void GameScene::Draw()
 {
 	modelData_->Draw();
 	player_->Draw();
+
+	colliderObj_->Draw(&colliderTrans);
 
 	switch ( scene )
 	{
@@ -320,9 +328,9 @@ void GameScene::CheckAllCollilsions()
 	for ( auto& enemy : enemyManager_->GetEnemys() )
 	{
 		collisionManager_->AddCollider(enemy.get());
-		enemy->SetRadius(5.0f);
+		enemy->SetRadius(2.0f);
 	}
-	player_->SetRadius(5.0f);
+	player_->SetRadius(2.0f);
 
 	//衝突判定と応答
 	collisionManager_->CheckAllCollisions();

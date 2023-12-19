@@ -9,7 +9,6 @@
 
 #include "EnemyBullet.h"
 
-
 /**
  * @class EnemyNormal.h
  * @brief 敵キャラの派生クラス（通常の敵キャラ）
@@ -75,6 +74,11 @@ private:
 	std::unique_ptr<FbxObject3d> enemyObj_;
 	FbxModel* enemyModel_ = nullptr;
 	WorldTransform enemyTrans;
+
+	//当たり判定モデル
+	std::unique_ptr<ObjObject3d> colliderObj_;
+	std::unique_ptr<ObjModel> colliderModel_;
+	WorldTransform colliderTrans;
 
 	//弾のモデル
 	std::unique_ptr<ObjObject3d> bulletObj;

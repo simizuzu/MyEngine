@@ -27,6 +27,13 @@ void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 	enemyTrans.SetScale({ 0.009f,0.009f ,0.009f });
 	//enemyObj_->SetScale({ 0.009f,0.009f ,0.009f });
 
+	colliderModel_.reset(ObjModel::LoadFromObj("collider"));
+	colliderObj_.reset(ObjObject3d::Create());
+	colliderObj_->SetModel(colliderModel_.get());
+
+	colliderTrans.Initialize();
+	colliderTrans.SetScale({5,5,5});
+
 	player_ = new Player();
 	player_->Initialize(camera_);
 
@@ -34,8 +41,6 @@ void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 	bulletObj.reset(ObjObject3d::Create());
 
 	bulletIntervalTimer = resetTimer;
-
-	Collider::Initialize();
 }
 
 void EnemyNormal::Update()
@@ -61,6 +66,9 @@ void EnemyNormal::Update()
 	enemyTrans.SetTranslation(translation);
 	enemyTrans.Update(camera_);
 	enemyObj_->Update();
+
+	colliderTrans.SetTranslation(enemyTrans.GetTranslation());
+	colliderTrans.Update(camera_);
 }
 
 void EnemyNormal::Draw()
@@ -68,6 +76,7 @@ void EnemyNormal::Draw()
 	if ( !flag )
 	{
 		enemyObj_->Draw(&enemyTrans);
+		//colliderObj_->Draw(&colliderTrans);
 	}
 
 	//弾の描画

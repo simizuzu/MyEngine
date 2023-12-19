@@ -1,10 +1,5 @@
 #include "CollisionManager.h"
 
-void CollisionManager::Initialize()
-{
-	model_.reset(ObjModel::LoadFromObj("skydome"));
-}
-
 void CollisionManager::CheckCollisionPair(Collider* colliderA,Collider* colliderB)
 {
 	//コライダーAの座標を取得
