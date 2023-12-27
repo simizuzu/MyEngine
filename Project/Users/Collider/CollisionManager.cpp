@@ -2,6 +2,13 @@
 
 void CollisionManager::CheckCollisionPair(Collider* colliderA,Collider* colliderB)
 {
+	//衝突フィルタリング
+	if ( !( colliderA->GetCollisionAttribute() & colliderB->GetCollisionMask() ) ||
+		!( colliderB->GetCollisionAttribute() & colliderA->GetCollisionMask() ) )
+	{
+		return;
+	}
+
 	//コライダーAの座標を取得
 	MyMath::Vector3 posA = colliderA->GetCenterPosition();
 	//コライダーBの座標を取得

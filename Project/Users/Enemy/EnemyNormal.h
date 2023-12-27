@@ -46,7 +46,7 @@ public:
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision() override;
 
-	const std::list<EnemyBullet*>& GetBullets() const;
+	//const std::list<EnemyBullet*>& GetBullets() const;
 
 	void SetPlayer(Player* player);
 

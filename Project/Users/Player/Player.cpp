@@ -36,6 +36,11 @@ void Player::Initialize(Camera* camera)
 	playerTrans.Initialize();
 	//3Dレティクルのトランスフォーム初期化
 	worldTransform3DReticle.Initialize();
+
+	//衝突属性を設定
+	SetCollisionAttribute(collisionAttributePlayer);
+	//衝突対象を自分の属性以外に設定(ビット反転)
+	SetCollisionMask(~collisionAttributePlayer);
 }
 
 void Player::Update()

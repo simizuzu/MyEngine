@@ -417,10 +417,10 @@
     <ClCompile Include="lib\engine\3D\Particle\ParticleManager.cpp">
       <Filter>Application\ソースファイル\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
+    <ClCompile Include="Users\Collider\Collider.cpp">
       <Filter>Application\ソースファイル\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
+    <ClCompile Include="Users\Collider\CollisionManager.cpp">
       <Filter>Application\ソースファイル\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Users\3D\DamegeEffect.cpp">
@@ -429,16 +429,16 @@
     <ClCompile Include="lib\engine\Math\Easing.cpp">
       <Filter>Engine\ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="BulletManager.cpp">
+    <ClCompile Include="Users\Bullet\BulletManager.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
+    <ClCompile Include="Users\Bullet\Bullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBullet.cpp">
+    <ClCompile Include="Users\Bullet\EnemyBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Users\Player\PlayerBullet.cpp">
+    <ClCompile Include="Users\Bullet\PlayerBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
@@ -599,7 +599,7 @@
     <ClInclude Include="Users\Scene\Game\GameObject.h">
       <Filter>Application\ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleGrain.h">
+    <ClInclude Include="Users\3D\ParticleGrain.h">
       <Filter>Application\ヘッダーファイル\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Users\3D\BaseParticle.h">
@@ -611,10 +611,10 @@
     <ClInclude Include="lib\engine\Math\Numbers.h">
       <Filter>Engine\ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
+    <ClInclude Include="Users\Collider\CollisionManager.h">
       <Filter>Application\ヘッダーファイル\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
+    <ClInclude Include="Users\Collider\Collider.h">
       <Filter>Application\ヘッダーファイル\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Users\3D\DamegeEffect.h">
@@ -623,20 +623,23 @@
     <ClInclude Include="lib\engine\Math\Easing.h">
       <Filter>Engine\ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionTypes.h">
+    <ClInclude Include="Users\Collider\CollisionTypes.h">
       <Filter>Application\ヘッダーファイル\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="BulletManager.h">
+    <ClInclude Include="Users\Bullet\BulletManager.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
+    <ClInclude Include="Users\Bullet\Bullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Users\Player\PlayerBullet.h">
+    <ClInclude Include="Users\Bullet\PlayerBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBullet.h">
+    <ClInclude Include="Users\Bullet\EnemyBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionConfig.h">
+      <Filter>Application\ヘッダーファイル\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

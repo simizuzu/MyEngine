@@ -41,6 +41,11 @@ void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 	bulletObj.reset(ObjObject3d::Create());
 
 	bulletIntervalTimer = resetTimer;
+
+	//衝突属性を設定
+	SetCollisionAttribute(collisionAttributeEnemy);
+	//衝突対象を自分の属性以外に設定(ビット反転)
+	SetCollisionMask(~collisionAttributeEnemy);
 }
 
 void EnemyNormal::Update()
@@ -91,10 +96,6 @@ void EnemyNormal::OnCollision()
 	flag = true;
 }
 
-const std::list<EnemyBullet*>& EnemyNormal::GetBullets() const
-{
-	return bullets;
-}
 
 void EnemyNormal::SetPlayer(Player* player)
 {

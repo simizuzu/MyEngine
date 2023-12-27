@@ -86,6 +86,7 @@ private:
 
 	int8_t xPos_absolute,yPos_absolute;
 	uint8_t xPos,yPos;
+	uint32_t collisionMask;
 	
 	POINT mousePosition;
 	MyMath::Vector2 windowWH;
@@ -100,7 +101,7 @@ private:
 	float targetTimeRate;
 	bool bulletIntervalFlag = false;
 	uint8_t bulletIntervalTimer = 6;
-	int8_t pad1[ 2 ];
+	int8_t pad1[ 6 ];
 
 	size_t startIndex = 1;
 	uint32_t startCount = 0;

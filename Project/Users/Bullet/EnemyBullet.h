@@ -2,6 +2,7 @@
 #include "ObjObject3d.h"
 #include "ObjModel.h"
 #include "WorldTransform.h"
+#include "Bullet.h"
 
  /**
  * @class PlayerBullet.h
