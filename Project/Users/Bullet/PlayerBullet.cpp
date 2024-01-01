@@ -42,8 +42,11 @@ void PlayerBullet::Update(Camera* camera)
 
 void PlayerBullet::Draw()
 {
-	//モデルの描画
-	bulletObj_->Draw(&bulletTrans_);
+	//弾モデルの描画
+	if ( !isDead_ )
+	{
+		bulletObj_->Draw(&bulletTrans_);
+	}
 }
 
 bool PlayerBullet::IsDead() const
@@ -54,5 +57,12 @@ bool PlayerBullet::IsDead() const
 void PlayerBullet::OnCollision()
 {
 	isDead_ = true;
+}
+
+MyMath::Vector3 PlayerBullet::GetCenterPosition() const
+{
+	//ワールド座標に変換
+	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(bulletTrans_);
+	return worldPos;
 }
 

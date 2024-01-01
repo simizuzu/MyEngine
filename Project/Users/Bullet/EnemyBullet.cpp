@@ -37,13 +37,23 @@ void EnemyBullet::Update(Camera* camera)
 
 void EnemyBullet::Draw()
 {
-	//モデルの描画
-	bulletObj_->Draw(&bulletTrans_);
+	//弾モデルの描画
+	if ( !isDead_ )
+	{
+		bulletObj_->Draw(&bulletTrans_);
+	}
 }
 
 void EnemyBullet::OnCollision()
 {
 	isDead_ = true;
+}
+
+MyMath::Vector3 EnemyBullet::GetCenterPosition() const
+{
+	//ワールド座標に変換
+	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(bulletTrans_);
+	return worldPos;
 }
 
 bool EnemyBullet::IsDead() const

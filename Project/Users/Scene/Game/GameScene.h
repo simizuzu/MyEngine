@@ -119,10 +119,10 @@ private: // メンバ変数
 
 	ParticleManager* damageParticle = nullptr;
 
-	std::unique_ptr<EnemyManager> enemyManager_ = nullptr;
-	std::unique_ptr<FbxModel> enemyModel_ = nullptr;
-
+	std::unique_ptr<EnemyManager> enemyManager_;
 	std::unique_ptr<Player> player_;
+
+	std::unique_ptr<FbxModel> enemyModel_;
 
 	std::unique_ptr<CollisionManager> collisionManager_;
 

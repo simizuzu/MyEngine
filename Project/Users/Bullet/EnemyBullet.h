@@ -3,12 +3,13 @@
 #include "ObjModel.h"
 #include "WorldTransform.h"
 #include "Bullet.h"
+#include "Collider.h"
 
  /**
  * @class PlayerBullet.h
  * @brief PlayerBulletのクラス
  */
-class EnemyBullet
+class EnemyBullet final : public Collider
 {
 public:
 	//コンストラクタ
@@ -37,7 +38,9 @@ public:
 	void Draw();
 
 	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision();
+	void OnCollision() override;
+
+	MyMath::Vector3 GetCenterPosition() const override;
 
 	bool IsDead() const;
 

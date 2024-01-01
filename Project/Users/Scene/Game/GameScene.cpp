@@ -1,5 +1,8 @@
 #include "GameScene.h"
 
+#include "EnemyBullet.h"
+#include "PlayerBullet.h"
+
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
@@ -322,15 +325,26 @@ void GameScene::CheckAllCollilsions()
 	//衝突マネージャのリセット
 	collisionManager_->Reset();
 
+	
+	std::unique_ptr<EnemyBullet> eBullet_;
+
 	//コライダーをリストに登録
+	//プレイヤーについて
 	collisionManager_->AddCollider(player_.get());
+	player_->SetRadius(2.0f);
+
 	//敵全てについて
 	for ( auto& enemy : enemyManager_->GetEnemys() )
 	{
 		collisionManager_->AddCollider(enemy.get());
 		enemy->SetRadius(2.0f);
 	}
-	player_->SetRadius(2.0f);
+
+	////プレイヤー弾について
+	//for ( std::unique_ptr<PlayerBullet>& pBullet_ : pBullets )
+	//{
+
+	//}
 
 	//衝突判定と応答
 	collisionManager_->CheckAllCollisions();

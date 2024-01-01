@@ -2,6 +2,7 @@
 #include "ObjObject3d.h"
 #include "ObjModel.h"
 #include "WorldTransform.h"
+#include "Collider.h"
 
  /**
  * @class PlayerBullet.h
@@ -11,7 +12,7 @@
 /// <summary>
 /// プレイヤーバレット
 /// </summary>
-class PlayerBullet
+class PlayerBullet final : public Collider
 {
 public:
 	/// <summary>
@@ -38,7 +39,9 @@ public:
 	bool IsDead() const;
 
 	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision();
+	void OnCollision() override;
+
+	MyMath::Vector3 GetCenterPosition() const override;
 
 	//コンストラクタ・デストラクタ
 	PlayerBullet() = default;
