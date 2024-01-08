@@ -17,7 +17,7 @@ void Player::Initialize(Camera* camera)
 	input = Input::GetInstance();
 	camera_.reset(camera);
 
-	curveData = LevelLoader::LoadFile("curveTest");
+	curveData = LevelLoader::LoadFile("curveData");
 	texReticle = TextureManager::Load("Resources/Texture/reticle2.png");
 	sprite2DReticle = std::make_unique<Sprite>();
 	sprite2DReticle->Initialize();

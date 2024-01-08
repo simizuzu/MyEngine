@@ -37,6 +37,7 @@ void GameObject::Update()
 {
 	skydomeTrans.Update(camera_);
 	skydomeTrans.SetTranslation({camera_->GetTranslation()});
+	groundTrans.SetRotation({0.0f,180.0f*MyMathUtility::degree2Radius,0.0f });
 	groundTrans.Update(camera_);
 }
 

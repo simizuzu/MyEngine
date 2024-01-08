@@ -208,7 +208,7 @@ void GameScene::Draw()
 		texBlackAlpha += decimal.zeroPointOne / static_cast< float >( two );
 		if ( texBlackAlpha > static_cast< float >( one ) )
 		{
-			sceneManager_->ChangeScene("RESULT");
+			sceneManager_->ChangeScene("TITLE");
 		}
 		break;
 	default:
