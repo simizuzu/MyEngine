@@ -96,6 +96,10 @@ void EnemyNormal::OnCollision()
 	flag = true;
 }
 
+const std::list<EnemyBullet*>& EnemyNormal::GetBullets() const
+{
+	return bullets;
+}
 
 void EnemyNormal::SetPlayer(Player* player)
 {

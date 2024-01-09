@@ -326,7 +326,7 @@ void GameScene::CheckAllCollilsions()
 	collisionManager_->Reset();
 
 	
-	std::unique_ptr<EnemyBullet> eBullet_;
+	//std::unique_ptr<EnemyBullet> eBullet_;
 
 	//コライダーをリストに登録
 	//プレイヤーについて
@@ -340,11 +340,12 @@ void GameScene::CheckAllCollilsions()
 		enemy->SetRadius(2.0f);
 	}
 
-	////プレイヤー弾について
-	//for ( std::unique_ptr<PlayerBullet>& pBullet_ : pBullets )
-	//{
-
-	//}
+	//プレイヤー弾について
+	for ( PlayerBullet* pBullet_ : player_->GetBullets() )
+	{
+		collisionManager_->AddCollider(pBullet_);
+		pBullet_->SetRadius(3.0f);
+	}
 
 	//衝突判定と応答
 	collisionManager_->CheckAllCollisions();

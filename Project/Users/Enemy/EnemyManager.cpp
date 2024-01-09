@@ -54,12 +54,18 @@ void EnemyManager::EnemyNormalEmit()
 	//std::unique_ptr<BaseEnemy> enemy = std::make_unique<EnemyNormal>();
 
 	//enemys.push_back(std::move(enemy));
+	
 }
 
 const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemys()
 {
 	return enemys;
 }
+
+//const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemyBullets()
+//{
+//	return 
+//}
 
 void EnemyManager::LoadEnemyPopData(const std::string& filePath)
 {

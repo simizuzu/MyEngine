@@ -7,8 +7,6 @@
 #include "FbxModel.h"
 #include "FbxObject3d.h"
 
-#include "EnemyBullet.h"
-
 /**
  * @class EnemyNormal.h
  * @brief 敵キャラの派生クラス（通常の敵キャラ）
@@ -46,7 +44,7 @@ public:
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision() override;
 
-	//const std::list<EnemyBullet*>& GetBullets() const;
+	const std::list<EnemyBullet*>& GetBullets() const override;
 
 	void SetPlayer(Player* player);
 
@@ -85,7 +83,7 @@ private:
 	std::unique_ptr<ObjModel> bulletModel;
 
 	//弾のリスト
-	std::list<EnemyBullet*> bullets;
+	//std::list<EnemyBullet*> bullets;
 	bool bulletIntervalFlag = false;
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;

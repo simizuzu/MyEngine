@@ -26,6 +26,11 @@ void PlayerBullet::Initialize(ObjModel* model, ObjObject3d* obj, const MyMath::V
 
 	//速度をメンバ変数に代入
 	velocity_ = velocity;
+
+	//衝突属性を設定
+	SetCollisionAttribute(collisionAttributePlayer);
+	//衝突対象を自分の属性以外に設定(ビット反転)
+	SetCollisionMask(~collisionAttributePlayer);
 }
 
 void PlayerBullet::Update(Camera* camera)
