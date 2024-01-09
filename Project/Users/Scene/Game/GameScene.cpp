@@ -108,6 +108,7 @@ void GameScene::Update()
 	CheckAllCollilsions();
 	colliderTrans.Update(camera);
 
+	audioManager_->Update();
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
@@ -193,7 +194,7 @@ void GameScene::Draw()
 		spriteStageName01_->Draw(texStageName01_, fieldNameSize);
 		robotoObj_->Draw(&robotoTrans);
 		
-		damageParticle->Draw();		
+		//damageParticle->Draw();
 		break;
 	case GameScene::SCENEFASE::START:
 		texBlackAlpha -= decimal.zeroPointOne;
