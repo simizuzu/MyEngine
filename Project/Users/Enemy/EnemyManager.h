@@ -44,7 +44,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update(Player* player);
+	void Update();
 
 	/// <summary>
 	/// 描画
@@ -52,11 +52,18 @@ public:
 	void Draw();
 
 	/// <summary>
-	/// 各敵キャラの初期化情報
+	/// 各敵キャラの初期化情報(更新処理の先頭にいれる)
 	/// </summary>
-	void EnemyNormalEmit();
+	void EnemyNormalEmit(Player* player);
 
+	/// <summary>
+	/// 敵の数を取得
+	/// </summary>
+	/// <returns>敵の数</returns>
 	const std::list<std::unique_ptr<BaseEnemy>>& GetEnemys();
+
+	bool GetReachCommandFlag();
+
 
 	//const std::list<std::unique_ptr<BaseEnemy>>& GetEnemyBullets();
 
@@ -75,15 +82,22 @@ private:
 private:
 	//各敵キャラのXYZ座標
 	MyMath::Vector3 enemysPos_;
+	uint8_t pad1[4 ];
 
+	//敵の合計数
+	size_t enemyCount;
+
+	//待っているかのフラグ
 	bool waitFlag = false;
-	int8_t pad1[7 ];
+	//コマンドが最後までたどり着いたかのフラグ
+	bool reachCommandFlag = false;
+	uint8_t pad2[ 2 ];
 
 	//csvから読み込んで入れる変数
 	int32_t waitTime;
 	//待機用タイム変数(現在進行形)
 	int32_t waitTimer;
-	int8_t pad2[ 4 ];
+	uint8_t pad3[ 4 ];
 
 	Camera* camera_ = nullptr;
 	FbxModel* model_ = nullptr;

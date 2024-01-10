@@ -195,13 +195,14 @@ private: //スタート演出
 private:
 	enum class SCENEFASE
 	{
+		INIT,
 		MOVIE,
 		START,
 		GAME,
 		RESULT
 	};
 
-	SCENEFASE scene = SCENEFASE::MOVIE;
+	SCENEFASE scene = SCENEFASE::INIT;
 	int8_t pad5[ 4 ];
 
 	DecimalNumbers decimal;

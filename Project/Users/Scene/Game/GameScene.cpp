@@ -97,6 +97,14 @@ void GameScene::Initialize()
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv",enemyModel_.get(),camera));
 
+	////敵全てを読み込む
+	//for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
+	//{
+	//	enemy->
+	//}
+
+	
+
 	sceneManager_ = SceneManager::GetInstance();
 }
 
@@ -107,8 +115,6 @@ void GameScene::Update()
 	//衝突判定と応答
 	CheckAllCollilsions();
 	colliderTrans.Update(camera);
-
-	audioManager_->Update();
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
@@ -141,10 +147,18 @@ void GameScene::Update()
 	player_->Update();
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 
-	enemyManager_->Update(player_.get());
+
 
 	switch ( scene )
 	{
+	case GameScene::SCENEFASE::INIT:
+		enemyManager_->EnemyNormalEmit(player_.get());
+		if ( enemyManager_->GetReachCommandFlag() )
+		{
+			scene = SCENEFASE::MOVIE;
+		}
+		break;
+
 	case GameScene::SCENEFASE::MOVIE:
 		//スタート演出
 		BlackMind();
@@ -179,6 +193,7 @@ void GameScene::Update()
 	default:
 		break;
 	}
+	enemyManager_->Update();
 }
 
 void GameScene::Draw()
@@ -190,6 +205,9 @@ void GameScene::Draw()
 
 	switch ( scene )
 	{
+	case GameScene::SCENEFASE::INIT:
+		break;
+
 	case GameScene::SCENEFASE::MOVIE:
 		spriteStageName01_->Draw(texStageName01_, fieldNameSize);
 		robotoObj_->Draw(&robotoTrans);
@@ -335,7 +353,7 @@ void GameScene::CheckAllCollilsions()
 	player_->SetRadius(2.0f);
 
 	//敵全てについて
-	for ( auto& enemy : enemyManager_->GetEnemys() )
+	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 	{
 		collisionManager_->AddCollider(enemy.get());
 		enemy->SetRadius(2.0f);

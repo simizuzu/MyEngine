@@ -30,11 +30,8 @@ void EnemyManager::Initialize(FbxModel* model,Camera* camera)
 	model_ = model;
 }
 
-void EnemyManager::Update(Player* player)
+void EnemyManager::Update()
 {
-	//敵出現
-	UpdateEnemyPopCommands(player);
-
 	for ( std::unique_ptr<BaseEnemy>& enemy : enemys )
 	{
 		enemy->Update();
@@ -49,17 +46,21 @@ void EnemyManager::Draw()
 	}
 }
 
-void EnemyManager::EnemyNormalEmit()
+void EnemyManager::EnemyNormalEmit(Player* player)
 {
-	//std::unique_ptr<BaseEnemy> enemy = std::make_unique<EnemyNormal>();
-
-	//enemys.push_back(std::move(enemy));
-	
+	//for(int i = 0; i< enemys.s )
+	//敵出現
+	UpdateEnemyPopCommands(player);
 }
 
 const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemys()
 {
 	return enemys;
+}
+
+bool EnemyManager::GetReachCommandFlag()
+{
+	return reachCommandFlag;
 }
 
 //const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemyBullets()
@@ -145,7 +146,6 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player)
 
 			enemy->translation = enemysPos_;
 			enemys.push_back(std::move(enemy));
-
 		}
 		else if ( word.find("WAIT") == 0 )
 		{
@@ -159,6 +159,17 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player)
 			waitTimer = waitTime;
 
 			//コマンドループを抜ける
+			break;
+		}
+		else if ( word.find("TOTAL") == 0 )
+		{
+			getline(line_stream,word,',');
+			enemyCount = (size_t)atoi(word.c_str());
+			if ( enemyCount == enemys.size() )
+			{
+				reachCommandFlag = true;
+			}
+			
 			break;
 		}
 	}
