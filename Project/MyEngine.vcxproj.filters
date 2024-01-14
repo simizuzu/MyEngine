@@ -638,7 +638,7 @@
     <ClInclude Include="Users\Bullet\EnemyBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionConfig.h">
+    <ClInclude Include="Users\Collider\CollisionConfig.h">
       <Filter>Application\ヘッダーファイル\Collision</Filter>
     </ClInclude>
   </ItemGroup>

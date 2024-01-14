@@ -81,7 +81,7 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CollisionConfig.h" />
+    <ClInclude Include="Users\Collider\CollisionConfig.h" />
     <ClInclude Include="Users\Bullet\Bullet.h" />
     <ClInclude Include="Users\Bullet\BulletManager.h" />
     <ClInclude Include="Users\Collider\Collider.h" />
