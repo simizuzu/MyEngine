@@ -441,6 +441,9 @@
     <ClCompile Include="Users\Bullet\PlayerBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="GPUParticle.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxObject3d.h">
@@ -641,6 +644,9 @@
     <ClInclude Include="Users\Collider\CollisionConfig.h">
       <Filter>Application\ヘッダーファイル\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="GPUParticle.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\FBX\FBX.hlsli">
@@ -660,6 +666,9 @@
     </None>
     <None Include="Resources\shaders\Primitive\Primitive.hlsli">
       <Filter>Engine\シェーダファイル\Primitive</Filter>
+    </None>
+    <None Include="Resources\shaders\Particle\HLSLMath.hlsli">
+      <Filter>Engine\シェーダファイル</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -701,6 +710,12 @@
     </FxCompile>
     <FxCompile Include="Resources\shaders\Primitive\PrimitiveVS.hlsl">
       <Filter>Engine\シェーダファイル\Primitive</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\EmitCS.hlsl">
+      <Filter>Engine\シェーダファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\FreeListInitCS.hlsl">
+      <Filter>Engine\シェーダファイル</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

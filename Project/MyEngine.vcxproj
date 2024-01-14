@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GPUParticle.cpp" />
     <ClCompile Include="Users\Bullet\Bullet.cpp" />
     <ClCompile Include="Users\Bullet\BulletManager.cpp" />
     <ClCompile Include="Users\Collider\Collider.cpp" />
@@ -81,6 +82,7 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GPUParticle.h" />
     <ClInclude Include="Users\Collider\CollisionConfig.h" />
     <ClInclude Include="Users\Bullet\Bullet.h" />
     <ClInclude Include="Users\Bullet\BulletManager.h" />
@@ -151,6 +153,7 @@
   <ItemGroup>
     <None Include="Resources\shaders\FBX\FBX.hlsli" />
     <None Include="Resources\shaders\OBJ\OBJ.hlsli" />
+    <None Include="Resources\shaders\Particle\HLSLMath.hlsli" />
     <None Include="Resources\shaders\Particle\Particle.hlsli" />
     <None Include="Resources\shaders\PostEffect\PostEffect.hlsli" />
     <None Include="Resources\shaders\Primitive\Primitive.hlsli" />
@@ -179,6 +182,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\EmitCS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\FreeListInitCS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Resources\shaders\Particle\ParticleGS.hlsl">
