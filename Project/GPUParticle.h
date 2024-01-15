@@ -34,8 +34,15 @@ private:
 	//エミッタールートシグネチャ
 	Microsoft::WRL::ComPtr<ID3D12RootSignature> emitRootSig_;
 
+	//アップデート用パイプラインステート
+	Microsoft::WRL::ComPtr<ID3D12PipelineState> updatePipState_;
+	//アップデート用ルートシグネチャ
+	Microsoft::WRL::ComPtr<ID3D12RootSignature> updateRootSig_;
+
+
 	D3D12_GPU_DESCRIPTOR_HANDLE freeListUavHandle;
 	D3D12_GPU_DESCRIPTOR_HANDLE particlePoolHandle;
+	D3D12_GPU_DESCRIPTOR_HANDLE DrawListUavHandle;
 
 	//パーティクルの最大数
 	size_t MAX_PARTICLE_;
@@ -99,9 +106,9 @@ private:
 	BillboardData billboradData;
 
 	//エミッターのカウンタ
-	float emitTimeCounter;
+	float emitTimeCounter = 1000.0f;
 	//生成する時間
-	float timeBetweenEmit;
+	float timeBetweenEmit = 1000.0f;
 	int32_t pad[3 ];
 
 public:
@@ -125,5 +132,6 @@ private:
 	//パイプライン
 	void CreateFreeListPipeline();
 	void CreateEmitPipeline();
+	void CreateUpdatePipeline();
 };
 

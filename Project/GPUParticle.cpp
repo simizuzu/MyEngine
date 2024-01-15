@@ -62,6 +62,7 @@ void GPUParticle::Initialize(size_t MAX_PARTICLE)
 
 		device->CreateUnorderedAccessView(drawList_.Get(),drawList_.Get(),&uavDesc,cpuHadle);
 
+		DrawListUavHandle = gpuHadle;
 		gpuHadle.ptr += device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 		cpuHadle.ptr += device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	}
@@ -131,6 +132,7 @@ void GPUParticle::Initialize(size_t MAX_PARTICLE)
 	//パイプライン
 	CreateFreeListPipeline();
 	CreateEmitPipeline();
+	CreateUpdatePipeline();
 
 	//フリーリスト初期化
 	{
@@ -154,27 +156,57 @@ void GPUParticle::Update(float deltaTime)
 	emitData.deltaTime = deltaTime;
 	ConstMapEmit();
 
-	//生成
-	if ( emitTimeCounter >= timeBetweenEmit )
+	//フリーリスト初期化
 	{
-		emitTimeCounter = 0.0f;
+		cmdList->SetPipelineState(freeListPipState_.Get());
+		cmdList->SetComputeRootSignature(freeListRootSig_.Get());
 
-		cmdList->SetPipelineState(emitPipState_.Get());
-		cmdList->SetComputeRootSignature(emitRootSig_.Get());
+		ID3D12DescriptorHeap* descHeaps[] = { descHeap.Get() };
+		cmdList->SetDescriptorHeaps(_countof(descHeaps), descHeaps);
 
-		ID3D12DescriptorHeap* descHeaps[ ] = { descHeap.Get() };
-		cmdList->SetDescriptorHeaps(_countof(descHeaps),descHeaps);
+		cmdList->SetComputeRootDescriptorTable(1, freeListUavHandle);
+		cmdList->SetComputeRootConstantBufferView(0, constBuffEmit_->GetGPUVirtualAddress());
 
-		cmdList->SetComputeRootConstantBufferView(0,constBuffEmit_->GetGPUVirtualAddress());
-		cmdList->SetComputeRootDescriptorTable(1,particlePoolHandle);
-		cmdList->SetComputeRootDescriptorTable(2,freeListUavHandle);
-
-		cmdList->Dispatch(static_cast< UINT >( emitData.MAX_PARTICLE / 1024 ) + 1,1,1);
+		cmdList->Dispatch(static_cast<UINT>(emitData.MAX_PARTICLE / 1024) + 1, 1, 1);
 	}
-	else
-	{
-		emitTimeCounter += deltaTime;
-	}
+
+	////生成
+	//if ( emitTimeCounter >= timeBetweenEmit )
+	//{
+	//	emitTimeCounter = 0.0f;
+
+	//	cmdList->SetPipelineState(emitPipState_.Get());
+	//	cmdList->SetComputeRootSignature(emitRootSig_.Get());
+
+	//	ID3D12DescriptorHeap* descHeaps[ ] = { descHeap.Get() };
+	//	cmdList->SetDescriptorHeaps(_countof(descHeaps),descHeaps);
+
+	//	cmdList->SetComputeRootConstantBufferView(0,constBuffEmit_->GetGPUVirtualAddress());
+	//	cmdList->SetComputeRootDescriptorTable(1,particlePoolHandle);
+	//	cmdList->SetComputeRootDescriptorTable(2,freeListUavHandle);
+
+	//	cmdList->Dispatch(static_cast< UINT >( emitData.MAX_PARTICLE / 1024 ) + 1,1,1);
+	//}
+	//else
+	//{
+	//	emitTimeCounter += deltaTime;
+	//}
+
+	////更新
+	//{
+	//	cmdList->SetPipelineState(updatePipState_.Get());
+	//	cmdList->SetComputeRootSignature(updateRootSig_.Get());
+
+	//	ID3D12DescriptorHeap* descHeaps[] = { descHeap.Get() };
+	//	cmdList->SetDescriptorHeaps(_countof(descHeaps),descHeaps);
+
+	//	cmdList->SetComputeRootConstantBufferView(0, constBuffEmit_->GetGPUVirtualAddress());
+	//	cmdList->SetComputeRootDescriptorTable(1, particlePoolHandle);
+	//	cmdList->SetComputeRootDescriptorTable(2, freeListUavHandle);
+	//	cmdList->SetComputeRootDescriptorTable(3, DrawListUavHandle);
+
+	//	cmdList->Dispatch(static_cast<UINT>(emitData.MAX_PARTICLE / 1024) + 1, 1, 1);
+	//}
 }
 
 void GPUParticle::Draw()
@@ -451,4 +483,111 @@ void GPUParticle::CreateEmitPipeline()
 void GPUParticle::CreateParticlePoolBuff()
 {
 	
+}
+
+void GPUParticle::CreateUpdatePipeline()
+{
+	HRESULT result;
+	ID3D12Device* device = DirectXCommon::GetInstance()->GetDevice();
+
+	D3D12_COMPUTE_PIPELINE_STATE_DESC computePipStateDesc = {};
+
+	//エラーオブジェクト
+	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob;
+	Microsoft::WRL::ComPtr<ID3DBlob> csBlob;
+	Microsoft::WRL::ComPtr<ID3DBlob> rootBlob;
+
+	//　頂点シェーダの読み込みとコンパイル
+	result = D3DCompileFromFile(
+		L"Resources/shaders/Particle/PUpdateCS.hlsl",	// シェーダファイル名
+		nullptr,
+		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
+		"main", "cs_5_0",	// エントリーポイント名、シェーダモデル指定
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, // デバック用設定
+		0, &csBlob, &errorBlob
+	);
+
+	// シェーダのエラー内容を表示
+	if (FAILED(result))
+	{
+		// errorBlobからエラー内容をstring型にコピー
+		std::string error;
+		error.resize(errorBlob->GetBufferSize());
+
+		std::copy_n((char*)errorBlob->GetBufferPointer(),
+			errorBlob->GetBufferSize(),
+			error.begin());
+		error += "\n";
+		// エラー内容を出力ウィンドウに表示
+		OutputDebugStringA(error.c_str());
+		assert(0);
+	}
+
+	computePipStateDesc.CS.BytecodeLength = csBlob->GetBufferSize();
+	computePipStateDesc.CS.pShaderBytecode = csBlob->GetBufferPointer();
+
+	// ルートパラメータの設定
+	D3D12_ROOT_PARAMETER rootParams[4] = {};
+	// ルートパラメータの設定
+	rootParams[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;	// 定数バッファビュー
+	rootParams[0].Descriptor.ShaderRegister = 0;					// 定数バッファ番号
+	rootParams[0].Descriptor.RegisterSpace = 0;						// デフォルト値
+	rootParams[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;	// 全てのシェーダから見える
+
+	// デスクリプタレンジの設定(UAV1個目)
+	D3D12_DESCRIPTOR_RANGE descritorRange{};
+	descritorRange.NumDescriptors = 1;
+	descritorRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_UAV;
+	descritorRange.BaseShaderRegister = 0;
+	descritorRange.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+	rootParams[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParams[1].DescriptorTable.pDescriptorRanges = &descritorRange;
+	rootParams[1].DescriptorTable.NumDescriptorRanges = 1;
+	rootParams[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+
+	// デスクリプタレンジの設定(UAV2個目)
+	D3D12_DESCRIPTOR_RANGE descritorRange2{};
+	descritorRange2.NumDescriptors = 1;
+	descritorRange2.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_UAV;
+	descritorRange2.BaseShaderRegister = 1;
+	descritorRange2.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+	rootParams[2].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParams[2].DescriptorTable.pDescriptorRanges = &descritorRange2;
+	rootParams[2].DescriptorTable.NumDescriptorRanges = 1;
+	rootParams[2].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+
+	// デスクリプタレンジの設定(UAV3個目)
+	D3D12_DESCRIPTOR_RANGE descritorRange3{};
+	descritorRange3.NumDescriptors = 1;
+	descritorRange3.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_UAV;
+	descritorRange3.BaseShaderRegister = 2;
+	descritorRange3.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+	rootParams[3].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParams[3].DescriptorTable.pDescriptorRanges = &descritorRange3;
+	rootParams[3].DescriptorTable.NumDescriptorRanges = 1;
+	rootParams[3].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+
+	// ルートシグネチャの設定
+	D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc{};
+	rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+	rootSignatureDesc.pParameters = rootParams;
+	rootSignatureDesc.NumParameters = _countof(rootParams);
+	rootSignatureDesc.pStaticSamplers = nullptr;
+	rootSignatureDesc.NumStaticSamplers = 0;
+
+	// ルートシグネチャのシリアライズ
+	result = D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootBlob, &errorBlob);
+	assert(SUCCEEDED(result));
+	result = device->CreateRootSignature(0, rootBlob->GetBufferPointer(), rootBlob->GetBufferSize(), IID_PPV_ARGS(&updateRootSig_));
+	assert(SUCCEEDED(result));
+
+	// パイプラインにルートシグネチャをセット
+	computePipStateDesc.pRootSignature = updateRootSig_.Get();
+
+	// パイプラインステートの生成
+	result = device->CreateComputePipelineState(&computePipStateDesc, IID_PPV_ARGS(&updatePipState_));
+	assert(SUCCEEDED(result));
 }
