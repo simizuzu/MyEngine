@@ -173,7 +173,7 @@ void GPUParticle::Update(float deltaTime)
 		cmdList->SetComputeRootDescriptorTable(1,particlePoolHandle);
 		cmdList->SetComputeRootDescriptorTable(2,freeListUavHandle);
 
-		cmdList->Dispatch(static_cast< UINT >( 1000 / 1024 ) + 1,1,1);
+		cmdList->Dispatch(static_cast< UINT >( emitData.MAX_PARTICLE / 1024 ) + 1,1,1);
 	}
 	else
 	{

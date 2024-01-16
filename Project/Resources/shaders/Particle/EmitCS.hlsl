@@ -51,7 +51,7 @@ ConsumeStructuredBuffer<uint> freeList : register(u1);
 [numthreads(1024, 1, 1)]
 void main( uint3 DTid : SV_DispatchThreadID )
 {
-	if (DTid.x >= 1000)
+	if (DTid.x >= MAX_PARTICLE)
 	{
 		return;
 	}
@@ -62,12 +62,12 @@ void main( uint3 DTid : SV_DispatchThreadID )
 	
 	float3 rnd = RandVec3((int) emitIndex, 1, 0);
 	
-	emitParticle.position = (rnd * pos) - (pos / 2.0f);
+	emitParticle.position = pos;
 	emitParticle.velocity = (rnd * velocity) - (velocity / 2.0f);
 	emitParticle.color = startColor;
 	emitParticle.accel = rnd * accel;
 	emitParticle.AGE = 0.0f;
-	emitParticle.size = 0.5f;
+	emitParticle.size = 0.0f;
 	emitParticle.isAlive = 1.0f;
 	emitParticle.lifeTime = lifeTime;
 	

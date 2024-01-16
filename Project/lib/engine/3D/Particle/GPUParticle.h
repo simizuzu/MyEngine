@@ -86,9 +86,9 @@ private:
 	struct EmitData
 	{
 		//座標
-		MyMath::Vector3 pos = {0,0,50.0f};
+		MyMath::Vector3 pos = {0,0,0.0f};
 		//寿命
-		float lifeTime = 0.1f;
+		float lifeTime = 0.2f;
 		//加速度
 		MyMath::Vector3 accel = {0,0,0};
 		//スケール

@@ -19,7 +19,7 @@ void GameScene::Initialize()
 	input_ = Input::GetInstance();
 
 	gpuParticle = std::make_unique<GPUParticle>();
-	gpuParticle->Initialize(10000);
+	gpuParticle->Initialize(1000);
 
 	camera = new Camera();
 	camera->Initialize();
