@@ -9,11 +9,13 @@ cbuffer EmitData : register(b0)
 	//加速度
 	float3 accel;
 	//スケール
-	float scale;
+	float scale = 1;
 	//開始時の色
 	float4 startColor;
 	//終了時の色
 	float4 endColor;
+	//速度
+	float3 velocity;
 	//経過時間
 	float deltaTime;
 	//パーティクルの最大数

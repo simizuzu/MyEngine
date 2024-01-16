@@ -24,6 +24,7 @@ private:
 	//デスクヒープ
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descHeap = nullptr;
 
+#pragma region パイプラインの設定
 	//フリーリストパイプラインステート
 	Microsoft::WRL::ComPtr<ID3D12PipelineState> freeListPipState_;
 	//フリーリストルートシグネチャ
@@ -34,11 +35,16 @@ private:
 	//エミッタールートシグネチャ
 	Microsoft::WRL::ComPtr<ID3D12RootSignature> emitRootSig_;
 
-	//アップデート用パイプラインステート
+	//更新用パイプラインステート
 	Microsoft::WRL::ComPtr<ID3D12PipelineState> updatePipState_;
-	//アップデート用ルートシグネチャ
+	//更新用ルートシグネチャ
 	Microsoft::WRL::ComPtr<ID3D12RootSignature> updateRootSig_;
 
+	//描画用パイプラインステート
+	Microsoft::WRL::ComPtr<ID3D12PipelineState> drawPipState_;
+	//描画用ルートシグネチャ
+	Microsoft::WRL::ComPtr<ID3D12RootSignature> drawRootSig_;
+#pragma endregion
 
 	D3D12_GPU_DESCRIPTOR_HANDLE freeListUavHandle;
 	D3D12_GPU_DESCRIPTOR_HANDLE particlePoolHandle;
@@ -133,5 +139,6 @@ private:
 	void CreateFreeListPipeline();
 	void CreateEmitPipeline();
 	void CreateUpdatePipeline();
+	void CreateDrawPipeline();
 };
 

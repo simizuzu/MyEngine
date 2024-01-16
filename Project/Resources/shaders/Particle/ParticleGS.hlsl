@@ -22,9 +22,7 @@ static const float2 uv_array[vnum] =
 
 // 点の入力から、四角形を出力
 [maxvertexcount(vnum)]
-void main(
-	point VSOutput input[1] : SV_POSITION,
-	inout TriangleStream<GSOutput> output
+void main(point VSOutput input[1] : SV_POSITION, inout TriangleStream<GSOutput> output
 )
 {
     GSOutput element; // 出力用頂点データ

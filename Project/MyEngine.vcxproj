@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GPUParticle.cpp" />
+    <ClCompile Include="lib\engine\3D\Particle\GPUParticle.cpp" />
     <ClCompile Include="Users\Bullet\Bullet.cpp" />
     <ClCompile Include="Users\Bullet\BulletManager.cpp" />
     <ClCompile Include="Users\Collider\Collider.cpp" />
@@ -82,7 +82,7 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GPUParticle.h" />
+    <ClInclude Include="lib\engine\3D\Particle\GPUParticle.h" />
     <ClInclude Include="Users\Collider\CollisionConfig.h" />
     <ClInclude Include="Users\Bullet\Bullet.h" />
     <ClInclude Include="Users\Bullet\BulletManager.h" />
@@ -153,6 +153,7 @@
   <ItemGroup>
     <None Include="Resources\shaders\FBX\FBX.hlsli" />
     <None Include="Resources\shaders\OBJ\OBJ.hlsli" />
+    <None Include="Resources\shaders\Particle\GPUParticle.hlsli" />
     <None Include="Resources\shaders\Particle\HLSLMath.hlsli" />
     <None Include="Resources\shaders\Particle\Particle.hlsli" />
     <None Include="Resources\shaders\PostEffect\PostEffect.hlsli" />
@@ -160,6 +161,28 @@
     <None Include="Resources\shaders\Sprite\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Resources\shaders\Particle\GPUParticleGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\GPUParticlePShlsl.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Particle\GPUParticleVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Resources\shaders\Particle\PUpdateCS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
