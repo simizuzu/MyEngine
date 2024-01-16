@@ -24,6 +24,8 @@ void GameScene::Initialize()
 	camera = new Camera();
 	camera->Initialize();
 
+	transform.Initialize();
+
 	sceneManager_ = SceneManager::GetInstance();
 }
 
@@ -31,12 +33,13 @@ void GameScene::Update()
 {
 	light->Update();
 	gpuParticle->Update(0.013f); //1Fの経過時間が役0.013f
+	transform.UpdateParticle(camera,true);
 }
 
 void GameScene::Draw()
 {
+	gpuParticle->Draw(&transform);
 }
-
 
 void GameScene::Finalize()
 {

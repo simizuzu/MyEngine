@@ -51,7 +51,7 @@ ConsumeStructuredBuffer<uint> freeList : register(u1);
 [numthreads(1024, 1, 1)]
 void main( uint3 DTid : SV_DispatchThreadID )
 {
-	if (DTid.x >= MAX_PARTICLE)
+	if (DTid.x >= 1000)
 	{
 		return;
 	}

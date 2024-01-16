@@ -1,18 +1,23 @@
-struct GSOutput
-{
-	float4 pos : SV_POSITION;
-};
+#include "GPUParticle.hlsli"
 
-[maxvertexcount(3)]
-void main(
-	triangle float4 input[3] : SV_POSITION, 
-	inout TriangleStream< GSOutput > output
-)
+[maxvertexcount(4)]
+void main(point VSOutput input[1], inout TriangleStream< GSOutput > outStream)
 {
-	for (uint i = 0; i < 3; i++)
+	GSOutput output;
+	
+	[unroll]
+	for (int i = 0; i < 4; i++)
 	{
-		GSOutput element;
-		element.pos = input[i];
-		output.Append(element);
+		//中心からのオフセットをスケーリング
+		float4 offset = offset_array[i] * input[0].size;
+		//中心からのオフセットをビルボード回転
+		offset = mul(matBillboard, offset);
+		output.svpos = float4(input[0].pos, 1.0f) + offset;
+		output.svpos = mul(matWorld, output.svpos);
+		output.color = input[0].color;
+		output.uv = uv_array[i];
+		
+		outStream.Append(output);
 	}
+
 }

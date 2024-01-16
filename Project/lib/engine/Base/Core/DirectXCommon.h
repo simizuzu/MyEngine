@@ -113,7 +113,8 @@ public:
 
 private:
 	DirectXCommon() = default;
-	~DirectXCommon() = default;
+	//~DirectXCommon() = default;
+	~DirectXCommon();
 	DirectXCommon& operator=(const DirectXCommon&) = delete;
 	DirectXCommon(const DirectXCommon&) = delete;
 };

@@ -12,6 +12,7 @@
 #include "ParticleManager.h"
 
 #include "GPUParticle.h"
+#include "WorldTransform.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
@@ -51,6 +52,7 @@ private: // メンバ変数
 	WorldTransform colliderTrans;
 
 	std::unique_ptr<GPUParticle> gpuParticle;
+	WorldTransform transform;
 	
 	//シーンマネージャ
 	SceneManager* sceneManager_ = nullptr;

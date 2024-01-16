@@ -75,6 +75,7 @@ public:
 	MyMath::Vector3 scale_ = { 1.0f,1.0f,1.0f };
 
 	MyMath::Matrix4 matWorld;
+	MyMath::Matrix4 matBillboard;
 
 	const WorldTransform* parent = nullptr;
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "SuppressWarning.h"
 #include "DirectX12Math.h"
+#include "WorldTransform.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
@@ -23,6 +24,8 @@ private:
 
 	//デスクヒープ
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descHeap = nullptr;
+	//コマンドリスト
+	Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> cmdList;
 
 #pragma region パイプラインの設定
 	//フリーリストパイプラインステート
@@ -49,9 +52,6 @@ private:
 	D3D12_GPU_DESCRIPTOR_HANDLE freeListUavHandle;
 	D3D12_GPU_DESCRIPTOR_HANDLE particlePoolHandle;
 	D3D12_GPU_DESCRIPTOR_HANDLE DrawListUavHandle;
-
-	//パーティクルの最大数
-	size_t MAX_PARTICLE_;
 
 private:
 	struct ParticleData
@@ -86,19 +86,19 @@ private:
 	struct EmitData
 	{
 		//座標
-		MyMath::Vector3 pos = {};
+		MyMath::Vector3 pos = {0,0,50.0f};
 		//寿命
-		float lifeTime;
+		float lifeTime = 0.1f;
 		//加速度
-		MyMath::Vector3 accel = {};
+		MyMath::Vector3 accel = {0,0,0};
 		//スケール
-		float scale = 1;
+		float scale = 0.1f;
 		//開始時の色
-		MyMath::Vector4 startColor;
+		MyMath::Vector4 startColor = {1,1,1,1};
 		//終了時の色
-		MyMath::Vector4 endColor;
+		MyMath::Vector4 endColor = { 1,1,1,1 };
 		//速度
-		MyMath::Vector3 velocity;
+		MyMath::Vector3 velocity = { 3.0f,3.0f,3.0f };
 		//経過時間
 		float deltaTime;
 		//パーティクルの最大数
@@ -112,17 +112,18 @@ private:
 	BillboardData billboradData;
 
 	//エミッターのカウンタ
-	float emitTimeCounter = 1000.0f;
+	float emitTimeCounter = 0.01f;
 	//生成する時間
-	float timeBetweenEmit = 1000.0f;
-	int32_t pad[3 ];
+	float timeBetweenEmit = 0.01f;
+	int32_t pad[ 3 ];
 
 public:
 	void Initialize(size_t MAX_PARTICLE);
 
 	void Update(float deltaTime);
 
-	void Draw();
+	void Draw(WorldTransform* transform);
+
 
 private:
 	//エミッター用定数バッファ生成
@@ -130,8 +131,7 @@ private:
 	//ビルボード用定数バッファ生成
 	void CreateConstBufferBillboard();
 
-	void CreateParticlePoolBuff();
-
+	//マッピング処理
 	void ConstMapEmit();
 	void ConstMapBillboard();
 
@@ -140,5 +140,11 @@ private:
 	void CreateEmitPipeline();
 	void CreateUpdatePipeline();
 	void CreateDrawPipeline();
+
+	/// <summary>
+	/// GetGPUVirtualAddress()を返す関数
+	/// </summary>
+	/// <returns>GetGPUVirtualAddress()</returns>
+	D3D12_GPU_VIRTUAL_ADDRESS GetGpuAddress();
 };
 

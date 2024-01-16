@@ -13,6 +13,10 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief DirectXCommonの処理について書いてあります
  */
 
+DirectXCommon::~DirectXCommon()
+{
+
+}
 
 void DirectXCommon::Initialize()
 {

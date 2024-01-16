@@ -10,8 +10,8 @@ MYENGINE_SUPPRESS_WARNINGS_END
 void GPUParticle::Initialize(size_t MAX_PARTICLE)
 {
 	HRESULT result;
-	ID3D12Device* device = DirectXCommon::GetInstance()->GetDevice();
-	ID3D12GraphicsCommandList* cmdList = DirectXCommon::GetInstance()->GetCommandList();
+	Microsoft::WRL::ComPtr<ID3D12Device> device = DirectXCommon::GetInstance()->GetDevice();
+	cmdList = DirectXCommon::GetInstance()->GetCommandList();
 
 	emitData.MAX_PARTICLE = ( uint32_t )MAX_PARTICLE;
 
@@ -128,11 +128,13 @@ void GPUParticle::Initialize(size_t MAX_PARTICLE)
 	CreateConstBufferEmit();
 	CreateConstBufferBillboard();
 	ConstMapEmit();
+	ConstMapBillboard();
 
 	//パイプライン
 	CreateFreeListPipeline();
 	CreateEmitPipeline();
 	CreateUpdatePipeline();
+	CreateDrawPipeline();
 
 	//フリーリスト初期化
 	{
@@ -151,7 +153,7 @@ void GPUParticle::Initialize(size_t MAX_PARTICLE)
 
 void GPUParticle::Update(float deltaTime)
 {
-	ID3D12GraphicsCommandList* cmdList = DirectXCommon::GetInstance()->GetCommandList();
+	cmdList = DirectXCommon::GetInstance()->GetCommandList();
 
 	emitData.deltaTime = deltaTime;
 	ConstMapEmit();
@@ -171,7 +173,7 @@ void GPUParticle::Update(float deltaTime)
 		cmdList->SetComputeRootDescriptorTable(1,particlePoolHandle);
 		cmdList->SetComputeRootDescriptorTable(2,freeListUavHandle);
 
-		cmdList->Dispatch(static_cast< UINT >( emitData.MAX_PARTICLE / 1024 ) + 1,1,1);
+		cmdList->Dispatch(static_cast< UINT >( 1000 / 1024 ) + 1,1,1);
 	}
 	else
 	{
@@ -195,14 +197,35 @@ void GPUParticle::Update(float deltaTime)
 	}
 }
 
-void GPUParticle::Draw()
+void GPUParticle::Draw(WorldTransform* transform)
 {
+	billboradData.mat = transform->matWorld;
+	billboradData.billMat = transform->matBillboard;
+
+	cmdList = DirectXCommon::GetInstance()->GetCommandList();
+	//デスクリプタヒープのセット
+	ID3D12DescriptorHeap* descHeaps[ ] = { descHeap.Get() };
+	cmdList->SetDescriptorHeaps(_countof(descHeaps),descHeaps);
+
+	//パイプラインステートの設定
+	cmdList->SetPipelineState(drawPipState_.Get());
+	//ルートシグネチャの設定
+	cmdList->SetGraphicsRootSignature(drawRootSig_.Get());
+	//プリミティブ形状の設定コマンド
+	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+	//定数バッファビューをセット
+	cmdList->SetGraphicsRootConstantBufferView(0,GetGpuAddress());
+	cmdList->SetGraphicsRootDescriptorTable(1,particlePoolHandle);
+	cmdList->SetGraphicsRootDescriptorTable(2,DrawListUavHandle);
+
+	//描画コマンド
+	cmdList->DrawInstanced(1,(UINT)emitData.MAX_PARTICLE,0,0);
 }
 
 void GPUParticle::CreateConstBufferEmit()
 {
 	HRESULT result;
-	ID3D12Device* device = DirectXCommon::GetInstance()->GetDevice();
+	Microsoft::WRL::ComPtr<ID3D12Device> device = DirectXCommon::GetInstance()->GetDevice();
 
 	D3D12_HEAP_PROPERTIES heapProp{};//ヒープ設定
 	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD;//GPUへの転送用
@@ -230,7 +253,7 @@ void GPUParticle::CreateConstBufferEmit()
 void GPUParticle::CreateConstBufferBillboard()
 {
 	HRESULT result;
-	ID3D12Device* device = DirectXCommon::GetInstance()->GetDevice();
+	Microsoft::WRL::ComPtr<ID3D12Device> device = DirectXCommon::GetInstance()->GetDevice();
 
 	D3D12_HEAP_PROPERTIES heapProp{};//ヒープ設定
 	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD;//GPUへの転送用
@@ -281,18 +304,18 @@ void GPUParticle::ConstMapBillboard()
 
 	// 定数バッファへデータ転送
 	BillboardData* constMap = nullptr;
-	result = constBuffEmit_->Map(0,nullptr,( void** ) &constMap);
+	result = constBuffBill_->Map(0,nullptr,( void** ) &constMap);
 	assert(SUCCEEDED(result));
 	constMap->mat = billboradData.mat;
 	constMap->billMat = billboradData.billMat;
-	constBuffEmit_->Unmap(0,nullptr);
+	constBuffBill_->Unmap(0,nullptr);
 }
 
 void GPUParticle::CreateFreeListPipeline()
 {
 	HRESULT result;
-	ID3D12Device* device = DirectXCommon::GetInstance()->GetDevice();
-
+	Microsoft::WRL::ComPtr<ID3D12Device> device = DirectXCommon::GetInstance()->GetDevice();
+	
 	D3D12_COMPUTE_PIPELINE_STATE_DESC computePipStateDesc = {};
 
 	//エラーオブジェクト
@@ -374,7 +397,7 @@ void GPUParticle::CreateFreeListPipeline()
 void GPUParticle::CreateEmitPipeline()
 {
 	HRESULT result;
-	ID3D12Device* device = DirectXCommon::GetInstance()->GetDevice();
+	Microsoft::WRL::ComPtr<ID3D12Device> device = DirectXCommon::GetInstance()->GetDevice();
 
 	D3D12_COMPUTE_PIPELINE_STATE_DESC computePipStateDesc = {};
 
@@ -466,15 +489,10 @@ void GPUParticle::CreateEmitPipeline()
 	assert(SUCCEEDED(result));
 }
 
-void GPUParticle::CreateParticlePoolBuff()
-{
-	
-}
-
 void GPUParticle::CreateUpdatePipeline()
 {
 	HRESULT result;
-	ID3D12Device* device = DirectXCommon::GetInstance()->GetDevice();
+	Microsoft::WRL::ComPtr<ID3D12Device> device = DirectXCommon::GetInstance()->GetDevice();
 
 	D3D12_COMPUTE_PIPELINE_STATE_DESC computePipStateDesc = {};
 
@@ -581,13 +599,13 @@ void GPUParticle::CreateUpdatePipeline()
 void GPUParticle::CreateDrawPipeline()
 {
 	HRESULT result;
-	ID3D12Device* device = DirectXCommon::GetInstance()->GetDevice();
-
-	D3D12_COMPUTE_PIPELINE_STATE_DESC computePipStateDesc = {};
+	Microsoft::WRL::ComPtr<ID3D12Device> device = DirectXCommon::GetInstance()->GetDevice();
 
 	//エラーオブジェクト
 	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob;
-	Microsoft::WRL::ComPtr<ID3DBlob> csBlob;
+	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob;
+	Microsoft::WRL::ComPtr<ID3DBlob> psBlob;
+	Microsoft::WRL::ComPtr<ID3DBlob> gsBlob;
 	Microsoft::WRL::ComPtr<ID3DBlob> rootBlob;
 
 	//　頂点シェーダの読み込みとコンパイル
@@ -597,7 +615,7 @@ void GPUParticle::CreateDrawPipeline()
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
 		"main","vs_5_0",	// エントリーポイント名、シェーダモデル指定
 		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, // デバック用設定
-		0,&csBlob,&errorBlob
+		0,&vsBlob,&errorBlob
 	);
 
 	// シェーダのエラー内容を表示
@@ -623,7 +641,7 @@ void GPUParticle::CreateDrawPipeline()
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
 		"main","ps_5_0",	// エントリーポイント名、シェーダモデル指定
 		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, // デバック用設定
-		0,&csBlob,&errorBlob
+		0,&psBlob,&errorBlob
 	);
 
 	// シェーダのエラー内容を表示
@@ -649,7 +667,7 @@ void GPUParticle::CreateDrawPipeline()
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,	// インクルード可能にする
 		"main","gs_5_0",	// エントリーポイント名、シェーダモデル指定
 		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, // デバック用設定
-		0,&csBlob,&errorBlob
+		0,&gsBlob,&errorBlob
 	);
 
 	// シェーダのエラー内容を表示
@@ -668,8 +686,59 @@ void GPUParticle::CreateDrawPipeline()
 		assert(0);
 	}
 
-	computePipStateDesc.CS.BytecodeLength = csBlob->GetBufferSize();
-	computePipStateDesc.CS.pShaderBytecode = csBlob->GetBufferPointer();
+	// グラフィックスパイプラインの流れを設定
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC gpipeline{};
+	gpipeline.VS = CD3DX12_SHADER_BYTECODE(vsBlob.Get());
+	gpipeline.GS = CD3DX12_SHADER_BYTECODE(gsBlob.Get());
+	gpipeline.PS = CD3DX12_SHADER_BYTECODE(psBlob.Get());
+
+	// サンプルマスク
+	gpipeline.SampleMask = D3D12_DEFAULT_SAMPLE_MASK; // 標準設定
+	// ラスタライザステート
+	gpipeline.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
+	// デプスステンシルステート
+	gpipeline.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
+
+	// レンダーターゲットのブレンド設定
+	D3D12_RENDER_TARGET_BLEND_DESC blenddesc{};
+	blenddesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;	// RBGA全てのチャンネルを描画
+	blenddesc.BlendEnable = true;
+	//半透明合成
+	blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
+	blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
+	blenddesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+
+	blenddesc.BlendOpAlpha = D3D12_BLEND_OP_ADD;
+	blenddesc.SrcBlendAlpha = D3D12_BLEND_ONE;
+	blenddesc.DestBlendAlpha = D3D12_BLEND_ZERO;
+
+	//デプスの書き込みを禁止
+	gpipeline.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ZERO;
+
+	// ブレンドステートの設定
+	gpipeline.BlendState.RenderTarget[ 0 ] = blenddesc;
+
+	// 深度バッファのフォーマット
+	gpipeline.DSVFormat = DXGI_FORMAT_D32_FLOAT;
+
+	// 図形の形状設定（三角形）
+	gpipeline.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
+
+	gpipeline.NumRenderTargets = 1;	// 描画対象は1つ
+	gpipeline.RTVFormats[ 0 ] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB; // 0～255指定のRGBA
+	gpipeline.SampleDesc.Count = 1; // 1ピクセルにつき1回サンプリング
+
+	//// デスクリプタレンジ
+	//CD3DX12_DESCRIPTOR_RANGE descRangeUAV;
+	//CD3DX12_DESCRIPTOR_RANGE descRangeUAV2;
+	//descRangeUAV.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV,1,0); 
+	//descRangeUAV2.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV,1,1);
+
+	//// ルートパラメータの設定
+	//CD3DX12_ROOT_PARAMETER rootParams[ 3 ]{};
+	//rootParams[ 0 ].InitAsConstantBufferView(0,0,D3D12_SHADER_VISIBILITY_ALL);
+	//rootParams[ 1 ].InitAsDescriptorTable(1,&descRangeUAV,D3D12_SHADER_VISIBILITY_ALL);
+	//rootParams[ 2 ].InitAsDescriptorTable(1,&descRangeUAV2,D3D12_SHADER_VISIBILITY_ALL);
 
 	// ルートパラメータの設定
 	D3D12_ROOT_PARAMETER rootParams[ 3 ] = {};
@@ -711,6 +780,25 @@ void GPUParticle::CreateDrawPipeline()
 	rootSignatureDesc.pStaticSamplers = nullptr;
 	rootSignatureDesc.NumStaticSamplers = 0;
 
+	//// スタティックサンプラー
+	//CD3DX12_STATIC_SAMPLER_DESC samplerDesc = CD3DX12_STATIC_SAMPLER_DESC(0);
+
+	//// ルートシグネチャの設定
+	//CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootSignatureDesc;
+	//rootSignatureDesc.Init_1_0(_countof(rootParams),rootParams,0,&samplerDesc,D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+
+	//// バージョン自動判定のシリアライズ
+	//result = D3DX12SerializeVersionedRootSignature(&rootSignatureDesc,D3D_ROOT_SIGNATURE_VERSION_1_0,&rootBlob,&errorBlob);
+	//// ルートシグネチャの生成
+	//result = device->CreateRootSignature(0,rootBlob->GetBufferPointer(),rootBlob->GetBufferSize(),IID_PPV_ARGS(&drawRootSig_));
+	//assert(SUCCEEDED(result));
+
+	//gpipeline.pRootSignature = drawRootSig_.Get();
+
+	//// グラフィックスパイプラインの生成
+	//result = device->CreateGraphicsPipelineState(&gpipeline,IID_PPV_ARGS(&drawPipState_));
+	//assert(SUCCEEDED(result));
+
 	// ルートシグネチャのシリアライズ
 	result = D3D12SerializeRootSignature(&rootSignatureDesc,D3D_ROOT_SIGNATURE_VERSION_1_0,&rootBlob,&errorBlob);
 	assert(SUCCEEDED(result));
@@ -718,9 +806,14 @@ void GPUParticle::CreateDrawPipeline()
 	assert(SUCCEEDED(result));
 
 	// パイプラインにルートシグネチャをセット
-	computePipStateDesc.pRootSignature = drawRootSig_.Get();
+	gpipeline.pRootSignature = drawRootSig_.Get();
 
 	// パイプラインステートの生成
-	result = device->CreateComputePipelineState(&computePipStateDesc,IID_PPV_ARGS(&drawPipState_));
+	result = device->CreateGraphicsPipelineState(&gpipeline,IID_PPV_ARGS(&drawPipState_));
 	assert(SUCCEEDED(result));
+}
+
+D3D12_GPU_VIRTUAL_ADDRESS GPUParticle::GetGpuAddress()
+{
+	return constBuffBill_->GetGPUVirtualAddress();
 }

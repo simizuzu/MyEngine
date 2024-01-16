@@ -57,14 +57,14 @@ void WorldTransform::UpdateParticle(Camera* camera,bool billboradFlag)
 	}
 	else
 	{
-		MyMath::Matrix4 mat = camera->GetMatViewInverse();
+		matBillboard = camera->GetMatViewInverse();
 
-		mat.m[ 3 ][ 0 ] = 0;
-		mat.m[ 3 ][ 1 ] = 0;
-		mat.m[ 3 ][ 2 ] = 0;
-		mat.m[ 3 ][ 3 ] = 1;
+		matBillboard.m[ 3 ][ 0 ] = 0;
+		matBillboard.m[ 3 ][ 1 ] = 0;
+		matBillboard.m[ 3 ][ 2 ] = 0;
+		matBillboard.m[ 3 ][ 3 ] = 1;
 
-		matWorld = matScale * matRot * mat * matTrans * camera->GetMatView() * camera->GetMatProjection();
+		matWorld = matScale * matRot * matBillboard * matTrans * camera->GetMatView() * camera->GetMatProjection();
 
 		//定数バッファへデータ転送
 		ConstBufferDataB0* constMap = nullptr;
