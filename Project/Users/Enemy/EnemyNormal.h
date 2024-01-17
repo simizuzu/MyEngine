@@ -44,6 +44,8 @@ public:
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision() override;
 
+	bool IsDead() const override;
+
 	const std::list<EnemyBullet*>& GetBullets() const override;
 
 	void SetPlayer(Player* player);
@@ -82,13 +84,12 @@ private:
 	std::unique_ptr<ObjObject3d> bulletObj;
 	std::unique_ptr<ObjModel> bulletModel;
 
-	//弾のリスト
-	//std::list<EnemyBullet*> bullets;
+	bool isDead = false;
 	bool bulletIntervalFlag = false;
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;
 	bool flag = false;
-	int8_t pad2[ 4 ];
+	int8_t pad2[ 3 ];
 
 private:
 	//代入演算子削除

@@ -27,6 +27,8 @@ public:
 
 	virtual void Draw() = 0;
 
+	virtual bool IsDead() const = 0;
+
 public:
 	//中心座標を取得
 	virtual MyMath::Vector3 GetCenterPosition() const override = 0;

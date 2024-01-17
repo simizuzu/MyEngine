@@ -64,7 +64,6 @@ public:
 
 	bool GetReachCommandFlag();
 
-
 	//const std::list<std::unique_ptr<BaseEnemy>>& GetEnemyBullets();
 
 private:
@@ -78,6 +77,11 @@ private:
 	/// 敵発生コマンドの更新
 	/// </summary>
 	void UpdateEnemyPopCommands(Player* player);
+
+	/// <summary>
+	/// 敵の削除
+	/// </summary>
+	void DeleteEnemys();
 
 private:
 	//各敵キャラのXYZ座標

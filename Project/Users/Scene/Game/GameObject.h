@@ -57,20 +57,13 @@ private:
 	std::unique_ptr<Sprite> reticle;
 
 	std::unique_ptr<ObjObject3d> skydomeObj_;
-	std::unique_ptr<ObjObject3d> buildingObj_;
 	std::unique_ptr<ObjObject3d> groundObj_;
-	std::unique_ptr<ObjObject3d> tyoinoriObj_;
 
 	std::unique_ptr<ObjModel> groundModel_;
 	std::unique_ptr<ObjModel> skydomeModel_;
-	std::unique_ptr<ObjModel> buildingModel_;
-	std::unique_ptr<ObjModel> tyoinoriModel_;
 
-	WorldTransform tyoinoriTrans;
 	WorldTransform skydomeTrans;
-	WorldTransform buildingTrans;
 	WorldTransform groundTrans;
-
 
 	float maxTime = 10.0f;
 	float timeRate;

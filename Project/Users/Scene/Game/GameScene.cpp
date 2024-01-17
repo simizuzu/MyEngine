@@ -147,8 +147,6 @@ void GameScene::Update()
 	player_->Update();
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 
-
-
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::INIT:

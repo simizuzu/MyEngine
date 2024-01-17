@@ -32,7 +32,7 @@ void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 	colliderObj_->SetModel(colliderModel_.get());
 
 	colliderTrans.Initialize();
-	colliderTrans.SetScale({5,5,5});
+	colliderTrans.SetScale({ 5,5,5 });
 
 	player_ = new Player();
 	player_->Initialize(camera_);
@@ -51,7 +51,8 @@ void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 void EnemyNormal::Update()
 {
 	//デスフラグの立った弾を削除
-	bullets.remove_if([ ](EnemyBullet* bullet) {
+	bullets.remove_if([ ] (EnemyBullet* bullet)
+	{
 		if ( bullet->IsDead() )
 		{
 			delete bullet;
@@ -59,6 +60,7 @@ void EnemyNormal::Update()
 		}
 		return false;
 	});
+
 
 	for ( EnemyBullet* bullet : bullets )
 	{
@@ -78,11 +80,8 @@ void EnemyNormal::Update()
 
 void EnemyNormal::Draw()
 {
-	if ( !flag )
-	{
-		enemyObj_->Draw(&enemyTrans);
-		//colliderObj_->Draw(&colliderTrans);
-	}
+	enemyObj_->Draw(&enemyTrans);
+	//colliderObj_->Draw(&colliderTrans);	
 
 	//弾の描画
 	for ( EnemyBullet* bullet : bullets )
@@ -93,7 +92,12 @@ void EnemyNormal::Draw()
 
 void EnemyNormal::OnCollision()
 {
-	flag = true;
+	isDead = true;
+}
+
+bool EnemyNormal::IsDead() const
+{
+	return isDead;
 }
 
 const std::list<EnemyBullet*>& EnemyNormal::GetBullets() const

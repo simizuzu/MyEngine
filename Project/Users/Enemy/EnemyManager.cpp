@@ -36,6 +36,8 @@ void EnemyManager::Update()
 	{
 		enemy->Update();
 	}
+
+	DeleteEnemys();
 }
 
 void EnemyManager::Draw()
@@ -120,7 +122,7 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player)
 		//POPコマンド
 		if ( word.find("POP") == 0 )
 		{
-			
+
 			//size_t enemyType = static_cast< size_t >( std::atoi(word.c_str()) );
 
 			//std::unique_ptr<BaseEnemy> enemy;
@@ -129,19 +131,19 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player)
 
 			//敵を発生させる
 			//x座標
-			getline(line_stream, word, ',');
+			getline(line_stream,word,',');
 			enemysPos_.x = ( float ) std::atof(word.c_str());
 
 			//y座標
-			getline(line_stream, word, ',');
+			getline(line_stream,word,',');
 			enemysPos_.y = ( float ) std::atof(word.c_str());
 
 			//z座標
-			getline(line_stream, word, ',');
+			getline(line_stream,word,',');
 			enemysPos_.z = ( float ) std::atof(word.c_str());
 
 			std::unique_ptr<EnemyNormal> enemy = std::make_unique<EnemyNormal>();
-  			enemy->Initialize(model_,camera_);
+			enemy->Initialize(model_,camera_);
 			enemy->SetPlayer(player);
 
 			enemy->translation = enemysPos_;
@@ -164,13 +166,25 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player)
 		else if ( word.find("TOTAL") == 0 )
 		{
 			getline(line_stream,word,',');
-			enemyCount = (size_t)atoi(word.c_str());
+			enemyCount = ( size_t ) atoi(word.c_str());
 			if ( enemyCount == enemys.size() )
 			{
 				reachCommandFlag = true;
 			}
-			
+
 			break;
 		}
 	}
+}
+
+void EnemyManager::DeleteEnemys()
+{
+	enemys.remove_if([ ] (std::unique_ptr<BaseEnemy>& enemys)
+	{
+		if ( enemys->IsDead() )
+		{
+			return true;
+		}
+		return false;
+	});
 }

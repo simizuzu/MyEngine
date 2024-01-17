@@ -41,7 +41,6 @@ void Framework::Initialize()
 
 void Framework::Finalize()
 {
-	//gameScene->Finalize();
 	sceneManager_->Finalize();
 	delete sceneFactory_;
 

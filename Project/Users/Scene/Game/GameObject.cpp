@@ -9,7 +9,6 @@ void GameObject::Initialize(Camera* camera)
 {
 	assert(camera);
 	camera_ = camera;
-	curveData2 = LevelLoader::LoadFile("curveData");
 
 	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
 	groundModel_.reset(ObjModel::LoadFromObj("ground"));

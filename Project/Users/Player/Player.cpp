@@ -17,20 +17,8 @@ void Player::Initialize(Camera* camera)
 	input = Input::GetInstance();
 	camera_.reset(camera);
 
-	curveData = LevelLoader::LoadFile("curveData");
-	texReticle = TextureManager::Load("Resources/Texture/reticle2.png");
-	sprite2DReticle = std::make_unique<Sprite>();
-	sprite2DReticle->Initialize();
-
-	playerModel.reset(ObjModel::LoadFromObj("Tyoinori"));
 	bulletModel.reset(ObjModel::LoadFromObj("box"));
-	reticleModel.reset(ObjModel::LoadFromObj("box"));
-	playerObj.reset(ObjObject3d::Create());
 	bulletObj.reset(ObjObject3d::Create());
-	reticleObj.reset(ObjObject3d::Create());
-
-	playerObj->SetModel(playerModel.get());
-	reticleObj->SetModel(reticleModel.get());
 
 	//プレイヤーのトランスフォーム初期化
 	playerTrans.Initialize();
@@ -90,8 +78,6 @@ void Player::Update()
 
 void Player::Draw()
 {
-	reticleObj->Draw(&worldTransform3DReticle);
-
 	//弾描画
 	for (PlayerBullet* bullet : bullets) {
 		bullet->Draw();
