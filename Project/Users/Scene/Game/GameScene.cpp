@@ -89,9 +89,9 @@ void GameScene::Initialize()
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
 
-	damageModel.reset(ObjModel::LoadFromObj("box"));
+	/*damageModel.reset(ObjModel::LoadFromObj("box"));
 	damageParticle = new ParticleManager();
-	damageParticle->Initialize(damageModel.get(),camera);
+	damageParticle->Initialize(damageModel.get(),camera);*/
 
 	enemyModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("boneTest"));
 	enemyManager_ = std::make_unique<EnemyManager>();
@@ -163,8 +163,8 @@ void GameScene::Update()
 		//モデルのムービー演出
 		ModelMovie();
 
-		damageParticle->Add("1",1,60,{ 0.0f,0.0f,0.0f },1,2);
-		damageParticle->Update();
+		//damageParticle->Add("1",1,60,{ 0.0f,0.0f,0.0f },1,2);
+		//damageParticle->Update();
 
 		break;
 

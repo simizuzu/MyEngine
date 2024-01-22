@@ -53,8 +53,15 @@ private:
 	
 	TextureData displayTex;
 	TextureData reticleTex;
+	TextureData UI01Tex;
+	TextureData UIRTTex;
+	TextureData UIRTex;
 	std::unique_ptr<Sprite> display;
 	std::unique_ptr<Sprite> reticle;
+	std::unique_ptr<Sprite> UI01;
+	std::unique_ptr<Sprite> UI02;
+	std::unique_ptr<Sprite> UIRT;
+	std::unique_ptr<Sprite> UIR;
 
 	std::unique_ptr<ObjObject3d> skydomeObj_;
 	std::unique_ptr<ObjObject3d> groundObj_;
