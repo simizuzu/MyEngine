@@ -4,6 +4,7 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "DirectX12Math.h"
+#include "ModelManager.h"
 
  /**
  * @file ObjObject3d.cpp
@@ -121,6 +122,11 @@ void ObjObject3d::Draw(WorldTransform* transform)
 void ObjObject3d::SetModel(ObjModel* model)
 {
 	model_ = model;
+}
+
+void ObjObject3d::SetModel(const std::string& filePath)
+{
+	model_ = ModelManager::GetInstance()->FindObjModel(filePath);
 }
 
 void ObjObject3d::SetLight(Light* light)

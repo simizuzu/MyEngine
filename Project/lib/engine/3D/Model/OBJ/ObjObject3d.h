@@ -55,6 +55,8 @@ public: // メンバ関数
 	// setter
 	void SetModel(ObjModel* model);
 
+	void SetModel(const std::string& filePath);
+
 public:
 	// 定数バッファ
 	Microsoft::WRL::ComPtr <ID3D12Resource> constBuffB0;

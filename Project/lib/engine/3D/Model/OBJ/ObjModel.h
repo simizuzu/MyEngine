@@ -8,6 +8,7 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <string>
 #include <wrl.h>
 #include <unordered_map>
+#include <map>
 MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "Vector2.h"
@@ -87,7 +88,7 @@ public:
 
 	static void SetDevice(ID3D12Device* device);
 
-private: // 静的メンバ変数
+private:
 	static Microsoft::WRL::ComPtr<ID3D12Device> device_;
 	// テクスチャバッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> texBuff;

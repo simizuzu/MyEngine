@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="Users\Bullet\Bullet.cpp" />
     <ClCompile Include="Users\Bullet\BulletManager.cpp" />
     <ClCompile Include="Users\Collider\Collider.cpp" />
@@ -81,6 +82,7 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ModelManager.h" />
     <ClInclude Include="Users\Collider\CollisionConfig.h" />
     <ClInclude Include="Users\Bullet\Bullet.h" />
     <ClInclude Include="Users\Bullet\BulletManager.h" />

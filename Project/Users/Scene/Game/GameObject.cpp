@@ -9,8 +9,9 @@ void GameObject::Initialize(Camera* camera)
 {
 	assert(camera);
 	camera_ = camera;
+	input = input->GetInstance();
 
-	skydomeModel_.reset(ObjModel::LoadFromObj("skydome", true));
+	skydomeModel_.reset(ObjModel::LoadFromObj("skydome",true));
 	groundModel_.reset(ObjModel::LoadFromObj("ground"));
 
 	skydomeObj_.reset(ObjObject3d::Create());
@@ -46,8 +47,8 @@ void GameObject::Initialize(Camera* camera)
 void GameObject::Update()
 {
 	skydomeTrans.Update(camera_);
-	skydomeTrans.SetTranslation({camera_->GetTranslation()});
-	groundTrans.SetRotation({0.0f,180.0f*MyMathUtility::degree2Radius,0.0f });
+	skydomeTrans.SetTranslation({ camera_->GetTranslation() });
+	groundTrans.SetRotation({ 0.0f,180.0f * MyMathUtility::degree2Radius,0.0f });
 	groundTrans.Update(camera_);
 }
 
@@ -55,6 +56,23 @@ void GameObject::Draw()
 {
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);
+	if ( input->PushButton(RT) )
+	{
+		UIRT->SetColor({ 0,1,0,1 });
+	}
+	else
+	{
+		UIRT->SetColor({ 1,1,1,1 });
+	}
+
+	if ( input->InputStick(R_UP) || input->InputStick(R_DOWN) || input->InputStick(R_LEFT) || input->InputStick(R_RIGHT) )
+	{
+		UIR->SetColor({ 0,1,0,1 });
+	}
+	else
+	{
+		UIR->SetColor({ 1,1,1,1 });
+	}
 }
 
 void GameObject::TexDraw()
@@ -64,5 +82,5 @@ void GameObject::TexDraw()
 	UI01->Draw(UI01Tex,{ 1100,600 });
 	UI02->Draw(UI01Tex,{ 980,600 });
 	UIRT->Draw(UIRTTex,{ 1015,615 },{ 0.6f,0.6f });
-	UIR->Draw(UIRTex,{ 1135,615 },{0.6f,0.6f});
+	UIR->Draw(UIRTex,{ 1135,615 },{ 0.6f,0.6f });
 }

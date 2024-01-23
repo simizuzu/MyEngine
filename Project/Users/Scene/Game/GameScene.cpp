@@ -3,6 +3,8 @@
 #include "EnemyBullet.h"
 #include "PlayerBullet.h"
 
+#include "ModelManager.h"
+
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
@@ -93,6 +95,7 @@ void GameScene::Initialize()
 	damageParticle = new ParticleManager();
 	damageParticle->Initialize(damageModel.get(),camera);*/
 
+	ModelManager::GetInstance()->LoadModel("boneTest",fbx);
 	enemyModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("boneTest"));
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv",enemyModel_.get(),camera));
@@ -246,7 +249,6 @@ void GameScene::Draw()
 
 void GameScene::Finalize()
 {
-
 }
 
 void GameScene::StartDirection()

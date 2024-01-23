@@ -40,6 +40,5 @@ void MainGame::Update()
 void MainGame::Draw()
 {
 	// ゲームシーンの描画
-	//baseScene->Draw();
 	sceneManager_->Draw();
 }

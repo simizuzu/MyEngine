@@ -3,6 +3,8 @@
 
 #include "Player.h"
 
+#include "ModelManager.h"
+
 EnemyNormal::~EnemyNormal()
 {
 	for ( EnemyBullet* bullet : bullets )
@@ -20,7 +22,7 @@ void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
 	enemyModel_ = model;
 
 	enemyObj_.reset(FbxObject3d::Create());
-	enemyObj_->SetModel(enemyModel_);
+	enemyObj_->SetModel("boneTest");
 	enemyObj_->PlayAnimation();
 
 	enemyTrans.Initialize();

@@ -1,6 +1,7 @@
 #pragma once
 #include "LevelLoader.h"
 #include "TextureManager.h"
+#include "Input.h"
 
 #include "Sprite.h"
 
@@ -50,6 +51,7 @@ public:
 private:
 	Camera* camera_;
 	LevelData* curveData2;
+	Input* input = nullptr;
 	
 	TextureData displayTex;
 	TextureData reticleTex;

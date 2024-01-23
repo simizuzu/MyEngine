@@ -2,6 +2,8 @@
 #include "FbxLoader.h"
 #include "Numbers.h"
 
+#include "ModelManager.h"
+
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
@@ -35,7 +37,9 @@ void TitleAnimation::Initalize(Camera* camera)
 #pragma region Obj
 	skydomeModel_.reset(ObjModel::LoadFromObj("skydome",true));
 	groundModel_.reset(ObjModel::LoadFromObj("concrete",true));
-	robotoModel_.reset(ObjModel::LoadFromObj("roboto"));
+	//robotoModel_.reset(ObjModel::LoadFromObj("roboto"));
+
+	ModelManager::GetInstance()->LoadModel("roboto",obj);
 
 	skydomeObj_.reset(ObjObject3d::Create());
 	groundObj_.reset(ObjObject3d::Create());
@@ -43,7 +47,7 @@ void TitleAnimation::Initalize(Camera* camera)
 
 	skydomeObj_->SetModel(skydomeModel_.get());
 	groundObj_->SetModel(groundModel_.get());
-	robotoObj_->SetModel(robotoModel_.get());
+	robotoObj_->SetModel("roboto");
 
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
@@ -55,9 +59,10 @@ void TitleAnimation::Initalize(Camera* camera)
 
 #pragma region Fbx
 
-	pilotModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("pilot"));
+	ModelManager::GetInstance()->LoadModel("pilot",fbx);
+	//pilotModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("pilot"));
 	pilotObj_.reset(FbxObject3d::Create());
-	pilotObj_->SetModel(pilotModel_.get());
+	pilotObj_->SetModel("pilot");
 	pilotObj_->PlayAnimation();
 	//pilotObj_->SetScale({ 0.006f,0.006f ,0.006f });
 	pilotTrans.SetScale({ 0.006f,0.006f ,0.006f });

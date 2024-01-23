@@ -83,6 +83,12 @@ public:
 	void SetModel(FbxModel* model);
 
 	/// <summary>
+	/// モデルをセット
+	/// </summary>
+	/// <param name="filePath">ファイルパス</param>
+	void SetModel(const std::string& filePath);
+
+	/// <summary>
 	/// アニメーション開始
 	/// </summary>
 	void PlayAnimation();

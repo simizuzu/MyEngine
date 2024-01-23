@@ -2,6 +2,7 @@
 
 #include "DirectXCommon.h"
 #include "Shader.h"
+#include "ModelManager.h"
 
  /**
  * @file FbxObject3d.cpp
@@ -148,6 +149,11 @@ void FbxObject3d::Draw(WorldTransform* transform)
 void FbxObject3d::SetModel(FbxModel* model)
 {
 	model_ = model;
+}
+
+void FbxObject3d::SetModel(const std::string& filePath)
+{
+	model_ = ModelManager::GetInstance()->FindFbxModel(filePath);
 }
 
 void FbxObject3d::PlayAnimation()
