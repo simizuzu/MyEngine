@@ -35,18 +35,12 @@ void TitleAnimation::Initalize(Camera* camera)
 #pragma endregion
 
 #pragma region Obj
-	skydomeModel_.reset(ObjModel::LoadFromObj("skydome",true));
-	groundModel_.reset(ObjModel::LoadFromObj("concrete",true));
-	//robotoModel_.reset(ObjModel::LoadFromObj("roboto"));
-
-	ModelManager::GetInstance()->LoadModel("roboto",obj);
-
 	skydomeObj_.reset(ObjObject3d::Create());
 	groundObj_.reset(ObjObject3d::Create());
 	robotoObj_.reset(ObjObject3d::Create());
 
-	skydomeObj_->SetModel(skydomeModel_.get());
-	groundObj_->SetModel(groundModel_.get());
+	skydomeObj_->SetModel("skydome",true);
+	groundObj_->SetModel("concrete",true);
 	robotoObj_->SetModel("roboto");
 
 	skydomeTrans.Initialize();
@@ -59,8 +53,6 @@ void TitleAnimation::Initalize(Camera* camera)
 
 #pragma region Fbx
 
-	ModelManager::GetInstance()->LoadModel("pilot",fbx);
-	//pilotModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("pilot"));
 	pilotObj_.reset(FbxObject3d::Create());
 	pilotObj_->SetModel("pilot");
 	pilotObj_->PlayAnimation();

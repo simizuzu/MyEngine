@@ -54,11 +54,11 @@ void GameScene::Initialize()
 	//衝突マネージャの生成
 	collisionManager_ = std::make_unique<CollisionManager>();
 
-	colliderModel_.reset(ObjModel::LoadFromObj("collider"));
-	colliderObj_.reset(ObjObject3d::Create());
-	colliderObj_->SetModel(colliderModel_.get());
-	colliderTrans.Initialize();
-	colliderTrans.SetScale({5,5,5});
+	//colliderModel_.reset(ObjModel::LoadFromObj("collider"));
+	//colliderObj_.reset(ObjObject3d::Create());
+	//colliderObj_->SetModel(colliderModel_.get());
+	//colliderTrans.Initialize();
+	//colliderTrans.SetScale({5,5,5});
 
 	spriteWhite_ = std::make_unique<Sprite>();
 	spriteBlack_ = std::make_unique<Sprite>();
@@ -78,9 +78,9 @@ void GameScene::Initialize()
 	texBlackDown_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texStageName01_ = TextureManager::Load("Resources/Texture/Scene/stagename01.png");
 
-	robotoModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("roboto"));
+	//robotoModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("roboto"));
 	robotoObj_.reset(FbxObject3d::Create());
-	robotoObj_->SetModel(robotoModel_.get());
+	robotoObj_->SetModel("roboto");
 	robotoObj_->PlayAnimation();
 
 	robotoTrans.Initialize();
@@ -95,18 +95,16 @@ void GameScene::Initialize()
 	damageParticle = new ParticleManager();
 	damageParticle->Initialize(damageModel.get(),camera);*/
 
-	ModelManager::GetInstance()->LoadModel("boneTest",fbx);
-	enemyModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("boneTest"));
+	//ModelManager::GetInstance()->LoadModel("boneTest",fbx);
+	//enemyModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("boneTest"));
 	enemyManager_ = std::make_unique<EnemyManager>();
-	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv",enemyModel_.get(),camera));
+	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","boneTest",camera));
 
 	////敵全てを読み込む
 	//for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 	//{
 	//	enemy->
 	//}
-
-	
 
 	sceneManager_ = SceneManager::GetInstance();
 }
@@ -117,7 +115,7 @@ void GameScene::Update()
 
 	//衝突判定と応答
 	CheckAllCollilsions();
-	colliderTrans.Update(camera);
+	//colliderTrans.Update(camera);
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
@@ -202,7 +200,7 @@ void GameScene::Draw()
 	modelData_->Draw();
 	player_->Draw();
 
-	colliderObj_->Draw(&colliderTrans);
+	//colliderObj_->Draw(&colliderTrans);
 
 	switch ( scene )
 	{

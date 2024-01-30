@@ -1,13 +1,13 @@
 #include "EnemyManager.h"
 
 #include "EnemyNormal.h"
-
+#include "ModelManager.h"
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <fstream>
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
-EnemyManager* EnemyManager::Create(const std::string& filePath,FbxModel* model,Camera* camera)
+EnemyManager* EnemyManager::Create(const std::string& filePath,const std::string& modelName,Camera* camera)
 {
 	//インスタンス生成
 	EnemyManager* instance = new EnemyManager();
@@ -16,18 +16,17 @@ EnemyManager* EnemyManager::Create(const std::string& filePath,FbxModel* model,C
 		return nullptr;
 	}
 
-	instance->Initialize(model,camera);
+	instance->Initialize(modelName,camera);
 	instance->LoadEnemyPopData(filePath);
 
 	return instance;
 }
 
-void EnemyManager::Initialize(FbxModel* model,Camera* camera)
+void EnemyManager::Initialize(const std::string& modelName,Camera* camera)
 {
 	assert(camera);
-	assert(model);
 	camera_ = camera;
-	model_ = model;
+	modelName_ = modelName;
 }
 
 void EnemyManager::Update()
@@ -143,7 +142,8 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player)
 			enemysPos_.z = ( float ) std::atof(word.c_str());
 
 			std::unique_ptr<EnemyNormal> enemy = std::make_unique<EnemyNormal>();
-			enemy->Initialize(model_,camera_);
+			//model_ = ModelManager::GetInstance()->FindFbxModel();
+			enemy->Initialize(modelName_,camera_);
 			enemy->SetPlayer(player);
 
 			enemy->translation = enemysPos_;

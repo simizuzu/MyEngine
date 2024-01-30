@@ -55,7 +55,7 @@ public: // メンバ関数
 	// setter
 	void SetModel(ObjModel* model);
 
-	void SetModel(const std::string& filePath);
+	void SetModel(const std::string& filePath, bool smoothing = false);
 
 public:
 	// 定数バッファ

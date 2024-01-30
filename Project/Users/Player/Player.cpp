@@ -17,7 +17,6 @@ void Player::Initialize(Camera* camera)
 	input = Input::GetInstance();
 	camera_.reset(camera);
 
-	bulletModel.reset(ObjModel::LoadFromObj("box"));
 	bulletObj.reset(ObjObject3d::Create());
 
 	//プレイヤーのトランスフォーム初期化
@@ -166,7 +165,7 @@ void Player::Attack()
 	{
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(bulletModel.get(),bulletObj.get(),camera_->GetTranslation(),velocity);
+		newBullet->Initialize(bulletObj.get(),camera_->GetTranslation(),velocity);
 
 		//弾を登録する
 		bullets.push_back(newBullet);

@@ -29,7 +29,7 @@ public:
 	/// 初期化
 	/// </summary>
 	/// <param name="camera">カメラ</param>
-	void Initialize(FbxModel* model,Camera* camera);
+	void Initialize(const std::string& filePath,Camera* camera);
 
 	/// <summary>
 	/// 更新
@@ -72,17 +72,11 @@ private:
 
 	//敵のモデル
 	std::unique_ptr<FbxObject3d> enemyObj_;
-	FbxModel* enemyModel_ = nullptr;
+	std::string modelName;
 	WorldTransform enemyTrans;
-
-	//当たり判定モデル
-	std::unique_ptr<ObjObject3d> colliderObj_;
-	std::unique_ptr<ObjModel> colliderModel_;
-	WorldTransform colliderTrans;
 
 	//弾のモデル
 	std::unique_ptr<ObjObject3d> bulletObj;
-	std::unique_ptr<ObjModel> bulletModel;
 
 	bool isDead = false;
 	bool bulletIntervalFlag = false;

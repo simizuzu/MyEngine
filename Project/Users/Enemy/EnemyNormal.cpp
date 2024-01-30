@@ -13,33 +13,24 @@ EnemyNormal::~EnemyNormal()
 	}
 }
 
-void EnemyNormal::Initialize(FbxModel* model,Camera* camera)
+void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 {
 	//渡されたかチェック
 	assert(camera);
-	assert(model);
 	camera_ = camera;
-	enemyModel_ = model;
+	modelName = filePath;
 
 	enemyObj_.reset(FbxObject3d::Create());
-	enemyObj_->SetModel("boneTest");
+	enemyObj_->SetModel(modelName);
 	enemyObj_->PlayAnimation();
 
 	enemyTrans.Initialize();
 	enemyTrans.SetScale({ 0.009f,0.009f ,0.009f });
 	//enemyObj_->SetScale({ 0.009f,0.009f ,0.009f });
 
-	colliderModel_.reset(ObjModel::LoadFromObj("collider"));
-	colliderObj_.reset(ObjObject3d::Create());
-	colliderObj_->SetModel(colliderModel_.get());
-
-	colliderTrans.Initialize();
-	colliderTrans.SetScale({ 5,5,5 });
-
 	player_ = new Player();
 	player_->Initialize(camera_);
 
-	bulletModel.reset(ObjModel::LoadFromObj("box"));
 	bulletObj.reset(ObjObject3d::Create());
 
 	bulletIntervalTimer = resetTimer;
@@ -75,9 +66,6 @@ void EnemyNormal::Update()
 	enemyTrans.SetTranslation(translation);
 	enemyTrans.Update(camera_);
 	enemyObj_->Update();
-
-	colliderTrans.SetTranslation(enemyTrans.GetTranslation());
-	colliderTrans.Update(camera_);
 }
 
 void EnemyNormal::Draw()
@@ -137,7 +125,7 @@ void EnemyNormal::Fire()
 	{
 		//弾を生成し、初期化
 		EnemyBullet* newBullet = new EnemyBullet();
-		newBullet->Initialize(bulletModel.get(),bulletObj.get(),enemyTrans.GetTranslation(),velocity);
+		newBullet->Initialize(bulletObj.get(),enemyTrans.GetTranslation(),velocity);
 
 		//弾を登録する
 		bullets.push_back(newBullet);

@@ -11,14 +11,14 @@ void GameObject::Initialize(Camera* camera)
 	camera_ = camera;
 	input = input->GetInstance();
 
-	skydomeModel_.reset(ObjModel::LoadFromObj("skydome",true));
-	groundModel_.reset(ObjModel::LoadFromObj("ground"));
+	//skydomeModel_.reset(ObjModel::LoadFromObj("skydome",true));
+	//groundModel_.reset(ObjModel::LoadFromObj("ground"));
 
 	skydomeObj_.reset(ObjObject3d::Create());
 	groundObj_.reset(ObjObject3d::Create());
 
-	skydomeObj_->SetModel(skydomeModel_.get());
-	groundObj_->SetModel(groundModel_.get());
+	skydomeObj_->SetModel("skydome",true);
+	groundObj_->SetModel("ground");
 
 	display = std::make_unique<Sprite>();
 	reticle = std::make_unique<Sprite>();

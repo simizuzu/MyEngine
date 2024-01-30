@@ -124,9 +124,15 @@ void ObjObject3d::SetModel(ObjModel* model)
 	model_ = model;
 }
 
-void ObjObject3d::SetModel(const std::string& filePath)
+void ObjObject3d::SetModel(const std::string& filePath,bool smoothing)
 {
 	model_ = ModelManager::GetInstance()->FindObjModel(filePath);
+
+	if ( !model_ )
+	{
+		ModelManager::GetInstance()->LoadModel(filePath,obj,smoothing);
+		model_ = ModelManager::GetInstance()->FindObjModel(filePath);
+	}
 }
 
 void ObjObject3d::SetLight(Light* light)

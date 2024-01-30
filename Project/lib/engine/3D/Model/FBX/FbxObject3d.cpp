@@ -154,6 +154,12 @@ void FbxObject3d::SetModel(FbxModel* model)
 void FbxObject3d::SetModel(const std::string& filePath)
 {
 	model_ = ModelManager::GetInstance()->FindFbxModel(filePath);
+
+	if ( !model_ )
+	{
+		ModelManager::GetInstance()->LoadModel(filePath,fbx);
+		model_ = ModelManager::GetInstance()->FindFbxModel(filePath);
+	}
 }
 
 void FbxObject3d::PlayAnimation()

@@ -24,7 +24,7 @@ public:
 	/// <param name="obj">オブジェクト</param>
 	/// <param name="pos">初期座標</param>
 	/// <param name="velocity">速度</param>
-	void Initialize(ObjModel* model, ObjObject3d* obj,const MyMath::Vector3& pos, const MyMath::Vector3 velocity);
+	void Initialize(ObjObject3d* obj,const MyMath::Vector3& pos, const MyMath::Vector3 velocity);
 
 	/// <summary>
 	/// 更新

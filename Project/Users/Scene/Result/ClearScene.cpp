@@ -20,9 +20,8 @@ void ClearScene::Initialize(Camera* camera)
 	assert(camera);
 	camera_=camera;
 
-	clearModel_=FbxLoader::GetInstance()->LoadModelFromFile("clear");
 	clearObj_=FbxObject3d::Create();
-	clearObj_->SetModel(clearModel_);
+	clearObj_->SetModel("clear");
 	clearObj_->PlayAnimation();
 	//clearObj_->SetScale({ 0.009f,0.009f ,0.009f });
 

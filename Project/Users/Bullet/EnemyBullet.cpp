@@ -5,14 +5,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
-void EnemyBullet::Initialize(ObjModel* model,ObjObject3d* obj,const MyMath::Vector3& pos,const MyMath::Vector3 velocity)
+void EnemyBullet::Initialize(ObjObject3d* obj,const MyMath::Vector3& pos,const MyMath::Vector3 velocity)
 {
-	assert(model);
-
 	//モデルを代入
-	bulletModel_ = model;
 	bulletObj_ = obj;
-	bulletObj_->SetModel(bulletModel_);
+	bulletObj_->SetModel("box");
 
 	//ワールドトランスフォームの初期化
 	bulletTrans_.Initialize();

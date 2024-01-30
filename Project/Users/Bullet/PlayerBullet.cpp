@@ -10,15 +10,12 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief Playerの弾に関するの処理が書かれてあります
  */
 
-void PlayerBullet::Initialize(ObjModel* model, ObjObject3d* obj, const MyMath::Vector3& position, const MyMath::Vector3 velocity)
+void PlayerBullet::Initialize(ObjObject3d* obj,const MyMath::Vector3& position, const MyMath::Vector3 velocity)
 {
-	//代入チェック
-	assert(model);
 
 	//モデルを代入
-	bulletModel_ = model;
 	bulletObj_ = obj;
-	bulletObj_->SetModel(bulletModel_);
+	bulletObj_->SetModel("box");
 
 	//ワールドトランスフォームの初期化
 	bulletTrans_.Initialize();

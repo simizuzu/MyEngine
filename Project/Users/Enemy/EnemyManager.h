@@ -30,7 +30,7 @@ private:
 	std::stringstream enemyPospCommands;
 
 public:
-	static EnemyManager* Create(const std::string& filePath, FbxModel* model, Camera* camera);
+	static EnemyManager* Create(const std::string& filePath,const std::string& modelName, Camera* camera);
 
 public:
 	EnemyManager() = default;
@@ -39,7 +39,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(FbxModel* model,Camera* camera);
+	void Initialize(const std::string& modelName,Camera* camera);
 
 	/// <summary>
 	/// 更新
@@ -104,7 +104,7 @@ private:
 	uint8_t pad3[ 4 ];
 
 	Camera* camera_ = nullptr;
-	FbxModel* model_ = nullptr;
+	std::string modelName_;
 
 private:
 	//代入演算子削除

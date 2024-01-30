@@ -22,7 +22,7 @@ public:
 	/// <param name="obj">オブジェクト</param>
 	/// <param name="position">初期座標</param>
 	/// <param name="velocity">速度</param>
-	void Initialize(ObjModel* model, ObjObject3d* obj, const MyMath::Vector3& position, const MyMath::Vector3 velocity);
+	void Initialize(ObjObject3d* obj, const MyMath::Vector3& position, const MyMath::Vector3 velocity);
 
 	/// <summary>
 	/// 更新
@@ -59,8 +59,6 @@ private:
 	bool isDead_ = false;
 	int8_t pad1[ 7 ];
 
-	//モデル
-	ObjModel* bulletModel_ = nullptr;
 	//オブジェクト
 	ObjObject3d* bulletObj_ = nullptr;
 
