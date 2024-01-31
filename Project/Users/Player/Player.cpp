@@ -18,6 +18,8 @@ void Player::Initialize(Camera* camera)
 	camera_.reset(camera);
 
 	bulletObj.reset(ObjObject3d::Create());
+	playerObj.reset(ObjObject3d::Create());
+	playerObj->SetModel("gun",true);
 
 	//プレイヤーのトランスフォーム初期化
 	playerTrans.Initialize();
@@ -44,6 +46,9 @@ void Player::Update()
 
 	RotateCamera();
 
+	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0});
+	//SetParent(camera_->parent);
+
 	//カメラの角度を取得する
 	cameraHAngle = camera_->GetHAngle(camera_->GetEye(),camera_->GetTarget()); //水平方向
 	cameraVAngle = camera_->GetVAngle(camera_->GetEye(),camera_->GetTarget()); //垂直方向
@@ -63,7 +68,10 @@ void Player::Update()
 	ImGui::End();
 #endif
 
-	playerTrans.SetTranslation(camera_->GetTranslation());
+	ImGui::Begin("GunTranslation");
+	ImGui::InputFloat3("Translation",&guntrans.x);
+	ImGui::End();
+	playerTrans.SetTranslation({camera_->GetTranslation().x + guntrans.x,camera_->GetTranslation().y - guntrans.y, camera_->GetTranslation().z + guntrans.z });
 
 	//攻撃処理
 	Attack();
@@ -81,6 +89,8 @@ void Player::Draw()
 	for (PlayerBullet* bullet : bullets) {
 		bullet->Draw();
 	}
+
+	playerObj->Draw(&playerTrans);
 }
 
 void Player::RotateCamera()
@@ -125,6 +135,11 @@ void Player::OnCollision()
 {
 }
 
+void Player::SetParent(const WorldTransform* parent)
+{
+	playerTrans.parent = parent;
+}
+
 const std::list<PlayerBullet*>& Player::GetBullets() const
 {
 	return bullets;
@@ -149,7 +164,7 @@ void Player::Attack()
 	MyMath::Vector3 velocity(0,0,bulletSpeed);
 
 	//速度ベクトルを自機の向きに合わせて回転させる
-	velocity = MyMath::Vec3Mat4Mul(velocity,camera_->matCameraWorld_);
+	velocity = MyMath::Vec3Mat4Mul(velocity,camera_->GetMatWorld());
 	
 	//スペースキーまたはRトリガーを押したとき弾を発射
 	if (input->PushKey(DIK_SPACE) || input->PushButton(RT)) {

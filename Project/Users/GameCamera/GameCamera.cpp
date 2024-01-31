@@ -50,13 +50,6 @@ void GameCamera::Update()
 		}
 	}
 
-	//target = MyMathUtility::SplinePosition(points, timeRate, startIndex);
-
-	/*MyMath::Vector3 up(0, 1, 0);
-	camera_->SetUp(up);
-	camera_->SetEye(pos);
-	camera_->SetTarget(target);*/
-
 	camera_->SetTranslation(pos);
 }
 
@@ -80,18 +73,3 @@ void GameCamera::SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint)
 		}
 	}
 }
-
-//void GameCamera::SetCameraRot(MyMath::Vector3& rotation)
-//{
-//	
-//	
-//	//MyMath::Vector3 oldTarget = target_;
-//
-//	//MyMath::Vector3 offset = { 0,rotation.x,0 };
-//
-//	//offset = MyMath::Vec3Mat4Mul(offset,matView_);
-//
-//	//MyMath::Vector3 target = target_ + offset;
-//
-//	//target_ = target;
-//}

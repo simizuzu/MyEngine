@@ -11,6 +11,8 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief カメラを作成する(ビュープロジェクション)クラス
  */
 
+class WorldTransfrom;
+
 /// <summary>
 /// ビュープロジェクションバッファデータ
 /// </summary>
@@ -59,16 +61,7 @@ struct ViewProjection
 /// </summary>
 class Camera
 {
-public:
-#pragma region ビュー行列設定
-	// 視点座標
-	MyMath::Vector3 eye_;
-	// 注視点座標
-	MyMath::Vector3 target_;
-	// 上方向ベクトル
-	MyMath::Vector3 up_;
-#pragma endregion
-
+private:
 	// ビュー行列
 	MyMath::Matrix4 matView_;
 	// ビュー逆行列
@@ -80,6 +73,18 @@ public:
 
 	//カメラのワールド
 	MyMath::Matrix4 matCameraWorld_;
+
+public:
+
+#pragma region ビュー行列設定
+// 視点座標
+	MyMath::Vector3 eye_;
+	// 注視点座標
+	MyMath::Vector3 target_;
+	// 上方向ベクトル
+	MyMath::Vector3 up_;
+#pragma endregion
+
 private:
 #pragma region 射影行列設定
 	// カメラ画角
@@ -133,6 +138,7 @@ public:
 	const MyMath::Matrix4& GetMatView();
 	const MyMath::Matrix4& GetMatViewInverse();
 	const MyMath::Matrix4& GetMatProjection();
+	const MyMath::Matrix4& GetMatWorld();
 
 	const MyMath::Vector3& GetEye();
 	const MyMath::Vector3& GetTarget();

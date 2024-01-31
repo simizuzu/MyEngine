@@ -9,6 +9,8 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "DirectXCommon.h"
 #include "WinApp.h"
 
+#include "WorldTransform.h"
+
  /**
  * @file Camera.cpp
  * @brief Cameraの処理について書いてあります
@@ -142,6 +144,11 @@ const MyMath::Matrix4& Camera::GetMatViewInverse()
 const MyMath::Matrix4& Camera::GetMatProjection()
 {
 	return matProjection_;
+}
+
+const MyMath::Matrix4& Camera::GetMatWorld()
+{
+	return matCameraWorld_;
 }
 
 const MyMath::Vector3& Camera::GetEye()

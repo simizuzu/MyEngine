@@ -69,6 +69,8 @@ private:
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision() override;
 
+	void SetParent(const WorldTransform* parent);
+
 	//void Finalize();
 
 private:
@@ -92,6 +94,7 @@ private:
 	MyMath::Vector2 windowWH;
 	MyMath::Vector2 mouseMove;
 	MyMath::Vector2 mouseMoved;
+	MyMath::Vector3 guntrans;
 
 public:
 	float timeRate;						//何％時間が進んだか
@@ -101,7 +104,7 @@ private:
 	float targetTimeRate;
 	bool bulletIntervalFlag = false;
 	uint8_t bulletIntervalTimer = 6;
-	int8_t pad1[ 6 ];
+	int8_t pad1[ 2 ];
 
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
@@ -122,15 +125,12 @@ private:
 
 	//プレイヤーのモデル
 	std::unique_ptr<ObjObject3d> playerObj;
-	std::unique_ptr<ObjModel> playerModel;
 
 	//弾のモデル
 	std::unique_ptr<ObjObject3d> bulletObj;
-	std::unique_ptr<ObjModel> bulletModel;
 
 	//レティクルのモデル
 	std::unique_ptr<ObjObject3d> reticleObj;
-	std::unique_ptr<ObjModel> reticleModel;
 
 	//プレイヤー用ワールドトランスフォーム
 	WorldTransform playerTrans;

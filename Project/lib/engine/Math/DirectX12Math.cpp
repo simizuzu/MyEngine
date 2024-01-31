@@ -565,7 +565,7 @@ namespace MyMathUtility
 
 namespace MyMath
 {
-	Vector3 Vec3Mat4Mul(Vector3& vec, Matrix4& mat)
+	Vector3 Vec3Mat4Mul(const Vector3& vec, const Matrix4& mat)
 	{
 		Vector3 retVec = {};
 

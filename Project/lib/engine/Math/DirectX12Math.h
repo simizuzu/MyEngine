@@ -148,7 +148,7 @@ namespace MyMathUtility
 namespace MyMath
 {
 	// ベクトルと行列の掛け算
-	Vector3 Vec3Mat4Mul(Vector3& vec, Matrix4& mat);
+	Vector3 Vec3Mat4Mul(const Vector3& vec,const Matrix4& mat);
 
 	// キャットムルーロムスプライン曲線
 	Vector3 CatMullRomSpline(std::vector<Vector3>& points, float t);
