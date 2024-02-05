@@ -26,6 +26,9 @@ void Player::Initialize(Camera* camera)
 	//3Dレティクルのトランスフォーム初期化
 	worldTransform3DReticle.Initialize();
 
+	//親子関係
+	playerTrans.parentMat = &camera_->matCameraWorld_;
+
 	//衝突属性を設定
 	SetCollisionAttribute(collisionAttributePlayer);
 	//衝突対象を自分の属性以外に設定(ビット反転)
@@ -47,7 +50,6 @@ void Player::Update()
 	RotateCamera();
 
 	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0});
-	//SetParent(camera_->parent);
 
 	//カメラの角度を取得する
 	cameraHAngle = camera_->GetHAngle(camera_->GetEye(),camera_->GetTarget()); //水平方向
@@ -68,11 +70,20 @@ void Player::Update()
 	ImGui::End();
 #endif
 
-	ImGui::Begin("GunTranslation");
-	ImGui::InputFloat3("Translation",&guntrans.x);
-	ImGui::End();
-	playerTrans.SetTranslation({camera_->GetTranslation().x + guntrans.x,camera_->GetTranslation().y - guntrans.y, camera_->GetTranslation().z + guntrans.z });
+	//float hairetu[3 ];
+	//hairetu[ 0 ] = guntrans.x;
+	//hairetu[ 1 ] = guntrans.y;
+	//hairetu[ 2 ] = guntrans.z;
 
+	//ImGui::Begin("GunTranslation");
+	//ImGui::SliderFloat3("Translation",hairetu,-5.0f,5.0f);
+	//ImGui::End();
+
+	//guntrans.x = hairetu[ 0 ];
+	//guntrans.y = hairetu[ 1 ];
+	//guntrans.z = hairetu[ 2 ];
+
+	playerTrans.SetTranslation({guntrans.x,guntrans.y,guntrans.z });
 	//攻撃処理
 	Attack();
 
@@ -164,7 +175,7 @@ void Player::Attack()
 	MyMath::Vector3 velocity(0,0,bulletSpeed);
 
 	//速度ベクトルを自機の向きに合わせて回転させる
-	velocity = MyMath::Vec3Mat4Mul(velocity,camera_->GetMatWorld());
+	velocity = MyMath::Vec3Mat4Mul(velocity,camera_->matCameraWorld_);
 	
 	//スペースキーまたはRトリガーを押したとき弾を発射
 	if (input->PushKey(DIK_SPACE) || input->PushButton(RT)) {

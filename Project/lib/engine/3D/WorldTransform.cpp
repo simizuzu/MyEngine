@@ -106,6 +106,12 @@ void WorldTransform::Update(Camera* camera,bool isRotQuaternion)
 		matWorld *= parent->matWorld;
 	}
 
+	//親行列の指定がある場合は、掛け算する
+	if ( parentMat != nullptr )
+	{
+		matWorld *= *parentMat;
+	}
+
 	const MyMath::Matrix4 matView = camera->GetMatView();
 	const MyMath::Matrix4 matProjection = camera->GetMatProjection();
 	const MyMath::Vector3& cameraPos = camera->GetEye();

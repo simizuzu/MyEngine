@@ -71,9 +71,6 @@ private:
 	// カメラ距離
 	float distance_ = 50.0f;
 
-	//カメラのワールド
-	MyMath::Matrix4 matCameraWorld_;
-
 public:
 
 #pragma region ビュー行列設定
@@ -84,6 +81,10 @@ public:
 	// 上方向ベクトル
 	MyMath::Vector3 up_;
 #pragma endregion
+
+	//カメラのワールド
+	MyMath::Matrix4 matCameraWorld_;
+	const Camera* parent = nullptr;
 
 private:
 #pragma region 射影行列設定
@@ -138,7 +139,6 @@ public:
 	const MyMath::Matrix4& GetMatView();
 	const MyMath::Matrix4& GetMatViewInverse();
 	const MyMath::Matrix4& GetMatProjection();
-	const MyMath::Matrix4& GetMatWorld();
 
 	const MyMath::Vector3& GetEye();
 	const MyMath::Vector3& GetTarget();

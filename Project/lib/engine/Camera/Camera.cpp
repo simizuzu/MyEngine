@@ -114,6 +114,12 @@ void Camera::UpdateMatrix()
 	matCameraWorld_ *= matRot;
 	matCameraWorld_ *= matTrans;
 
+	//親行列の指定がある場合は、掛け算する
+	if ( parent != nullptr )
+	{
+		matCameraWorld_ *= parent->matCameraWorld_;
+	}
+
 	matView_ = MyMathUtility::MakeInverse(matCameraWorld_);
 
 	// 透視投影の生成
@@ -144,11 +150,6 @@ const MyMath::Matrix4& Camera::GetMatViewInverse()
 const MyMath::Matrix4& Camera::GetMatProjection()
 {
 	return matProjection_;
-}
-
-const MyMath::Matrix4& Camera::GetMatWorld()
-{
-	return matCameraWorld_;
 }
 
 const MyMath::Vector3& Camera::GetEye()

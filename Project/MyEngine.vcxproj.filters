@@ -441,7 +441,7 @@
     <ClCompile Include="Users\Bullet\PlayerBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="ModelManager.cpp">
+    <ClCompile Include="lib\engine\3D\Model\Manager\ModelManager.cpp">
       <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -644,7 +644,7 @@
     <ClInclude Include="Users\Collider\CollisionConfig.h">
       <Filter>Application\ヘッダーファイル\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="ModelManager.h">
+    <ClInclude Include="lib\engine\3D\Model\Manager\ModelManager.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

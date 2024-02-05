@@ -94,7 +94,7 @@ private:
 	MyMath::Vector2 windowWH;
 	MyMath::Vector2 mouseMove;
 	MyMath::Vector2 mouseMoved;
-	MyMath::Vector3 guntrans;
+	MyMath::Vector3 guntrans = {0.3f,-0.15f,1.5f};
 
 public:
 	float timeRate;						//何％時間が進んだか

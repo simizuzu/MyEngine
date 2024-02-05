@@ -78,6 +78,8 @@ public:
 
 	const WorldTransform* parent = nullptr;
 
+	MyMath::Matrix4* parentMat = nullptr;
+
 private:
 	//代入演算子削除
 	WorldTransform& operator=(const WorldTransform&) = delete;
