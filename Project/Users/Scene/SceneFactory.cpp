@@ -11,7 +11,6 @@
 
 BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 {
-    
     BaseScene* newScene = nullptr;
 
     if (sceneName == "TITLE") {

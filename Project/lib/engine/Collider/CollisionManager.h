@@ -4,6 +4,7 @@
 #include "DirectX12Math.h"
 
 #include "ObjModel.h"
+#include "CollisionPrimitive.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <list>
@@ -38,6 +39,17 @@ public:
 
 	//リセット
 	void Reset();
+
+public:
+	/// <summary>
+	/// レイと球の当たり判定
+	/// </summary>
+	/// <param name="ray">レイ</param>
+	/// <param name="sphere">球</param>
+	/// <param name="distance">距離</param>
+	/// <param name="inter">交点</param>
+	/// <returns>交差しているか否か</returns>
+	bool CheckRay2Sphere(const Ray& ray, const Sphere& sphere, float* distance = nullptr, MyMath::Vector3* inter = nullptr);
 
 private:
 	//コピーコンストラクタ・代入演算子削除

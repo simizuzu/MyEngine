@@ -1,4 +1,5 @@
 #include "CollisionManager.h"
+#include <cmath>
 
 void CollisionManager::CheckCollisionPair(Collider* colliderA,Collider* colliderB)
 {
@@ -59,4 +60,44 @@ void CollisionManager::Reset()
 {
 	//リストを空っぽにする
 	colliders_.clear();
+}
+
+bool CollisionManager::CheckRay2Sphere(const Ray& ray,const Sphere& sphere,float* distance,MyMath::Vector3* inter)
+{
+	MyMath::Vector3 m = ray.start - sphere.center;
+	float b = m.dot(ray.dir);
+	float c = m.dot(m) - sphere.radius * sphere.radius;
+
+	//Rayの視点がsphereの外側にあり(c>0)、Rayがsphereから離れていく方向を差している場合(b>0)、当たらない
+	if ( c > 0.0f && b > 0.0f )
+	{
+		return false;
+	}
+
+	float discr = b*b-c;
+	//負の判別式は例が球を外れていることに一致
+	if ( discr < 0.0f )
+	{
+		return false;
+	}
+
+	//交差する最小の値tを計算
+	float t = -b - std::sqrt(discr);
+	//tが負である場合、レイは球の内側から開始しているのでtをゼロにクランプ
+	if ( t < 0 )
+	{
+		t = 0.0f;
+	}
+
+	if ( distance )
+	{
+		*distance = t;
+	}
+
+	if ( inter )
+	{
+		*inter = ray.start + t * ray.dir;
+	}
+
+	return true;
 }

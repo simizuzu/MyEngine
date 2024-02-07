@@ -37,12 +37,10 @@ public:
 public:
 	//衝突時に呼ばれる関数
 	virtual void OnCollision();
-
 	//中心座標を取得(純粋仮想関数)
 	virtual MyMath::Vector3 GetCenterPosition() const = 0;
 
 public:
-
 	//衝突判定を取得する
 	float GetRadius();
 	//衝突判定を設定する

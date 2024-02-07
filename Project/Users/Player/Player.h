@@ -97,9 +97,9 @@ private:
 	MyMath::Vector3 guntrans = {0.3f,-0.15f,1.5f};
 
 public:
-	float timeRate;						//何％時間が進んだか
+	float timeRate;			//何％時間が進んだか
 private:
-	float maxTime = 120.0f;				//全体時間[s]
+	float maxTime = 120.0f;	//全体時間[s]
 
 	float targetTimeRate;
 	bool bulletIntervalFlag = false;

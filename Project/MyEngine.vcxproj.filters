@@ -42,12 +42,6 @@
     <Filter Include="Engine\ソース ファイル\3D">
       <UniqueIdentifier>{d5dc638c-2872-4809-b80f-57ad7c658ea9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\ソース ファイル\3D\Obj">
-      <UniqueIdentifier>{431628af-244c-4d34-8ee7-d7246c790e85}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\ソース ファイル\3D\Fbx">
-      <UniqueIdentifier>{a8548164-c544-404b-a83c-dbe447849e6a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\ソース ファイル\Audio">
       <UniqueIdentifier>{de83eca9-1354-4d9a-adab-1cf885f70cdc}</UniqueIdentifier>
     </Filter>
@@ -93,12 +87,6 @@
     </Filter>
     <Filter Include="Engine\ヘッダー ファイル\3D">
       <UniqueIdentifier>{2dac5741-87a8-4672-9b59-9563a47db247}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\ヘッダー ファイル\3D\Obj">
-      <UniqueIdentifier>{9683ad73-2c75-49b8-80a5-d2502d4a94c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\ヘッダー ファイル\3D\Fbx">
-      <UniqueIdentifier>{3e12042b-8b95-4eda-91e3-6146fb80d56f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\ヘッダー ファイル\Audio">
       <UniqueIdentifier>{1bd9416e-9c21-4d03-9297-526f5db5e23c}</UniqueIdentifier>
@@ -247,17 +235,35 @@
     <Filter Include="Application\ヘッダーファイル\Particle">
       <UniqueIdentifier>{38b8885a-a517-4b5c-a790-1324662642e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\ソースファイル\Collision">
-      <UniqueIdentifier>{1b6a0de7-ee3a-4e39-bca7-0f4811152993}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\ヘッダーファイル\Collision">
-      <UniqueIdentifier>{125fcef8-7bdf-4c53-ad6b-13a67ac1a4b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\ソースファイル\Bullet">
       <UniqueIdentifier>{5ab78036-3910-4860-ac03-b2a9d70c9f93}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application\ヘッダーファイル\Bullet">
       <UniqueIdentifier>{e48ecdb0-09b7-4d28-9595-64b2b62a17da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\Collision">
+      <UniqueIdentifier>{1b6a0de7-ee3a-4e39-bca7-0f4811152993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\Collision">
+      <UniqueIdentifier>{125fcef8-7bdf-4c53-ad6b-13a67ac1a4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\3D\Model">
+      <UniqueIdentifier>{b14e8ceb-4dc9-4222-a80f-d16c1e651437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\3D\Model\Obj">
+      <UniqueIdentifier>{9683ad73-2c75-49b8-80a5-d2502d4a94c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ヘッダー ファイル\3D\Model\Fbx">
+      <UniqueIdentifier>{3e12042b-8b95-4eda-91e3-6146fb80d56f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\3D\Model">
+      <UniqueIdentifier>{6055ff79-d8f7-4d07-9f37-75669c05ec97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\3D\Model\Fbx">
+      <UniqueIdentifier>{a8548164-c544-404b-a83c-dbe447849e6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ソース ファイル\3D\Model\Obj">
+      <UniqueIdentifier>{431628af-244c-4d34-8ee7-d7246c790e85}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -298,19 +304,19 @@
       <Filter>Engine\ソース ファイル\Imgui</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\Model\FBX\FbxObject3d.cpp">
-      <Filter>Engine\ソース ファイル\3D\Fbx</Filter>
+      <Filter>Engine\ソース ファイル\3D\Model\Fbx</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\Model\FBX\FbxModel.cpp">
-      <Filter>Engine\ソース ファイル\3D\Fbx</Filter>
+      <Filter>Engine\ソース ファイル\3D\Model\Fbx</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\Model\FBX\FbxLoader.cpp">
-      <Filter>Engine\ソース ファイル\3D\Fbx</Filter>
+      <Filter>Engine\ソース ファイル\3D\Model\Fbx</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\Model\OBJ\ObjObject3d.cpp">
-      <Filter>Engine\ソース ファイル\3D\Obj</Filter>
+      <Filter>Engine\ソース ファイル\3D\Model\Obj</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\Model\OBJ\ObjModel.cpp">
-      <Filter>Engine\ソース ファイル\3D\Obj</Filter>
+      <Filter>Engine\ソース ファイル\3D\Model\Obj</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\Scene\Framework.cpp">
       <Filter>Engine\ソース ファイル\Scene</Filter>
@@ -417,11 +423,11 @@
     <ClCompile Include="lib\engine\3D\Particle\ParticleManager.cpp">
       <Filter>Application\ソースファイル\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Users\Collider\Collider.cpp">
-      <Filter>Application\ソースファイル\Collision</Filter>
+    <ClCompile Include="lib\engine\Collider\Collider.cpp">
+      <Filter>Engine\ソース ファイル\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Users\Collider\CollisionManager.cpp">
-      <Filter>Application\ソースファイル\Collision</Filter>
+    <ClCompile Include="lib\engine\Collider\CollisionManager.cpp">
+      <Filter>Engine\ソース ファイル\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Users\3D\DamegeEffect.cpp">
       <Filter>Application\ソースファイル\Particle</Filter>
@@ -442,24 +448,24 @@
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\Model\Manager\ModelManager.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
+      <Filter>Engine\ソース ファイル\3D\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxObject3d.h">
-      <Filter>Engine\ヘッダー ファイル\3D\Fbx</Filter>
+      <Filter>Engine\ヘッダー ファイル\3D\Model\Fbx</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxModel.h">
-      <Filter>Engine\ヘッダー ファイル\3D\Fbx</Filter>
+      <Filter>Engine\ヘッダー ファイル\3D\Model\Fbx</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\3D\Model\FBX\FbxLoader.h">
-      <Filter>Engine\ヘッダー ファイル\3D\Fbx</Filter>
+      <Filter>Engine\ヘッダー ファイル\3D\Model\Fbx</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\3D\Model\OBJ\ObjObject3d.h">
-      <Filter>Engine\ヘッダー ファイル\3D\Obj</Filter>
+      <Filter>Engine\ヘッダー ファイル\3D\Model\Obj</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\3D\Model\OBJ\ObjModel.h">
-      <Filter>Engine\ヘッダー ファイル\3D\Obj</Filter>
+      <Filter>Engine\ヘッダー ファイル\3D\Model\Obj</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\Audio\AudioManager.h">
       <Filter>Engine\ヘッダー ファイル\Audio</Filter>
@@ -614,20 +620,17 @@
     <ClInclude Include="lib\engine\Math\Numbers.h">
       <Filter>Engine\ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Users\Collider\CollisionManager.h">
-      <Filter>Application\ヘッダーファイル\Collision</Filter>
+    <ClInclude Include="lib\engine\Collider\CollisionManager.h">
+      <Filter>Engine\ヘッダー ファイル\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Users\Collider\Collider.h">
-      <Filter>Application\ヘッダーファイル\Collision</Filter>
+    <ClInclude Include="lib\engine\Collider\Collider.h">
+      <Filter>Engine\ヘッダー ファイル\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Users\3D\DamegeEffect.h">
       <Filter>Application\ヘッダーファイル\Particle</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\Math\Easing.h">
       <Filter>Engine\ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Collider\CollisionTypes.h">
-      <Filter>Application\ヘッダーファイル\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Users\Bullet\BulletManager.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
@@ -641,11 +644,14 @@
     <ClInclude Include="Users\Bullet\EnemyBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Users\Collider\CollisionConfig.h">
-      <Filter>Application\ヘッダーファイル\Collision</Filter>
+    <ClInclude Include="lib\engine\Collider\CollisionConfig.h">
+      <Filter>Engine\ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionPrimitive.h">
+      <Filter>Engine\ヘッダー ファイル\Collision</Filter>
     </ClInclude>
     <ClInclude Include="lib\engine\3D\Model\Manager\ModelManager.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
+      <Filter>Engine\ヘッダー ファイル\3D\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
