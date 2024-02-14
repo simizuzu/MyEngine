@@ -364,7 +364,7 @@ void GameScene::CheckAllCollilsions()
 	//	pBullet_->SetRadius(3.0f);
 	//}
 
-	if ( input_->PushButton(RT) )
+	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
 	{
 		bulletIntervalFlag = true;
 	}
@@ -382,6 +382,7 @@ void GameScene::CheckAllCollilsions()
 		{
 			if ( CollisionManager::CheckRay2Sphere(ray,enemy->GetSphereCenter()) )
 			{
+				enemy->OnCollision();
 				hit = true;
 			}
 		}

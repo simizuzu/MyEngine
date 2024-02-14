@@ -17,7 +17,7 @@ void Player::Initialize(Camera* camera)
 	input = Input::GetInstance();
 	camera_.reset(camera);
 
-	bulletObj.reset(ObjObject3d::Create());
+	//bulletObj.reset(ObjObject3d::Create());
 	playerObj.reset(ObjObject3d::Create());
 	playerObj->SetModel("gun",true);
 
@@ -37,15 +37,15 @@ void Player::Initialize(Camera* camera)
 
 void Player::Update()
 {
-	//デスフラグの立った弾を削除
-	bullets.remove_if([](PlayerBullet* bullet) {
-		if (bullet->IsDead())
-		{
-			delete bullet;
-			return true;
-		}
-		return false;
-		});
+	////デスフラグの立った弾を削除
+	//bullets.remove_if([](PlayerBullet* bullet) {
+	//	if (bullet->IsDead())
+	//	{
+	//		delete bullet;
+	//		return true;
+	//	}
+	//	return false;
+	//	});
 
 	RotateCamera();
 
@@ -85,21 +85,21 @@ void Player::Update()
 
 	playerTrans.SetTranslation({guntrans.x,guntrans.y,guntrans.z });
 	//攻撃処理
-	Attack();
+	//Attack();
 
 	//弾更新
-	for (PlayerBullet* bullet : bullets) {
+	/*for (PlayerBullet* bullet : bullets) {
 		bullet->Update(camera_.get());
-	}
+	}*/
 	playerTrans.Update(camera_.get());
 }
 
 void Player::Draw()
 {
 	//弾描画
-	for (PlayerBullet* bullet : bullets) {
+	/*for (PlayerBullet* bullet : bullets) {
 		bullet->Draw();
-	}
+	}*/
 
 	playerObj->Draw(&playerTrans);
 }

@@ -27,7 +27,7 @@ void CollisionManager::CheckCollisionPair(Collider* colliderA,Collider* collider
 		//コライダーBの衝突時コールバックを呼び出す
 		colliderB->OnCollision();
 	}
-	}
+}
 
 void CollisionManager::CheckAllCollisions()
 {
