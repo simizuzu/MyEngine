@@ -7,6 +7,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "Vector3.h"
 #include "WorldTransform.h"
 #include "CollisionConfig.h"
+#include "CollisionPrimitive.h"
 
  /**
  * @class Collider.h
@@ -45,6 +46,10 @@ public:
 	float GetRadius();
 	//衝突判定を設定する
 	void SetRadius(float radius);
+
+public:
+	Ray ray;
+	Sphere sphere;
 
 public:
 	Collider() = default;

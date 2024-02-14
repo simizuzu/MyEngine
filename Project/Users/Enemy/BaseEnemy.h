@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "Collider.h"
 #include "EnemyBullet.h"
+#include "CollisionPrimitive.h"
 
 /**
  * @class Enemy.h
@@ -28,6 +29,8 @@ public:
 	virtual void Draw() = 0;
 
 	virtual bool IsDead() const = 0;
+
+	const Sphere& GetSphereCenter() const;
 
 public:
 	//中心座標を取得

@@ -49,7 +49,7 @@ public:
 	/// <param name="distance">距離</param>
 	/// <param name="inter">交点</param>
 	/// <returns>交差しているか否か</returns>
-	bool CheckRay2Sphere(const Ray& ray, const Sphere& sphere, float* distance = nullptr, MyMath::Vector3* inter = nullptr);
+	static bool CheckRay2Sphere(const Ray& ray, const Sphere& sphere);
 
 private:
 	//コピーコンストラクタ・代入演算子削除

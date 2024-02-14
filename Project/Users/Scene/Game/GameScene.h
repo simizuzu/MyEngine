@@ -121,8 +121,8 @@ private: // メンバ変数
 
 	std::unique_ptr<EnemyManager> enemyManager_;
 	std::unique_ptr<Player> player_;
-
-	std::unique_ptr<FbxModel> enemyModel_;
+	const float enemyRadius = 2.0f;
+	int8_t pad7[ 4 ];
 
 	std::unique_ptr<CollisionManager> collisionManager_;
 
@@ -145,6 +145,11 @@ private: // メンバ変数
 	
 	//シーンマネージャ
 	SceneManager* sceneManager_ = nullptr;
+
+private: //bullet関連
+	bool bulletIntervalFlag = false;
+	uint8_t bulletIntervalTimer = 6;
+	int8_t pad2[ 2 ];
 
 private: //スタート演出
 	float easingFrame = 5.0f;
@@ -170,6 +175,7 @@ private: //スタート演出
 	MyMath::Vector2 blackDownPos = {1280,620};
 	MyMath::Vector2 blackSize = { 0,100 };
 	MyMath::Vector2 fieldNameSize = {50,300};
+	int8_t pad8[4 ];
 
 	std::unique_ptr<Sprite> spriteWhite_;
 	std::unique_ptr<Sprite> spriteBlack_;
@@ -192,6 +198,12 @@ private: //スタート演出
 
 	float cameraTimeRate;
 	int8_t pad3[ 4 ];
+
+private: //当たり判定
+	Ray ray; //レイ
+	Sphere sphere; //球
+	bool hit =false;
+	int8_t pad9[ 3 ];
 private:
 	enum class SCENEFASE
 	{
@@ -206,7 +218,7 @@ private:
 	int8_t pad5[ 4 ];
 
 	DecimalNumbers decimal;
-	int8_t pad2[ 4 ];
+	//int8_t pad2[ 4 ];
 
 private:
 	//コピーコンストラクタ・代入演算子削除

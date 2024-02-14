@@ -95,16 +95,8 @@ void GameScene::Initialize()
 	damageParticle = new ParticleManager();
 	damageParticle->Initialize(damageModel.get(),camera);*/
 
-	//ModelManager::GetInstance()->LoadModel("boneTest",fbx);
-	//enemyModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("boneTest"));
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","boneTest",camera));
-
-	////敵全てを読み込む
-	//for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
-	//{
-	//	enemy->
-	//}
 
 	sceneManager_ = SceneManager::GetInstance();
 }
@@ -112,6 +104,16 @@ void GameScene::Initialize()
 void GameScene::Update()
 {
 	GameTimer();
+
+	//球の中心点を各敵の原点に設定
+	//sphere.center = enemyManager_->GetEnemyCenterPos();
+	sphere.radius = enemyRadius;
+	//レイの始発点をプレイヤーの中心に設定
+	ray.start = player_->GetCenterPosition();
+	MyMath::Vector3 vec(0,0,1);
+	ray.dir = MyMath::Vec3Mat4Mul(vec,camera->matCameraWorld_);
+
+	colliderTrans.SetTranslation(sphere.center);
 
 	//衝突判定と応答
 	CheckAllCollilsions();
@@ -125,6 +127,7 @@ void GameScene::Update()
 
 	ImGui::Begin("GameTimer");
 	ImGui::Text("GameTimer(%d,%d)",gameTimer_,oneSecond);
+	ImGui::Text("HIT(%d,%d)",hit,bulletIntervalFlag);
 	ImGui::End();
 
 #endif
@@ -342,9 +345,6 @@ void GameScene::CheckAllCollilsions()
 	//衝突マネージャのリセット
 	collisionManager_->Reset();
 
-	
-	//std::unique_ptr<EnemyBullet> eBullet_;
-
 	//コライダーをリストに登録
 	//プレイヤーについて
 	collisionManager_->AddCollider(player_.get());
@@ -354,17 +354,44 @@ void GameScene::CheckAllCollilsions()
 	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 	{
 		collisionManager_->AddCollider(enemy.get());
-		enemy->SetRadius(2.0f);
+		enemy->SetRadius(enemyRadius);
 	}
 
-	//プレイヤー弾について
-	for ( PlayerBullet* pBullet_ : player_->GetBullets() )
+	////プレイヤー弾について
+	//for ( PlayerBullet* pBullet_ : player_->GetBullets() )
+	//{
+	//	collisionManager_->AddCollider(pBullet_);
+	//	pBullet_->SetRadius(3.0f);
+	//}
+
+	if ( input_->PushButton(RT) )
 	{
-		collisionManager_->AddCollider(pBullet_);
-		pBullet_->SetRadius(3.0f);
+		bulletIntervalFlag = true;
+	}
+
+	if ( bulletIntervalTimer == zero )
+	{
+		bulletIntervalFlag = false;
+		bulletIntervalTimer = 6;
+	}
+
+	if ( bulletIntervalFlag )
+	{
+		//敵全てについて
+		for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
+		{
+			if ( CollisionManager::CheckRay2Sphere(ray,enemy->GetSphereCenter()) )
+			{
+				hit = true;
+			}
+		}
+		bulletIntervalTimer--;
+	}
+	else
+	{
+		hit = false;
 	}
 
 	//衝突判定と応答
 	collisionManager_->CheckAllCollisions();
 }
-

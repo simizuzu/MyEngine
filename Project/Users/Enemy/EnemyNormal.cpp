@@ -26,7 +26,6 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 
 	enemyTrans.Initialize();
 	enemyTrans.SetScale({ 0.009f,0.009f ,0.009f });
-	//enemyObj_->SetScale({ 0.009f,0.009f ,0.009f });
 
 	player_ = new Player();
 	player_->Initialize(camera_);
@@ -66,6 +65,7 @@ void EnemyNormal::Update()
 	enemyTrans.SetTranslation(translation);
 	enemyTrans.Update(camera_);
 	enemyObj_->Update();
+	sphere.center = enemyTrans.GetTranslation();
 }
 
 void EnemyNormal::Draw()

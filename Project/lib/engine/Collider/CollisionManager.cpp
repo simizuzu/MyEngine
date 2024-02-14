@@ -27,7 +27,7 @@ void CollisionManager::CheckCollisionPair(Collider* colliderA,Collider* collider
 		//コライダーBの衝突時コールバックを呼び出す
 		colliderB->OnCollision();
 	}
-}
+	}
 
 void CollisionManager::CheckAllCollisions()
 {
@@ -62,7 +62,7 @@ void CollisionManager::Reset()
 	colliders_.clear();
 }
 
-bool CollisionManager::CheckRay2Sphere(const Ray& ray,const Sphere& sphere,float* distance,MyMath::Vector3* inter)
+bool CollisionManager::CheckRay2Sphere(const Ray& ray,const Sphere& sphere)
 {
 	MyMath::Vector3 m = ray.start - sphere.center;
 	float b = m.dot(ray.dir);
@@ -87,16 +87,6 @@ bool CollisionManager::CheckRay2Sphere(const Ray& ray,const Sphere& sphere,float
 	if ( t < 0 )
 	{
 		t = 0.0f;
-	}
-
-	if ( distance )
-	{
-		*distance = t;
-	}
-
-	if ( inter )
-	{
-		*inter = ray.start + t * ray.dir;
 	}
 
 	return true;

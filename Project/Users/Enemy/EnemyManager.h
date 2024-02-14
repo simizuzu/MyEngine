@@ -62,6 +62,8 @@ public:
 	/// <returns>敵の数</returns>
 	const std::list<std::unique_ptr<BaseEnemy>>& GetEnemys();
 
+	MyMath::Vector3 GetEnemyCenterPos();
+
 	bool GetReachCommandFlag();
 
 	//const std::list<std::unique_ptr<BaseEnemy>>& GetEnemyBullets();

@@ -59,6 +59,11 @@ const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemys()
 	return enemys;
 }
 
+MyMath::Vector3 EnemyManager::GetEnemyCenterPos()
+{
+	return enemysPos_;
+}
+
 bool EnemyManager::GetReachCommandFlag()
 {
 	return reachCommandFlag;
@@ -142,7 +147,6 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player)
 			enemysPos_.z = ( float ) std::atof(word.c_str());
 
 			std::unique_ptr<EnemyNormal> enemy = std::make_unique<EnemyNormal>();
-			//model_ = ModelManager::GetInstance()->FindFbxModel();
 			enemy->Initialize(modelName_,camera_);
 			enemy->SetPlayer(player);
 
