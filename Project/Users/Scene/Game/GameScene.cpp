@@ -65,18 +65,21 @@ void GameScene::Initialize()
 	spriteBlackUp_ = std::make_unique<Sprite>();
 	spriteBlackDown_ = std::make_unique<Sprite>();
 	spriteStageName01_ = std::make_unique<Sprite>();
+	spriteFlash_ = std::make_unique<Sprite>();
 
 	spriteWhite_->Initialize();
 	spriteBlack_->Initialize();
 	spriteBlackUp_->Initialize();
 	spriteBlackDown_->Initialize();
 	spriteStageName01_->Initialize();
+	spriteFlash_->Initialize();
 
 	texWhite_ = TextureManager::Load("Resources/Texture/white1x1.png");
 	texBlack_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackUp_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackDown_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texStageName01_ = TextureManager::Load("Resources/Texture/Scene/stagename01.png");
+	texFlash_ = TextureManager::Load("Resources/Texture/muzzleFlash.png");
 
 	//robotoModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("roboto"));
 	robotoObj_.reset(FbxObject3d::Create());
@@ -128,6 +131,7 @@ void GameScene::Update()
 	ImGui::Begin("GameTimer");
 	ImGui::Text("GameTimer(%d,%d)",gameTimer_,oneSecond);
 	ImGui::Text("HIT(%d,%d)",hit,bulletIntervalFlag);
+	ImGui::Text("FlashRot(%d)",muzzleFlashFlag1);
 	ImGui::End();
 
 #endif
@@ -150,6 +154,8 @@ void GameScene::Update()
 	modelData_->Update();
 	player_->Update();
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
+	const MyMath::Vector4 flashColor = {1.0f,1.0f,0.7f,1.0f};
+	spriteFlash_->SetColor(flashColor);
 
 	switch ( scene )
 	{
@@ -201,6 +207,7 @@ void GameScene::Update()
 void GameScene::Draw()
 {
 	modelData_->Draw();
+	MuzzleFlashRotation();
 	player_->Draw();
 
 	//colliderObj_->Draw(&colliderTrans);
@@ -222,8 +229,9 @@ void GameScene::Draw()
 		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
 	case GameScene::SCENEFASE::GAME:
-		modelData_->TexDraw();
+		modelData_->TexDraw();	
 		break;
+
 	case GameScene::SCENEFASE::RESULT:
 		clearDirection->Draw();
 		texBlackAlpha += decimal.zeroPointOne / static_cast< float >( two );
@@ -395,4 +403,24 @@ void GameScene::CheckAllCollilsions()
 
 	//衝突判定と応答
 	collisionManager_->CheckAllCollisions();
+}
+
+void GameScene::MuzzleFlashRotation()
+{
+	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
+	{
+		if ( muzzleFlashFlag1 )
+		{
+			spriteFlash_->Draw(texFlash_,flashPos,{ (float)bulletIntervalTimer/5.5f,( float ) bulletIntervalTimer / 5.5f },0,{ 0.45f,0.45f },muzzleFlashFlag1,muzzleFlashFlag2);
+			muzzleFlashFlag1 = false;
+			muzzleFlashFlag2 = true;
+		}
+		else if ( !muzzleFlashFlag1 )
+		{
+			spriteFlash_->Draw(texFlash_,flashPos,{ ( float ) bulletIntervalTimer / 5.5f,( float ) bulletIntervalTimer / 5.5f },0,{ 0.45f,0.45f },muzzleFlashFlag1,muzzleFlashFlag2);
+			muzzleFlashFlag1 = true;
+			muzzleFlashFlag2 = false;
+		}
+	}
+
 }

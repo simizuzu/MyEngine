@@ -107,12 +107,12 @@ void Player::Draw()
 void Player::RotateCamera()
 {
 	//カメラの回転制御
-	if ( input->PushKey(DIK_RIGHT) || input->InputStick(R_RIGHT))
+	if ( input->PushKey(DIK_RIGHT) || input->InputStick(L_RIGHT))
 	{
 		rot.y += rotationSpeed;
 		camera_->SetRotation({rot.x,rot.y,zero});
 	}
-	if ( input->PushKey(DIK_LEFT) || input->InputStick(R_LEFT) )
+	if ( input->PushKey(DIK_LEFT) || input->InputStick(L_LEFT) )
 	{
 		rot.y -= rotationSpeed;
 		camera_->SetRotation({ rot.x,rot.y,zero });
@@ -121,7 +121,7 @@ void Player::RotateCamera()
 	//回転が[180°,-180°]以内に制御する
 	if ( rot.x > -maxValueRotate && rot.x < maxValueRotate )
 	{
-		if ( input->PushKey(DIK_DOWN) || input->InputStick(R_DOWN) )
+		if ( input->PushKey(DIK_DOWN) || input->InputStick(L_DOWN) )
 		{
 			rot.x += rotationSpeed;
 			camera_->SetRotation({ rot.x,rot.y,zero });
@@ -130,7 +130,7 @@ void Player::RotateCamera()
 				rot.x = maxRotate;
 			}
 		}
-		if ( input->PushKey(DIK_UP) || input->InputStick(R_UP) )
+		if ( input->PushKey(DIK_UP) || input->InputStick(L_UP) )
 		{
 			rot.x -= rotationSpeed;
 			camera_->SetRotation({ rot.x,rot.y,zero });

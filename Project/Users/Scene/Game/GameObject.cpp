@@ -25,19 +25,19 @@ void GameObject::Initialize(Camera* camera)
 	UI01 = std::make_unique<Sprite>();
 	UI02 = std::make_unique<Sprite>();
 	UIRT = std::make_unique<Sprite>();
-	UIR = std::make_unique<Sprite>();
+	UIL = std::make_unique<Sprite>();
 	display->Initialize();
 	reticle->Initialize();
 	UI01->Initialize();
 	UI02->Initialize();
 	UIRT->Initialize();
-	UIR->Initialize();
+	UIL->Initialize();
 
 	displayTex = TextureManager::Load("Resources/Texture/display.png");
 	reticleTex = TextureManager::Load("Resources/Texture/reticle.png");
 	UI01Tex = TextureManager::Load("Resources/Texture/UI.png");
 	UIRTTex = TextureManager::Load("Resources/Texture/RT.png");
-	UIRTex = TextureManager::Load("Resources/Texture/R.png");
+	UILTex = TextureManager::Load("Resources/Texture/L.png");
 
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
@@ -65,13 +65,13 @@ void GameObject::Draw()
 		UIRT->SetColor({ 1,1,1,1 });
 	}
 
-	if ( input->InputStick(R_UP) || input->InputStick(R_DOWN) || input->InputStick(R_LEFT) || input->InputStick(R_RIGHT) )
+	if ( input->InputStick(L_UP) || input->InputStick(L_DOWN) || input->InputStick(L_LEFT) || input->InputStick(L_RIGHT) )
 	{
-		UIR->SetColor({ 0,1,0,1 });
+		UIL->SetColor({ 0,1,0,1 });
 	}
 	else
 	{
-		UIR->SetColor({ 1,1,1,1 });
+		UIL->SetColor({ 1,1,1,1 });
 	}
 }
 
@@ -82,5 +82,5 @@ void GameObject::TexDraw()
 	UI01->Draw(UI01Tex,{ 1100,600 });
 	UI02->Draw(UI01Tex,{ 980,600 });
 	UIRT->Draw(UIRTTex,{ 1015,615 },{ 0.6f,0.6f });
-	UIR->Draw(UIRTex,{ 1135,615 },{ 0.6f,0.6f });
+	UIL->Draw(UILTex,{ 1135,615 },{ 0.6f,0.6f });
 }

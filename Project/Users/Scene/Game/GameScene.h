@@ -109,6 +109,11 @@ private:
 	/// </summary>
 	void CheckAllCollilsions();
 
+	/// <summary>
+	/// マズルフラッシュの挙動
+	/// </summary>
+	void MuzzleFlashRotation();
+
 private: // メンバ変数
 	Input* input_ = nullptr;
 	Camera* camera = nullptr;
@@ -175,6 +180,7 @@ private: //スタート演出
 	MyMath::Vector2 blackDownPos = {1280,620};
 	MyMath::Vector2 blackSize = { 0,100 };
 	MyMath::Vector2 fieldNameSize = {50,300};
+	MyMath::Vector2 flashPos = {710,395};
 	int8_t pad8[4 ];
 
 	std::unique_ptr<Sprite> spriteWhite_;
@@ -182,12 +188,14 @@ private: //スタート演出
 	std::unique_ptr<Sprite> spriteBlackUp_;
 	std::unique_ptr<Sprite> spriteBlackDown_;
 	std::unique_ptr<Sprite> spriteStageName01_;
+	std::unique_ptr<Sprite> spriteFlash_;
 
 	TextureData texWhite_;
 	TextureData texBlack_;
 	TextureData texBlackUp_;
 	TextureData texBlackDown_;
 	TextureData texStageName01_;
+	TextureData texFlash_;
 
 	//std::unique_ptr<ObjObject3d> damageObj;
 	std::unique_ptr<ObjModel> damageModel;
@@ -197,7 +205,10 @@ private: //スタート演出
 	int8_t pad4[3 ];
 
 	float cameraTimeRate;
-	int8_t pad3[ 4 ];
+
+	bool muzzleFlashFlag1 = false;
+	bool muzzleFlashFlag2 = false;
+	int8_t pad3[ 2 ];
 
 private: //当たり判定
 	Ray ray; //レイ
@@ -218,7 +229,7 @@ private:
 	int8_t pad5[ 4 ];
 
 	DecimalNumbers decimal;
-	//int8_t pad2[ 4 ];
+	//int8_t pad10[ 4 ];
 
 private:
 	//コピーコンストラクタ・代入演算子削除
