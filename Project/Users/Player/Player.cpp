@@ -106,19 +106,19 @@ void Player::Draw()
 
 void Player::RotateCamera()
 {
+	stickDeadZone = input->GetLeftStickVec();
+	rotationSpeed *= stickDeadZone.y;
+	rotationSpeed *= stickDeadZone.x;
+	
 	//カメラの回転制御
 	if ( input->PushKey(DIK_RIGHT) || input->InputStick(L_RIGHT))
 	{
 		rot.y += rotationSpeed;
-		camera_->SetRotation({rot.x,rot.y,zero});
 	}
 	if ( input->PushKey(DIK_LEFT) || input->InputStick(L_LEFT) )
 	{
 		rot.y -= rotationSpeed;
-		camera_->SetRotation({ rot.x,rot.y,zero });
 	}
-
-	stickDeadZone = input->GetLeftStickVec();
 
 	//回転が[180°,-180°]以内に制御する
 	if ( rot.x > -maxValueRotate && rot.x < maxValueRotate )
@@ -126,7 +126,6 @@ void Player::RotateCamera()
 		if ( input->PushKey(DIK_DOWN) || input->InputStick(L_DOWN) )
 		{
 			rot.x += rotationSpeed;
-			camera_->SetRotation({ rot.x,rot.y,zero });
 			if ( rot.x > maxRotate )
 			{
 				rot.x = maxRotate;
@@ -135,13 +134,14 @@ void Player::RotateCamera()
 		if ( input->PushKey(DIK_UP) || input->InputStick(L_UP) )
 		{
 			rot.x -= rotationSpeed;
-			camera_->SetRotation({ rot.x,rot.y,zero });
 			if ( rot.x < -maxRotate )
 			{
 				rot.x = -maxRotate;
 			}
 		}
 	}
+
+	camera_->SetRotation({ rot.x,rot.y,zero });
 }
 
 void Player::OnCollision()
@@ -168,44 +168,4 @@ MyMath::Vector3 Player::GetCenterPosition() const
 MyMath::Vector3 Player::GetPlayerWorldPosition()
 {
 	return MyMath::GetWorldPosition(playerTrans);
-}
-
-void Player::Attack()
-{
-	//弾の速度
-	const float bulletSpeed = 8.0f;
-	MyMath::Vector3 velocity(0,0,bulletSpeed);
-
-	//速度ベクトルを自機の向きに合わせて回転させる
-	velocity = MyMath::Vec3Mat4Mul(velocity,camera_->matCameraWorld_);
-	
-	//スペースキーまたはRトリガーを押したとき弾を発射
-	if (input->PushKey(DIK_SPACE) || input->PushButton(RT)) {
-		bulletIntervalFlag = true;
-	}
-
-	if ( bulletIntervalFlag )
-	{
-		bulletIntervalTimer--;
-	}
-
-	if ( bulletIntervalTimer == zero )
-	{
-		//弾を生成し、初期化
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(bulletObj.get(),camera_->GetTranslation(),velocity);
-
-		//弾を登録する
-		bullets.push_back(newBullet);
-
-		bulletIntervalFlag = false;
-		bulletIntervalTimer = 6;
-	}
-}
-
-Player::~Player()
-{
-	for (PlayerBullet* bullet : bullets) {
-		delete bullet;
-	}
 }

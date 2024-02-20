@@ -22,14 +22,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
 class Player : public Collider
 {
 private:
-	const float rotationSpeed = 0.05f;
+	float rotationSpeed = 0.01f;
 	const float maxRotate = 1.3f;
 	const float maxValueRotate = 1.5f;
 
 public:
 	//コンストラクタ・デストラクタ
-	Player() = default;
-	~Player();
+	Player()= default;
+	~Player() = default;
 
 	/// <summary>
 	/// 初期化
@@ -56,11 +56,6 @@ public:
 	MyMath::Vector3 GetCenterPosition() const override;
 
 private:
-	/// <summary>
-	/// 攻撃したか
-	/// </summary>
-	void Attack();
-
 	/// <summary>
 	/// カメラの回転処理
 	/// </summary>
