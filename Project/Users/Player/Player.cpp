@@ -56,8 +56,8 @@ void Player::Update()
 	cameraVAngle = camera_->GetVAngle(camera_->GetEye(),camera_->GetTarget()); //垂直方向
 
 #ifdef _DEBUG
-	ImGui::Begin("MousePos");
-	ImGui::Text("Position(%f,%f)", mousePos.x, mousePos.y);
+	ImGui::Begin("StickDeadZone");
+	ImGui::Text("DeadZone(%f,%f)", stickDeadZone.x,stickDeadZone.y);
 	ImGui::End();
 
 	ImGui::Begin("PlayerPos");
@@ -117,6 +117,8 @@ void Player::RotateCamera()
 		rot.y -= rotationSpeed;
 		camera_->SetRotation({ rot.x,rot.y,zero });
 	}
+
+	stickDeadZone = input->GetLeftStickVec();
 
 	//回転が[180°,-180°]以内に制御する
 	if ( rot.x > -maxValueRotate && rot.x < maxValueRotate )
