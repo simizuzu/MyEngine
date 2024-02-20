@@ -22,7 +22,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
 class Player : public Collider
 {
 private:
-	float rotationSpeed = 0.01f;
+	float rotationSpeed = 0.05f;
 	const float maxRotate = 1.3f;
 	const float maxValueRotate = 1.5f;
 

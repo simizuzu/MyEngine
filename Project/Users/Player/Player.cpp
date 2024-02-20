@@ -107,17 +107,17 @@ void Player::Draw()
 void Player::RotateCamera()
 {
 	stickDeadZone = input->GetLeftStickVec();
-	rotationSpeed *= stickDeadZone.y;
-	rotationSpeed *= stickDeadZone.x;
+	//rotationSpeed *= stickDeadZone.y;
+	//rotationSpeed *= stickDeadZone.x;
 	
 	//カメラの回転制御
 	if ( input->PushKey(DIK_RIGHT) || input->InputStick(L_RIGHT))
 	{
-		rot.y += rotationSpeed;
+		rot.y += rotationSpeed * stickDeadZone.x;
 	}
 	if ( input->PushKey(DIK_LEFT) || input->InputStick(L_LEFT) )
 	{
-		rot.y -= rotationSpeed;
+		rot.y += rotationSpeed * stickDeadZone.x;
 	}
 
 	//回転が[180°,-180°]以内に制御する
@@ -125,7 +125,7 @@ void Player::RotateCamera()
 	{
 		if ( input->PushKey(DIK_DOWN) || input->InputStick(L_DOWN) )
 		{
-			rot.x += rotationSpeed;
+			rot.x += rotationSpeed * stickDeadZone.y;
 			if ( rot.x > maxRotate )
 			{
 				rot.x = maxRotate;
@@ -133,7 +133,7 @@ void Player::RotateCamera()
 		}
 		if ( input->PushKey(DIK_UP) || input->InputStick(L_UP) )
 		{
-			rot.x -= rotationSpeed;
+			rot.x += rotationSpeed * stickDeadZone.y;
 			if ( rot.x < -maxRotate )
 			{
 				rot.x = -maxRotate;
