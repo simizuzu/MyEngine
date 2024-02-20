@@ -422,5 +422,4 @@ void GameScene::MuzzleFlashRotation()
 			muzzleFlashFlag2 = false;
 		}
 	}
-
 }
