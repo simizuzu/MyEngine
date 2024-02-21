@@ -435,16 +435,7 @@
     <ClCompile Include="lib\engine\Math\Easing.cpp">
       <Filter>Engine\ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Users\Bullet\BulletManager.cpp">
-      <Filter>Application\ソースファイル\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Bullet\Bullet.cpp">
-      <Filter>Application\ソースファイル\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Users\Bullet\EnemyBullet.cpp">
-      <Filter>Application\ソースファイル\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Bullet\PlayerBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="lib\engine\3D\Model\Manager\ModelManager.cpp">
@@ -631,15 +622,6 @@
     </ClInclude>
     <ClInclude Include="lib\engine\Math\Easing.h">
       <Filter>Engine\ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Bullet\BulletManager.h">
-      <Filter>Application\ヘッダーファイル\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Bullet\Bullet.h">
-      <Filter>Application\ヘッダーファイル\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Bullet\PlayerBullet.h">
-      <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Users\Bullet\EnemyBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>

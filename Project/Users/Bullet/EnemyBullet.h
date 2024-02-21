@@ -6,8 +6,8 @@
 #include "Collider.h"
 
  /**
- * @class PlayerBullet.h
- * @brief PlayerBulletのクラス
+ * @class EnemyBullet.h
+ * @brief EnemyBulletのクラス
  */
 class EnemyBullet final : public Collider
 {

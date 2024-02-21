@@ -100,7 +100,7 @@ public:
 
 	//setter
 	MyMath::Matrix4 GetMatWorld();
-	MyMath::Vector3 GetWorldPosition(const MyMath::Vector3& worldPos);
+	MyMath::Vector3 GetWorldPosition();
 
 	//コンストラクタ・デストラクタ
 	FbxObject3d() = default;

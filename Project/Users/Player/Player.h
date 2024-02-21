@@ -2,10 +2,10 @@
 #include "Camera.h"
 #include "Input.h"
 #include "LevelLoader.h"
-#include "PlayerBullet.h"
 #include "Sprite.h"
 #include "TextureManager.h"
 #include "Collider.h"
+#include "ObjObject3d.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <list>
@@ -48,11 +48,6 @@ public:
 	void Draw();
 
 	//プレイヤーのワールド座標を取得する
-	MyMath::Vector3 GetPlayerWorldPosition();
-
-	//弾リストを取得
-	const std::list<PlayerBullet*>& GetBullets() const;
-
 	MyMath::Vector3 GetCenterPosition() const override;
 
 private:
@@ -89,7 +84,7 @@ private:
 	MyMath::Vector2 windowWH;
 	MyMath::Vector2 mouseMove;
 	MyMath::Vector2 mouseMoved;
-	MyMath::Vector3 guntrans = {0.3f,-0.15f,1.5f};
+	MyMath::Vector3 gunmodelTranslation = {0.3f,-0.15f,1.5f};
 	MyMath::Vector2 stickDeadZone;
 
 public:
@@ -111,9 +106,6 @@ private:
 
 private:
 	LevelData* curveData;
-
-	//弾
-	std::list<PlayerBullet*> bullets;
 	Input* input = nullptr;
 
 	//カメラ
@@ -121,12 +113,6 @@ private:
 
 	//プレイヤーのモデル
 	std::unique_ptr<ObjObject3d> playerObj;
-
-	//弾のモデル
-	std::unique_ptr<ObjObject3d> bulletObj;
-
-	//レティクルのモデル
-	std::unique_ptr<ObjObject3d> reticleObj;
 
 	//プレイヤー用ワールドトランスフォーム
 	WorldTransform playerTrans;

@@ -187,9 +187,9 @@ MyMath::Matrix4 FbxObject3d::GetMatWorld()
 	return matWorld;
 }
 
-MyMath::Vector3 FbxObject3d::GetWorldPosition(const MyMath::Vector3& worldPos)
+MyMath::Vector3 FbxObject3d::GetWorldPosition()
 {
-	MyMath::Vector3 worldPos_ = worldPos;
+	MyMath::Vector3 worldPos_;
 
 	// ワールド行列の平行移動成分を取得
 	worldPos_.x = matWorld.m[ 3 ][ 0 ];

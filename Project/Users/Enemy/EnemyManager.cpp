@@ -49,7 +49,6 @@ void EnemyManager::Draw()
 
 void EnemyManager::EnemyNormalEmit(Player* player)
 {
-	//for(int i = 0; i< enemys.s )
 	//敵出現
 	UpdateEnemyPopCommands(player);
 }
@@ -68,11 +67,6 @@ bool EnemyManager::GetReachCommandFlag()
 {
 	return reachCommandFlag;
 }
-
-//const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemyBullets()
-//{
-//	return 
-//}
 
 void EnemyManager::LoadEnemyPopData(const std::string& filePath)
 {

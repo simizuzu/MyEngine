@@ -1,8 +1,6 @@
 #include "GameScene.h"
 
 #include "EnemyBullet.h"
-#include "PlayerBullet.h"
-
 #include "ModelManager.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -364,13 +362,6 @@ void GameScene::CheckAllCollilsions()
 		collisionManager_->AddCollider(enemy.get());
 		enemy->SetRadius(enemyRadius);
 	}
-
-	////プレイヤー弾について
-	//for ( PlayerBullet* pBullet_ : player_->GetBullets() )
-	//{
-	//	collisionManager_->AddCollider(pBullet_);
-	//	pBullet_->SetRadius(3.0f);
-	//}
 
 	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
 	{

@@ -17,7 +17,6 @@ void Player::Initialize(Camera* camera)
 	input = Input::GetInstance();
 	camera_.reset(camera);
 
-	//bulletObj.reset(ObjObject3d::Create());
 	playerObj.reset(ObjObject3d::Create());
 	playerObj->SetModel("gun",true);
 
@@ -26,7 +25,7 @@ void Player::Initialize(Camera* camera)
 	//3Dレティクルのトランスフォーム初期化
 	worldTransform3DReticle.Initialize();
 
-	//親子関係
+	//カメラを親に設定
 	playerTrans.parentMat = &camera_->matCameraWorld_;
 
 	//衝突属性を設定
@@ -37,19 +36,8 @@ void Player::Initialize(Camera* camera)
 
 void Player::Update()
 {
-	////デスフラグの立った弾を削除
-	//bullets.remove_if([](PlayerBullet* bullet) {
-	//	if (bullet->IsDead())
-	//	{
-	//		delete bullet;
-	//		return true;
-	//	}
-	//	return false;
-	//	});
-
+	//カメラの回転処理
 	RotateCamera();
-
-	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0});
 
 	//カメラの角度を取得する
 	cameraHAngle = camera_->GetHAngle(camera_->GetEye(),camera_->GetTarget()); //水平方向
@@ -70,46 +58,22 @@ void Player::Update()
 	ImGui::End();
 #endif
 
-	//float hairetu[3 ];
-	//hairetu[ 0 ] = guntrans.x;
-	//hairetu[ 1 ] = guntrans.y;
-	//hairetu[ 2 ] = guntrans.z;
+	playerTrans.SetTranslation(gunmodelTranslation);
+	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0 });
 
-	//ImGui::Begin("GunTranslation");
-	//ImGui::SliderFloat3("Translation",hairetu,-5.0f,5.0f);
-	//ImGui::End();
-
-	//guntrans.x = hairetu[ 0 ];
-	//guntrans.y = hairetu[ 1 ];
-	//guntrans.z = hairetu[ 2 ];
-
-	playerTrans.SetTranslation({guntrans.x,guntrans.y,guntrans.z });
-	//攻撃処理
-	//Attack();
-
-	//弾更新
-	/*for (PlayerBullet* bullet : bullets) {
-		bullet->Update(camera_.get());
-	}*/
 	playerTrans.Update(camera_.get());
 }
 
 void Player::Draw()
 {
-	//弾描画
-	/*for (PlayerBullet* bullet : bullets) {
-		bullet->Draw();
-	}*/
-
 	playerObj->Draw(&playerTrans);
 }
 
 void Player::RotateCamera()
 {
+	//スティックのベクトルを取得
 	stickDeadZone = input->GetLeftStickVec();
-	//rotationSpeed *= stickDeadZone.y;
-	//rotationSpeed *= stickDeadZone.x;
-	
+
 	//カメラの回転制御
 	if ( input->PushKey(DIK_RIGHT) || input->InputStick(L_RIGHT))
 	{
@@ -141,6 +105,7 @@ void Player::RotateCamera()
 		}
 	}
 
+	//制御した回転を親のカメラにセットする
 	camera_->SetRotation({ rot.x,rot.y,zero });
 }
 
@@ -153,19 +118,9 @@ void Player::SetParent(const WorldTransform* parent)
 	playerTrans.parent = parent;
 }
 
-const std::list<PlayerBullet*>& Player::GetBullets() const
-{
-	return bullets;
-}
-
 MyMath::Vector3 Player::GetCenterPosition() const
 {
 	//ワールド座標に変換
 	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(playerTrans);
 	return worldPos;
-}
-
-MyMath::Vector3 Player::GetPlayerWorldPosition()
-{
-	return MyMath::GetWorldPosition(playerTrans);
 }

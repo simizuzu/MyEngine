@@ -56,6 +56,12 @@ private:
 	/// </summary>
 	void Fire();
 
+	/// <summary>
+	/// 敵が弾を発射できるようになるまでの範囲
+	/// </summary>
+	void EnemyShootingRange();
+
+	//ワールド座標の原点
 	MyMath::Vector3 GetCenterPosition() const override;
 
 public:
@@ -67,9 +73,6 @@ private:
 	//自キャラ
 	Player* player_ = nullptr;
 
-	MyMath::Vector3 worldPosition;
-	int8_t pad3[ 4 ];
-
 	//敵のモデル
 	std::unique_ptr<FbxObject3d> enemyObj_;
 	std::string modelName;
@@ -78,12 +81,15 @@ private:
 	//弾のモデル
 	std::unique_ptr<ObjObject3d> bulletObj;
 
+	//敵のHP
+	uint8_t enemyHP;
+
 	bool isDead = false;
 	bool bulletIntervalFlag = false;
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;
 	bool flag = false;
-	int8_t pad2[ 3 ];
+	int8_t pad2[ 2 ];
 
 private:
 	//代入演算子削除
