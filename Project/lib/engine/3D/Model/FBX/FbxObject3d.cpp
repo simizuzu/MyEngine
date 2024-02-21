@@ -182,23 +182,6 @@ void FbxObject3d::PlayAnimation()
 	isPlay = true;
 }
 
-MyMath::Matrix4 FbxObject3d::GetMatWorld()
-{
-	return matWorld;
-}
-
-MyMath::Vector3 FbxObject3d::GetWorldPosition()
-{
-	MyMath::Vector3 worldPos_;
-
-	// ワールド行列の平行移動成分を取得
-	worldPos_.x = matWorld.m[ 3 ][ 0 ];
-	worldPos_.y = matWorld.m[ 3 ][ 1 ];
-	worldPos_.z = matWorld.m[ 3 ][ 2 ];
-
-	return worldPos_;
-}
-
 void FbxObject3d::CrateGrapicsPipeline()
 {
 	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob; // 頂点シェーダオブジェクト

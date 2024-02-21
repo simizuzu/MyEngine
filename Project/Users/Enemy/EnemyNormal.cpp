@@ -80,8 +80,6 @@ void EnemyNormal::Update()
 
 	//当たり判定を敵の原点に設定
 	sphere.center = enemyTrans.GetTranslation();
-
-
 }
 
 void EnemyNormal::Draw()
@@ -136,7 +134,7 @@ void EnemyNormal::Fire()
 	//自キャラのワールド座標を取得する
 	MyMath::Vector3 playerWorldPos = player_->GetCenterPosition();
 	//敵キャラのワールド座標を取得する
-	MyMath::Vector3 enemyWorldPos = enemyObj_->GetWorldPosition();
+	MyMath::Vector3 enemyWorldPos = GetCenterPosition();
 	//敵キャラ→自キャラの差分ベクトルを求める
 	MyMath::Vector3 enemyToPlayerVec = playerWorldPos - enemyWorldPos;
 	//ベクトルの正規化
@@ -166,19 +164,19 @@ void EnemyNormal::Fire()
 
 void EnemyNormal::EnemyShootingRange()
 {
-	//自キャラのワールド座標を取得する
-	MyMath::Vector3 playerWorldPos = player_->GetCenterPosition();
-	//敵キャラのワールド座標を取得する
-	MyMath::Vector3 enemyWorldPos = enemyObj_->GetWorldPosition();
-	//敵キャラ→自キャラの差分ベクトルを求める
-	MyMath::Vector3 enemyToPlayerVec = enemyWorldPos - playerWorldPos;
-	//playerとenemyの距離を求める
-	float distance = MyMathUtility::Vector3Length(enemyToPlayerVec);
-	float radius = std::sqrt((float)four + (float)two);
-	if ( distance <= radius )
-	{
-		Fire();
-	}
+	////自キャラのワールド座標を取得する
+	//MyMath::Vector3 playerWorldPos = player_->GetCenterPosition();
+	////敵キャラのワールド座標を取得する
+	//MyMath::Vector3 enemyWorldPos = enemyObj_->GetWorldPosition();
+	////敵キャラ→自キャラの差分ベクトルを求める
+	//MyMath::Vector3 enemyToPlayerVec = enemyWorldPos - playerWorldPos;
+	////playerとenemyの距離を求める
+	//float distance = MyMathUtility::Vector3Length(enemyToPlayerVec);
+	//float radius = std::sqrt((float)four + (float)two);
+	//if ( distance <= radius )
+	//{
+	//	Fire();
+	//}
 }
 
 MyMath::Vector3 EnemyNormal::GetCenterPosition() const

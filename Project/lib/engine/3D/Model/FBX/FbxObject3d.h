@@ -98,10 +98,6 @@ public:
 	/// </summary>
 	void UpdateTime();
 
-	//setter
-	MyMath::Matrix4 GetMatWorld();
-	MyMath::Vector3 GetWorldPosition();
-
 	//コンストラクタ・デストラクタ
 	FbxObject3d() = default;
 	~FbxObject3d() = default;
@@ -111,17 +107,6 @@ protected:
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffTransform;
 	//定数バッファ（スキン）
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffSkin;
-
-	//ローカル座標
-	MyMath::Vector3 translation_ = { 0.0f,0.0f,0.0f };
-	//X,Y,Z軸回りのローカル回転角
-	MyMath::Vector3 rotation_ = { 0.0f,0.0f,0.0f };
-	//ローカルスケール
-	MyMath::Vector3 scale_ = { 1.0f,1.0f,1.0f };
-
-	MyMath::Matrix4 matWorld;
-	int8_t pad1[4 ];
-
 	//1フレームの時間
 	FbxTime frameTime;
 	//アニメーション開始時間

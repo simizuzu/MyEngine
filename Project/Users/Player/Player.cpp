@@ -111,6 +111,7 @@ void Player::RotateCamera()
 
 void Player::OnCollision()
 {
+	
 }
 
 void Player::SetParent(const WorldTransform* parent)

@@ -30,6 +30,8 @@ public:
 
 	virtual bool IsDead() const = 0;
 
+	virtual void OnCollision() override = 0;
+
 	const Sphere& GetSphereCenter() const;
 
 public:
