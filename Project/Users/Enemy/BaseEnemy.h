@@ -32,6 +32,8 @@ public:
 
 	virtual void OnCollision() override = 0;
 
+	virtual void HitBullet() = 0;
+
 	const Sphere& GetSphereCenter() const;
 
 public:

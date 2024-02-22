@@ -106,6 +106,8 @@ void GameScene::Update()
 {
 	GameTimer();
 
+	const float enemyRadius = 2.0f;
+
 	//球の中心点を各敵の原点に設定
 	//sphere.center = enemyManager_->GetEnemyCenterPos();
 	sphere.radius = enemyRadius;
@@ -116,8 +118,6 @@ void GameScene::Update()
 
 	colliderTrans.SetTranslation(sphere.center);
 
-	//衝突判定と応答
-	CheckAllCollilsions();
 	//colliderTrans.Update(camera);
 
 #ifdef _DEBUG
@@ -183,6 +183,9 @@ void GameScene::Update()
 
 		break;
 	case GameScene::SCENEFASE::GAME:
+		//衝突判定と応答
+		CheckAllCollilsions();
+
 		blackUpPos.y -= static_cast< float >(zero);
 		blackDownPos.y += static_cast< float >( zero );
 		StopTimer();
@@ -348,6 +351,8 @@ void GameScene::ModelMovie()
 
 void GameScene::CheckAllCollilsions()
 {
+	const float colliderRadius = 20000.0f;
+
 	//衝突マネージャのリセット
 	collisionManager_->Reset();
 
@@ -360,7 +365,7 @@ void GameScene::CheckAllCollilsions()
 	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 	{
 		collisionManager_->AddCollider(enemy.get());
-		enemy->SetRadius(enemyRadius);
+		enemy->SetRadius(colliderRadius);
 	}
 
 	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
@@ -381,7 +386,7 @@ void GameScene::CheckAllCollilsions()
 		{
 			if ( CollisionManager::CheckRay2Sphere(ray,enemy->GetSphereCenter()) )
 			{
-				enemy->OnCollision();
+				enemy->HitBullet();
 				hit = true;
 			}
 		}

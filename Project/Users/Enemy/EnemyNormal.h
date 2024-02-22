@@ -43,11 +43,16 @@ public:
 
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision() override;
+	//弾を受けたときの処理
+	void HitBullet() override;
 
+	//死んでいるかどうか
 	bool IsDead() const override;
 
+	//弾リストの取得
 	const std::list<EnemyBullet*>& GetBullets() const override;
 
+	//プレイヤーのポインタをセット
 	void SetPlayer(Player* player);
 
 private:
@@ -55,11 +60,6 @@ private:
 	///	弾発射
 	/// </summary>
 	void Fire();
-
-	/// <summary>
-	/// 敵が弾を発射できるようになるまでの範囲
-	/// </summary>
-	void EnemyShootingRange();
 
 	//ワールド座標の原点
 	MyMath::Vector3 GetCenterPosition() const override;

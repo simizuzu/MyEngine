@@ -126,8 +126,6 @@ private: // メンバ変数
 
 	std::unique_ptr<EnemyManager> enemyManager_;
 	std::unique_ptr<Player> player_;
-	const float enemyRadius = 2.0f;
-	int8_t pad7[ 4 ];
 
 	std::unique_ptr<CollisionManager> collisionManager_;
 

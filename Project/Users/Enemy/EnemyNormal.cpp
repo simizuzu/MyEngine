@@ -70,10 +70,6 @@ void EnemyNormal::Update()
 		bullet->Update(camera_);
 	}
 
-	//弾発射
-	Fire();
-	//EnemyShootingRange();
-
 	enemyTrans.SetTranslation(translation);
 	enemyTrans.Update(camera_);
 	enemyObj_->Update();
@@ -94,6 +90,12 @@ void EnemyNormal::Draw()
 }
 
 void EnemyNormal::OnCollision()
+{
+	//弾発射
+	Fire();
+}
+
+void EnemyNormal::HitBullet()
 {
 	//HPを減らす
 	enemyHP--;
@@ -154,29 +156,12 @@ void EnemyNormal::Fire()
 		bulletIntervalTimer = resetTimer;
 	}
 
-#ifdef _DEBUG
-	ImGui::Begin("WorldPos");
-	ImGui::Text("plyerPos(%f,%f,%f)",playerWorldPos.x,playerWorldPos.y,playerWorldPos.z);
-	ImGui::Text("enemyPos (%f,%f,%f)",enemyWorldPos.x,enemyWorldPos.y,enemyWorldPos.z);
-	ImGui::End();
-#endif
-}
-
-void EnemyNormal::EnemyShootingRange()
-{
-	////自キャラのワールド座標を取得する
-	//MyMath::Vector3 playerWorldPos = player_->GetCenterPosition();
-	////敵キャラのワールド座標を取得する
-	//MyMath::Vector3 enemyWorldPos = enemyObj_->GetWorldPosition();
-	////敵キャラ→自キャラの差分ベクトルを求める
-	//MyMath::Vector3 enemyToPlayerVec = enemyWorldPos - playerWorldPos;
-	////playerとenemyの距離を求める
-	//float distance = MyMathUtility::Vector3Length(enemyToPlayerVec);
-	//float radius = std::sqrt((float)four + (float)two);
-	//if ( distance <= radius )
-	//{
-	//	Fire();
-	//}
+//#ifdef _DEBUG
+//	ImGui::Begin("WorldPos");
+//	ImGui::Text("plyerPos(%f,%f,%f)",playerWorldPos.x,playerWorldPos.y,playerWorldPos.z);
+//	ImGui::Text("enemyPos (%f,%f,%f)",enemyWorldPos.x,enemyWorldPos.y,enemyWorldPos.z);
+//	ImGui::End();
+//#endif
 }
 
 MyMath::Vector3 EnemyNormal::GetCenterPosition() const
