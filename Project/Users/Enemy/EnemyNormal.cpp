@@ -31,7 +31,7 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 
 	//雑魚敵のワールド座標
 	enemyTrans.Initialize();
-	enemyTrans.SetScale({ 0.009f,0.009f ,0.009f });
+	enemyTrans.SetScale({ 0.09f,0.09f ,0.09f });
 
 	//自機狙い用のプレイヤー
 	player_ = new Player();

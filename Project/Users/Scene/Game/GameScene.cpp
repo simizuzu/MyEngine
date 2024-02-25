@@ -97,7 +97,7 @@ void GameScene::Initialize()
 	damageParticle->Initialize(damageModel.get(),camera);*/
 
 	enemyManager_ = std::make_unique<EnemyManager>();
-	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","boneTest",camera));
+	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","mob",camera));
 
 	sceneManager_ = SceneManager::GetInstance();
 }
