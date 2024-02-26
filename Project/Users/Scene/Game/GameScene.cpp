@@ -106,17 +106,12 @@ void GameScene::Update()
 {
 	GameTimer();
 
-	const float enemyRadius = 2.0f;
-
-	//球の中心点を各敵の原点に設定
-	//sphere.center = enemyManager_->GetEnemyCenterPos();
-	sphere.radius = enemyRadius;
 	//レイの始発点をプレイヤーの中心に設定
 	ray.start = player_->GetCenterPosition();
 	MyMath::Vector3 vec(0,0,1);
 	ray.dir = MyMath::Vec3Mat4Mul(vec,camera->matCameraWorld_);
 
-	colliderTrans.SetTranslation(sphere.center);
+	//colliderTrans.SetTranslation(sphere.center);
 
 	//colliderTrans.Update(camera);
 
@@ -384,7 +379,11 @@ void GameScene::CheckAllCollilsions()
 		//敵全てについて
 		for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 		{
-			if ( CollisionManager::CheckRay2Sphere(ray,enemy->GetSphereCenter()) )
+			//敵の当たり判定の設定
+			const float enemyRadius = 3.0f;
+			sphere = enemy->GetSphereCenter();
+			sphere.radius = enemyRadius;
+			if ( CollisionManager::CheckRay2Sphere(ray,sphere) )
 			{
 				enemy->HitBullet();
 				hit = true;
