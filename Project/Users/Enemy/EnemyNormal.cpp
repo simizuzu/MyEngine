@@ -100,7 +100,7 @@ void EnemyNormal::HitBullet()
 	//HPを減らす
 	enemyHP--;
 
-	//ゼロになった時フラグを立てる
+	//ゼロになったら死亡フラグを立てる
 	if ( enemyHP == zero )
 	{
 		isDead = true;

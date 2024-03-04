@@ -102,6 +102,8 @@ private:
 	//平行移動
 	MyMath::Vector3 translation_;
 
+	MyMath::Matrix4 matBillboard;
+
 public:
 	/// <summary>
 	/// 初期化
@@ -146,6 +148,8 @@ public:
 
 	const MyMath::Vector3 GetTranslation();
 	const MyMath::Vector3 GetRotation();
+
+	const MyMath::Matrix4& GetMatBillboard();
 
 	void SetTranslation(MyMath::Vector3 translation);
 	void SetRotation(MyMath::Vector3 rotation);

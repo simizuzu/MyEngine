@@ -118,9 +118,17 @@ void Camera::UpdateMatrix()
 	if ( parent != nullptr )
 	{
 		matCameraWorld_ *= parent->matCameraWorld_;
-	}
+	}                                      
 
+	//ビュー行列の逆行列
 	matView_ = MyMathUtility::MakeInverse(matCameraWorld_);
+
+	matBillboard = MyMathUtility::MakeIdentity();
+
+	matBillboard.m[ 3 ][ 0 ] = 0;
+	matBillboard.m[ 3 ][ 1 ] = 0;
+	matBillboard.m[ 3 ][ 2 ] = 0;
+	matBillboard.m[ 3 ][ 3 ] = 1;
 
 	// 透視投影の生成
 	matProjection_ = MyMathUtility::MakePerspective(fovAngleY,aspect,nearZ_,farZ_);
@@ -175,6 +183,11 @@ const MyMath::Vector3 Camera::GetTranslation()
 const MyMath::Vector3 Camera::GetRotation()
 {
 	return rotation_;
+}
+
+const MyMath::Matrix4& Camera::GetMatBillboard()
+{
+	return matBillboard;
 }
 
 void Camera::SetTranslation(MyMath::Vector3 translation)

@@ -67,12 +67,15 @@ private:
 
 	std::unique_ptr<ObjObject3d> skydomeObj_;
 	std::unique_ptr<ObjObject3d> groundObj_;
+	std::unique_ptr<ObjObject3d> billTestObj_;
 
 	std::unique_ptr<ObjModel> groundModel_;
 	std::unique_ptr<ObjModel> skydomeModel_;
+	std::unique_ptr<ObjModel> billTestModel_;
 
 	WorldTransform skydomeTrans;
 	WorldTransform groundTrans;
+	WorldTransform billTestTrans;
 
 	float maxTime = 10.0f;
 	float timeRate;

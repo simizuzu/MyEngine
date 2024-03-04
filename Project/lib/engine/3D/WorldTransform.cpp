@@ -15,68 +15,7 @@ void WorldTransform::Initialize()
 	CreateConstBuffer();
 }
 
-void WorldTransform::UpdateParticle(Camera* camera,bool billboradFlag)
-{
-	HRESULT result;
-	MyMath::Matrix4 matScale,matRot,matTrans;
-
-	//スケール、回転平行移動行列の計算
-	matScale = MyMathUtility::MakeScaling(scale_);
-	matRot = MyMathUtility::MakeRotation(rotation_);
-	matTrans = MyMathUtility::MakeTranslation(translation_);
-
-	//ワールド行列の合成
-	matWorld = MyMathUtility::MakeIdentity();
-	//ワールド行列にスケーリングを反映
-	matWorld *= matScale;
-	//ワールド行列に回転を反映
-	matWorld *= matRot;
-	//ワールド行列に平行移動を反映
-	matWorld *= matTrans;
-	//親行列の指定がある場合は、掛け算する
-	if ( parent != nullptr )
-	{
-		matWorld *= parent->matWorld;
-	}
-
-	if ( !billboradFlag )
-	{
-		const MyMath::Matrix4 matView = camera->GetMatView();
-		const MyMath::Matrix4 matProjection = camera->GetMatProjection();
-		const MyMath::Vector3& cameraPos = camera->GetEye();
-
-		// 定数バッファへデータ転送
-		ConstBufferDataB0* constMap = nullptr;
-		result = constBuffer_->Map(0,nullptr,( void** ) &constMap);
-		assert(SUCCEEDED(result));
-		//constMap->mat = matWorld* matView * matProjection;
-		constMap->viewproj = matView * matProjection;
-		constMap->world = matWorld;
-		constMap->cameraPos = cameraPos;
-		constBuffer_->Unmap(0,nullptr);
-	}
-	else
-	{
-		MyMath::Matrix4 mat = camera->GetMatViewInverse();
-
-		mat.m[ 3 ][ 0 ] = 0;
-		mat.m[ 3 ][ 1 ] = 0;
-		mat.m[ 3 ][ 2 ] = 0;
-		mat.m[ 3 ][ 3 ] = 1;
-
-		matWorld = matScale * matRot * mat * matTrans * camera->GetMatView() * camera->GetMatProjection();
-
-		//定数バッファへデータ転送
-		ConstBufferDataB0* constMap = nullptr;
-		result = constBuffer_->Map(0,nullptr,( void** ) &constMap);
-		assert(SUCCEEDED(result));
-		constMap->world = matWorld;
-		constBuffer_->Unmap(0,nullptr);
-	}
-}
-
-
-void WorldTransform::Update(Camera* camera,bool isRotQuaternion)
+void WorldTransform::Update(Camera* camera,bool billboradFlag)
 {
 	HRESULT result;
 	MyMath::Matrix4 matScale,matRot,matTrans;
@@ -86,13 +25,6 @@ void WorldTransform::Update(Camera* camera,bool isRotQuaternion)
 	matRot = MyMathUtility::MakeIdentity();
 	matRot = MyMathUtility::MakeRotation(rotation_);
 	matTrans = MyMathUtility::MakeTranslation(translation_);
-
-	if ( isRotQuaternion )
-	{
-		//クォータニオンの回転行列を代入
-		MyMath::Quaternion qRot;
-		matRot = qRot.MakeRotateMatrix();
-	}
 
 	// ワールド行列の合成
 	matWorld = MyMathUtility::MakeIdentity();
@@ -115,6 +47,17 @@ void WorldTransform::Update(Camera* camera,bool isRotQuaternion)
 	const MyMath::Matrix4 matView = camera->GetMatView();
 	const MyMath::Matrix4 matProjection = camera->GetMatProjection();
 	const MyMath::Vector3& cameraPos = camera->GetEye();
+
+	if ( billboradFlag )
+	{
+		const MyMath::Matrix4 matBillboard = camera->GetMatBillboard();
+
+		matWorld = MyMathUtility::MakeIdentity();
+		matWorld *= matScale;
+		matWorld *= matRot;
+		matWorld *= matBillboard;
+		matWorld *= matTrans;
+	}
 
 	// 定数バッファへデータ転送
 	ConstBufferDataB0* constMap = nullptr;

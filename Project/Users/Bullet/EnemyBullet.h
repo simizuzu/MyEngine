@@ -57,7 +57,7 @@ private:
 	int8_t pad1[7 ];
 
 	//モデル
-	ObjModel* bulletModel_ = nullptr;
+	//ObjModel* bulletModel_ = nullptr;
 	//オブジェクト
 	ObjObject3d* bulletObj_ = nullptr;
 

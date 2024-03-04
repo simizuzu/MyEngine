@@ -16,9 +16,11 @@ void GameObject::Initialize(Camera* camera)
 
 	skydomeObj_.reset(ObjObject3d::Create());
 	groundObj_.reset(ObjObject3d::Create());
+	billTestObj_.reset(ObjObject3d::Create());
 
 	skydomeObj_->SetModel("skydome",true);
 	groundObj_->SetModel("ground");
+	billTestObj_->SetModel("billbord");
 
 	display = std::make_unique<Sprite>();
 	reticle = std::make_unique<Sprite>();
@@ -41,6 +43,7 @@ void GameObject::Initialize(Camera* camera)
 
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
+	billTestTrans.Initialize();
 	skydomeTrans.SetScale({ 900.0f,900.0f,900.0f });
 }
 
@@ -50,12 +53,16 @@ void GameObject::Update()
 	skydomeTrans.SetTranslation({ camera_->GetTranslation() });
 	groundTrans.SetRotation({ 0.0f,180.0f * MyMathUtility::degree2Radius,0.0f });
 	groundTrans.Update(camera_);
+	billTestTrans.SetTranslation({-93.0f,7.0f,-4.0f});
+	billTestTrans.SetScale({50,50,50});
+	billTestTrans.Update(camera_,true);
 }
 
 void GameObject::Draw()
 {
 	skydomeObj_->Draw(&skydomeTrans);
-	groundObj_->Draw(&groundTrans);
+	//groundObj_->Draw(&groundTrans);
+	billTestObj_->Draw(&billTestTrans);
 	if ( input->PushButton(RT) )
 	{
 		UIRT->SetColor({ 0,1,0,1 });
