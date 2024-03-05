@@ -61,7 +61,7 @@ void GameObject::Update()
 void GameObject::Draw()
 {
 	skydomeObj_->Draw(&skydomeTrans);
-	//groundObj_->Draw(&groundTrans);
+	groundObj_->Draw(&groundTrans);
 	billTestObj_->Draw(&billTestTrans);
 	if ( input->PushButton(RT) )
 	{

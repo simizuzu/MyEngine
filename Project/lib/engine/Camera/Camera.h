@@ -102,7 +102,8 @@ private:
 	//平行移動
 	MyMath::Vector3 translation_;
 
-	MyMath::Matrix4 matBillboard;
+	//カメラのワールド行列（スケールは無し）
+	MyMath::Matrix4 matTrans,matRot;
 
 public:
 	/// <summary>
@@ -149,7 +150,7 @@ public:
 	const MyMath::Vector3 GetTranslation();
 	const MyMath::Vector3 GetRotation();
 
-	const MyMath::Matrix4& GetMatBillboard();
+	MyMath::Matrix4& GetMatRot();
 
 	void SetTranslation(MyMath::Vector3 translation);
 	void SetRotation(MyMath::Vector3 rotation);

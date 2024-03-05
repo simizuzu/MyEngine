@@ -101,9 +101,6 @@ void Camera::UpdateLookAt()
 }
 void Camera::UpdateMatrix()
 {
-	//カメラのワールド行列（スケールは無し）
-	MyMath::Matrix4 matTrans,matRot;
-
 	//回転、平行移動行列の計算
 	matRot = MyMathUtility::MakeIdentity();
 	matRot = MyMathUtility::MakeRotation(rotation_);
@@ -118,17 +115,10 @@ void Camera::UpdateMatrix()
 	if ( parent != nullptr )
 	{
 		matCameraWorld_ *= parent->matCameraWorld_;
-	}                                      
+	}
 
 	//ビュー行列の逆行列
 	matView_ = MyMathUtility::MakeInverse(matCameraWorld_);
-
-	matBillboard = MyMathUtility::MakeIdentity();
-
-	matBillboard.m[ 3 ][ 0 ] = 0;
-	matBillboard.m[ 3 ][ 1 ] = 0;
-	matBillboard.m[ 3 ][ 2 ] = 0;
-	matBillboard.m[ 3 ][ 3 ] = 1;
 
 	// 透視投影の生成
 	matProjection_ = MyMathUtility::MakePerspective(fovAngleY,aspect,nearZ_,farZ_);
@@ -185,9 +175,9 @@ const MyMath::Vector3 Camera::GetRotation()
 	return rotation_;
 }
 
-const MyMath::Matrix4& Camera::GetMatBillboard()
+MyMath::Matrix4& Camera::GetMatRot()
 {
-	return matBillboard;
+	return matRot;
 }
 
 void Camera::SetTranslation(MyMath::Vector3 translation)

@@ -50,12 +50,14 @@ void WorldTransform::Update(Camera* camera,bool billboradFlag)
 
 	if ( billboradFlag )
 	{
-		const MyMath::Matrix4 matBillboard = camera->GetMatBillboard();
+		//逆行列された回転行列を引っ張ってくる
+		const MyMath::Matrix4 matBillboard = camera->GetMatRot();
 
+		//行列計算
 		matWorld = MyMathUtility::MakeIdentity();
+		matWorld *= matBillboard;
 		matWorld *= matScale;
 		matWorld *= matRot;
-		matWorld *= matBillboard;
 		matWorld *= matTrans;
 	}
 
