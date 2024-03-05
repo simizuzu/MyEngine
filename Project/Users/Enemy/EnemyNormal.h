@@ -81,6 +81,16 @@ private:
 	//弾のモデル
 	std::unique_ptr<ObjObject3d> bulletObj;
 
+	//体力バーのモデル
+	std::unique_ptr<ObjObject3d> HP_UIObj;
+	std::unique_ptr<ObjObject3d> HP_barObj;
+	WorldTransform HP_UITrans;
+	WorldTransform HP_barTrans;
+
+	MyMath::Vector3 UITranslation;
+	MyMath::Vector3 barTranslation;
+	MyMath::Vector3 HPScale;
+
 	//敵のHP
 	uint8_t enemyHP;
 
@@ -89,7 +99,7 @@ private:
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;
 	bool flag = false;
-	int8_t pad2[ 2 ];
+	int8_t pad2[ 6 ];
 
 private:
 	//代入演算子削除

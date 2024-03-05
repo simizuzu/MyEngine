@@ -42,6 +42,19 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	//弾のインターバル
 	bulletIntervalTimer = resetTimer;
 
+	//HPバーのモデル
+	HP_UIObj.reset(ObjObject3d::Create());
+	HP_barObj.reset(ObjObject3d::Create());
+	HP_UIObj->SetModel("HP_UI");
+	HP_barObj->SetModel("HP_bar");
+
+	HP_UITrans.Initialize();
+	HP_barTrans.Initialize();
+
+	UITranslation = {0.0f,10.0f,0.0f};
+	barTranslation = {-0.9f,10.0f,0.0f};
+	HPScale = {10.0f,10.0f,10.0f};
+
 	//雑魚敵の初期HP
 	enemyHP = 5;
 
@@ -74,6 +87,15 @@ void EnemyNormal::Update()
 	enemyTrans.Update(camera_);
 	enemyObj_->Update();
 
+	HP_UITrans.SetTranslation({ translation.x + UITranslation.x,translation.y + UITranslation.y,translation.z + UITranslation.z });
+	HP_barTrans.SetTranslation({ translation.x + barTranslation.x,translation.y + barTranslation.y,translation.z + barTranslation.z });
+
+	HP_UITrans.SetScale(HPScale);
+	HP_barTrans.SetScale(HPScale);
+
+	HP_UITrans.Update(camera_,true);
+	HP_barTrans.Update(camera_,true);
+
 	//当たり判定を敵の原点に設定
 	sphere.center = enemyTrans.GetTranslation();
 }
@@ -81,6 +103,8 @@ void EnemyNormal::Update()
 void EnemyNormal::Draw()
 {
 	enemyObj_->Draw(&enemyTrans);
+	HP_UIObj->Draw(&HP_UITrans);
+	HP_barObj->Draw(&HP_barTrans);
 
 	//弾の描画
 	for ( EnemyBullet* bullet : bullets )
@@ -155,13 +179,6 @@ void EnemyNormal::Fire()
 		bullets.push_back(newBullet);
 		bulletIntervalTimer = resetTimer;
 	}
-
-//#ifdef _DEBUG
-//	ImGui::Begin("WorldPos");
-//	ImGui::Text("plyerPos(%f,%f,%f)",playerWorldPos.x,playerWorldPos.y,playerWorldPos.z);
-//	ImGui::Text("enemyPos (%f,%f,%f)",enemyWorldPos.x,enemyWorldPos.y,enemyWorldPos.z);
-//	ImGui::End();
-//#endif
 }
 
 MyMath::Vector3 EnemyNormal::GetCenterPosition() const
