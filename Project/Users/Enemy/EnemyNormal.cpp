@@ -52,8 +52,8 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	HP_barTrans.Initialize();
 
 	UITranslation = {0.0f,10.0f,0.0f};
-	barTranslation = {-0.9f,10.0f,0.0f};
-	HPScale = {10.0f,10.0f,10.0f};
+	barTranslation = {0.0f,10.0f,0.0f};
+	HPScale = {3.0f,3.0f,3.0f};
 
 	//雑魚敵の初期HP
 	enemyHP = 5;
@@ -103,8 +103,12 @@ void EnemyNormal::Update()
 void EnemyNormal::Draw()
 {
 	enemyObj_->Draw(&enemyTrans);
+
+	//for ( uint8_t i = 0; i < enemyHP; i++ )
+	//{
+	//	HP_UITrans.SetRotation({})
+	//}
 	HP_UIObj->Draw(&HP_UITrans);
-	HP_barObj->Draw(&HP_barTrans);
 
 	//弾の描画
 	for ( EnemyBullet* bullet : bullets )

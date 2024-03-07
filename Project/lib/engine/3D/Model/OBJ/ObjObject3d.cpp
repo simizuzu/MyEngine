@@ -142,7 +142,6 @@ void ObjObject3d::SetLight(Light* light)
 
 namespace MyMath
 {
-
 	Matrix4 MakeWorldMatrix4(ObjObject3d& transform)
 	{
 		Matrix4 matWorld = MyMathUtility::MakeIdentity();
