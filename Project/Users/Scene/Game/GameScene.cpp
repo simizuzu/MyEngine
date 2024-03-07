@@ -123,7 +123,7 @@ void GameScene::Update()
 
 	ImGui::Begin("GameTimer");
 	ImGui::Text("GameTimer(%d,%d)",gameTimer_,oneSecond);
-	ImGui::Text("HIT(%d,%d)",hit,bulletIntervalFlag);
+	//ImGui::Text("HIT(%d,%d)",hit,bulletIntervalFlag);
 	ImGui::Text("FlashRot(%d)",muzzleFlashFlag1);
 	ImGui::End();
 
@@ -368,19 +368,18 @@ void GameScene::CheckAllCollilsions()
 		bulletIntervalFlag = true;
 	}
 
-	if ( bulletIntervalTimer == zero )
+	if ( bulletIntervalFlag )
 	{
-		bulletIntervalFlag = false;
-		bulletIntervalTimer = 6;
+		bulletIntervalTimer--;
 	}
 
-	if ( bulletIntervalFlag )
+	if ( bulletIntervalTimer == zero )
 	{
 		//敵全てについて
 		for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 		{
 			//敵の当たり判定の設定
-			const float enemyRadius = 3.0f;
+			const float enemyRadius = 5.0f;
 			sphere = enemy->GetSphereCenter();
 			sphere.radius = enemyRadius;
 			if ( CollisionManager::CheckRay2Sphere(ray,sphere) )
@@ -389,11 +388,8 @@ void GameScene::CheckAllCollilsions()
 				hit = true;
 			}
 		}
-		bulletIntervalTimer--;
-	}
-	else
-	{
-		hit = false;
+		bulletIntervalFlag = false;
+		bulletIntervalTimer = 6;
 	}
 
 	//衝突判定と応答

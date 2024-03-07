@@ -52,7 +52,7 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	HP_barTrans.Initialize();
 
 	UITranslation = {0.0f,10.0f,0.0f};
-	barTranslation = {0.0f,10.0f,0.0f};
+
 	HPScale = {3.0f,3.0f,3.0f};
 
 	//雑魚敵の初期HP
@@ -88,13 +88,10 @@ void EnemyNormal::Update()
 	enemyObj_->Update();
 
 	HP_UITrans.SetTranslation({ translation.x + UITranslation.x,translation.y + UITranslation.y,translation.z + UITranslation.z });
-	HP_barTrans.SetTranslation({ translation.x + barTranslation.x,translation.y + barTranslation.y,translation.z + barTranslation.z });
 
 	HP_UITrans.SetScale(HPScale);
-	HP_barTrans.SetScale(HPScale);
 
 	HP_UITrans.Update(camera_,true);
-	HP_barTrans.Update(camera_,true);
 
 	//当たり判定を敵の原点に設定
 	sphere.center = enemyTrans.GetTranslation();
@@ -104,10 +101,6 @@ void EnemyNormal::Draw()
 {
 	enemyObj_->Draw(&enemyTrans);
 
-	//for ( uint8_t i = 0; i < enemyHP; i++ )
-	//{
-	//	HP_UITrans.SetRotation({})
-	//}
 	HP_UIObj->Draw(&HP_UITrans);
 
 	//弾の描画
