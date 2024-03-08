@@ -44,12 +44,9 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 
 	//HPバーのモデル
 	HP_UIObj.reset(ObjObject3d::Create());
-	HP_barObj.reset(ObjObject3d::Create());
 	HP_UIObj->SetModel("HP_UI");
-	HP_barObj->SetModel("HP_bar");
 
 	HP_UITrans.Initialize();
-	HP_barTrans.Initialize();
 
 	UITranslation = {0.0f,10.0f,0.0f};
 
@@ -164,6 +161,12 @@ void EnemyNormal::Fire()
 	MyMath::Vector3 enemyDir = MyMathUtility::MakeNormalize(enemyToPlayerVec);
 	//ベクトルの長さを、早さに合わせる
 	velocity = enemyDir * bulletSpeed;
+
+	//角度を算出
+	enemyAngle = (- atan2(enemyDir.y,enemyDir.x)) * MyMathUtility::degree2Radius;
+
+	enemyDir.z = MyMathUtility::Lerp(enemyDir.z,enemyAngle,0.9f);
+	enemyTrans.SetRotation(enemyDir);
 
 	//タイマーがゼロになった時生成する
 	if ( bulletIntervalTimer == zero )

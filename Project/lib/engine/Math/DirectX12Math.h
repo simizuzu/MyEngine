@@ -71,6 +71,8 @@ namespace MyMathUtility
 	// 線形補間(Vector3)
 	MyMath::Vector3 Lerp(MyMath::Vector3 a, MyMath::Vector3 b, float t);
 
+	MyMath::Vector3 Slerp(MyMath::Vector3 a,MyMath::Vector3 b,float t);
+
 	/// <summary>
 	/// エルミート曲線
 	/// </summary>
@@ -97,6 +99,8 @@ namespace MyMathUtility
 	float Max(float a, float b);
 	//min関数(float型)
 	float Min(float a, float b);
+
+	float Dot(MyMath::Vector3 v1,MyMath::Vector3 v2);
 
 	/// <summary>
 	/// 距離をflameで割る

@@ -41,19 +41,18 @@ public:
 	/// </summary>
 	void Draw() override;
 
-	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision() override;
-	//弾を受けたときの処理
-	void HitBullet() override;
-
-	//死んでいるかどうか
-	bool IsDead() const override;
-
 	//弾リストの取得
 	const std::list<EnemyBullet*>& GetBullets() const override;
 
 	//プレイヤーのポインタをセット
 	void SetPlayer(Player* player);
+
+	//衝突を検出したら呼び出されるコールバック関数
+	void OnCollision() override;
+	//弾を受けたときの処理
+	void HitBullet() override;
+	//死んでいるかどうか
+	bool IsDead() const override;
 
 private:
 	/// <summary>
@@ -61,12 +60,13 @@ private:
 	/// </summary>
 	void Fire();
 
+	/// <summary>
+	/// こっちに振り向く処理
+	/// </summary>
+	void LookMe();
+
 	//ワールド座標の原点
 	MyMath::Vector3 GetCenterPosition() const override;
-
-public:
-	MyMath::Vector3 translation;
-	int8_t pad1[4 ];
 
 private:
 	Camera* camera_ = nullptr;
@@ -83,13 +83,12 @@ private:
 
 	//体力バーのモデル
 	std::unique_ptr<ObjObject3d> HP_UIObj;
-	std::unique_ptr<ObjObject3d> HP_barObj;
 	WorldTransform HP_UITrans;
-	WorldTransform HP_barTrans;
 
 	MyMath::Vector3 UITranslation;
-	MyMath::Vector3 barTranslation;
 	MyMath::Vector3 HPScale;
+
+	float enemyAngle;
 
 	//敵のHP
 	uint8_t enemyHP;
@@ -99,7 +98,10 @@ private:
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;
 	bool flag = false;
-	int8_t pad2[ 6 ];
+	int8_t pad1[ 2 ];
+
+public:
+	MyMath::Vector3 translation;
 
 private:
 	//代入演算子削除
