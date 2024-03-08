@@ -19,58 +19,58 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib\engine\3D\Model\Manager\ModelManager.cpp" />
-    <ClCompile Include="lib\engine\Collider\Collider.cpp" />
-    <ClCompile Include="lib\engine\Collider\CollisionManager.cpp" />
+    <ClCompile Include="engine\3D\Model\Manager\ModelManager.cpp" />
+    <ClCompile Include="engine\Collider\Collider.cpp" />
+    <ClCompile Include="engine\Collider\CollisionManager.cpp" />
     <ClCompile Include="Users\Bullet\EnemyBullet.cpp" />
     <ClCompile Include="Users\3D\BaseParticle.cpp" />
     <ClCompile Include="Users\3D\DamegeEffect.cpp" />
-    <ClCompile Include="lib\engine\Math\Easing.cpp" />
+    <ClCompile Include="engine\Math\Easing.cpp" />
     <ClCompile Include="Users\Scene\Result\ClearScene.cpp" />
     <ClCompile Include="Users\Enemy\EnemyManager.cpp" />
     <ClCompile Include="Users\Enemy\EnemyNormal.cpp" />
     <ClCompile Include="Users\Enemy\BaseEnemy.cpp" />
-    <ClCompile Include="lib\engine\Camera\DebugCamera.cpp" />
-    <ClCompile Include="lib\engine\Math\Matrix3x4.cpp" />
+    <ClCompile Include="engine\Camera\DebugCamera.cpp" />
+    <ClCompile Include="engine\Math\Matrix3x4.cpp" />
     <ClCompile Include="Users\Scene\TransitionScene.cpp" />
     <ClCompile Include="Users\Scene\Title\TitleAnimation.cpp" />
     <ClCompile Include="Users\GameCamera\FPSCamera.cpp" />
-    <ClCompile Include="lib\engine\2D\PostEffect\PostEffect.cpp" />
-    <ClCompile Include="lib\engine\2D\Sprite\Sprite.cpp" />
-    <ClCompile Include="lib\engine\3D\Model\FBX\FbxLoader.cpp" />
-    <ClCompile Include="lib\engine\3D\Model\FBX\FbxModel.cpp" />
-    <ClCompile Include="lib\engine\3D\Model\FBX\FbxObject3d.cpp" />
-    <ClCompile Include="lib\engine\3D\Model\OBJ\ObjModel.cpp" />
-    <ClCompile Include="lib\engine\3D\Model\OBJ\ObjObject3d.cpp" />
-    <ClCompile Include="lib\engine\3D\Particle\ParticleManager.cpp" />
-    <ClCompile Include="lib\engine\3D\WorldTransform.cpp" />
-    <ClCompile Include="lib\engine\Audio\AudioManager.cpp" />
-    <ClCompile Include="lib\engine\Base\Core\DirectXCommon.cpp" />
-    <ClCompile Include="lib\engine\Base\Core\FPS.cpp" />
-    <ClCompile Include="lib\engine\Base\Light.cpp" />
-    <ClCompile Include="lib\engine\Base\Pipeline\Pipeline.cpp" />
-    <ClCompile Include="lib\engine\Base\Pipeline\Shader.cpp" />
-    <ClCompile Include="lib\engine\Base\TextureManager.cpp" />
-    <ClCompile Include="lib\engine\Base\Core\WinApp.cpp" />
-    <ClCompile Include="lib\engine\Camera\Camera.cpp" />
-    <ClCompile Include="lib\engine\Editer\LevelLoader.cpp" />
-    <ClCompile Include="lib\engine\ImGui\ImGuiManager.cpp" />
-    <ClCompile Include="lib\engine\Input\Controller.cpp" />
-    <ClCompile Include="lib\engine\Input\Input.cpp" />
-    <ClCompile Include="lib\engine\Input\Keyboard.cpp" />
-    <ClCompile Include="lib\engine\Input\Mouse.cpp" />
-    <ClCompile Include="lib\engine\main.cpp" />
-    <ClCompile Include="lib\engine\Math\DirectX12Math.cpp" />
-    <ClCompile Include="lib\engine\Math\Matrix4.cpp" />
-    <ClCompile Include="lib\engine\Math\Quaternion.cpp" />
-    <ClCompile Include="lib\engine\Math\Vector2.cpp" />
-    <ClCompile Include="lib\engine\Math\Vector3.cpp" />
-    <ClCompile Include="lib\engine\Math\Vector4.cpp" />
-    <ClCompile Include="lib\engine\Scene\BaseScene.cpp" />
-    <ClCompile Include="lib\engine\Scene\Framework.cpp" />
-    <ClCompile Include="lib\engine\Scene\MainGame.cpp" />
+    <ClCompile Include="engine\2D\PostEffect\PostEffect.cpp" />
+    <ClCompile Include="engine\2D\Sprite\Sprite.cpp" />
+    <ClCompile Include="engine\3D\Model\FBX\FbxLoader.cpp" />
+    <ClCompile Include="engine\3D\Model\FBX\FbxModel.cpp" />
+    <ClCompile Include="engine\3D\Model\FBX\FbxObject3d.cpp" />
+    <ClCompile Include="engine\3D\Model\OBJ\ObjModel.cpp" />
+    <ClCompile Include="engine\3D\Model\OBJ\ObjObject3d.cpp" />
+    <ClCompile Include="engine\3D\Particle\ParticleManager.cpp" />
+    <ClCompile Include="engine\3D\WorldTransform.cpp" />
+    <ClCompile Include="engine\Audio\AudioManager.cpp" />
+    <ClCompile Include="engine\Base\Core\DirectXCommon.cpp" />
+    <ClCompile Include="engine\Base\Core\FPS.cpp" />
+    <ClCompile Include="engine\Base\Light.cpp" />
+    <ClCompile Include="engine\Base\Pipeline\Pipeline.cpp" />
+    <ClCompile Include="engine\Base\Pipeline\Shader.cpp" />
+    <ClCompile Include="engine\Base\TextureManager.cpp" />
+    <ClCompile Include="engine\Base\Core\WinApp.cpp" />
+    <ClCompile Include="engine\Camera\Camera.cpp" />
+    <ClCompile Include="engine\Editer\LevelLoader.cpp" />
+    <ClCompile Include="engine\ImGui\ImGuiManager.cpp" />
+    <ClCompile Include="engine\Input\Controller.cpp" />
+    <ClCompile Include="engine\Input\Input.cpp" />
+    <ClCompile Include="engine\Input\Keyboard.cpp" />
+    <ClCompile Include="engine\Input\Mouse.cpp" />
+    <ClCompile Include="engine\main.cpp" />
+    <ClCompile Include="engine\Math\DirectX12Math.cpp" />
+    <ClCompile Include="engine\Math\Matrix4.cpp" />
+    <ClCompile Include="engine\Math\Quaternion.cpp" />
+    <ClCompile Include="engine\Math\Vector2.cpp" />
+    <ClCompile Include="engine\Math\Vector3.cpp" />
+    <ClCompile Include="engine\Math\Vector4.cpp" />
+    <ClCompile Include="engine\Scene\BaseScene.cpp" />
+    <ClCompile Include="engine\Scene\Framework.cpp" />
+    <ClCompile Include="engine\Scene\MainGame.cpp" />
     <ClCompile Include="Users\Scene\Game\GameObject.cpp" />
-    <ClCompile Include="lib\engine\Scene\SceneManager.cpp" />
+    <ClCompile Include="engine\Scene\SceneManager.cpp" />
     <ClCompile Include="Users\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="Users\GameCamera\GameCamera.cpp" />
     <ClCompile Include="Users\Player\Player.cpp" />
@@ -80,63 +80,63 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionPrimitive.h" />
-    <ClInclude Include="lib\engine\3D\Model\Manager\ModelManager.h" />
-    <ClInclude Include="lib\engine\Collider\CollisionConfig.h" />
-    <ClInclude Include="lib\engine\Collider\Collider.h" />
-    <ClInclude Include="lib\engine\Collider\CollisionManager.h" />
+    <ClInclude Include="engine\3D\Model\Manager\ModelManager.h" />
+    <ClInclude Include="engine\Collider\CollisionConfig.h" />
+    <ClInclude Include="engine\Collider\Collider.h" />
+    <ClInclude Include="engine\Collider\CollisionManager.h" />
     <ClInclude Include="Users\Bullet\EnemyBullet.h" />
     <ClInclude Include="Users\3D\BaseParticle.h" />
     <ClInclude Include="Users\3D\DamegeEffect.h" />
-    <ClInclude Include="lib\engine\Math\Easing.h" />
+    <ClInclude Include="engine\Math\Easing.h" />
     <ClInclude Include="Users\3D\ParticleGrain.h" />
     <ClInclude Include="Users\Scene\Result\ClearScene.h" />
-    <ClInclude Include="lib\engine\Math\Numbers.h" />
+    <ClInclude Include="engine\Math\Numbers.h" />
     <ClInclude Include="Users\Enemy\EnemyManager.h" />
     <ClInclude Include="Users\Enemy\EnemyNormal.h" />
     <ClInclude Include="Users\Enemy\BaseEnemy.h" />
-    <ClInclude Include="lib\engine\Camera\DebugCamera.h" />
-    <ClInclude Include="lib\engine\Base\SuppressWarning.h" />
-    <ClInclude Include="lib\engine\Math\Matrix3x4.h" />
+    <ClInclude Include="engine\Camera\DebugCamera.h" />
+    <ClInclude Include="engine\Base\SuppressWarning.h" />
+    <ClInclude Include="engine\Math\Matrix3x4.h" />
     <ClInclude Include="Users\Scene\TransitionScene.h" />
     <ClInclude Include="Users\Scene\Title\TitleAnimation.h" />
     <ClInclude Include="Users\GameCamera\FPSCamera.h" />
-    <ClInclude Include="lib\engine\2D\PostEffect\PostEffect.h" />
-    <ClInclude Include="lib\engine\2D\Sprite\Sprite.h" />
-    <ClInclude Include="lib\engine\3D\Model\FBX\FbxLoader.h" />
-    <ClInclude Include="lib\engine\3D\Model\FBX\FbxModel.h" />
-    <ClInclude Include="lib\engine\3D\Model\FBX\FbxObject3d.h" />
-    <ClInclude Include="lib\engine\3D\Model\OBJ\ObjModel.h" />
-    <ClInclude Include="lib\engine\3D\Model\OBJ\ObjObject3d.h" />
-    <ClInclude Include="lib\engine\3D\Particle\ParticleManager.h" />
-    <ClInclude Include="lib\engine\3D\WorldTransform.h" />
-    <ClInclude Include="lib\engine\Audio\AudioManager.h" />
-    <ClInclude Include="lib\engine\Base\Core\DirectXCommon.h" />
-    <ClInclude Include="lib\engine\Base\Core\FPS.h" />
-    <ClInclude Include="lib\engine\Base\Light.h" />
-    <ClInclude Include="lib\engine\Base\Pipeline\Pipeline.h" />
-    <ClInclude Include="lib\engine\Base\Pipeline\Shader.h" />
-    <ClInclude Include="lib\engine\Base\TextureManager.h" />
-    <ClInclude Include="lib\engine\Base\Utility\EngineUtility.h" />
-    <ClInclude Include="lib\engine\Base\Core\WinApp.h" />
-    <ClInclude Include="lib\engine\Camera\Camera.h" />
-    <ClInclude Include="lib\engine\Editer\LevelLoader.h" />
-    <ClInclude Include="lib\engine\ImGui\ImGuiManager.h" />
-    <ClInclude Include="lib\engine\Input\Controller.h" />
-    <ClInclude Include="lib\engine\Input\Input.h" />
-    <ClInclude Include="lib\engine\Input\Keyboard.h" />
-    <ClInclude Include="lib\engine\Input\Mouse.h" />
-    <ClInclude Include="lib\engine\Math\DirectX12Math.h" />
-    <ClInclude Include="lib\engine\Math\Matrix4.h" />
-    <ClInclude Include="lib\engine\Math\Quaternion.h" />
-    <ClInclude Include="lib\engine\Math\Vector2.h" />
-    <ClInclude Include="lib\engine\Math\Vector3.h" />
-    <ClInclude Include="lib\engine\Math\Vector4.h" />
-    <ClInclude Include="lib\engine\Scene\AbstractSceneFactory.h" />
-    <ClInclude Include="lib\engine\Scene\BaseScene.h" />
-    <ClInclude Include="lib\engine\Scene\Framework.h" />
-    <ClInclude Include="lib\engine\Scene\MainGame.h" />
+    <ClInclude Include="engine\2D\PostEffect\PostEffect.h" />
+    <ClInclude Include="engine\2D\Sprite\Sprite.h" />
+    <ClInclude Include="engine\3D\Model\FBX\FbxLoader.h" />
+    <ClInclude Include="engine\3D\Model\FBX\FbxModel.h" />
+    <ClInclude Include="engine\3D\Model\FBX\FbxObject3d.h" />
+    <ClInclude Include="engine\3D\Model\OBJ\ObjModel.h" />
+    <ClInclude Include="engine\3D\Model\OBJ\ObjObject3d.h" />
+    <ClInclude Include="engine\3D\Particle\ParticleManager.h" />
+    <ClInclude Include="engine\3D\WorldTransform.h" />
+    <ClInclude Include="engine\Audio\AudioManager.h" />
+    <ClInclude Include="engine\Base\Core\DirectXCommon.h" />
+    <ClInclude Include="engine\Base\Core\FPS.h" />
+    <ClInclude Include="engine\Base\Light.h" />
+    <ClInclude Include="engine\Base\Pipeline\Pipeline.h" />
+    <ClInclude Include="engine\Base\Pipeline\Shader.h" />
+    <ClInclude Include="engine\Base\TextureManager.h" />
+    <ClInclude Include="engine\Base\Utility\EngineUtility.h" />
+    <ClInclude Include="engine\Base\Core\WinApp.h" />
+    <ClInclude Include="engine\Camera\Camera.h" />
+    <ClInclude Include="engine\Editer\LevelLoader.h" />
+    <ClInclude Include="engine\ImGui\ImGuiManager.h" />
+    <ClInclude Include="engine\Input\Controller.h" />
+    <ClInclude Include="engine\Input\Input.h" />
+    <ClInclude Include="engine\Input\Keyboard.h" />
+    <ClInclude Include="engine\Input\Mouse.h" />
+    <ClInclude Include="engine\Math\DirectX12Math.h" />
+    <ClInclude Include="engine\Math\Matrix4.h" />
+    <ClInclude Include="engine\Math\Quaternion.h" />
+    <ClInclude Include="engine\Math\Vector2.h" />
+    <ClInclude Include="engine\Math\Vector3.h" />
+    <ClInclude Include="engine\Math\Vector4.h" />
+    <ClInclude Include="engine\Scene\AbstractSceneFactory.h" />
+    <ClInclude Include="engine\Scene\BaseScene.h" />
+    <ClInclude Include="engine\Scene\Framework.h" />
+    <ClInclude Include="engine\Scene\MainGame.h" />
     <ClInclude Include="Users\Scene\Game\GameObject.h" />
-    <ClInclude Include="lib\engine\Scene\SceneManager.h" />
+    <ClInclude Include="engine\Scene\SceneManager.h" />
     <ClInclude Include="Users\Scene\Result\ResultScene.h" />
     <ClInclude Include="Users\GameCamera\GameCamera.h" />
     <ClInclude Include="Users\Player\Player.h" />
@@ -285,14 +285,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)lib\engine\Editer;$(SolutionDir)lib\External\DirectXTex\inc;$(SolutionDir)lib\External\imgui\inc;$(SolutionDir)lib\External\fbx_sdk\include</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\External\imgui\lib\$(Configuration);$(ProjectDir)lib\External\DirectXTex\lib\$(Configuration);$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)engine\Editer;$(SolutionDir)External\DirectXTex\inc;$(SolutionDir)External\imgui\inc;$(SolutionDir)External\fbx_sdk\include</IncludePath>
+    <LibraryPath>$(ProjectDir)External\imgui\lib\$(Configuration);$(ProjectDir)External\DirectXTex\lib\$(Configuration);$(ProjectDir)External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)lib\engine\Editer;$(SolutionDir)lib\External\DirectXTex\inc;$(SolutionDir)lib\External\imgui\inc;$(SolutionDir)lib\External\fbx_sdk\include</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\External\imgui\lib\$(Configuration);$(ProjectDir)lib\External\DirectXTex\lib\$(Configuration);$(ProjectDir)lib\External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)engine\Editer;$(SolutionDir)External\DirectXTex\inc;$(SolutionDir)External\imgui\inc;$(SolutionDir)External\fbx_sdk\include</IncludePath>
+    <LibraryPath>$(ProjectDir)External\imgui\lib\$(Configuration);$(ProjectDir)External\DirectXTex\lib\$(Configuration);$(ProjectDir)External\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -330,7 +330,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Users\Enemy;$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\Manager;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Pipeline;$(ProjectDir)lib\engine\Base\Core;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\3D;$(ProjectDir)Users\Bullet;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collider;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Users\Enemy;$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)engine\Editer;$(ProjectDir)engine\3D\Model\Manager;$(ProjectDir)engine\3D\Model\OBJ;$(ProjectDir)engine\3D\Model\FBX;$(ProjectDir)External\imgui;$(ProjectDir)External\DirectXTex;$(ProjectDir)External;$(ProjectDir)engine\Base\Pipeline;$(ProjectDir)engine\Base\Core;$(ProjectDir)engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\3D;$(ProjectDir)Users\Bullet;$(ProjectDir)Users\Scene;$(ProjectDir)engine\Scene;$(ProjectDir)engine\Imgui;$(ProjectDir)Users;$(ProjectDir)engine\Collider;$(ProjectDir)engine\Base;$(ProjectDir)engine\Input;$(ProjectDir)engine\Math;$(ProjectDir)engine\2D\Sprite;$(ProjectDir)engine\3D\Particle;$(ProjectDir)engine\3D;$(ProjectDir)engine\Camera;$(ProjectDir)engine\3D\Model;$(ProjectDir)engine\Audio;$(ProjectDir);%(AdditionalIncludeDirectories);engine\Collision</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -340,8 +340,10 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>/IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/IGNORE:4099 /IGNORE:4204 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>libfbxsdk-md.lib;libxml2-md.lib;zlib-md.lib;DirectXTex.lib;imgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -352,7 +354,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Users\Enemy;$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)lib\engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)lib\engine\Editer;$(ProjectDir)lib\engine\3D\Model\Manager;$(ProjectDir)lib\engine\3D\Model\OBJ;$(ProjectDir)lib\engine\3D\Model\FBX;$(ProjectDir)lib\External\imgui;$(ProjectDir)lib\External\DirectXTex;$(ProjectDir)lib\External;$(ProjectDir)lib\engine\Base\Pipeline;$(ProjectDir)lib\engine\Base\Core;$(ProjectDir)lib\engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\3D;$(ProjectDir)Users\Bullet;$(ProjectDir)Users\Scene;$(ProjectDir)lib\engine\Scene;$(ProjectDir)lib\engine\Imgui;$(ProjectDir)Users;$(ProjectDir)lib\engine\Collider;$(ProjectDir)lib\engine\Base;$(ProjectDir)lib\engine\Input;$(ProjectDir)lib\engine\Math;$(ProjectDir)lib\engine\2D\Sprite;$(ProjectDir)lib\engine\3D\Particle;$(ProjectDir)lib\engine\3D;$(ProjectDir)lib\engine\Camera;$(ProjectDir)lib\engine\3D\Model;$(ProjectDir)lib\engine\Audio;$(ProjectDir);%(AdditionalIncludeDirectories);lib\engine\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Users\Enemy;$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)engine\Editer;$(ProjectDir)engine\3D\Model\Manager;$(ProjectDir)engine\3D\Model\OBJ;$(ProjectDir)engine\3D\Model\FBX;$(ProjectDir)External\imgui;$(ProjectDir)External\DirectXTex;$(ProjectDir)External;$(ProjectDir)engine\Base\Pipeline;$(ProjectDir)engine\Base\Core;$(ProjectDir)engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\3D;$(ProjectDir)Users\Bullet;$(ProjectDir)Users\Scene;$(ProjectDir)engine\Scene;$(ProjectDir)engine\Imgui;$(ProjectDir)Users;$(ProjectDir)engine\Collider;$(ProjectDir)engine\Base;$(ProjectDir)engine\Input;$(ProjectDir)engine\Math;$(ProjectDir)engine\2D\Sprite;$(ProjectDir)engine\3D\Particle;$(ProjectDir)engine\3D;$(ProjectDir)engine\Camera;$(ProjectDir)engine\3D\Model;$(ProjectDir)engine\Audio;$(ProjectDir);%(AdditionalIncludeDirectories);engine\Collision</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -366,8 +368,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>/IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/IGNORE:4099 /IGNORE:4204 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>libfbxsdk-mt.lib;libxml2-mt.lib;zlib-mt.lib;DirectXTex.lib;imgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
