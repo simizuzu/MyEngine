@@ -68,6 +68,8 @@ namespace MyMathUtility
 
 	// 線形補間(float)
 	float Lerp(float a, float b, float t);
+	// 最短角度補間
+	float LerpShortAngle(float a, float b, float t);
 	// 線形補間(Vector3)
 	MyMath::Vector3 Lerp(MyMath::Vector3 a, MyMath::Vector3 b, float t);
 

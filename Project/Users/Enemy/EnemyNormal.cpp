@@ -163,9 +163,9 @@ void EnemyNormal::Fire()
 	velocity = enemyDir * bulletSpeed;
 
 	//角度を算出
-	enemyAngle = (- atan2(enemyDir.y,enemyDir.x)) * MyMathUtility::degree2Radius;
+	enemyAngle = (- atan2(enemyDir.x,enemyDir.z)) * MyMathUtility::degree2Radius;
 
-	enemyDir.z = MyMathUtility::Lerp(enemyDir.z,enemyAngle,0.9f);
+	enemyDir.y = MyMathUtility::LerpShortAngle(enemyDir.z,enemyAngle,0.9f);
 	enemyTrans.SetRotation(enemyDir);
 
 	//タイマーがゼロになった時生成する

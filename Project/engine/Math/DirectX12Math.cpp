@@ -465,6 +465,31 @@ namespace MyMathUtility
 		return a + ( b - a ) * Clamp0To1(t);
 	}
 
+	float LerpShortAngle(float a,float b,float t)
+	{
+		float result;
+
+		//角度差分を求める
+		float diff = b - a;
+
+		//角度を[-2PI,+2PI]に補正する
+		diff = static_cast< float >( std::fmod(diff,360) );
+
+		// 2πまたはπに補正
+		if ( diff > 180 )
+		{
+			diff -= 360;
+		}
+		else if ( diff < -180 )
+		{
+			diff += 360;
+		}
+
+		result = a + diff * t;
+
+		return result;
+	}
+
 	Vector3 Lerp(Vector3 a,Vector3 b,float t)
 	{
 		Vector3 tmp;
