@@ -48,9 +48,9 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 
 	HP_UITrans.Initialize();
 
-	UITranslation = {0.0f,10.0f,0.0f};
+	UITranslation = { 0.0f,10.0f,0.0f };
 
-	HPScale = {3.0f,3.0f,3.0f};
+	HPScale = { 3.0f,3.0f,3.0f };
 
 	//雑魚敵の初期HP
 	enemyHP = 5;
@@ -147,6 +147,8 @@ void EnemyNormal::Fire()
 	//タイマー作動
 	bulletIntervalTimer--;
 
+	MyMath::Vector3 rot;
+
 	//弾の速度
 	const float bulletSpeed = 10.0f;
 	MyMath::Vector3 velocity(0,0,bulletSpeed);
@@ -159,14 +161,21 @@ void EnemyNormal::Fire()
 	MyMath::Vector3 enemyToPlayerVec = playerWorldPos - enemyWorldPos;
 	//ベクトルの正規化
 	MyMath::Vector3 enemyDir = MyMathUtility::MakeNormalize(enemyToPlayerVec);
+
 	//ベクトルの長さを、早さに合わせる
 	velocity = enemyDir * bulletSpeed;
 
 	//角度を算出
-	enemyAngle = (- atan2(enemyDir.x,enemyDir.z)) * MyMathUtility::degree2Radius;
+	MyMath::Vector3 vecLength = enemyDir;
+	vecLength.y = 0;
+	enemyAngleX = std::atan2(enemyDir.y,vecLength.length());
+	rot.x = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().x,enemyAngleX,0.3f);
 
-	enemyDir.y = MyMathUtility::LerpShortAngle(enemyDir.z,enemyAngle,0.9f);
-	enemyTrans.SetRotation(enemyDir);
+	enemyAngleY = std::atan2(enemyDir.x,enemyDir.z);
+	rot.y = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().y,enemyAngleY,0.3f);
+
+	//計算した角度をセット
+	enemyTrans.SetRotation(rot);
 
 	//タイマーがゼロになった時生成する
 	if ( bulletIntervalTimer == zero )
@@ -180,6 +189,7 @@ void EnemyNormal::Fire()
 		bulletIntervalTimer = resetTimer;
 	}
 }
+
 
 MyMath::Vector3 EnemyNormal::GetCenterPosition() const
 {

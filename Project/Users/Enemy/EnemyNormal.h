@@ -60,10 +60,7 @@ private:
 	/// </summary>
 	void Fire();
 
-	/// <summary>
-	/// こっちに振り向く処理
-	/// </summary>
-	void LookMe();
+	float RotateX(float theta, float& x,float& y,float& z);
 
 	//ワールド座標の原点
 	MyMath::Vector3 GetCenterPosition() const override;
@@ -88,7 +85,8 @@ private:
 	MyMath::Vector3 UITranslation;
 	MyMath::Vector3 HPScale;
 
-	float enemyAngle;
+	float enemyAngleY;
+	float enemyAngleX;
 
 	//敵のHP
 	uint8_t enemyHP;
@@ -98,7 +96,7 @@ private:
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;
 	bool flag = false;
-	int8_t pad1[ 2 ];
+	int8_t pad1[ 6 ];
 
 public:
 	MyMath::Vector3 translation;
