@@ -168,7 +168,7 @@ void EnemyNormal::Fire()
 	//角度を算出
 	MyMath::Vector3 vecLength = enemyDir;
 	vecLength.y = 0;
-	enemyAngleX = std::atan2(enemyDir.y,vecLength.length());
+	enemyAngleX = std::atan2(-enemyDir.y,vecLength.length());
 	rot.x = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().x,enemyAngleX,0.3f);
 
 	enemyAngleY = std::atan2(enemyDir.x,enemyDir.z);
