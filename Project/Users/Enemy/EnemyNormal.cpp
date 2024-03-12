@@ -150,7 +150,7 @@ void EnemyNormal::Fire()
 	MyMath::Vector3 rot;
 
 	//弾の速度
-	const float bulletSpeed = 10.0f;
+	const float bulletSpeed = 2.0f;
 	MyMath::Vector3 velocity(0,0,bulletSpeed);
 
 	//自キャラのワールド座標を取得する
@@ -161,19 +161,19 @@ void EnemyNormal::Fire()
 	MyMath::Vector3 enemyToPlayerVec = playerWorldPos - enemyWorldPos;
 	//ベクトルの正規化
 	MyMath::Vector3 enemyDir = MyMathUtility::MakeNormalize(enemyToPlayerVec);
-
 	//ベクトルの長さを、早さに合わせる
 	velocity = enemyDir * bulletSpeed;
-
-	//角度を算出
-	MyMath::Vector3 vecLength = enemyDir;
-	vecLength.y = 0;
-	enemyAngleX = std::atan2(-enemyDir.y,vecLength.length());
-	rot.x = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().x,enemyAngleX,0.3f);
-
+	
+	//角度を算出して自機方向に振り向かせる(Y軸)
 	enemyAngleY = std::atan2(enemyDir.x,enemyDir.z);
 	rot.y = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().y,enemyAngleY,0.3f);
-
+	//Z軸の横軸
+	MyMath::Vector3 vecLength = enemyDir;
+	//Y成分を0にしたベクトル
+	vecLength.y = 0;
+	//角度を算出して自機方向に振り向かせる(X軸)
+	enemyAngleX = std::atan2(-enemyDir.y,vecLength.length());
+	rot.x = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().x,enemyAngleX,0.3f);
 	//計算した角度をセット
 	enemyTrans.SetRotation(rot);
 
@@ -182,6 +182,7 @@ void EnemyNormal::Fire()
 	{
 		//弾を生成し、初期化
 		EnemyBullet* newBullet = new EnemyBullet();
+		newBullet->SetPlayer(player_);
 		newBullet->Initialize(bulletObj.get(),enemyTrans.GetTranslation(),velocity);
 
 		//弾を登録する
@@ -189,7 +190,6 @@ void EnemyNormal::Fire()
 		bulletIntervalTimer = resetTimer;
 	}
 }
-
 
 MyMath::Vector3 EnemyNormal::GetCenterPosition() const
 {

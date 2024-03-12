@@ -1,5 +1,6 @@
 #include "EnemyBullet.h"
 #include "Numbers.h"
+#include "Player.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
@@ -9,7 +10,7 @@ void EnemyBullet::Initialize(ObjObject3d* obj,const MyMath::Vector3& pos,const M
 {
 	//モデルを代入
 	bulletObj_ = obj;
-	bulletObj_->SetModel("box");
+	bulletObj_->SetModel("missile");
 
 	//ワールドトランスフォームの初期化
 	bulletTrans_.Initialize();
@@ -18,18 +19,34 @@ void EnemyBullet::Initialize(ObjObject3d* obj,const MyMath::Vector3& pos,const M
 	//速度をメンバ変数に代入
 	velocity_ = velocity;
 
-	//衝突属性を設定
-	SetCollisionAttribute(collisionAttributeEnemy);
-	//衝突対象を自分の属性以外に設定(ビット反転)
-	SetCollisionMask(~collisionAttributeEnemy);
+	bulletTrans_.SetScale({ 3.0f,3.0f,3.0f });
+
+	////衝突属性を設定
+	//SetCollisionAttribute(collisionAttributeEnemy);
+	////衝突対象を自分の属性以外に設定(ビット反転)
+	//SetCollisionMask(~collisionAttributeEnemy);
 }
 
 void EnemyBullet::Update(Camera* camera)
 {
-	bulletTrans_.translation_ += velocity_;
-	bulletTrans_.SetScale({ 1.8f,1.8f,1.8f });
-	bulletTrans_.Update(camera);
+	const float bulletSpeed = 2.0f;
 
+	//敵弾のホーミング
+	//敵弾から自キャラへのベクトルを計算
+	MyMath::Vector3 toPlayer = player_->GetCenterPosition() - MyMath::GetWorldPosition(bulletTrans_);
+	//ベクトルを正規化する
+	toPlayer = MyMathUtility::MakeNormalize(toPlayer);
+	velocity_ = MyMathUtility::MakeNormalize(velocity_);
+	//球面線形補間により、今の速度と自キャラのベクトルを内挿し、新たな速度とする
+	velocity_ = MyMathUtility::Slerp(velocity_,toPlayer, 0.2f) * bulletSpeed;
+
+	bulletTrans_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
+	MyMath::Vector3 tmp = velocity_;
+	tmp.y = 0.0f;
+	bulletTrans_.rotation_.x = std::atan2(-velocity_.y,tmp.length());
+
+	bulletTrans_.translation_ += velocity_;
+	bulletTrans_.Update(camera);
 	//時間経過でデスフラグをtrueに
 	if ( --deathTimer_ <= zero )
 	{
@@ -61,4 +78,9 @@ MyMath::Vector3 EnemyBullet::GetCenterPosition() const
 bool EnemyBullet::IsDead() const
 {
 	return isDead_;
+}
+
+void EnemyBullet::SetPlayer(Player* player)
+{
+	player_ = player;
 }

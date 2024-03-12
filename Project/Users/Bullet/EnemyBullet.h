@@ -5,10 +5,15 @@
 #include "Bullet.h"
 #include "Collider.h"
 
+
  /**
  * @class EnemyBullet.h
  * @brief EnemyBulletのクラス
  */
+
+//クラスの前方宣言
+class Player;
+
 class EnemyBullet final : public Collider
 {
 public:
@@ -44,17 +49,21 @@ public:
 
 	bool IsDead() const;
 
-private:
-	//速度
-	MyMath::Vector3 velocity_;
-	//寿命<frm>
-	static const int32_t lifeTime = 60*3;
+	//敵弾に自キャラを渡す
+	void SetPlayer(Player* player);
 
+private:
+	//寿命<frm>
+	static const int32_t lifeTime = 60;
+	//自キャラ
+	Player* player_ = nullptr;
 	//デスタイマー
 	int32_t deathTimer_ = lifeTime;
+	//速度
+	MyMath::Vector3 velocity_;
 	//デスフラグ
 	bool isDead_ = false;
-	int8_t pad1[7 ];
+	int8_t pad1[ 7 ];
 
 	//モデル
 	//ObjModel* bulletModel_ = nullptr;

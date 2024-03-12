@@ -8,6 +8,12 @@
 #include "ImGuiManager.h"
 #include "PostEffect.h"
 #include "FbxLoader.h"
+#include "ObjObject3d.h"
+#include "Sprite.h"
+//#include "ParticleManager.h"
+#include "Light.h"
+#include "FbxObject3d.h"
+#include "PostEffect.h"
 
 #include "BaseScene.h"
 #include "SceneManager.h"

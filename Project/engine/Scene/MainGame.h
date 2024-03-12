@@ -1,10 +1,4 @@
 #pragma once
-#include "ObjObject3d.h"
-#include "Sprite.h"
-//#include "ParticleManager.h"
-#include "Light.h"
-#include "FbxObject3d.h"
-#include "PostEffect.h"
 #include "Framework.h"
 #include "SceneFactory.h"
 

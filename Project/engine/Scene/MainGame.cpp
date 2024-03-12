@@ -1,4 +1,5 @@
 #include "MainGame.h"
+#include "ModelManager.h"
 
  /**
  * @file MainGame.cpp
@@ -9,16 +10,20 @@ void MainGame::Initialize()
 {
 	//基底クラスの初期化処理
 	Framework::Initialize();
-	//3Dオブジェクト静的初期化(Obj版)
-	ObjObject3d::StaticInitialize(dxCommon_->GetDevice());
-	//ライト静的初期化
-	Light::StaticInitialise(dxCommon_);
-	//スプライト静的初期化
-	Sprite::StaticInitialize();
-	//パーティクルマネージャー静的初期化
-	//ParticleManager::StaticInitialize(dxCommon_->GetDevice(), dxCommon_->GetCommandList());
-	//3Dオブジェクト静的初期化(Fbx版)
-	FbxObject3d::StaticInitialize(dxCommon_->GetDevice());
+
+	//obj
+	ModelManager::GetInstance()->LoadModel("missile",obj,true);
+	ModelManager::GetInstance()->LoadModel("HP_UI",obj);
+	ModelManager::GetInstance()->LoadModel("skydome",obj,true);
+	ModelManager::GetInstance()->LoadModel("ground",obj);
+	ModelManager::GetInstance()->LoadModel("gun",obj);
+	ModelManager::GetInstance()->LoadModel("concrete",obj,true);
+
+	//fbx
+	ModelManager::GetInstance()->LoadModel("roboto",fbx);
+	ModelManager::GetInstance()->LoadModel("mob",fbx);
+	ModelManager::GetInstance()->LoadModel("clear",fbx);
+	ModelManager::GetInstance()->LoadModel("pilot",fbx);
 
 	sceneFactory_ = new SceneFactory();
 	SceneManager::GetInstance()->SetSceneFactory(sceneFactory_);

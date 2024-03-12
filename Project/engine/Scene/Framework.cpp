@@ -36,6 +36,17 @@ void Framework::Initialize()
 	postEffect = std::make_unique<PostEffect>();
 	postEffect->Initialize(dxCommon_->GetDevice());
 
+	//3Dオブジェクト静的初期化(Obj版)
+	ObjObject3d::StaticInitialize(dxCommon_->GetDevice());
+	//ライト静的初期化
+	Light::StaticInitialise(dxCommon_);
+	//スプライト静的初期化
+	Sprite::StaticInitialize();
+	//パーティクルマネージャー静的初期化
+	//ParticleManager::StaticInitialize(dxCommon_->GetDevice(), dxCommon_->GetCommandList());
+	//3Dオブジェクト静的初期化(Fbx版)
+	FbxObject3d::StaticInitialize(dxCommon_->GetDevice());
+
 	sceneManager_ = SceneManager::GetInstance();
 }
 
@@ -75,7 +86,6 @@ void Framework::Update()
 	imGuiManager->Begin();
 	// ゲームシーンの毎フレーム処理
 	sceneManager_->Update();
-	
 	// ImGui更新処理終了
 	imGuiManager->End();
 }
