@@ -64,6 +64,7 @@ void GameScene::Initialize()
 	spriteBlackDown_ = std::make_unique<Sprite>();
 	spriteStageName01_ = std::make_unique<Sprite>();
 	spriteFlash_ = std::make_unique<Sprite>();
+	sprite2DReticle = std::make_unique<Sprite>();
 
 	spriteWhite_->Initialize();
 	spriteBlack_->Initialize();
@@ -71,6 +72,7 @@ void GameScene::Initialize()
 	spriteBlackDown_->Initialize();
 	spriteStageName01_->Initialize();
 	spriteFlash_->Initialize();
+	sprite2DReticle->Initialize();
 
 	texWhite_ = TextureManager::Load("Resources/Texture/white1x1.png");
 	texBlack_ = TextureManager::Load("Resources/Texture/black1x1.png");
@@ -78,6 +80,7 @@ void GameScene::Initialize()
 	texBlackDown_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texStageName01_ = TextureManager::Load("Resources/Texture/Scene/stagename01.png");
 	texFlash_ = TextureManager::Load("Resources/Texture/muzzleFlash.png");
+	texReticle_ = TextureManager::Load("Resources/Texture/reticle.png");
 
 	//robotoModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("roboto"));
 	robotoObj_.reset(FbxObject3d::Create());
@@ -225,7 +228,8 @@ void GameScene::Draw()
 		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
 	case GameScene::SCENEFASE::GAME:
-		modelData_->TexDraw();	
+		modelData_->TexDraw();
+		sprite2DReticle->Draw(texReticle_,{640,320},{1.5f,1.5f},0,{0.5f,0.5f});
 		break;
 
 	case GameScene::SCENEFASE::RESULT:
@@ -363,16 +367,23 @@ void GameScene::CheckAllCollilsions()
 		enemy->SetRadius(colliderRadius);
 	}
 
+	const std::list<std::unique_ptr<EnemyBullet>>& enemyBullets = enemyManager_->GetBullets();
+
+
+	for ( const std::unique_ptr < EnemyBullet> eBullet_ : enemyBullets )
+	{
+		collisionManager_->AddCollider(eBullet_);
+		eBullet_->SetRadius(3.0f);
+	}
+
 	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
 	{
 		bulletIntervalFlag = true;
 	}
-
 	if ( bulletIntervalFlag )
 	{
 		bulletIntervalTimer--;
 	}
-
 	if ( bulletIntervalTimer == zero )
 	{
 		//敵全てについて

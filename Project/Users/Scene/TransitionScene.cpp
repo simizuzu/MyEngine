@@ -36,9 +36,6 @@ void TransitionScene::Initialize()
 	spriteWave_->Initialize();
 
 	texBlack_ = TextureManager::Load("Resources/Texture/white1x1.png");
-	texLine_ = TextureManager::Load("Resources/Texture/Scene/transition_01.png");
-	texCircle_ = TextureManager::Load("Resources/Texture/Scene/title.png");
-	texTriangleBack_ = TextureManager::Load("Resources/Texture/Scene/transition_03.png");
 	texWave_ = TextureManager::Load("Resources/Texture/Scene/wave.png");
 
 	color_ = { 0.0f,0.0f,0.0f,0.0f };

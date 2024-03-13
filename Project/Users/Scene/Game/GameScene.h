@@ -114,6 +114,13 @@ private:
 	/// </summary>
 	void MuzzleFlashRotation();
 
+	/// <summary>
+	/// 発射時のレティクルのサイズ
+	/// </summary>
+	void ReticleSize();
+
+	void TakeDamageDraw();
+
 private: // メンバ変数
 	Input* input_ = nullptr;
 	Camera* camera = nullptr;
@@ -194,25 +201,30 @@ private: //スタート演出
 	TextureData texBlackDown_;
 	TextureData texStageName01_;
 	TextureData texFlash_;
+	TextureData texReticle_;
+
+	//2Dレティクル用スプライト
+	std::unique_ptr<Sprite> sprite2DReticle;
 
 	//std::unique_ptr<ObjObject3d> damageObj;
 	std::unique_ptr<ObjModel> damageModel;
 
-	const float blackTimer_ = 50.0f;
-	const int8_t minus1 = -1;
-	int8_t pad4[3 ];
-
 	float cameraTimeRate;
+	float damageAlpha = 0.0f;
 
 	bool muzzleFlashFlag1 = false;
 	bool muzzleFlashFlag2 = false;
-	int8_t pad3[ 2 ];
+	const int8_t minus1 = -1;
+	int8_t pad3[ 5 ];
+
+	DecimalNumbers decimal;
+	const float blackTimer_ = 50.0f;
 
 private: //当たり判定
 	Ray ray; //レイ
 	Sphere sphere; //球
 	bool hit =false;
-	int8_t pad9[ 3 ];
+	int8_t pad4[ 3 ];
 private:
 	enum class SCENEFASE
 	{
@@ -224,10 +236,6 @@ private:
 	};
 
 	SCENEFASE scene = SCENEFASE::INIT;
-	int8_t pad5[ 4 ];
-
-	DecimalNumbers decimal;
-	//int8_t pad10[ 4 ];
 
 private:
 	//コピーコンストラクタ・代入演算子削除
