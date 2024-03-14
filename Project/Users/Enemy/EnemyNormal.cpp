@@ -28,6 +28,10 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	camera_ = camera;
 	modelName = filePath;
 
+	damageModel_.reset(ObjModel::LoadFromObj("box"));
+	damageParticleManager_ = new ParticleManager();
+	damageParticleManager_->Initialize(damageModel_.get(),camera_);
+
 	//雑魚敵のモデル
 	enemyObj_.reset(FbxObject3d::Create());
 	enemyObj_->SetModel(modelName);
@@ -89,10 +93,12 @@ void EnemyNormal::Update()
 	enemyObj_->Update();
 
 	HP_UITrans.SetTranslation({ translation.x + UITranslation.x,translation.y + UITranslation.y,translation.z + UITranslation.z });
-
 	HP_UITrans.SetScale(HPScale);
-
 	HP_UITrans.Update(camera_,true);
+
+	damageParticleManager_->Add("1",1,60,enemyTrans.GetTranslation(),1,2);
+	damageParticleManager_->Update();
+	
 
 	//当たり判定を敵の原点に設定
 	sphere.center = enemyTrans.GetTranslation();
@@ -101,8 +107,12 @@ void EnemyNormal::Update()
 void EnemyNormal::Draw()
 {
 	enemyObj_->Draw(&enemyTrans);
-
 	HP_UIObj->Draw(&HP_UITrans);
+	if ( damageFlag )
+	{
+ 		damageParticleManager_->Draw();
+	}
+
 
 	//弾の描画
 	for ( EnemyBullet* bullet : bullets )
@@ -125,6 +135,7 @@ void EnemyNormal::OnCollision()
 
 void EnemyNormal::HitBullet()
 {
+	damageFlag = true;
 	//HPを減らす
 	enemyHP--;
 

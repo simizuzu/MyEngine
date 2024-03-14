@@ -1,11 +1,10 @@
 #pragma once
 #include "BaseEnemy.h"
-
 #include "Camera.h"
-
 #include "FbxLoader.h"
 #include "FbxModel.h"
 #include "FbxObject3d.h"
+#include "ParticleManager.h"
 
 /**
  * @class EnemyNormal.h
@@ -73,6 +72,10 @@ private:
 	//自キャラ
 	Player* player_ = nullptr;
 
+	//ダメージ用パーティクル
+	ParticleManager* damageParticleManager_ = nullptr;
+	std::unique_ptr <ObjModel> damageModel_;
+
 	//弾の速度
 	const float bulletSpeed = 2.0f;
 	MyMath::Vector3 velocity = {0.0f,0.0f,bulletSpeed};
@@ -108,7 +111,7 @@ private:
 	uint8_t enemyHP;
 
 	bool isDead = false;
-	bool bulletIntervalFlag = false;
+	bool damageFlag = false;
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;
 	bool turnFlag = false;

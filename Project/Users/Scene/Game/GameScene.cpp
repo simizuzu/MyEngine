@@ -95,10 +95,6 @@ void GameScene::Initialize()
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
 
-	/*damageModel.reset(ObjModel::LoadFromObj("box"));
-	damageParticle = new ParticleManager();
-	damageParticle->Initialize(damageModel.get(),camera);*/
-
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","mob",camera));
 
@@ -168,10 +164,6 @@ void GameScene::Update()
 		BlackMind();
 		//モデルのムービー演出
 		ModelMovie();
-
-		//damageParticle->Add("1",1,60,{ 0.0f,0.0f,0.0f },1,2);
-		//damageParticle->Update();
-
 		break;
 
 	case GameScene::SCENEFASE::START:
@@ -219,8 +211,6 @@ void GameScene::Draw()
 	case GameScene::SCENEFASE::MOVIE:
 		spriteStageName01_->Draw(texStageName01_, fieldNameSize);
 		robotoObj_->Draw(&robotoTrans);
-		
-		//damageParticle->Draw();
 		break;
 	case GameScene::SCENEFASE::START:
 		texBlackAlpha -= decimal.zeroPointOne;
@@ -365,15 +355,6 @@ void GameScene::CheckAllCollilsions()
 	{
 		collisionManager_->AddCollider(enemy.get());
 		enemy->SetRadius(colliderRadius);
-	}
-
-	const std::list<std::unique_ptr<EnemyBullet>>& enemyBullets = enemyManager_->GetBullets();
-
-
-	for ( const std::unique_ptr < EnemyBullet> eBullet_ : enemyBullets )
-	{
-		collisionManager_->AddCollider(eBullet_);
-		eBullet_->SetRadius(3.0f);
 	}
 
 	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )

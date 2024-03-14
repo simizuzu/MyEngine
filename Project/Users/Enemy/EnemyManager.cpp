@@ -36,11 +36,6 @@ void EnemyManager::Update()
 		enemy->Update();
 	}
 
-	for ( std::unique_ptr<BaseEnemy>& bullet : bullets )
-	{
-		bullet->GetBullets();
-	}
-
 	DeleteEnemys();
 }
 
