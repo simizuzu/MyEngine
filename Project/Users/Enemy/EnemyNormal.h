@@ -1,11 +1,10 @@
 #pragma once
 #include "BaseEnemy.h"
-
 #include "Camera.h"
-
 #include "FbxLoader.h"
 #include "FbxModel.h"
 #include "FbxObject3d.h"
+#include "ParticleManager.h"
 
 /**
  * @class EnemyNormal.h
@@ -60,8 +59,11 @@ private:
 	/// </summary>
 	void Fire();
 
-	float RotateX(float theta, float& x,float& y,float& z);
-
+	/// <summary>
+	/// 振り向き処理
+	/// </summary>
+	void Turn();
+	
 	//ワールド座標の原点
 	MyMath::Vector3 GetCenterPosition() const override;
 
@@ -69,6 +71,23 @@ private:
 	Camera* camera_ = nullptr;
 	//自キャラ
 	Player* player_ = nullptr;
+
+	//ダメージ用パーティクル
+	ParticleManager* damageParticleManager_ = nullptr;
+	std::unique_ptr <ObjModel> damageModel_;
+
+	//弾の速度
+	const float bulletSpeed = 2.0f;
+	MyMath::Vector3 velocity = {0.0f,0.0f,bulletSpeed};
+
+	//自キャラのワールド座標
+	MyMath::Vector3 playerWorldPos;
+	//敵キャラのワールド座標
+	MyMath::Vector3 enemyWorldPos;
+	//敵キャラ→自キャラの差分ベクトル
+	MyMath::Vector3 enemyToPlayerVec;
+	//正規化するベクトル
+	MyMath::Vector3 enemyDir;
 
 	//敵のモデル
 	std::unique_ptr<FbxObject3d> enemyObj_;
@@ -92,10 +111,10 @@ private:
 	uint8_t enemyHP;
 
 	bool isDead = false;
-	bool bulletIntervalFlag = false;
+	bool damageFlag = false;
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;
-	bool flag = false;
+	bool turnFlag = false;
 	int8_t pad1[ 6 ];
 
 public:

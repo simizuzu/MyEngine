@@ -24,7 +24,7 @@ private:
 	//敵の数
 	std::list<std::unique_ptr<BaseEnemy>>enemys;
 	//敵の弾
-	std::list<EnemyBullet*> bullets;
+	std::list<std::unique_ptr<EnemyBullet>> bullets;
 
 	//敵発生コマンド
 	std::stringstream enemyPospCommands;
@@ -61,6 +61,8 @@ public:
 	/// </summary>
 	/// <returns>敵の数</returns>
 	const std::list<std::unique_ptr<BaseEnemy>>& GetEnemys();
+
+	const std::list<std::unique_ptr<EnemyBullet>>& GetBullets() const;
 
 	MyMath::Vector3 GetEnemyCenterPos();
 

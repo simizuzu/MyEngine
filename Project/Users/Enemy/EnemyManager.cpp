@@ -58,6 +58,11 @@ const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemys()
 	return enemys;
 }
 
+const std::list<std::unique_ptr<EnemyBullet>>& EnemyManager::GetBullets() const
+{
+	return bullets;
+}
+
 MyMath::Vector3 EnemyManager::GetEnemyCenterPos()
 {
 	return enemysPos_;
@@ -120,11 +125,6 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player)
 		//POPコマンド
 		if ( word.find("POP") == 0 )
 		{
-
-			//size_t enemyType = static_cast< size_t >( std::atoi(word.c_str()) );
-
-			//std::unique_ptr<BaseEnemy> enemy;
-
 			//該当する敵の属性ごとに生成
 
 			//敵を発生させる

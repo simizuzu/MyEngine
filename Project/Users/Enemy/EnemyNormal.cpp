@@ -1,12 +1,16 @@
 #include "EnemyNormal.h"
 #include "Numbers.h"
-
 #include "Player.h"
-
 #include "ModelManager.h"
+
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
+
+/**
+ * @file EnemyNormal.cpp
+ * @brief EnemyNormalの処理が書かれてあります
+ */
 
 EnemyNormal::~EnemyNormal()
 {
@@ -23,6 +27,10 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	assert(camera);
 	camera_ = camera;
 	modelName = filePath;
+
+	damageModel_.reset(ObjModel::LoadFromObj("box"));
+	damageParticleManager_ = new ParticleManager();
+	damageParticleManager_->Initialize(damageModel_.get(),camera_);
 
 	//雑魚敵のモデル
 	enemyObj_.reset(FbxObject3d::Create());
@@ -85,10 +93,12 @@ void EnemyNormal::Update()
 	enemyObj_->Update();
 
 	HP_UITrans.SetTranslation({ translation.x + UITranslation.x,translation.y + UITranslation.y,translation.z + UITranslation.z });
-
 	HP_UITrans.SetScale(HPScale);
-
 	HP_UITrans.Update(camera_,true);
+
+	damageParticleManager_->Add("1",1,60,enemyTrans.GetTranslation(),1,2);
+	damageParticleManager_->Update();
+	
 
 	//当たり判定を敵の原点に設定
 	sphere.center = enemyTrans.GetTranslation();
@@ -97,8 +107,12 @@ void EnemyNormal::Update()
 void EnemyNormal::Draw()
 {
 	enemyObj_->Draw(&enemyTrans);
-
 	HP_UIObj->Draw(&HP_UITrans);
+	if ( damageFlag )
+	{
+ 		damageParticleManager_->Draw();
+	}
+
 
 	//弾の描画
 	for ( EnemyBullet* bullet : bullets )
@@ -111,10 +125,17 @@ void EnemyNormal::OnCollision()
 {
 	//弾発射
 	Fire();
+
+	//フラグが立った時回転させる
+	if ( turnFlag )
+	{
+		Turn();
+	}
 }
 
 void EnemyNormal::HitBullet()
 {
+	damageFlag = true;
 	//HPを減らす
 	enemyHP--;
 
@@ -147,35 +168,16 @@ void EnemyNormal::Fire()
 	//タイマー作動
 	bulletIntervalTimer--;
 
-	MyMath::Vector3 rot;
-
-	//弾の速度
-	const float bulletSpeed = 2.0f;
-	MyMath::Vector3 velocity(0,0,bulletSpeed);
-
 	//自キャラのワールド座標を取得する
-	MyMath::Vector3 playerWorldPos = player_->GetCenterPosition();
+	playerWorldPos = player_->GetCenterPosition();
 	//敵キャラのワールド座標を取得する
-	MyMath::Vector3 enemyWorldPos = GetCenterPosition();
+	enemyWorldPos = GetCenterPosition();
 	//敵キャラ→自キャラの差分ベクトルを求める
-	MyMath::Vector3 enemyToPlayerVec = playerWorldPos - enemyWorldPos;
+	enemyToPlayerVec = playerWorldPos - enemyWorldPos;
 	//ベクトルの正規化
-	MyMath::Vector3 enemyDir = MyMathUtility::MakeNormalize(enemyToPlayerVec);
+	enemyDir = MyMathUtility::MakeNormalize(enemyToPlayerVec);
 	//ベクトルの長さを、早さに合わせる
 	velocity = enemyDir * bulletSpeed;
-	
-	//角度を算出して自機方向に振り向かせる(Y軸)
-	enemyAngleY = std::atan2(enemyDir.x,enemyDir.z);
-	rot.y = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().y,enemyAngleY,0.3f);
-	//Z軸の横軸
-	MyMath::Vector3 vecLength = enemyDir;
-	//Y成分を0にしたベクトル
-	vecLength.y = 0;
-	//角度を算出して自機方向に振り向かせる(X軸)
-	enemyAngleX = std::atan2(-enemyDir.y,vecLength.length());
-	rot.x = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().x,enemyAngleX,0.3f);
-	//計算した角度をセット
-	enemyTrans.SetRotation(rot);
 
 	//タイマーがゼロになった時生成する
 	if ( bulletIntervalTimer == zero )
@@ -189,6 +191,24 @@ void EnemyNormal::Fire()
 		bullets.push_back(newBullet);
 		bulletIntervalTimer = resetTimer;
 	}
+}
+
+void EnemyNormal::Turn()
+{
+	MyMath::Vector3 rot;
+
+	//角度を算出して自機方向に振り向かせる(Y軸)
+	enemyAngleY = std::atan2(enemyDir.x,enemyDir.z);
+	rot.y = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().y,enemyAngleY,0.3f);
+	//Z軸の横軸
+	MyMath::Vector3 vecLength = enemyDir;
+	//Y成分を0にしたベクトル
+	vecLength.y = 0;
+	//角度を算出して自機方向に振り向かせる(X軸)
+	enemyAngleX = std::atan2(-enemyDir.y,vecLength.length());
+	rot.x = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().x,enemyAngleX,0.3f);
+	//計算した角度をセット
+	enemyTrans.SetRotation(rot);
 }
 
 MyMath::Vector3 EnemyNormal::GetCenterPosition() const
