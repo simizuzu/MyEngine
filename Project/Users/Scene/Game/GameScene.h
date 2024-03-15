@@ -196,7 +196,6 @@ private: //スタート演出
 	std::unique_ptr<Sprite> spriteFlash_;
 
 	TextureData texWhite_;
-	TextureData texBlack_;
 	TextureData texBlackUp_;
 	TextureData texBlackDown_;
 	TextureData texStageName01_;

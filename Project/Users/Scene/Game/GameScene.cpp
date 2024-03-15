@@ -75,7 +75,6 @@ void GameScene::Initialize()
 	sprite2DReticle->Initialize();
 
 	texWhite_ = TextureManager::Load("Resources/Texture/white1x1.png");
-	texBlack_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackUp_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackDown_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texStageName01_ = TextureManager::Load("Resources/Texture/Scene/stagename01.png");
