@@ -21,10 +21,10 @@ void EnemyBullet::Initialize(ObjObject3d* obj,const MyMath::Vector3& pos,const M
 
 	bulletTrans_.SetScale({ 3.0f,3.0f,3.0f });
 
-	////衝突属性を設定
-	//SetCollisionAttribute(collisionAttributeEnemy);
-	////衝突対象を自分の属性以外に設定(ビット反転)
-	//SetCollisionMask(~collisionAttributeEnemy);
+	//衝突属性を設定
+	SetCollisionAttribute(collisionAttributeEnemy);
+	//衝突対象を自分の属性以外に設定(ビット反転)
+	SetCollisionMask(~collisionAttributeEnemy);
 }
 
 void EnemyBullet::Update(Camera* camera)

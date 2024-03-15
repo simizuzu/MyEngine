@@ -61,8 +61,6 @@ private:
 
 	void SetParent(const WorldTransform* parent);
 
-	//void Finalize();
-
 private:
 	MyMath::Vector3 rot;
 	MyMath::Vector3 translation;
@@ -87,15 +85,15 @@ private:
 	MyMath::Vector3 gunmodelTranslation = {0.3f,-0.15f,1.5f};
 	MyMath::Vector2 stickDeadZone;
 
-public:
-	float timeRate;			//何％時間が進んだか
 private:
-	float maxTime = 120.0f;	//全体時間[s]
+	//ダメージ用全体スプライト(赤色)
+	MyMath::Vector4 color = {1,0,0,0};
 
 	float targetTimeRate;
 	bool bulletIntervalFlag = false;
+	bool hitFlag = false;
 	uint8_t bulletIntervalTimer = 6;
-	int8_t pad1[ 2 ];
+	int8_t pad1[ 1 ];
 
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
@@ -119,9 +117,8 @@ private:
 	//3Dレティクル用ワールドトランスフォーム
 	WorldTransform worldTransform3DReticle;
 
-	//2Dレティクル用スプライト
-	std::unique_ptr<Sprite> sprite2DReticle;
-	TextureData texReticle;
+	std::unique_ptr<Sprite> takenDamage;
+	TextureData TexTakenDamage;
 
 	float cameraHAngle;
 	float cameraVAngle;

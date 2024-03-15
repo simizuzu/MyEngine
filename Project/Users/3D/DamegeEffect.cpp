@@ -33,8 +33,8 @@ void DamegeEffect::Initialize(ObjModel* model,Camera* camera)
 
 	//乱数
 	std::uniform_real_distribution<float> posDist(-0.75f,0.75f);
-	std::uniform_real_distribution<float> valueDistXZ(-0.1f,0.1f);
-	std::uniform_real_distribution<float> valueDistY(0.05f,0.1f);
+	std::uniform_real_distribution<float> valueDistXZ(-0.2f,0.2f);
+	std::uniform_real_distribution<float> valueDistY(-0.2f,0.2f);
 	std::uniform_real_distribution<float> rotValue(-180.0f,180.0f);
 
 	//乱数エンジンを渡し、指定範囲かつランダムな数値を得る

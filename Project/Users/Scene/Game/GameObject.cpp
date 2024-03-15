@@ -18,20 +18,17 @@ void GameObject::Initialize(Camera* camera)
 	groundObj_->SetModel("ground");
 
 	display = std::make_unique<Sprite>();
-	reticle = std::make_unique<Sprite>();
 	UI01 = std::make_unique<Sprite>();
 	UI02 = std::make_unique<Sprite>();
 	UIRT = std::make_unique<Sprite>();
 	UIL = std::make_unique<Sprite>();
 	display->Initialize();
-	reticle->Initialize();
 	UI01->Initialize();
 	UI02->Initialize();
 	UIRT->Initialize();
 	UIL->Initialize();
 
 	displayTex = TextureManager::Load("Resources/Texture/display.png");
-	reticleTex = TextureManager::Load("Resources/Texture/reticle.png");
 	UI01Tex = TextureManager::Load("Resources/Texture/UI.png");
 	UIRTTex = TextureManager::Load("Resources/Texture/RT.png");
 	UILTex = TextureManager::Load("Resources/Texture/L.png");
@@ -75,7 +72,6 @@ void GameObject::Draw()
 void GameObject::TexDraw()
 {
 	display->Draw(displayTex,{ 0,0 });
-	reticle->Draw(reticleTex,{ 640,360 },{ 1.5f,1.5f },0,{ 0.5f,0.5f });
 	UI01->Draw(UI01Tex,{ 1100,600 });
 	UI02->Draw(UI01Tex,{ 980,600 });
 	UIRT->Draw(UIRTTex,{ 1015,615 },{ 0.6f,0.6f });

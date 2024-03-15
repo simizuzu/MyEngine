@@ -64,6 +64,7 @@ void GameScene::Initialize()
 	spriteBlackDown_ = std::make_unique<Sprite>();
 	spriteStageName01_ = std::make_unique<Sprite>();
 	spriteFlash_ = std::make_unique<Sprite>();
+	sprite2DReticle = std::make_unique<Sprite>();
 
 	spriteWhite_->Initialize();
 	spriteBlack_->Initialize();
@@ -71,13 +72,14 @@ void GameScene::Initialize()
 	spriteBlackDown_->Initialize();
 	spriteStageName01_->Initialize();
 	spriteFlash_->Initialize();
+	sprite2DReticle->Initialize();
 
 	texWhite_ = TextureManager::Load("Resources/Texture/white1x1.png");
-	texBlack_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackUp_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texBlackDown_ = TextureManager::Load("Resources/Texture/black1x1.png");
 	texStageName01_ = TextureManager::Load("Resources/Texture/Scene/stagename01.png");
 	texFlash_ = TextureManager::Load("Resources/Texture/muzzleFlash.png");
+	texReticle_ = TextureManager::Load("Resources/Texture/reticle.png");
 
 	//robotoModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("roboto"));
 	robotoObj_.reset(FbxObject3d::Create());
@@ -91,10 +93,6 @@ void GameScene::Initialize()
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
-
-	/*damageModel.reset(ObjModel::LoadFromObj("box"));
-	damageParticle = new ParticleManager();
-	damageParticle->Initialize(damageModel.get(),camera);*/
 
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","mob",camera));
@@ -165,10 +163,6 @@ void GameScene::Update()
 		BlackMind();
 		//モデルのムービー演出
 		ModelMovie();
-
-		//damageParticle->Add("1",1,60,{ 0.0f,0.0f,0.0f },1,2);
-		//damageParticle->Update();
-
 		break;
 
 	case GameScene::SCENEFASE::START:
@@ -216,8 +210,6 @@ void GameScene::Draw()
 	case GameScene::SCENEFASE::MOVIE:
 		spriteStageName01_->Draw(texStageName01_, fieldNameSize);
 		robotoObj_->Draw(&robotoTrans);
-		
-		//damageParticle->Draw();
 		break;
 	case GameScene::SCENEFASE::START:
 		texBlackAlpha -= decimal.zeroPointOne;
@@ -225,7 +217,8 @@ void GameScene::Draw()
 		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
 	case GameScene::SCENEFASE::GAME:
-		modelData_->TexDraw();	
+		modelData_->TexDraw();
+		sprite2DReticle->Draw(texReticle_,{640,320},{1.5f,1.5f},0,{0.5f,0.5f});
 		break;
 
 	case GameScene::SCENEFASE::RESULT:
@@ -367,12 +360,10 @@ void GameScene::CheckAllCollilsions()
 	{
 		bulletIntervalFlag = true;
 	}
-
 	if ( bulletIntervalFlag )
 	{
 		bulletIntervalTimer--;
 	}
-
 	if ( bulletIntervalTimer == zero )
 	{
 		//敵全てについて

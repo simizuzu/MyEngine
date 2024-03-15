@@ -22,11 +22,12 @@ void Player::Initialize(Camera* camera)
 
 	//プレイヤーのトランスフォーム初期化
 	playerTrans.Initialize();
-	//3Dレティクルのトランスフォーム初期化
-	worldTransform3DReticle.Initialize();
-
 	//カメラを親に設定
 	playerTrans.parentMat = &camera_->matCameraWorld_;
+
+	takenDamage = std::make_unique<Sprite>();
+	takenDamage->Initialize();
+	TexTakenDamage = TextureManager::Load("Resources/Texture/Scene/takeDamage.png");
 
 	//衝突属性を設定
 	SetCollisionAttribute(collisionAttributePlayer);
@@ -39,34 +40,45 @@ void Player::Update()
 	//カメラの回転処理
 	RotateCamera();
 
-	//カメラの角度を取得する
-	cameraHAngle = camera_->GetHAngle(camera_->GetEye(),camera_->GetTarget()); //水平方向
-	cameraVAngle = camera_->GetVAngle(camera_->GetEye(),camera_->GetTarget()); //垂直方向
-
-#ifdef _DEBUG
-	ImGui::Begin("StickDeadZone");
-	ImGui::Text("DeadZone(%f,%f)", stickDeadZone.x,stickDeadZone.y);
-	ImGui::End();
-
-	ImGui::Begin("PlayerPos");
-	ImGui::Text("CameraEye(%f,%f,%f)",playerTrans.GetTranslation().x,playerTrans.GetTranslation().y,playerTrans.GetTranslation().z);
-	ImGui::Text("worldTransform3DReticle(%f,%f,%f)",worldTransform3DReticle.GetTranslation().x,worldTransform3DReticle.GetTranslation().y,worldTransform3DReticle.GetTranslation().z);
-	ImGui::End();
-
-	ImGui::Begin("CameraAngle");
-	ImGui::Text("CameraAngle(%f,%f)",camera_->GetRotation().x,camera_->GetRotation().y);
-	ImGui::End();
-#endif
-
 	playerTrans.SetTranslation(gunmodelTranslation);
 	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0 });
-
 	playerTrans.Update(camera_.get());
+
+	if ( hitFlag )
+	{
+		color.w += 0.05f;
+	}
+	else
+	{
+		color.w -= 0.05f;
+	}
+
+	if ( color.w > 1.0f )
+	{
+		color.w = 1.0f;
+		hitFlag = false;
+	}
+
+	if ( color.w < 0.0f )
+	{
+		color.w = 0.0f;
+	}
+
+	//色をセット
+	takenDamage->SetColor(color);
+
+#ifdef _DEBUG
+	ImGui::Begin("Player");
+	ImGui::Text("CameraEye(%f,%f,%f)",playerTrans.GetTranslation().x,playerTrans.GetTranslation().y,playerTrans.GetTranslation().z);
+	ImGui::Text("DamageAlpha(%f)",color.w);
+	ImGui::End();
+#endif
 }
 
 void Player::Draw()
 {
 	playerObj->Draw(&playerTrans);
+	takenDamage->Draw(TexTakenDamage,{(float)zero,( float ) zero});	
 }
 
 void Player::RotateCamera()
@@ -75,13 +87,22 @@ void Player::RotateCamera()
 	stickDeadZone = input->GetLeftStickVec();
 
 	//カメラの回転制御
-	if ( input->PushKey(DIK_RIGHT) || input->InputStick(L_RIGHT))
+	if ( input->InputStick(L_RIGHT))
 	{
 		rot.y += rotationSpeed * stickDeadZone.x;
 	}
-	if ( input->PushKey(DIK_LEFT) || input->InputStick(L_LEFT) )
+	if (  input->InputStick(L_LEFT) )
 	{
 		rot.y += rotationSpeed * stickDeadZone.x;
+	}
+
+	if ( input->PushKey(DIK_RIGHT) )
+	{
+		rot.y += rotationSpeed;
+	}
+	if ( input->PushKey(DIK_LEFT) )
+	{
+		rot.y -= rotationSpeed;
 	}
 
 	//回転が[180°,-180°]以内に制御する
@@ -90,18 +111,28 @@ void Player::RotateCamera()
 		if ( input->PushKey(DIK_DOWN) || input->InputStick(L_DOWN) )
 		{
 			rot.x += rotationSpeed * stickDeadZone.y;
-			if ( rot.x > maxRotate )
-			{
-				rot.x = maxRotate;
-			}
 		}
 		if ( input->PushKey(DIK_UP) || input->InputStick(L_UP) )
 		{
 			rot.x += rotationSpeed * stickDeadZone.y;
-			if ( rot.x < -maxRotate )
-			{
-				rot.x = -maxRotate;
-			}
+		}
+
+		if ( input->PushKey(DIK_DOWN))
+		{
+			rot.x += rotationSpeed;
+		}
+		if ( input->PushKey(DIK_UP))
+		{
+			rot.x -= rotationSpeed;
+		}
+
+		if ( rot.x > maxRotate )
+		{
+			rot.x = maxRotate;
+		}
+		if ( rot.x < -maxRotate )
+		{
+			rot.x = -maxRotate;
 		}
 	}
 
@@ -111,7 +142,7 @@ void Player::RotateCamera()
 
 void Player::OnCollision()
 {
-	
+	hitFlag = true;
 }
 
 void Player::SetParent(const WorldTransform* parent)
