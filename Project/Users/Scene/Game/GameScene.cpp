@@ -52,12 +52,6 @@ void GameScene::Initialize()
 	//衝突マネージャの生成
 	collisionManager_ = std::make_unique<CollisionManager>();
 
-	//colliderModel_.reset(ObjModel::LoadFromObj("collider"));
-	//colliderObj_.reset(ObjObject3d::Create());
-	//colliderObj_->SetModel(colliderModel_.get());
-	//colliderTrans.Initialize();
-	//colliderTrans.SetScale({5,5,5});
-
 	spriteWhite_ = std::make_unique<Sprite>();
 	spriteBlack_ = std::make_unique<Sprite>();
 	spriteBlackUp_ = std::make_unique<Sprite>();
@@ -81,14 +75,12 @@ void GameScene::Initialize()
 	texFlash_ = TextureManager::Load("Resources/Texture/muzzleFlash.png");
 	texReticle_ = TextureManager::Load("Resources/Texture/reticle.png");
 
-	//robotoModel_.reset(FbxLoader::GetInstance()->LoadModelFromFile("roboto"));
 	robotoObj_.reset(FbxObject3d::Create());
 	robotoObj_->SetModel("roboto");
 	robotoObj_->PlayAnimation();
 
 	robotoTrans.Initialize();
 	robotoTrans.SetScale({ 0.009f,0.009f ,0.009f });
-	//robotoObj_->SetScale({ 0.009f,0.009f ,0.009f });
 	
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 	spriteBlackUp_->SetSize({ 1280,100 });
@@ -109,10 +101,6 @@ void GameScene::Update()
 	MyMath::Vector3 vec(0,0,1);
 	ray.dir = MyMath::Vec3Mat4Mul(vec,camera->matCameraWorld_);
 
-	//colliderTrans.SetTranslation(sphere.center);
-
-	//colliderTrans.Update(camera);
-
 #ifdef _DEBUG
 	ImGui::Begin("debug");
 	ImGui::Text("Position(%f,%f,%f)",camera->GetTranslation().x,camera->GetTranslation().y,camera->GetTranslation().z);
@@ -121,7 +109,6 @@ void GameScene::Update()
 
 	ImGui::Begin("GameTimer");
 	ImGui::Text("GameTimer(%d,%d)",gameTimer_,oneSecond);
-	//ImGui::Text("HIT(%d,%d)",hit,bulletIntervalFlag);
 	ImGui::Text("FlashRot(%d)",muzzleFlashFlag1);
 	ImGui::End();
 
@@ -200,8 +187,6 @@ void GameScene::Draw()
 	MuzzleFlashRotation();
 	player_->Draw();
 
-	//colliderObj_->Draw(&colliderTrans);
-
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::INIT:
@@ -213,8 +198,6 @@ void GameScene::Draw()
 		break;
 	case GameScene::SCENEFASE::START:
 		texBlackAlpha -= decimal.zeroPointOne;
-		//transition_->DrawWhiteOut();
-		//spriteWhite_->Draw(texWhite_,{ 640,360 },textureSize,0.0f,{ 0.5f,0.5f });
 		break;
 	case GameScene::SCENEFASE::GAME:
 		modelData_->TexDraw();
@@ -273,11 +256,6 @@ void GameScene::StartDirection()
 
 		textureSize.y = MyMathUtility::EaseOutQuint(static_cast< float >( zero ),static_cast< float >( one ),easingTimer,easingFrame);
 		spriteWhite_->SetColor({ COLOR::red,COLOR::green,COLOR::blue,texAlpha });
-
-		/*if ( textureSize.y > 520.0f )
-		{
-			textureSize.y = 520.0f;
-		}*/
 
 		if ( texAlpha < static_cast< float >( zero ) )
 		{
