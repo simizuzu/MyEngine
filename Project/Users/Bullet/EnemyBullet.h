@@ -4,7 +4,8 @@
 #include "WorldTransform.h"
 #include "Bullet.h"
 #include "Collider.h"
-
+#include "Sprite.h"
+#include "TextureManager.h"
 
  /**
  * @class EnemyBullet.h
@@ -53,6 +54,10 @@ public:
 	void SetPlayer(Player* player);
 
 private:
+
+	void DamagePlayerEffect();
+
+private:
 	//寿命<frm>
 	static const int32_t lifeTime = 60;
 	//自キャラ
@@ -63,7 +68,8 @@ private:
 	MyMath::Vector3 velocity_;
 	//デスフラグ
 	bool isDead_ = false;
-	int8_t pad1[ 7 ];
+	bool hitFlag = false;
+	int8_t pad1[ 6 ];
 
 	//モデル
 	//ObjModel* bulletModel_ = nullptr;
@@ -73,6 +79,11 @@ private:
 	//トランスフォーム
 	WorldTransform bulletTrans_;
 
+	std::unique_ptr<Sprite> takenDamage;
+	TextureData TexTakenDamage;
+
+	//ダメージ用全体スプライト(赤色)
+	MyMath::Vector4 color = { 1,0,0,1 };
 private:
 	//代入演算子削除
 	EnemyBullet& operator=(const EnemyBullet&) = delete;

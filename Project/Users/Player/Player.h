@@ -86,14 +86,10 @@ private:
 	MyMath::Vector2 stickDeadZone;
 
 private:
-	//ダメージ用全体スプライト(赤色)
-	MyMath::Vector4 color = {1,0,0,0};
-
 	float targetTimeRate;
 	bool bulletIntervalFlag = false;
-	bool hitFlag = false;
 	uint8_t bulletIntervalTimer = 6;
-	int8_t pad1[ 1 ];
+	int8_t pad1[ 2 ];
 
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
@@ -116,9 +112,6 @@ private:
 	WorldTransform playerTrans;
 	//3Dレティクル用ワールドトランスフォーム
 	WorldTransform worldTransform3DReticle;
-
-	std::unique_ptr<Sprite> takenDamage;
-	TextureData TexTakenDamage;
 
 	float cameraHAngle;
 	float cameraVAngle;

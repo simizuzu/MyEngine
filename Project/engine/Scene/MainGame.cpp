@@ -25,6 +25,8 @@ void MainGame::Initialize()
 	ModelManager::GetInstance()->LoadModel("clear",fbx);
 	ModelManager::GetInstance()->LoadModel("pilot",fbx);
 
+	TextureManager::Load("Resources/Texture/Scene/takeDamage.png");
+
 	sceneFactory_ = new SceneFactory();
 	SceneManager::GetInstance()->SetSceneFactory(sceneFactory_);
 	SceneManager::GetInstance()->ChangeScene("TITLE");

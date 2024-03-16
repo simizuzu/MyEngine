@@ -4,6 +4,7 @@
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <wrl.h>
 #include <d3d12.h>
+#include <string>
 MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "Matrix4.h"
@@ -40,6 +41,8 @@ struct TextureData
 	// デスクリプタレンジ
 	D3D12_DESCRIPTOR_RANGE descriptorRange{};
 	int8_t pad1[4];
+
+	std::string filePath;
 
 	// 横幅
 	size_t width = 0;

@@ -47,6 +47,17 @@ void TextureManager::Initialize(DirectXCommon* directXCommon)
 
 TextureData TextureManager::LoadTexture(const std::string& fileName)
 {
+	auto it = std::find_if(
+		textureDatas_.begin(),
+		textureDatas_.end(),
+		[&](TextureData& textureData){return textureData.filePath == fileName; }
+	);
+
+	if ( it != textureDatas_.end() )
+	{
+		return *it;
+	}
+
 	if (texCount > 1024)
 	{
 		assert(0);
@@ -96,6 +107,9 @@ TextureData TextureManager::LoadTexture(const std::string& fileName)
 	tmp.height = metadata.height;
 
 	texCount++;
+
+	tmp.filePath = fileName;
+	textureDatas_.push_back(tmp);
 
 	return tmp;
 }

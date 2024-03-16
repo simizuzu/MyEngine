@@ -25,10 +25,6 @@ void Player::Initialize(Camera* camera)
 	//カメラを親に設定
 	playerTrans.parentMat = &camera_->matCameraWorld_;
 
-	takenDamage = std::make_unique<Sprite>();
-	takenDamage->Initialize();
-	TexTakenDamage = TextureManager::Load("Resources/Texture/Scene/takeDamage.png");
-
 	//衝突属性を設定
 	SetCollisionAttribute(collisionAttributePlayer);
 	//衝突対象を自分の属性以外に設定(ビット反転)
@@ -44,33 +40,10 @@ void Player::Update()
 	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0 });
 	playerTrans.Update(camera_.get());
 
-	if ( hitFlag )
-	{
-		color.w += 0.05f;
-	}
-	else
-	{
-		color.w -= 0.05f;
-	}
-
-	if ( color.w > 1.0f )
-	{
-		color.w = 1.0f;
-		hitFlag = false;
-	}
-
-	if ( color.w < 0.0f )
-	{
-		color.w = 0.0f;
-	}
-
-	//色をセット
-	takenDamage->SetColor(color);
 
 #ifdef _DEBUG
 	ImGui::Begin("Player");
 	ImGui::Text("CameraEye(%f,%f,%f)",playerTrans.GetTranslation().x,playerTrans.GetTranslation().y,playerTrans.GetTranslation().z);
-	ImGui::Text("DamageAlpha(%f)",color.w);
 	ImGui::End();
 #endif
 }
@@ -78,7 +51,6 @@ void Player::Update()
 void Player::Draw()
 {
 	playerObj->Draw(&playerTrans);
-	takenDamage->Draw(TexTakenDamage,{(float)zero,( float ) zero});	
 }
 
 void Player::RotateCamera()
@@ -142,7 +114,7 @@ void Player::RotateCamera()
 
 void Player::OnCollision()
 {
-	hitFlag = true;
+	
 }
 
 void Player::SetParent(const WorldTransform* parent)

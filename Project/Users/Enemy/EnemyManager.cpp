@@ -58,11 +58,6 @@ const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemys()
 	return enemys;
 }
 
-const std::list<std::unique_ptr<EnemyBullet>>& EnemyManager::GetBullets() const
-{
-	return bullets;
-}
-
 MyMath::Vector3 EnemyManager::GetEnemyCenterPos()
 {
 	return enemysPos_;

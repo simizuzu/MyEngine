@@ -327,6 +327,16 @@ void GameScene::CheckAllCollilsions()
 	collisionManager_->AddCollider(player_.get());
 	player_->SetRadius(2.0f);
 
+	//敵弾について
+	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
+	{
+		for ( EnemyBullet* bullet : enemy->GetBullets() )
+		{
+			collisionManager_->AddCollider(bullet);
+			bullet->SetRadius(3.0f);
+		}
+	}
+
 	//敵全てについて
 	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 	{

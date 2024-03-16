@@ -68,11 +68,12 @@ private: // メンバ変数
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> srvHeap = nullptr;
 	D3D12_DESCRIPTOR_RANGE descriptorRange;
 	D3D12_HEAP_PROPERTIES textureHeapProp{};
-	// テクスチャバッファ
-	std::array<Microsoft::WRL::ComPtr<ID3D12Resource>, MaxSRVCount> texBuff_;
 	// テクスチャ数
 	UINT texCount;
 	int8_t pad1[4];
+
+	//テクスチャデータコンテナ
+	std::list<TextureData> textureDatas_;
 
 	// デフォルトテクスチャ格納ディレクトリ
 	static std::string DefaultTextureDirectoryPath;

@@ -72,10 +72,6 @@ private:
 	//自キャラ
 	Player* player_ = nullptr;
 
-	//ダメージ用パーティクル
-	ParticleManager* damageParticleManager_ = nullptr;
-	std::unique_ptr <ObjModel> damageModel_;
-
 	//弾の速度
 	const float bulletSpeed = 2.0f;
 	MyMath::Vector3 velocity = {0.0f,0.0f,bulletSpeed};
@@ -88,6 +84,7 @@ private:
 	MyMath::Vector3 enemyToPlayerVec;
 	//正規化するベクトル
 	MyMath::Vector3 enemyDir;
+
 
 	//敵のモデル
 	std::unique_ptr<FbxObject3d> enemyObj_;
