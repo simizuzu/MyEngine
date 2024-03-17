@@ -53,7 +53,7 @@ void EnemyBullet::Update(Camera* camera)
 	bulletTrans_.Update(camera);
 
 	//色をセット
-	takenDamage->SetColor(color);
+	//takenDamage->SetColor(color);
 
 	//プレイヤーのダメージ演出
 	//DamagePlayerEffect();
@@ -68,7 +68,7 @@ void EnemyBullet::Update(Camera* camera)
 void EnemyBullet::Draw()
 {
 	
-	takenDamage->Draw(TexTakenDamage,{ 0,0});
+	//takenDamage->Draw(TexTakenDamage,{ 0,0});
 
 	//弾モデルの描画
 	if ( !isDead_ )
