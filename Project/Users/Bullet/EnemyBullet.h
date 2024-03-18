@@ -3,7 +3,7 @@
 #include "ObjModel.h"
 #include "WorldTransform.h"
 #include "Bullet.h"
-#include "Collider.h"
+#include "BaseBullet.h"
 #include "Sprite.h"
 #include "TextureManager.h"
 
@@ -15,7 +15,7 @@
 //クラスの前方宣言
 class Player;
 
-class EnemyBullet final : public Collider
+class EnemyBullet final : public BaseBullet
 {
 public:
 	//コンストラクタ
@@ -50,16 +50,14 @@ public:
 
 	bool IsDead() const;
 
+	bool IsHit() const;
+
 	//敵弾に自キャラを渡す
 	void SetPlayer(Player* player);
 
 private:
-
-	void DamagePlayerEffect();
-
-private:
 	//寿命<frm>
-	static const int32_t lifeTime = 60;
+	static const int32_t lifeTime = 60 * 2;
 	//自キャラ
 	Player* player_ = nullptr;
 	//デスタイマー
@@ -68,7 +66,7 @@ private:
 	MyMath::Vector3 velocity_;
 	//デスフラグ
 	bool isDead_ = false;
-	bool hitFlag = false;
+	bool isHit_ = false;
 	int8_t pad1[ 6 ];
 
 	//モデル
@@ -79,11 +77,6 @@ private:
 	//トランスフォーム
 	WorldTransform bulletTrans_;
 
-	std::unique_ptr<Sprite> takenDamage;
-	TextureData TexTakenDamage;
-
-	//ダメージ用全体スプライト(赤色)
-	MyMath::Vector4 color = { 1,0,0,1 };
 private:
 	//代入演算子削除
 	EnemyBullet& operator=(const EnemyBullet&) = delete;

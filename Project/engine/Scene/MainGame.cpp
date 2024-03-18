@@ -25,7 +25,14 @@ void MainGame::Initialize()
 	ModelManager::GetInstance()->LoadModel("clear",fbx);
 	ModelManager::GetInstance()->LoadModel("pilot",fbx);
 
+	//texture
 	TextureManager::Load("Resources/Texture/Scene/takeDamage.png");
+	TextureManager::Load("Resources/Texture/white1x1.png");
+	TextureManager::Load("Resources/Texture/black1x1.png");
+	TextureManager::Load("Resources/Texture/black1x1.png");
+	TextureManager::Load("Resources/Texture/Scene/stagename01.png");
+	TextureManager::Load("Resources/Texture/muzzleFlash.png");
+	TextureManager::Load("Resources/Texture/reticle.png");
 
 	sceneFactory_ = new SceneFactory();
 	SceneManager::GetInstance()->SetSceneFactory(sceneFactory_);

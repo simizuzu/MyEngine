@@ -112,6 +112,8 @@ void EnemyNormal::OnCollision()
 {
 	//弾発射
 	Fire();
+	//回転しているか
+	turnFlag  = true;
 
 	//フラグが立った時回転させる
 	if ( turnFlag )

@@ -85,7 +85,6 @@ private:
 	//正規化するベクトル
 	MyMath::Vector3 enemyDir;
 
-
 	//敵のモデル
 	std::unique_ptr<FbxObject3d> enemyObj_;
 	std::string modelName;
@@ -108,7 +107,7 @@ private:
 	uint8_t enemyHP;
 
 	bool isDead = false;
-	bool damageFlag = false;
+	bool isFire = false;
 	const uint8_t resetTimer = 20;
 	uint8_t bulletIntervalTimer;
 	bool turnFlag = false;

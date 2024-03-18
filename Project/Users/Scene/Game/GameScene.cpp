@@ -1,6 +1,5 @@
 #include "GameScene.h"
 
-#include "EnemyBullet.h"
 #include "ModelManager.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -12,7 +11,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief GameSceneの処理が書かれてあります
  */
 
-void GameScene::GameTimer()
+	void GameScene::GameTimer()
 {
 	oneSecond--;
 	if ( oneSecond == 0 )
@@ -81,7 +80,7 @@ void GameScene::Initialize()
 
 	robotoTrans.Initialize();
 	robotoTrans.SetScale({ 0.009f,0.009f ,0.009f });
-	
+
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
@@ -115,7 +114,7 @@ void GameScene::Update()
 #endif
 
 	light->Update();
-	
+
 	cameraTimeRate = gameCamera_->timeRate;
 
 	//カメラの挙動
@@ -132,7 +131,7 @@ void GameScene::Update()
 	modelData_->Update();
 	player_->Update();
 	spriteBlack_->SetColor({ red,green,blue,texBlackAlpha });
-	const MyMath::Vector4 flashColor = {1.0f,1.0f,0.7f,1.0f};
+	const MyMath::Vector4 flashColor = { 1.0f,1.0f,0.7f,1.0f };
 	spriteFlash_->SetColor(flashColor);
 
 	switch ( scene )
@@ -162,7 +161,7 @@ void GameScene::Update()
 		//衝突判定と応答
 		CheckAllCollilsions();
 
-		blackUpPos.y -= static_cast< float >(zero);
+		blackUpPos.y -= static_cast< float >( zero );
 		blackDownPos.y += static_cast< float >( zero );
 		StopTimer();
 
@@ -193,7 +192,7 @@ void GameScene::Draw()
 		break;
 
 	case GameScene::SCENEFASE::MOVIE:
-		spriteStageName01_->Draw(texStageName01_, fieldNameSize);
+		spriteStageName01_->Draw(texStageName01_,fieldNameSize);
 		robotoObj_->Draw(&robotoTrans);
 		break;
 	case GameScene::SCENEFASE::START:
@@ -201,7 +200,7 @@ void GameScene::Draw()
 		break;
 	case GameScene::SCENEFASE::GAME:
 		modelData_->TexDraw();
-		sprite2DReticle->Draw(texReticle_,{640,320},{1.5f,1.5f},0,{0.5f,0.5f});
+		sprite2DReticle->Draw(texReticle_,{ 640,320 },{ 1.5f,1.5f },0,{ 0.5f,0.5f });
 		break;
 
 	case GameScene::SCENEFASE::RESULT:
@@ -242,8 +241,8 @@ void GameScene::StartDirection()
 		}
 		else
 		{
-			texAlpha = static_cast<float>(one);
-			easingTimer = static_cast< float >(zero);
+			texAlpha = static_cast< float >( one );
+			easingTimer = static_cast< float >( zero );
 			easingFlag = true;
 		}
 	}
@@ -327,16 +326,6 @@ void GameScene::CheckAllCollilsions()
 	collisionManager_->AddCollider(player_.get());
 	player_->SetRadius(2.0f);
 
-	//敵弾について
-	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
-	{
-		for ( EnemyBullet* bullet : enemy->GetBullets() )
-		{
-			collisionManager_->AddCollider(bullet);
-			bullet->SetRadius(3.0f);
-		}
-	}
-
 	//敵全てについて
 	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 	{
@@ -364,11 +353,21 @@ void GameScene::CheckAllCollilsions()
 			if ( CollisionManager::CheckRay2Sphere(ray,sphere) )
 			{
 				enemy->HitBullet();
-				hit = true;
 			}
 		}
 		bulletIntervalFlag = false;
 		bulletIntervalTimer = 6;
+	}
+
+	//敵弾について
+	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
+	{
+		for ( EnemyBullet* bullet : enemy->GetBullets() )
+		{
+			collisionManager_->AddCollider(bullet);
+			//playerHit = true;
+			bullet->SetRadius(3.0f);
+		}
 	}
 
 	//衝突判定と応答
@@ -381,7 +380,7 @@ void GameScene::MuzzleFlashRotation()
 	{
 		if ( muzzleFlashFlag1 )
 		{
-			spriteFlash_->Draw(texFlash_,flashPos,{ (float)bulletIntervalTimer/5.5f,( float ) bulletIntervalTimer / 5.5f },0,{ 0.45f,0.45f },muzzleFlashFlag1,muzzleFlashFlag2);
+			spriteFlash_->Draw(texFlash_,flashPos,{ ( float ) bulletIntervalTimer / 5.5f,( float ) bulletIntervalTimer / 5.5f },0,{ 0.45f,0.45f },muzzleFlashFlag1,muzzleFlashFlag2);
 			muzzleFlashFlag1 = false;
 			muzzleFlashFlag2 = true;
 		}
@@ -393,3 +392,24 @@ void GameScene::MuzzleFlashRotation()
 		}
 	}
 }
+//
+//void GameScene::DamagePlayerEffect()
+//{
+//	if(!playerHit )
+//	{
+//		if ( color.w != 0.0f )
+//		{
+//			color.w -= 0.25f;
+//		}
+//		else if ( color.w < 0.0f )
+//		{
+//			color.w = 0.0f;
+//		}
+//	}
+//
+//	if ( playerHit )
+//	{
+//		color.w = 1.0f;
+//		playerHit = false;
+//	}
+//}

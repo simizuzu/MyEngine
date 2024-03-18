@@ -1,25 +1,24 @@
-#include "EnemyBullet.h"
+#include "NormalBullet.h"
 #include "Numbers.h"
-#include "Player.h"
 
-MYENGINE_SUPPRESS_WARNINGS_BEGIN
-#include <cassert>
-#include <imgui.h>
-MYENGINE_SUPPRESS_WARNINGS_END
-
-void EnemyBullet::Initialize(ObjObject3d* obj,const MyMath::Vector3& pos,const MyMath::Vector3 velocity)
+void NormalBullet::Initialize(ObjObject3d* obj,const std::string filePath,const MyMath::Vector3& pos,const MyMath::Vector3 velocity,MyMath::Vector3& target,float bulletSpeed)
 {
 	//モデルを代入
 	bulletObj_ = obj;
-	bulletObj_->SetModel("missile");
+	bulletObj_->SetModel(filePath);
 
 	//ワールドトランスフォームの初期化
 	bulletTrans_.Initialize();
-	bulletTrans_.translation_ = pos;
+	bulletTrans_.SetTranslation(pos);
 
 	//速度をメンバ変数に代入
 	velocity_ = velocity;
 
+	bulletSpeed_ = bulletSpeed;
+
+	target_ = target;
+
+	//弾の大きさを設定
 	bulletTrans_.SetScale({ 3.0f,3.0f,3.0f });
 
 	//衝突属性を設定
@@ -28,18 +27,18 @@ void EnemyBullet::Initialize(ObjObject3d* obj,const MyMath::Vector3& pos,const M
 	SetCollisionMask(~collisionAttributeEnemy);
 }
 
-void EnemyBullet::Update(Camera* camera)
+void NormalBullet::Update(Camera* camera)
 {
 	const float bulletSpeed = 2.0f;
 
 	//敵弾のホーミング
 	//敵弾から自キャラへのベクトルを計算
-	MyMath::Vector3 toPlayer = player_->GetCenterPosition() - MyMath::GetWorldPosition(bulletTrans_);
+	MyMath::Vector3 toTarget = target_ - MyMath::GetWorldPosition(bulletTrans_);
 	//ベクトルを正規化する
-	toPlayer = MyMathUtility::MakeNormalize(toPlayer);
+	toTarget = MyMathUtility::MakeNormalize(toTarget);
 	velocity_ = MyMathUtility::MakeNormalize(velocity_);
 	//球面線形補間により、今の速度と自キャラのベクトルを内挿し、新たな速度とする
-	velocity_ = MyMathUtility::Slerp(velocity_,toPlayer, 0.6f) * bulletSpeed;
+	velocity_ = MyMathUtility::Slerp(velocity_,toTarget,0.6f) * bulletSpeed;
 
 	bulletTrans_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
 	MyMath::Vector3 tmp = velocity_;
@@ -52,45 +51,15 @@ void EnemyBullet::Update(Camera* camera)
 	//時間経過でデスフラグをtrueに
 	if ( --deathTimer_ <= zero )
 	{
-		isDead_ = true;
+		OnDead();
 	}
 }
 
-void EnemyBullet::Draw()
+void NormalBullet::Draw()
 {
 	//弾モデルの描画
-	if ( !isDead_ )
+	if ( !IsDead() )
 	{
 		bulletObj_->Draw(&bulletTrans_);
 	}
 }
-
-void EnemyBullet::OnCollision()
-{
-	isDead_ = true;
-	isHit_ = true;
-}
-
-MyMath::Vector3 EnemyBullet::GetCenterPosition() const
-{
-	//ワールド座標に変換
-	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(bulletTrans_);
-	return worldPos;
-}
-
-bool EnemyBullet::IsDead() const
-{
-	return isDead_;
-}
-
-bool EnemyBullet::IsHit() const
-{
-	return isHit_;
-}
-
-void EnemyBullet::SetPlayer(Player* player)
-{
-	player_ = player;
-}
-
-

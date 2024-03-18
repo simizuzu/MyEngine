@@ -114,13 +114,6 @@ private:
 	/// </summary>
 	void MuzzleFlashRotation();
 
-	/// <summary>
-	/// 発射時のレティクルのサイズ
-	/// </summary>
-	void ReticleSize();
-
-	void TakeDamageDraw();
-
 private: // メンバ変数
 	Input* input_ = nullptr;
 	Camera* camera = nullptr;
@@ -141,7 +134,6 @@ private: // メンバ変数
 	std::unique_ptr<ObjModel> colliderModel_;
 	WorldTransform colliderTrans;
 
-	//宣言
 	INT32 sceneNum = 0;
 	char PADING[4]{};
 
@@ -186,6 +178,7 @@ private: //スタート演出
 	MyMath::Vector2 blackSize = { 0,100 };
 	MyMath::Vector2 fieldNameSize = {50,300};
 	MyMath::Vector2 flashPos = {710,395};
+	
 	int8_t pad8[4 ];
 
 	std::unique_ptr<Sprite> spriteWhite_;
@@ -194,13 +187,15 @@ private: //スタート演出
 	std::unique_ptr<Sprite> spriteBlackDown_;
 	std::unique_ptr<Sprite> spriteStageName01_;
 	std::unique_ptr<Sprite> spriteFlash_;
-
+	
+	
 	TextureData texWhite_;
 	TextureData texBlackUp_;
 	TextureData texBlackDown_;
 	TextureData texStageName01_;
 	TextureData texFlash_;
 	TextureData texReticle_;
+	
 
 	//2Dレティクル用スプライト
 	std::unique_ptr<Sprite> sprite2DReticle;
@@ -222,7 +217,7 @@ private: //スタート演出
 private: //当たり判定
 	Ray ray; //レイ
 	Sphere sphere; //球
-	bool hit =false;
+	bool playerHit =false;
 	int8_t pad4[ 3 ];
 private:
 	enum class SCENEFASE
