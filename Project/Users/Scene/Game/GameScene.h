@@ -222,14 +222,13 @@ private: //当たり判定
 private:
 	enum class SCENEFASE
 	{
-		INIT,
 		MOVIE,
 		START,
 		GAME,
 		RESULT
 	};
 
-	SCENEFASE scene = SCENEFASE::INIT;
+	SCENEFASE scene = SCENEFASE::MOVIE;
 
 private:
 	//コピーコンストラクタ・代入演算子削除

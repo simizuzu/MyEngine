@@ -444,10 +444,10 @@
     <ClCompile Include="PlayerDamage.cpp">
       <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="BulletManager.cpp">
+    <ClCompile Include="Users\Bullet\BulletManager.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="BaseBullet.cpp">
+    <ClCompile Include="Users\Bullet\BaseBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="NormalBullet.cpp">
@@ -650,10 +650,10 @@
     <ClInclude Include="PlayerDamage.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="BulletManager.h">
+    <ClInclude Include="Users\Bullet\BulletManager.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="BaseBullet.h">
+    <ClInclude Include="Users\Bullet\BaseBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="NormalBullet.h">

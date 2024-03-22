@@ -5,6 +5,7 @@
 #include "FbxModel.h"
 #include "FbxObject3d.h"
 #include "ParticleManager.h"
+#include "BulletManager.h"
 
 /**
  * @class EnemyNormal.h
@@ -40,8 +41,8 @@ public:
 	/// </summary>
 	void Draw() override;
 
-	//弾リストの取得
-	const std::list<EnemyBullet*>& GetBullets() const override;
+	////弾リストの取得
+	//const std::list<EnemyBullet*>& GetBullets() const override;
 
 	//プレイヤーのポインタをセット
 	void SetPlayer(Player* player);
@@ -68,9 +69,13 @@ private:
 	MyMath::Vector3 GetCenterPosition() const override;
 
 private:
+	//カメラ
 	Camera* camera_ = nullptr;
 	//自キャラ
 	Player* player_ = nullptr;
+
+	//バレットマネージャ
+	BulletManager* bulletManager_ = nullptr;
 
 	//弾の速度
 	const float bulletSpeed = 2.0f;

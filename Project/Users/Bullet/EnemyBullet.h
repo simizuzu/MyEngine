@@ -2,7 +2,6 @@
 #include "ObjObject3d.h"
 #include "ObjModel.h"
 #include "WorldTransform.h"
-#include "Bullet.h"
 #include "BaseBullet.h"
 #include "Sprite.h"
 #include "TextureManager.h"
@@ -30,7 +29,7 @@ public:
 	/// <param name="obj">オブジェクト</param>
 	/// <param name="pos">初期座標</param>
 	/// <param name="velocity">速度</param>
-	void Initialize(ObjObject3d* obj,const MyMath::Vector3& pos, const MyMath::Vector3 velocity);
+	void Initialize(const std::string& modelName,const MyMath::Vector3& pos, const MyMath::Vector3 velocity);
 
 	/// <summary>
 	/// 更新
@@ -72,7 +71,7 @@ private:
 	//モデル
 	//ObjModel* bulletModel_ = nullptr;
 	//オブジェクト
-	ObjObject3d* bulletObj_ = nullptr;
+	std::unique_ptr<ObjObject3d> bulletObj_;
 
 	//トランスフォーム
 	WorldTransform bulletTrans_;

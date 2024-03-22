@@ -7,11 +7,11 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
-void EnemyBullet::Initialize(ObjObject3d* obj,const MyMath::Vector3& pos,const MyMath::Vector3 velocity)
+void EnemyBullet::Initialize(const std::string& modelName,const MyMath::Vector3& pos,const MyMath::Vector3 velocity)
 {
+	bulletObj_.reset(ObjObject3d::Create());
 	//モデルを代入
-	bulletObj_ = obj;
-	bulletObj_->SetModel("missile");
+	bulletObj_->SetModel(modelName);
 
 	//ワールドトランスフォームの初期化
 	bulletTrans_.Initialize();
@@ -19,7 +19,7 @@ void EnemyBullet::Initialize(ObjObject3d* obj,const MyMath::Vector3& pos,const M
 
 	//速度をメンバ変数に代入
 	velocity_ = velocity;
-
+	//弾のワールドトランスフォーム
 	bulletTrans_.SetScale({ 3.0f,3.0f,3.0f });
 
 	//衝突属性を設定
@@ -92,5 +92,3 @@ void EnemyBullet::SetPlayer(Player* player)
 {
 	player_ = player;
 }
-
-
