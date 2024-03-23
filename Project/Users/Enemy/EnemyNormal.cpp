@@ -29,10 +29,6 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	enemyTrans.Initialize();
 	enemyTrans.SetScale({ 0.04f,0.04f ,0.04f });
 
-	//自機狙い用のプレイヤー
-	player_ = new Player();
-	player_->Initialize(camera_);
-
 	//弾のモデル
 	bulletObj.reset(ObjObject3d::Create());
 	//弾のインターバル
@@ -155,8 +151,8 @@ void EnemyNormal::Fire()
 		//弾を生成し、初期化
 		//newBullet->SetPlayer(player_);
 		//newBullet->Initialize(bulletObj.get(),enemyTrans.GetTranslation(),velocity);
-		bulletManager_->SetPlayer(player_);
-		bulletManager_->CreateNormalBullet(enemyTrans.GetTranslation(),velocity);
+		//bulletManager_->SetPlayer(player_);
+		bulletManager_->CreateNormalBullet(enemyTrans.GetTranslation(),velocity,player_);
 
 		//弾を登録する
 		//bullets.push_back(newBullet);

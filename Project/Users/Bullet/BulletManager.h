@@ -38,12 +38,12 @@ public:
 	/// </summary>
 	/// <param name="pos">座標</param>
 	/// <param name="velocity">速度</param>
-	void CreateNormalBullet(const MyMath::Vector3& pos,const MyMath::Vector3 velocity);
+	void CreateNormalBullet(const MyMath::Vector3& pos,const MyMath::Vector3 velocity,Player* player);
 
 	//弾リストを削除
 	void DeleteBullets();
 
-	void SetPlayer(Player* player);
+	//void SetPlayer(Player* player);
 
 public:
 	//通常弾のリストを取得
@@ -59,7 +59,7 @@ private:
 private:
 	Camera* camera_ = nullptr;
 	std::string modelName_;
-	Player* player_ = nullptr;
+	//Player* player_ = nullptr;
 
 private:
 	//代入演算子削除

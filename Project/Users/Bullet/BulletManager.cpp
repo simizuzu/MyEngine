@@ -21,7 +21,7 @@ void BulletManager::Initialize(const std::string& modelName,Camera* camera)
 void BulletManager::Update()
 {
 	//フラグが立った時削除
-	normalBullets.remove_if([ ] (std::unique_ptr<BaseBullet>& normalBullet)
+	/*normalBullets.remove_if([ ] (std::unique_ptr<BaseBullet>& normalBullet)
 	{
 		if ( normalBullet->IsDead() )
 		{
@@ -29,7 +29,7 @@ void BulletManager::Update()
 			return true;
 		}
 		return false;
-	});
+	});*/
 
 	for ( std::unique_ptr<BaseBullet>& normalBullet : normalBullets )
 	{
@@ -45,12 +45,12 @@ void BulletManager::Draw()
 	}
 }
 
-void BulletManager::CreateNormalBullet(const MyMath::Vector3& pos,const MyMath::Vector3 velocity)
+void BulletManager::CreateNormalBullet(const MyMath::Vector3& pos,const MyMath::Vector3 velocity,Player* player)
 {
 	std::unique_ptr<EnemyBullet> newBullet;
 
 	newBullet = std::make_unique<EnemyBullet>();
-	newBullet->SetPlayer(player_);
+	newBullet->SetPlayer(player);
 	newBullet->Initialize(modelName_,pos,velocity);
 
 	normalBullets.push_back(std::move(newBullet));
@@ -62,11 +62,6 @@ void BulletManager::DeleteBullets()
 	{
 		delete &normalBullet;
 	}
-}
-
-void BulletManager::SetPlayer(Player* player)
-{
-	player_ = player;
 }
 
 const std::list<std::unique_ptr<BaseBullet>>& BulletManager::GetNormalBullets()

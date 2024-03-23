@@ -23,7 +23,7 @@ void Player::Initialize(Camera* camera)
 	//プレイヤーのトランスフォーム初期化
 	playerTrans.Initialize();
 	//カメラを親に設定
-	playerTrans.parentMat = &camera_->matCameraWorld_;
+	//playerTrans.parentMat = &camera_->matCameraWorld_;
 	playerTrans.SetTranslation({0,100,0});
 
 	//衝突属性を設定
