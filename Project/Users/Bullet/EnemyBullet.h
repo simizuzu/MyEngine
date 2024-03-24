@@ -47,7 +47,7 @@ public:
 
 	MyMath::Vector3 GetCenterPosition() const override;
 
-	bool IsDead() const;
+	bool IsDead() const override;
 
 	bool IsHit() const;
 
@@ -56,7 +56,7 @@ public:
 
 private:
 	//寿命<frm>
-	static const int32_t lifeTime = 60 * 2;
+	static const int32_t lifeTime = 60 * 5;
 	//自キャラ
 	Player* player_ = nullptr;
 	//デスタイマー

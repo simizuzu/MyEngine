@@ -20,21 +20,20 @@ void BulletManager::Initialize(const std::string& modelName,Camera* camera)
 
 void BulletManager::Update()
 {
-	//フラグが立った時削除
-	/*normalBullets.remove_if([ ] (std::unique_ptr<BaseBullet>& normalBullet)
-	{
-		if ( normalBullet->IsDead() )
-		{
-			delete& normalBullet;
-			return true;
-		}
-		return false;
-	});*/
-
 	for ( std::unique_ptr<BaseBullet>& normalBullet : normalBullets )
 	{
 		normalBullet->Update(camera_);
 	}
+
+	//フラグが立った時削除
+	normalBullets.remove_if([ ] (std::unique_ptr<BaseBullet>& normalBullet)
+	{
+		if ( normalBullet->IsDead() )
+		{
+			return true;
+		}
+		return false;
+	});
 }
 
 void BulletManager::Draw()

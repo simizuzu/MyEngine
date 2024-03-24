@@ -30,7 +30,7 @@ void EnemyBullet::Initialize(const std::string& modelName,const MyMath::Vector3&
 
 void EnemyBullet::Update(Camera* camera)
 {
-	const float bulletSpeed = 2.0f;
+	const float bulletSpeed = 0.4f;
 
 	//敵弾のホーミング
 	//敵弾から自キャラへのベクトルを計算
@@ -39,14 +39,16 @@ void EnemyBullet::Update(Camera* camera)
 	toPlayer = MyMathUtility::MakeNormalize(toPlayer);
 	velocity_ = MyMathUtility::MakeNormalize(velocity_);
 	//球面線形補間により、今の速度と自キャラのベクトルを内挿し、新たな速度とする
-	velocity_ = MyMathUtility::Slerp(velocity_,toPlayer, 0.6f) * bulletSpeed;
+	velocity_ = MyMathUtility::Slerp(velocity_,toPlayer, 0.1f) * bulletSpeed;
+	bulletTrans_.translation_ += velocity_;
 
+	//ホーミングの角度を計算
 	bulletTrans_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
 	MyMath::Vector3 tmp = velocity_;
 	tmp.y = 0.0f;
 	bulletTrans_.rotation_.x = std::atan2(-velocity_.y,tmp.length());
 
-	bulletTrans_.translation_ += velocity_;
+	//弾の更新
 	bulletTrans_.Update(camera);
 
 	//時間経過でデスフラグをtrueに

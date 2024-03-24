@@ -29,28 +29,28 @@ void GameCamera::Initialize(Camera* camera, Input* input)
 
 void GameCamera::Update()
 {
-	//pos = MyMathUtility::SplinePosition(points, timeRate, startIndex);
+	pos = MyMathUtility::SplinePosition(points, timeRate, startIndex);
 
-	//nowCount++;
-	//elapsedCount = nowCount - startCount;
-	//float elapsedTime = static_cast<float> (elapsedCount) / oneSecondFrame;
-	//timeRate = elapsedTime / maxTime;
+	nowCount++;
+	elapsedCount = nowCount - startCount;
+	float elapsedTime = static_cast<float> (elapsedCount) / oneSecondFrame;
+	timeRate = elapsedTime / maxTime;
 
-	//if (timeRate >= static_cast<float>(one))
-	//{
-	//	if (startIndex < points.size() - three)
-	//	{
-	//		startIndex += static_cast< size_t >(one);
-	//		timeRate -= static_cast< float >(one);
-	//		startCount = nowCount;
-	//	}
-	//	else
-	//	{
-	//		timeRate = static_cast< float >(one);
-	//	}
-	//}
+	if (timeRate >= static_cast<float>(one))
+	{
+		if (startIndex < points.size() - three)
+		{
+			startIndex += static_cast< size_t >(one);
+			timeRate -= static_cast< float >(one);
+			startCount = nowCount;
+		}
+		else
+		{
+			timeRate = static_cast< float >(one);
+		}
+	}
 
-	camera_->SetTranslation({20,24,30});
+	camera_->SetTranslation(pos);
 }
 
 void GameCamera::Reset()

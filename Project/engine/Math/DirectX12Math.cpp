@@ -501,29 +501,14 @@ namespace MyMathUtility
 
 	MyMath::Vector3 Slerp(const MyMath::Vector3& a,const MyMath::Vector3& b,const float& t)
 	{
-		Vector3 slerpVector,result;
+		float omega = std::acosf(a.Norm().dot(b.Norm()));
+		float sinOmega = std::sin(omega);
 
-		//正規化
-		MyMath::Vector3 normVec1 = MyMathUtility::MakeNormalize(a);
-		MyMath::Vector3 normVec2 = MyMathUtility::MakeNormalize(b);
+		//単項式
+		MyMath::Vector3 termOne = a * ( std::sinf(omega * ( 1.0f - t )) / sinOmega );
+		MyMath::Vector3 termTwo = b * (std::sinf(omega * t) / sinOmega );
 
-		//なす角[Θ]の計算
-		float theta = Acos(Dot(normVec1,normVec2));
-		float sinTheta = Sin(theta);
-		float sinThetaFrom = Sin(( 1 - t ) * theta);
-		float sinThetaTo = Sin(t * theta);
-
-		float lerpLenth = Lerp(Vector3Length(a),Vector3Length(b),Clamp0To1(t));
-
-		slerpVector.x = ( sinThetaFrom * normVec1.x + sinThetaTo * normVec2.x ) / sinTheta;
-		slerpVector.y = ( sinThetaFrom * normVec1.y + sinThetaTo * normVec2.y ) / sinTheta;
-		slerpVector.z = ( sinThetaFrom * normVec1.z + sinThetaTo * normVec2.z ) / sinTheta;
-
-		result.x = lerpLenth * slerpVector.x;
-		result.y = lerpLenth * slerpVector.y;
-		result.z = lerpLenth * slerpVector.z;
-
-		return result;
+		return termOne + termTwo;
 	}
 
 	Vector3 HermiteGetPoint(Vector3 p0,Vector3 p1,Vector3 p2,Vector3 p3,float t)

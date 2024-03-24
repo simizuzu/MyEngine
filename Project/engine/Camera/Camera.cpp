@@ -165,14 +165,19 @@ const MyMath::Vector3& Camera::GetUp()
 	return up_;
 }
 
-const MyMath::Vector3 Camera::GetTranslation()
+const MyMath::Vector3& Camera::GetTranslation()
 {
 	return translation_;
 }
 
-const MyMath::Vector3 Camera::GetRotation()
+const MyMath::Vector3& Camera::GetRotation()
 {
 	return rotation_;
+}
+
+const MyMath::Matrix4& Camera::GetMatWorld()
+{
+	return matCameraWorld_;
 }
 
 MyMath::Matrix4& Camera::GetMatRot()

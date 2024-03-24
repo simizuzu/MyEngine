@@ -32,6 +32,8 @@
 #include "EnemyManager.h"
 #include "Player.h"
 
+#include "BulletManager.h"
+
 #include "CollisionManager.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -128,6 +130,8 @@ private: // メンバ変数
 	std::unique_ptr<Player> player_;
 
 	std::unique_ptr<CollisionManager> collisionManager_;
+
+	BulletManager* bulletManager_ = nullptr;
 
 	//中心地点
 	std::unique_ptr<ObjObject3d> colliderObj_;

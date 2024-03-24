@@ -50,16 +50,12 @@ public:
 	const std::list<std::unique_ptr<BaseBullet>>& GetNormalBullets();
 
 private:
-	
-
-private:
 	//通常弾のリスト
 	std::list<std::unique_ptr<BaseBullet>> normalBullets;
 
 private:
 	Camera* camera_ = nullptr;
 	std::string modelName_;
-	//Player* player_ = nullptr;
 
 private:
 	//代入演算子削除

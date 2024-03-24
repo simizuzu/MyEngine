@@ -88,6 +88,8 @@ void GameScene::Initialize()
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","mob",camera));
 
+	bulletManager_ = BulletManager::GetInstance();
+
 	sceneManager_ = SceneManager::GetInstance();
 }
 
@@ -350,15 +352,11 @@ void GameScene::CheckAllCollilsions()
 	}
 
 	//敵弾について
-	//for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
-	//{
-	//	for ( EnemyBullet* bullet : enemy->GetBullets() )
-	//	{
-	//		collisionManager_->AddCollider(bullet);
-	//		//playerHit = true;
-	//		bullet->SetRadius(3.0f);
-	//	}
-	//}
+	for ( const std::unique_ptr<BaseBullet>& bullet : bulletManager_->GetNormalBullets() )
+	{
+		collisionManager_->AddCollider(bullet.get());
+		bullet->SetRadius(3.0f);
+	}
 
 	//衝突判定と応答
 	collisionManager_->CheckAllCollisions();

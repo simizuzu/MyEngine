@@ -450,9 +450,6 @@
     <ClCompile Include="Users\Bullet\BaseBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="NormalBullet.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Users\Scene\SceneFactory.h">
@@ -655,9 +652,6 @@
     </ClInclude>
     <ClInclude Include="Users\Bullet\BaseBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalBullet.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

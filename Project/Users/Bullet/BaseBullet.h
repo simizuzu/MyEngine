@@ -19,15 +19,10 @@ public:
 
 	virtual void SetPlayer(Player* Player) = 0;
 
-	bool IsDead() const;
-
-	void OnDead();
+	virtual bool IsDead() const = 0;
 
 	MyMath::Vector3 velocity_;
-
-private:
-	bool isDead_ = false;
-	int8_t pad[ 3 ];
+	int8_t pad[ 4 ];
 
 private:
 	//代入演算子削除
