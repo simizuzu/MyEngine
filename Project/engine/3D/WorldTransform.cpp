@@ -165,4 +165,15 @@ namespace MyMath
 
 		return worldPos;
 	}
+	MyMath::Vector3 GetWorldPosition(const MyMath::Matrix4& transform)
+	{
+		// ワールド座標を入れる変数
+		Vector3 worldPos;
+		// ワールド行列の平行移動成分を取得
+		worldPos.x = transform.m[ 3 ][ 0 ];
+		worldPos.y = transform.m[ 3 ][ 1 ];
+		worldPos.z = transform.m[ 3 ][ 2 ];
+
+		return worldPos;
+	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "Collider.h"
 #include "Camera.h"
+#include "Player.h"
 
 class BaseBullet : public Collider
 {
@@ -16,15 +17,12 @@ public:
 
 	virtual MyMath::Vector3 GetCenterPosition() const override = 0;
 
-	bool IsDead() const;
+	virtual void SetPlayer(Player* Player) = 0;
 
-	void OnDead();
+	virtual bool IsDead() const = 0;
 
 	MyMath::Vector3 velocity_;
-
-private:
-	bool isDead_ = false;
-	int8_t pad[ 3 ];
+	int8_t pad[ 4 ];
 
 private:
 	//代入演算子削除

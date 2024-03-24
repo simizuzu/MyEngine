@@ -32,6 +32,8 @@
 #include "EnemyManager.h"
 #include "Player.h"
 
+#include "BulletManager.h"
+
 #include "CollisionManager.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
@@ -129,6 +131,8 @@ private: // メンバ変数
 
 	std::unique_ptr<CollisionManager> collisionManager_;
 
+	BulletManager* bulletManager_ = nullptr;
+
 	//中心地点
 	std::unique_ptr<ObjObject3d> colliderObj_;
 	std::unique_ptr<ObjModel> colliderModel_;
@@ -222,14 +226,13 @@ private: //当たり判定
 private:
 	enum class SCENEFASE
 	{
-		INIT,
 		MOVIE,
 		START,
 		GAME,
 		RESULT
 	};
 
-	SCENEFASE scene = SCENEFASE::INIT;
+	SCENEFASE scene = SCENEFASE::MOVIE;
 
 private:
 	//コピーコンストラクタ・代入演算子削除

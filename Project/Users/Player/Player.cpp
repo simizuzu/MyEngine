@@ -24,6 +24,7 @@ void Player::Initialize(Camera* camera)
 	playerTrans.Initialize();
 	//カメラを親に設定
 	playerTrans.parentMat = &camera_->matCameraWorld_;
+	playerTrans.SetTranslation({0,100,0});
 
 	//衝突属性を設定
 	SetCollisionAttribute(collisionAttributePlayer);

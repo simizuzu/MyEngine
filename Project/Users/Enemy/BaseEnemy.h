@@ -40,10 +40,10 @@ public:
 	//中心座標を取得
 	virtual MyMath::Vector3 GetCenterPosition() const override = 0;
 
-	virtual const std::list<EnemyBullet*>& GetBullets() const = 0;
+	//virtual const std::list<EnemyBullet*>& GetBullets() const = 0;
 
-protected:
-	std::list<EnemyBullet*> bullets;
+//protected:
+//	std::list<EnemyBullet*> bullets;
 
 private:
 //代入演算子削除

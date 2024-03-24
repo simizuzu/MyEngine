@@ -147,8 +147,10 @@ public:
 	const MyMath::Vector3& GetTarget();
 	const MyMath::Vector3& GetUp();
 
-	const MyMath::Vector3 GetTranslation();
-	const MyMath::Vector3 GetRotation();
+	const MyMath::Vector3& GetTranslation();
+	const MyMath::Vector3& GetRotation();
+
+	const MyMath::Matrix4& GetMatWorld();
 
 	MyMath::Matrix4& GetMatRot();
 

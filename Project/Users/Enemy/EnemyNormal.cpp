@@ -2,6 +2,7 @@
 #include "Numbers.h"
 #include "Player.h"
 #include "ModelManager.h"
+#include "BulletManager.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <imgui.h>
@@ -11,15 +12,6 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @file EnemyNormal.cpp
  * @brief EnemyNormalの処理が書かれてあります
  */
-
-EnemyNormal::~EnemyNormal()
-{
-	//敵の弾を削除
-	for ( EnemyBullet* bullet : bullets )
-	{
-		delete bullet;
-	}
-}
 
 void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 {
@@ -36,10 +28,6 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	//雑魚敵のワールド座標
 	enemyTrans.Initialize();
 	enemyTrans.SetScale({ 0.04f,0.04f ,0.04f });
-
-	//自機狙い用のプレイヤー
-	player_ = new Player();
-	player_->Initialize(camera_);
 
 	//弾のモデル
 	bulletObj.reset(ObjObject3d::Create());
@@ -59,6 +47,9 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	//雑魚敵の初期HP
 	enemyHP = 5;
 
+	bulletManager_ = BulletManager::GetInstance();
+	bulletManager_->Initialize("missile",camera_);
+
 	//衝突属性を設定
 	SetCollisionAttribute(collisionAttributeEnemy);
 	//衝突対象を自分の属性以外に設定(ビット反転)
@@ -67,27 +58,15 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 
 void EnemyNormal::Update()
 {
-	//デスフラグの立った弾を削除
-	bullets.remove_if([ ] (EnemyBullet* bullet)
-	{
-		if ( bullet->IsDead() )
-		{
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
+	//弾の更新
+	bulletManager_->Update();
 
 	//各敵の更新
-	for ( EnemyBullet* bullet : bullets )
-	{
-		bullet->Update(camera_);
-	}
-
 	enemyTrans.SetTranslation(translation);
 	enemyTrans.Update(camera_);
 	enemyObj_->Update();
 
+	//HPの更新
 	HP_UITrans.SetTranslation({ translation.x + UITranslation.x,translation.y + UITranslation.y,translation.z + UITranslation.z });
 	HP_UITrans.SetScale(HPScale);
 	HP_UITrans.Update(camera_,true);
@@ -98,14 +77,13 @@ void EnemyNormal::Update()
 
 void EnemyNormal::Draw()
 {
+	//敵の描画
 	enemyObj_->Draw(&enemyTrans);
+	//HPの描画
 	HP_UIObj->Draw(&HP_UITrans);
 
 	//弾の描画
-	for ( EnemyBullet* bullet : bullets )
-	{
-		bullet->Draw();
-	}
+	bulletManager_->Draw();
 }
 
 void EnemyNormal::OnCollision()
@@ -139,11 +117,6 @@ bool EnemyNormal::IsDead() const
 	return isDead;
 }
 
-const std::list<EnemyBullet*>& EnemyNormal::GetBullets() const
-{
-	return bullets;
-}
-
 void EnemyNormal::SetPlayer(Player* player)
 {
 	player_ = player;
@@ -171,12 +144,13 @@ void EnemyNormal::Fire()
 	if ( bulletIntervalTimer == zero )
 	{
 		//弾を生成し、初期化
-		EnemyBullet* newBullet = new EnemyBullet();
-		newBullet->SetPlayer(player_);
-		newBullet->Initialize(bulletObj.get(),enemyTrans.GetTranslation(),velocity);
+		//newBullet->SetPlayer(player_);
+		//newBullet->Initialize(bulletObj.get(),enemyTrans.GetTranslation(),velocity);
+		//bulletManager_->SetPlayer(player_);
+		bulletManager_->CreateNormalBullet(enemyTrans.GetTranslation(),velocity,player_);
 
 		//弾を登録する
-		bullets.push_back(newBullet);
+		//bullets.push_back(newBullet);
 		bulletIntervalTimer = resetTimer;
 	}
 }
@@ -206,3 +180,7 @@ MyMath::Vector3 EnemyNormal::GetCenterPosition() const
 	return worldPos;
 }
 
+EnemyNormal::~EnemyNormal()
+{
+	//bulletManager_->DeleteBullets();
+}

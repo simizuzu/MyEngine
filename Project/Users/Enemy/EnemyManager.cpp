@@ -174,10 +174,6 @@ void EnemyManager::DeleteEnemys()
 {
 	enemys.remove_if([ ] (std::unique_ptr<BaseEnemy>& enemys)
 	{
-		if ( enemys->IsDead() )
-		{
-			return true;
-		}
-		return false;
+		return enemys->IsDead();
 	});
 }

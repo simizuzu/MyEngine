@@ -63,8 +63,6 @@ public:
 
 	bool GetReachCommandFlag();
 
-	//const std::list<std::unique_ptr<BaseEnemy>>& GetEnemyBullets();
-
 private:
 	/// <summary>
 	/// 敵発生データの読み込み("Resources/filePath/fname.csv")
