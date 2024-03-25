@@ -14,8 +14,19 @@ void Player::Initialize(Camera* camera)
 {
 	assert(camera);
 
-	input = Input::GetInstance();
+	//カメラをセット
 	camera_.reset(camera);
+	//操作関連の初期化
+	input = Input::GetInstance();
+	
+	//視野角の設定
+	camera_->SetFovAngleY(MyMathUtility::degree2Radius * degree90);
+	//blenderからカーブデータを取得
+	curveData = LevelLoader::LoadFile("curveData");
+	//スタート地点を今の地点にセット
+	nowCount = startCount;
+	//次の地点を算出
+	SplinePointLineUp(curveData->curves);
 
 	playerObj.reset(ObjObject3d::Create());
 	playerObj->SetModel("gun",true);
@@ -37,10 +48,12 @@ void Player::Update()
 	//カメラの回転処理
 	RotateCamera();
 
+	//レールカメラの移動処理
+	RailCamera();
+
 	playerTrans.SetTranslation(gunmodelTranslation);
 	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0 });
 	playerTrans.Update(camera_.get());
-
 
 #ifdef _DEBUG
 	ImGui::Begin("Player");
@@ -118,14 +131,52 @@ void Player::OnCollision()
 	
 }
 
-void Player::SetParent(const WorldTransform* parent)
+void Player::SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint)
 {
-	playerTrans.parent = parent;
+	points.resize(curvePoint.size() + two);
+	for ( size_t i = zero; i < curvePoint.size(); i++ )
+	{
+		points[ i + one ] = curvePoint[ i ];
+		if ( i == zero )
+		{
+			points[ i ] = curvePoint[ i ];
+		}
+		if ( i == curvePoint.size() - one )
+		{
+			points[ i + 2 ] = curvePoint[ i ];
+		}
+	}
+}
+
+void Player::RailCamera()
+{
+	translation = MyMathUtility::SplinePosition(points,timeRate,startIndex);
+
+	nowCount++;
+	elapsedCount = nowCount - startCount;
+	float elapsedTime = static_cast< float > ( elapsedCount ) / oneSecondFrame;
+	timeRate = elapsedTime / maxTime;
+
+	if ( timeRate >= static_cast< float >( one ) )
+	{
+		if ( startIndex < points.size() - three )
+		{
+			startIndex += static_cast< size_t >( one );
+			timeRate -= static_cast< float >( one );
+			startCount = nowCount;
+		}
+		else
+		{
+			timeRate = static_cast< float >( one );
+		}
+	}
+
+	camera_->SetTranslation(translation);
 }
 
 MyMath::Vector3 Player::GetCenterPosition() const
 {
 	//ワールド座標に変換
-	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(playerTrans);
+	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(camera_->GetMatWorld());
 	return worldPos;
 }

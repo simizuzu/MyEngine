@@ -285,9 +285,6 @@
     <ClCompile Include="Users\GameCamera\FPSCamera.cpp">
       <Filter>Application\ソースファイル\GameCamera</Filter>
     </ClCompile>
-    <ClCompile Include="Users\GameCamera\GameCamera.cpp">
-      <Filter>Application\ソースファイル\GameCamera</Filter>
-    </ClCompile>
     <ClCompile Include="Users\Player\Player.cpp">
       <Filter>Application\ソースファイル\Player</Filter>
     </ClCompile>
@@ -312,7 +309,7 @@
     <ClCompile Include="Users\3D\BaseParticle.cpp">
       <Filter>Application\ソースファイル\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Users\3D\DamegeEffect.cpp">
+    <ClCompile Include="Users\Effect\DamegeEffect.cpp">
       <Filter>Application\ソースファイル\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Users\Bullet\EnemyBullet.cpp">
@@ -441,7 +438,7 @@
     <ClCompile Include="engine\Base\Pipeline\Shader.cpp">
       <Filter>Engine\ソース ファイル\Base\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerDamage.cpp">
+    <ClCompile Include="Users\Effect\PlayerDamage.cpp">
       <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Users\Bullet\BulletManager.cpp">
@@ -466,9 +463,6 @@
     </ClInclude>
     <ClInclude Include="Users\Scene\Title\TitleScene.h">
       <Filter>Application\ヘッダーファイル\Scene\BaseScene\Title</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\GameCamera\GameCamera.h">
-      <Filter>Application\ヘッダーファイル\GameCamera</Filter>
     </ClInclude>
     <ClInclude Include="Users\GameCamera\FPSCamera.h">
       <Filter>Application\ヘッダーファイル\GameCamera</Filter>
@@ -500,13 +494,13 @@
     <ClInclude Include="Users\3D\BaseParticle.h">
       <Filter>Application\ヘッダーファイル\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Users\3D\DamegeEffect.h">
+    <ClInclude Include="Users\Effect\DamegeEffect.h">
       <Filter>Application\ヘッダーファイル\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Users\Bullet\EnemyBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionPrimitive.h">
+    <ClInclude Include="engine\Collider\CollisionPrimitive.h">
       <Filter>Engine\ヘッダー ファイル\Collision</Filter>
     </ClInclude>
     <ClInclude Include="engine\Collider\Collider.h">
@@ -644,7 +638,7 @@
     <ClInclude Include="engine\Scene\Framework.h">
       <Filter>Engine\ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerDamage.h">
+    <ClInclude Include="Users\Effect\PlayerDamage.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Users\Bullet\BulletManager.h">

@@ -39,8 +39,8 @@ void GameScene::Initialize()
 	clearDirection = ClearScene::GetInstance();
 	clearDirection->Initialize(camera);
 
-	gameCamera_ = std::make_unique<GameCamera>();
-	gameCamera_->Initialize(camera,input_);
+	//gameCamera_ = std::make_unique<GameCamera>();
+	//gameCamera_->Initialize(camera,input_);
 
 	modelData_ = std::make_unique<GameObject>();
 	modelData_->Initialize(camera);
@@ -117,12 +117,12 @@ void GameScene::Update()
 
 	light->Update();
 
-	cameraTimeRate = gameCamera_->timeRate;
+	cameraTimeRate = player_->timeRate;
 
 	//カメラの挙動
 	if ( scene == SCENEFASE::START || scene == SCENEFASE::GAME )
 	{
-		gameCamera_->Update();
+		player_->Update();
 		camera->Update(true);
 	}
 	else
@@ -315,8 +315,8 @@ void GameScene::CheckAllCollilsions()
 
 	//コライダーをリストに登録
 	//ゲームカメラについて
-	collisionManager_->AddCollider(gameCamera_.get());
-	gameCamera_->SetRadius(2.0f);
+	/*collisionManager_->AddCollider(gameCamera_.get());
+	gameCamera_->SetRadius(2.0f);*/
 
 	//プレイヤーについて
 	collisionManager_->AddCollider(player_.get());

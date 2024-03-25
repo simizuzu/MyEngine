@@ -21,7 +21,6 @@
 
 #include "PostEffect.h"
 
-#include "GameCamera.h"
 #include "GameObject.h"
 
 #include "ClearScene.h"
@@ -142,7 +141,7 @@ private: // メンバ変数
 	char PADING[4]{};
 
 	std::unique_ptr<GameObject> modelData_;
-	std::unique_ptr<GameCamera> gameCamera_;
+	//std::unique_ptr<GameCamera> gameCamera_;
 	std::unique_ptr<PostEffect> postEffect_;
 
 	std::unique_ptr<FbxObject3d> robotoObj_;
