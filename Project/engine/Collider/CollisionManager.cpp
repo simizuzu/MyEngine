@@ -91,3 +91,25 @@ bool CollisionManager::CheckRay2Sphere(const Ray& ray,const Sphere& sphere)
 
 	return true;
 }
+
+bool CollisionManager::CheckSphre2Sphere(const Sphere& sphereA,const Sphere& sphereB)
+{
+	//コライダーAの座標を取得
+	MyMath::Vector3 posA = sphereA.center;
+	//コライダーBの座標を取得
+	MyMath::Vector3 posB = sphereB.center;
+	//座標の差分ベクトル
+	MyMath::Vector3 subtract = posB - posA;
+	//座標AとBの距離を求める
+	float distance = MyMathUtility::Vector3Length(subtract);
+	float radius = std::sqrtf(sphereA.radius + sphereB.radius);
+	//球と球の交差判定
+	if ( distance <= radius )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

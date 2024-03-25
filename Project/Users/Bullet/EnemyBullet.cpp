@@ -54,7 +54,7 @@ void EnemyBullet::Update(Camera* camera)
 	//弾の更新
 	bulletTrans_.Update(camera);
 
-	playerDamage_->Update();
+	//playerDamage_->Update();
 
 	//時間経過でデスフラグをtrueに
 	if ( --deathTimer_ <= zero )
@@ -71,7 +71,7 @@ void EnemyBullet::Draw()
 		bulletObj_->Draw(&bulletTrans_);
 	}
 
-	playerDamage_->Draw();
+	//playerDamage_->Draw();
 }
 
 void EnemyBullet::OnCollision()

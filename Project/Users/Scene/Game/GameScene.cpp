@@ -98,9 +98,9 @@ void GameScene::Update()
 	GameTimer();
 
 	//レイの始発点をプレイヤーの中心に設定
-	ray.start = player_->GetCenterPosition();
+	rayBullet.start = player_->GetCenterPosition();
 	MyMath::Vector3 vec(0,0,1);
-	ray.dir = MyMath::Vec3Mat4Mul(vec,camera->matCameraWorld_);
+	rayBullet.dir = MyMath::Vec3Mat4Mul(vec,camera->matCameraWorld_);
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
@@ -308,28 +308,35 @@ void GameScene::ModelMovie()
 
 void GameScene::CheckAllCollilsions()
 {
-	const float colliderRadius = 20000.0f;
-
 	//衝突マネージャのリセット
 	collisionManager_->Reset();
 
 	//コライダーをリストに登録
-	//ゲームカメラについて
-	/*collisionManager_->AddCollider(gameCamera_.get());
-	gameCamera_->SetRadius(2.0f);*/
-
-	//プレイヤーについて
+	// --------------プレイヤーについて-------------- //
 	collisionManager_->AddCollider(player_.get());
 	player_->SetRadius(2.0f);
 
-	//敵全てについて
+	// --------------敵全てについて-------------- //
 	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 	{
-		collisionManager_->AddCollider(enemy.get());
-		enemy->SetRadius(colliderRadius);
+		//半径を指定
+		const float colliderRadius = 20000.0f;
+		//エリアの中心を各敵の中心にセットし半径を設定
+		enemyErea.center = enemy->GetCenterPosition();
+		enemyErea.radius = colliderRadius;
+		//カメラの判定をプレイヤーと同じ中心にセットし半径を設定
+		cameraBody.center = player_->GetCenterPosition();
+		cameraBody.radius = 2.0f;
+
+		//当たっていれば
+		if ( CollisionManager::CheckSphre2Sphere(enemyErea,cameraBody) )
+		{
+			//敵が振り向き弾を発射
+			enemy->OnCollision();
+		}
 	}
 
-	//プレイヤーが攻撃したとき
+	// --------------プレイヤーの攻撃について-------------- //
 	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
 	{
 		bulletIntervalFlag = true;
@@ -338,25 +345,27 @@ void GameScene::CheckAllCollilsions()
 	{
 		bulletIntervalTimer--;
 	}
+	//押しっぱなしの時、ずっとレイを飛ばし続けることを阻止
 	if ( bulletIntervalTimer == zero )
 	{
-		//敵全てについて
 		for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 		{
 			//敵の当たり判定の設定
 			const float enemyRadius = 5.0f;
-			sphere = enemy->GetSphereCenter();
-			sphere.radius = enemyRadius;
-			if ( CollisionManager::CheckRay2Sphere(ray,sphere) )
+			enemyBody = enemy->GetSphereCenter();
+			enemyBody.radius = enemyRadius;
+			if ( CollisionManager::CheckRay2Sphere(rayBullet,enemyBody) )
 			{
+				//敵のHPを減らす
 				enemy->HitBullet();
 			}
 		}
+		//攻撃時のフラグとタイマーをリセット
 		bulletIntervalFlag = false;
-		bulletIntervalTimer = 6;
+		bulletIntervalTimer = six;	//6フレーム
 	}
 
-	//敵弾について
+	// --------------敵弾について-------------- //
 	for ( const std::unique_ptr<BaseBullet>& bullet : bulletManager_->GetNormalBullets() )
 	{
 		collisionManager_->AddCollider(bullet.get());
@@ -369,17 +378,22 @@ void GameScene::CheckAllCollilsions()
 
 void GameScene::MuzzleFlashRotation()
 {
+	const float divTimer = 5.5f;
+	const MyMath::Vector2 anchorpoint = { 0.45f,0.45f };
+
+	//攻撃ボタンを押したとき
 	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
 	{
+		//タイマーとフリップを使いマズルフラッシュを動かす
 		if ( muzzleFlashFlag1 )
 		{
-			spriteFlash_->Draw(texFlash_,flashPos,{ ( float ) bulletIntervalTimer / 5.5f,( float ) bulletIntervalTimer / 5.5f },0,{ 0.45f,0.45f },muzzleFlashFlag1,muzzleFlashFlag2);
+			spriteFlash_->Draw(texFlash_,flashPos,{ ( float ) bulletIntervalTimer / divTimer,( float ) bulletIntervalTimer / divTimer },zero,anchorpoint,muzzleFlashFlag1,muzzleFlashFlag2);
 			muzzleFlashFlag1 = false;
 			muzzleFlashFlag2 = true;
 		}
 		else if ( !muzzleFlashFlag1 )
 		{
-			spriteFlash_->Draw(texFlash_,flashPos,{ ( float ) bulletIntervalTimer / 5.5f,( float ) bulletIntervalTimer / 5.5f },0,{ 0.45f,0.45f },muzzleFlashFlag1,muzzleFlashFlag2);
+			spriteFlash_->Draw(texFlash_,flashPos,{ ( float ) bulletIntervalTimer / divTimer,( float ) bulletIntervalTimer / divTimer },zero,anchorpoint,muzzleFlashFlag1,muzzleFlashFlag2);
 			muzzleFlashFlag1 = true;
 			muzzleFlashFlag2 = false;
 		}

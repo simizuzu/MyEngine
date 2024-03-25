@@ -46,10 +46,16 @@ public:
 	/// </summary>
 	/// <param name="ray">レイ</param>
 	/// <param name="sphere">球</param>
-	/// <param name="distance">距離</param>
-	/// <param name="inter">交点</param>
-	/// <returns>交差しているか否か</returns>
+	/// <returns>当たっているか否か</returns>
 	static bool CheckRay2Sphere(const Ray& ray, const Sphere& sphere);
+
+	/// <summary>
+	/// 球と球の当たり判定
+	/// </summary>
+	/// <param name="sphereA">球A</param>
+	/// <param name="sphereB">球B</param>
+	/// <returns>当たっているか否か</returns>
+	static bool CheckSphre2Sphere(const Sphere& sphereA,const Sphere& sphereB);
 
 private:
 	//コピーコンストラクタ・代入演算子削除

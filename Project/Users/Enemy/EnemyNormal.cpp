@@ -144,13 +144,9 @@ void EnemyNormal::Fire()
 	if ( bulletIntervalTimer == zero )
 	{
 		//弾を生成し、初期化
-		//newBullet->SetPlayer(player_);
-		//newBullet->Initialize(bulletObj.get(),enemyTrans.GetTranslation(),velocity);
-		//bulletManager_->SetPlayer(player_);
 		bulletManager_->CreateNormalBullet(enemyTrans.GetTranslation(),velocity,player_);
 
-		//弾を登録する
-		//bullets.push_back(newBullet);
+		//タイマーをリセット
 		bulletIntervalTimer = resetTimer;
 	}
 }

@@ -218,8 +218,12 @@ private: //スタート演出
 	const float blackTimer_ = 50.0f;
 
 private: //当たり判定
-	Ray ray; //レイ
-	Sphere sphere; //球
+	Ray rayBullet;		//プレイヤー弾のレイ
+	Sphere enemyBody;	//敵それぞれの当たり判定
+
+	Sphere cameraBody;	//カメラの当たり判定
+	Sphere enemyErea;	//敵が行動し始める範囲
+
 	bool playerHit =false;
 	int8_t pad4[ 3 ];
 private:
