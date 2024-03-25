@@ -2,6 +2,7 @@
 #include "DirectX12Math.h"
 #include "Camera.h"
 #include "Input.h"
+#include "Collider.h"
 
 #include "LevelLoader.h"
 
@@ -15,7 +16,7 @@ class WorldTransform;
 /// <summary>
 /// ゲームカメラ
 /// </summary>
-class GameCamera
+class GameCamera : public Collider
 {
 public:
 	GameCamera() = default;
@@ -42,22 +43,17 @@ public:
 	/// <param name="curvePoint">カーブのデータ</param>
 	void SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint);
 
-	float timeRate;//何％時間が進んだか
-	int8_t pad1[4 ];
+	void OnCollision() override;
 
-	MyMath::Vector3 pos;
-	MyMath::Vector3 target;
+	MyMath::Vector3 GetCenterPosition() const override;
+
+public:
+	float timeRate;//何％時間が進んだか
+	int8_t pad[ 4 ];
+
 private:
 	//レベルエディタ(ベジェ曲線)
 	LevelData* curveData;
-
-	//初期座標
-	MyMath::Vector3 startPoint;
-	//終点座標
-	MyMath::Vector3 endPoint;
-
-	//カメラのトランスフォーム
-	WorldTransform* cameraTrans = nullptr;
 
 	float maxTime = 0.5f;				//全体時間[s]
 
@@ -68,13 +64,14 @@ private:
 	//レート最大数[0~1]
 	const float maxRate = 1.0f;
 
-	float targetTimeRate;
-	int8_t pad3[4 ];
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;
 	uint32_t elapsedCount = 0;
-	int8_t pad2[ 4 ];
+	float targetTimeRate;
+
+	MyMath::Vector3 pos;
+	MyMath::Vector3 target;
 
 	std::vector<LevelData::CurveData> points;
 
@@ -82,15 +79,7 @@ private:
 	Camera* camera_ = nullptr;
 
 	WorldTransform* worldTransform_ = nullptr;
-	MyMath::Quaternion quaternion;
-	int8_t pad4[4 ];
 
-private:
-	/// <summary>
-	/// カメラの回転角を取得
-	/// </summary>
-	/// <param name="rotation"></param>
-	void SetCameraRot(MyMath::Vector3& rotation);
 private:
 	//代入演算子削除
 	GameCamera& operator=(const GameCamera&) = delete;

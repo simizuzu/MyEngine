@@ -314,6 +314,10 @@ void GameScene::CheckAllCollilsions()
 	collisionManager_->Reset();
 
 	//コライダーをリストに登録
+	//ゲームカメラについて
+	collisionManager_->AddCollider(gameCamera_.get());
+	gameCamera_->SetRadius(2.0f);
+
 	//プレイヤーについて
 	collisionManager_->AddCollider(player_.get());
 	player_->SetRadius(2.0f);
@@ -325,6 +329,7 @@ void GameScene::CheckAllCollilsions()
 		enemy->SetRadius(colliderRadius);
 	}
 
+	//プレイヤーが攻撃したとき
 	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
 	{
 		bulletIntervalFlag = true;

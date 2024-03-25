@@ -19,12 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="PlayerDamage.cpp" />
     <ClCompile Include="Users\Bullet\BaseBullet.cpp" />
     <ClCompile Include="Users\Bullet\BulletManager.cpp" />
     <ClCompile Include="engine\3D\Model\Manager\ModelManager.cpp" />
     <ClCompile Include="engine\Collider\Collider.cpp" />
     <ClCompile Include="engine\Collider\CollisionManager.cpp" />
-    <ClCompile Include="PlayerDamage.cpp" />
     <ClCompile Include="Users\Bullet\EnemyBullet.cpp" />
     <ClCompile Include="Users\3D\BaseParticle.cpp" />
     <ClCompile Include="Users\3D\DamegeEffect.cpp" />
@@ -82,6 +82,7 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PlayerDamage.h" />
     <ClInclude Include="Users\Bullet\BaseBullet.h" />
     <ClInclude Include="Users\Bullet\BulletManager.h" />
     <ClInclude Include="CollisionPrimitive.h" />
@@ -89,7 +90,6 @@
     <ClInclude Include="engine\Collider\CollisionConfig.h" />
     <ClInclude Include="engine\Collider\Collider.h" />
     <ClInclude Include="engine\Collider\CollisionManager.h" />
-    <ClInclude Include="PlayerDamage.h" />
     <ClInclude Include="Users\Bullet\EnemyBullet.h" />
     <ClInclude Include="Users\3D\BaseParticle.h" />
     <ClInclude Include="Users\3D\DamegeEffect.h" />

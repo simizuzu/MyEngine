@@ -22,6 +22,9 @@ void EnemyBullet::Initialize(const std::string& modelName,const MyMath::Vector3&
 	//弾のワールドトランスフォーム
 	bulletTrans_.SetScale({ 3.0f,3.0f,3.0f });
 
+	playerDamage_ = std::make_unique<PlayerDamage>();
+	playerDamage_->Initialize();
+
 	//衝突属性を設定
 	SetCollisionAttribute(collisionAttributeEnemy);
 	//衝突対象を自分の属性以外に設定(ビット反転)
@@ -51,6 +54,8 @@ void EnemyBullet::Update(Camera* camera)
 	//弾の更新
 	bulletTrans_.Update(camera);
 
+	playerDamage_->Update();
+
 	//時間経過でデスフラグをtrueに
 	if ( --deathTimer_ <= zero )
 	{
@@ -65,6 +70,8 @@ void EnemyBullet::Draw()
 	{
 		bulletObj_->Draw(&bulletTrans_);
 	}
+
+	playerDamage_->Draw();
 }
 
 void EnemyBullet::OnCollision()

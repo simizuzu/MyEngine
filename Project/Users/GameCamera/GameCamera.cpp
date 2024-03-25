@@ -25,6 +25,11 @@ void GameCamera::Initialize(Camera* camera, Input* input)
 
 	nowCount = startCount;
 	SplinePointLineUp(curveData->curves);
+
+	//衝突属性を設定
+	SetCollisionAttribute(collisionAttributePlayer);
+	//衝突対象を自分の属性以外に設定(ビット反転)
+	SetCollisionMask(~collisionAttributePlayer);
 }
 
 void GameCamera::Update()
@@ -72,4 +77,15 @@ void GameCamera::SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint)
 			points[i + 2] = curvePoint[i];
 		}
 	}
+}
+
+void GameCamera::OnCollision()
+{
+}
+
+MyMath::Vector3 GameCamera::GetCenterPosition() const
+{
+	//ワールド座標に変換
+	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(camera_->GetMatWorld());
+	return worldPos;
 }

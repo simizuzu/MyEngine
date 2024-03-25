@@ -5,6 +5,7 @@
 #include "BaseBullet.h"
 #include "Sprite.h"
 #include "TextureManager.h"
+#include "PlayerDamage.h"
 
  /**
  * @class EnemyBullet.h
@@ -68,13 +69,12 @@ private:
 	bool isHit_ = false;
 	int8_t pad1[ 6 ];
 
-	//モデル
-	//ObjModel* bulletModel_ = nullptr;
 	//オブジェクト
 	std::unique_ptr<ObjObject3d> bulletObj_;
-
 	//トランスフォーム
 	WorldTransform bulletTrans_;
+
+	std::unique_ptr<PlayerDamage> playerDamage_;
 
 private:
 	//代入演算子削除
