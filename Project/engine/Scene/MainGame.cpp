@@ -15,7 +15,7 @@ void MainGame::Initialize()
 	ModelManager::GetInstance()->LoadModel("missile",obj,true);
 	ModelManager::GetInstance()->LoadModel("HP_UI",obj);
 	ModelManager::GetInstance()->LoadModel("skydome",obj,true);
-	ModelManager::GetInstance()->LoadModel("ground",obj);
+	ModelManager::GetInstance()->LoadModel("city",obj);
 	ModelManager::GetInstance()->LoadModel("gun",obj);
 	ModelManager::GetInstance()->LoadModel("concrete",obj,true);
 

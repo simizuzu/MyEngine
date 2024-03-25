@@ -15,7 +15,7 @@ void GameObject::Initialize(Camera* camera)
 	groundObj_.reset(ObjObject3d::Create());
 
 	skydomeObj_->SetModel("skydome",true);
-	groundObj_->SetModel("ground");
+	groundObj_->SetModel("city");
 
 	display = std::make_unique<Sprite>();
 	UI01 = std::make_unique<Sprite>();
@@ -35,6 +35,7 @@ void GameObject::Initialize(Camera* camera)
 
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
+	groundTrans.SetTranslation({0,-50.0f,0});
 	skydomeTrans.SetScale({ 900.0f,900.0f,900.0f });
 }
 
