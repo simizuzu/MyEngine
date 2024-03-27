@@ -42,7 +42,7 @@ void GameObject::Initialize(Camera* camera)
 void GameObject::Update()
 {
 	skydomeTrans.Update(camera_);
-	skydomeTrans.SetTranslation({ camera_->GetTranslation() });
+	skydomeTrans.SetTranslation(MyMath::GetWorldPosition(camera_->GetMatWorld()));
 	groundTrans.SetRotation({ 0.0f,180.0f * MyMathUtility::degree2Radius,0.0f });
 	groundTrans.Update(camera_);
 }

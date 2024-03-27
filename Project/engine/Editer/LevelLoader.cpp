@@ -207,9 +207,4 @@ namespace MyMathUtility {
 		MyMath::Vector3 calcVec = nextPoint - prevPoint;
 		return calcVec.normalize();
 	}
-
-	/*MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame)
-	{
-
-	}*/
 }

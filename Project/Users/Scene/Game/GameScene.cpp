@@ -39,9 +39,6 @@ void GameScene::Initialize()
 	clearDirection = ClearScene::GetInstance();
 	clearDirection->Initialize(camera);
 
-	//gameCamera_ = std::make_unique<GameCamera>();
-	//gameCamera_->Initialize(camera,input_);
-
 	modelData_ = std::make_unique<GameObject>();
 	modelData_->Initialize(camera);
 
@@ -104,7 +101,7 @@ void GameScene::Update()
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
-	ImGui::Text("Position(%f,%f,%f)",camera->GetTranslation().x,camera->GetTranslation().y,camera->GetTranslation().z);
+	ImGui::Text("Position(%f,%f,%f)",player_->GetCenterPosition().x,player_->GetCenterPosition().y,player_->GetCenterPosition().z);
 	ImGui::Text("size(%f,%f)",blackUpPos.y,blackDownPos.y);
 	ImGui::End();
 
@@ -117,12 +114,9 @@ void GameScene::Update()
 
 	light->Update();
 
-	cameraTimeRate = player_->timeRate;
-
 	//カメラの挙動
 	if ( scene == SCENEFASE::START || scene == SCENEFASE::GAME )
 	{
-		player_->Update();
 		camera->Update(true);
 	}
 	else
@@ -153,6 +147,8 @@ void GameScene::Update()
 
 		break;
 	case GameScene::SCENEFASE::GAME:
+		cameraTimeRate = player_->timeRate;
+		player_->Update();
 		//衝突判定と応答
 		CheckAllCollilsions();
 
@@ -179,8 +175,7 @@ void GameScene::Draw()
 {
 	modelData_->Draw();
 	MuzzleFlashRotation();
-	player_->Draw();
-
+	
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::MOVIE:
@@ -191,6 +186,9 @@ void GameScene::Draw()
 		texBlackAlpha -= decimal.zeroPointOne;
 		break;
 	case GameScene::SCENEFASE::GAME:
+		player_->Draw();
+		//敵の描画
+		enemyManager_->Draw();
 		modelData_->TexDraw();
 		sprite2DReticle->Draw(texReticle_,{ 640,320 },{ 1.5f,1.5f },0,{ 0.5f,0.5f });
 		break;
@@ -206,9 +204,6 @@ void GameScene::Draw()
 	default:
 		break;
 	}
-
-	//敵の描画
-	enemyManager_->Draw();
 
 	if ( scene != SCENEFASE::GAME )
 	{

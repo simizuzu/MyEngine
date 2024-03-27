@@ -78,7 +78,7 @@ private:
 	BulletManager* bulletManager_ = nullptr;
 
 	//弾の速度
-	const float bulletSpeed = 0.4f;
+	const float bulletSpeed = 0.25f;
 	MyMath::Vector3 velocity = {0.0f,0.0f,bulletSpeed};
 
 	//自キャラのワールド座標

@@ -13,6 +13,22 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief DirectXCommonの処理について書いてあります
  */
 
+DirectXCommon::~DirectXCommon()
+{
+	//device.As(&debugDevice);
+	//dxgiFactory->Release();
+	//swapChain->Release();
+	//cmdAllocator->Release();
+	//commandList->Release();
+	//commandQueue->Release();
+	//rtvHeap->Release();
+	//fence->Release();
+	//depthBuff->Release();
+	//dsvHeap->Release();
+	//backBuffers.clear();
+	//device->Release();
+	//debugDevice->ReportLiveDeviceObjects(D3D12_RLDO_SUMMARY | D3D12_RLDO_IGNORE_INTERNAL);
+}
 
 void DirectXCommon::Initialize()
 {
@@ -415,4 +431,5 @@ size_t DirectXCommon::GetBackBufferCount() const
 {
 	return backBuffers.size();
 }
+
 #pragma endregion

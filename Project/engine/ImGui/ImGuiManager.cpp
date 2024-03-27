@@ -61,13 +61,13 @@ void ImGuiManager::End()
 
 void ImGuiManager::Draw(DirectXCommon* dxCommon)
 {
-	ID3D12GraphicsCommandList* cmdList = dxCommon->GetCommandList();
+	Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> cmdList = dxCommon->GetCommandList();
 
 	// デスクリプタヒープの配列をセットするコマンド
 	ID3D12DescriptorHeap* ppHeaps[] = { srvHeap_.Get() };
 	cmdList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
 	// 描画コマンドを発行
-	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), cmdList);
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), cmdList.Get());
 }
 
 void ImGuiManager::Finalize()

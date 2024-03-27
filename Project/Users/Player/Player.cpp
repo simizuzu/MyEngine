@@ -45,6 +45,8 @@ void Player::Initialize(Camera* camera)
 
 void Player::Update()
 {
+	gunmodelTranslation = { 0.3f,-0.15f,1.5f };
+
 	//カメラの回転処理
 	RotateCamera();
 

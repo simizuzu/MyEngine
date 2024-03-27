@@ -87,7 +87,7 @@ private:
 	MyMath::Vector3 rot;
 	MyMath::Vector3 translation;
 	
-	MyMath::Vector3 gunmodelTranslation = {0.3f,-0.15f,1.5f};
+	MyMath::Vector3 gunmodelTranslation;
 	MyMath::Vector2 stickDeadZone;
 
 private:

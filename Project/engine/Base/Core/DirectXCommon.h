@@ -26,6 +26,7 @@ private:
 
 	//デバイス
 	Microsoft::WRL::ComPtr<ID3D12Device> device;
+	Microsoft::WRL::ComPtr<ID3D12DebugDevice> debugDevice;
 	//DXGIファクトリー
 	Microsoft::WRL::ComPtr<IDXGIFactory7> dxgiFactory;
 	//スワップチェーン
@@ -113,7 +114,7 @@ public:
 
 private:
 	DirectXCommon() = default;
-	~DirectXCommon() = default;
+	~DirectXCommon();
 	DirectXCommon& operator=(const DirectXCommon&) = delete;
 	DirectXCommon(const DirectXCommon&) = delete;
 };
