@@ -19,7 +19,7 @@ public:
 	/// 初期化
 	/// </summary>
 	/// <param name="model"></param>
-	void Initialize(ObjModel* model,Camera* camera)override;
+	void Initialize(const std::string& obj,Camera* camera)override;
 
 	/// <summary>
 	/// 更新
@@ -33,7 +33,7 @@ public:
 
 private:
 	//3dオブジェクト
-	std::unique_ptr<ObjObject3d> obj;
+	std::unique_ptr<ObjObject3d> obj_;
 	Camera* camera_ = nullptr;
 	WorldTransform transform;
 	//加速度
@@ -42,7 +42,7 @@ private:
 	MyMath::Vector3 move;
 
 	//速度
-	const float speed = 1.0f;
+	const float speed = 10.0f;
 	//開始時カラー
 	float colorStart;
 	//終了時カラー

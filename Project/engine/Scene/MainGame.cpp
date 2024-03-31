@@ -18,6 +18,7 @@ void MainGame::Initialize()
 	ModelManager::GetInstance()->LoadModel("city",obj);
 	ModelManager::GetInstance()->LoadModel("gun",obj);
 	ModelManager::GetInstance()->LoadModel("concrete",obj,true);
+	ModelManager::GetInstance()->LoadModel("box",obj);
 
 	//fbx
 	ModelManager::GetInstance()->LoadModel("roboto",fbx);

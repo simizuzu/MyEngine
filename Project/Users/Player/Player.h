@@ -24,7 +24,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
 class Player : public Collider
 {
 private:
-	float rotationSpeed = 0.05f;
+	float rotationSpeed = 0.02f;
 	const float maxRotate = 1.3f;
 	const float maxValueRotate = 1.5f;
 	//1秒60フレーム
@@ -57,6 +57,9 @@ public:
 
 	//プレイヤーのワールド座標を取得する
 	MyMath::Vector3 GetCenterPosition() const override;
+
+	//死んでいるかどうか
+	bool IsDead()const;
 
 private:
 	/// <summary>
@@ -91,18 +94,18 @@ private:
 	MyMath::Vector2 stickDeadZone;
 
 private:
-
-	
-	
 	float maxTime = 0.5f;	//全体時間[s]
 	uint32_t elapsedCount = 0;
-	uint8_t bulletIntervalTimer = 6;	
+	uint8_t bulletIntervalTimer = 6;
+	uint8_t HP = 10;
 	bool bulletIntervalFlag = false;
-	int8_t pad[ 6 ];
+	bool isDead = false;
+	int8_t pad[ 4 ];
 
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;
+	
 
 private:
 	//レベルエディタ(ベジェ曲線)

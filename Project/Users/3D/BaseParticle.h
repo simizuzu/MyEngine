@@ -1,5 +1,4 @@
 #pragma once
-#include "ObjModel.h"
 #include "Camera.h"
 #include "ParticleGrain.h"
 
@@ -18,8 +17,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="model">モデル</param>
-	virtual void Initialize(ObjModel* model,Camera* camera);
+	virtual void Initialize(const std::string& obj,Camera* camera) = 0;
 
 	/// <summary>
 	/// 更新
@@ -40,7 +38,6 @@ public:
 	ParticleGrain oneGrain;
 
 protected:
-	ObjModel* model_;
 	Camera* camera_;
 	bool isDead = false;
 	int8_t pad[7 ];

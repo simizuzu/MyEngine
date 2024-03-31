@@ -50,6 +50,9 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	bulletManager_ = BulletManager::GetInstance();
 	bulletManager_->Initialize("missile",camera_);
 
+	hitEffect = std::make_unique<ParticleManager>();
+	hitEffect->Initialize("box",camera_);
+
 	//衝突属性を設定
 	SetCollisionAttribute(collisionAttributeEnemy);
 	//衝突対象を自分の属性以外に設定(ビット反転)
@@ -71,6 +74,8 @@ void EnemyNormal::Update()
 	HP_UITrans.SetScale(HPScale);
 	HP_UITrans.Update(camera_,true);
 
+	hitEffect->Update();
+
 	//当たり判定を敵の原点に設定
 	sphere.center = enemyTrans.GetTranslation();
 }
@@ -81,6 +86,8 @@ void EnemyNormal::Draw()
 	enemyObj_->Draw(&enemyTrans);
 	//HPの描画
 	HP_UIObj->Draw(&HP_UITrans);
+
+	hitEffect->Draw();
 
 	//弾の描画
 	bulletManager_->Draw();
@@ -102,6 +109,8 @@ void EnemyNormal::OnCollision()
 
 void EnemyNormal::HitBullet()
 {
+	hitEffect->Add("1",4,20,GetCenterPosition(),1.0f,5.0f);
+
 	//HPを減らす
 	enemyHP--;
 

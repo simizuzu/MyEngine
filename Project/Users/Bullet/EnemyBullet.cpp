@@ -33,7 +33,7 @@ void EnemyBullet::Initialize(const std::string& modelName,const MyMath::Vector3&
 
 void EnemyBullet::Update(Camera* camera)
 {
-	const float bulletSpeed = 0.25f;
+	const float bulletSpeed = 0.8f;
 
 	//敵弾のホーミング
 	//敵弾から自キャラへのベクトルを計算

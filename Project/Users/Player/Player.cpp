@@ -130,7 +130,14 @@ void Player::RotateCamera()
 
 void Player::OnCollision()
 {
-	
+	//HPを減らす
+	HP--;
+
+	//ゼロになったら死亡フラグを立てる
+	if ( HP == zero )
+	{
+		isDead = true;
+	}
 }
 
 void Player::SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint)
@@ -173,7 +180,7 @@ void Player::RailCamera()
 		}
 	}
 
-	camera_->SetTranslation(translation);
+	camera_->SetTranslation({-9,36,114});
 }
 
 MyMath::Vector3 Player::GetCenterPosition() const
@@ -181,4 +188,9 @@ MyMath::Vector3 Player::GetCenterPosition() const
 	//ワールド座標に変換
 	MyMath::Vector3 worldPos = MyMath::GetWorldPosition(camera_->GetMatWorld());
 	return worldPos;
+}
+
+bool Player::IsDead() const
+{
+	return isDead;
 }

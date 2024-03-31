@@ -76,9 +76,10 @@ private:
 
 	//バレットマネージャ
 	BulletManager* bulletManager_ = nullptr;
+	std::unique_ptr<ParticleManager> hitEffect;
 
 	//弾の速度
-	const float bulletSpeed = 0.25f;
+	const float bulletSpeed = 0.8f;
 	MyMath::Vector3 velocity = {0.0f,0.0f,bulletSpeed};
 
 	//自キャラのワールド座標

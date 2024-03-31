@@ -11,18 +11,13 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief BaseParticleを継承したヒット時のパーティクル演出
  */
 
-void DamegeEffect::Initialize(ObjModel* model,Camera* camera)
+void DamegeEffect::Initialize(const std::string& obj,Camera* camera)
 {
 	assert(camera);
 	camera_=camera;
 
-	colorStart = 0.1f;
-	colorEnd = 0.8f;
-	alphaStart = 1.0f;
-	alphaEnd = 0.0f;
-
-	obj.reset(ObjObject3d::Create());
-	obj->SetModel(model);
+	obj_.reset(ObjObject3d::Create());
+	obj_->SetModel(obj);
 
 	transform.Initialize();
 
@@ -73,5 +68,5 @@ void DamegeEffect::Update()
 
 void DamegeEffect::Draw()
 {
-	obj->Draw(&transform);
+	obj_->Draw(&transform);
 }

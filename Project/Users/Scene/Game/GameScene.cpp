@@ -161,6 +161,10 @@ void GameScene::Update()
 		{
 			scene = SCENEFASE::RESULT;
 		}
+		else if ( player_->IsDead() )
+		{
+			scene = SCENEFASE::RESULT;
+		}
 		break;
 	case GameScene::SCENEFASE::RESULT:
 		clearDirection->Update();
@@ -346,7 +350,7 @@ void GameScene::CheckAllCollilsions()
 		for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 		{
 			//敵の当たり判定の設定
-			const float enemyRadius = 5.0f;
+			const float enemyRadius = 10.0f;
 			enemyBody = enemy->GetSphereCenter();
 			enemyBody.radius = enemyRadius;
 			if ( CollisionManager::CheckRay2Sphere(rayBullet,enemyBody) )

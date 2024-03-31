@@ -2,7 +2,6 @@
 
 #include "BaseParticle.h"
 #include "SuppressWarning.h"
-#include "ObjModel.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <forward_list>
@@ -29,7 +28,7 @@ public:
 	/// 初期化
 	/// </summary>
 	/// <param name="model"></param>
-	void Initialize(ObjModel* model,Camera* camera);
+	void Initialize(const std::string& obj,Camera* camera);
 
 	/// <summary>
 	/// 更新
@@ -54,7 +53,7 @@ public:
 
 private:
 	std::forward_list<std::unique_ptr<BaseParticle>> particles;
-	ObjModel* model_ = nullptr;
+	std::string obj_;
 	Camera* camera_ = nullptr;
 
 private:
