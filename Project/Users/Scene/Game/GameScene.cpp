@@ -178,7 +178,6 @@ void GameScene::Update()
 void GameScene::Draw()
 {
 	modelData_->Draw();
-	MuzzleFlashRotation();
 	
 	switch ( scene )
 	{
@@ -195,6 +194,7 @@ void GameScene::Draw()
 		enemyManager_->Draw();
 		modelData_->TexDraw();
 		sprite2DReticle->Draw(texReticle_,{ 640,320 },{ 1.5f,1.5f },0,{ 0.5f,0.5f });
+		MuzzleFlashRotation();
 		break;
 
 	case GameScene::SCENEFASE::RESULT:
@@ -351,12 +351,12 @@ void GameScene::CheckAllCollilsions()
 		{
 			//敵の当たり判定の設定
 			const float enemyRadius = 10.0f;
-			enemyBody = enemy->GetSphereCenter();
+			enemyBody.center = enemy->GetCenterPosition();
 			enemyBody.radius = enemyRadius;
 			if ( CollisionManager::CheckRay2Sphere(rayBullet,enemyBody) )
 			{
 				//敵のHPを減らす
-				enemy->HitBullet();
+			enemy->HitBullet();
 			}
 		}
 		//攻撃時のフラグとタイマーをリセット

@@ -37,6 +37,10 @@ void Player::Initialize(Camera* camera)
 	playerTrans.parentMat = &camera_->matCameraWorld_;
 	playerTrans.SetTranslation({0,100,0});
 
+	hpUI = std::make_unique<Sprite>();
+	hpUI->Initialize();
+	texHp = TextureManager::Load("Resources/Texture/HP.png");
+
 	//衝突属性を設定
 	SetCollisionAttribute(collisionAttributePlayer);
 	//衝突対象を自分の属性以外に設定(ビット反転)
@@ -67,6 +71,8 @@ void Player::Update()
 void Player::Draw()
 {
 	playerObj->Draw(&playerTrans);
+
+	hpUI->Draw(texHp,{10,600},hpSize);
 }
 
 void Player::RotateCamera()
@@ -180,7 +186,8 @@ void Player::RailCamera()
 		}
 	}
 
-	camera_->SetTranslation({-9,36,114});
+	//camera_->SetTranslation({ -9,36,114 });
+	camera_->SetTranslation(translation);
 }
 
 MyMath::Vector3 Player::GetCenterPosition() const

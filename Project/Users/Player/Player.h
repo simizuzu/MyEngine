@@ -70,8 +70,6 @@ private:
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision() override;
 
-	void SetParent(const WorldTransform* parent);
-
 	/// <summary>
 	/// startとendをfor文で作る処理 {start,start,P1…Pn,end,end}
 	/// </summary>
@@ -105,13 +103,17 @@ private:
 	size_t startIndex = 1;
 	uint32_t startCount = 0;
 	uint32_t nowCount = 0;
-	
+
+	const MyMath::Vector2 hpSize = { 0.1f,0.1f };
 
 private:
 	//レベルエディタ(ベジェ曲線)
 	LevelData* curveData;
 	std::vector<LevelData::CurveData> points;
 	Input* input = nullptr;
+
+	std::unique_ptr<Sprite> hpUI;
+	TextureData texHp;
 
 	//カメラ
 	std::unique_ptr<Camera> camera_;
