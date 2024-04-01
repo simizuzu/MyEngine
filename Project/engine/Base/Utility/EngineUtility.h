@@ -75,11 +75,6 @@ struct WorldvViewProCamera
 	//コンストラクタ
 	WorldvViewProCamera() = default;
 
-	//コピーコンストラクタ削除
-	WorldvViewProCamera& operator=(const WorldvViewProCamera&) = delete;
-
-	//代入演算子削除
-	WorldvViewProCamera(const WorldvViewProCamera&) = delete;
 };
 
 //パーティクル用頂点データ

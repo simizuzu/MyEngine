@@ -137,7 +137,7 @@ void Player::RotateCamera()
 void Player::OnCollision()
 {
 	//HPを減らす
-	HP--;
+	//HP--;
 
 	//ゼロになったら死亡フラグを立てる
 	if ( HP == zero )
@@ -186,8 +186,8 @@ void Player::RailCamera()
 		}
 	}
 
-	//camera_->SetTranslation({ -9,36,114 });
-	camera_->SetTranslation(translation);
+	camera_->SetTranslation({ -9,36,114 });
+	//camera_->SetTranslation(translation);
 }
 
 MyMath::Vector3 Player::GetCenterPosition() const
@@ -200,4 +200,9 @@ MyMath::Vector3 Player::GetCenterPosition() const
 bool Player::IsDead() const
 {
 	return isDead;
+}
+
+MyMath::Matrix4 Player::GetPlayerMatWorld() const
+{
+	return playerTrans.matWorld;
 }

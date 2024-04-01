@@ -134,8 +134,8 @@ private: // メンバ変数
 
 	//中心地点
 	std::unique_ptr<ObjObject3d> colliderObj_;
-	std::unique_ptr<ObjModel> colliderModel_;
-	WorldTransform colliderTrans;
+	//WorldTransform colliderTrans;
+	std::vector<WorldTransform> colliderTrans;
 
 	INT32 sceneNum = 0;
 	char PADING[4]{};
@@ -154,7 +154,8 @@ private: // メンバ変数
 private: //bullet関連
 	bool bulletIntervalFlag = false;
 	uint8_t bulletIntervalTimer = 6;
-	int8_t pad2[ 2 ];
+	bool init= false;
+	int8_t pad2;
 
 private: //スタート演出
 	float easingFrame = 5.0f;
@@ -212,7 +213,7 @@ private: //スタート演出
 	bool muzzleFlashFlag1 = false;
 	bool muzzleFlashFlag2 = false;
 	const int8_t minus1 = -1;
-	int8_t pad3[ 5 ];
+	std::array<bool,5>flags;
 
 	DecimalNumbers decimal;
 	const float blackTimer_ = 50.0f;

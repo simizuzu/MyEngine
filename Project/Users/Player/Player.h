@@ -61,6 +61,8 @@ public:
 	//死んでいるかどうか
 	bool IsDead()const;
 
+	MyMath::Matrix4 GetPlayerMatWorld()const;
+
 private:
 	/// <summary>
 	/// カメラの回転処理

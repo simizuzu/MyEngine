@@ -99,7 +99,6 @@ void WorldTransform::CreateConstBuffer()
 	assert(SUCCEEDED(result));
 }
 
-
 void WorldTransform::SetTranslation(MyMath::Vector3 translation)
 {
 	translation_ = translation;
@@ -128,23 +127,6 @@ MyMath::Vector3 WorldTransform::GetScale()
 MyMath::Vector3 WorldTransform::GetRotation()
 {
 	return rotation_;
-}
-
-void WorldTransform::MakeMatWorld()
-{
-	MyMath::Matrix4 matScale,matRot,matTrans;
-
-	// スケール、回転、平行移動行列の計算
-	matScale = MyMathUtility::MakeScaling(scale_);
-	matRot = MyMathUtility::MakeIdentity();
-	matRot = MyMathUtility::MakeRotation(rotation_);
-	matTrans = MyMathUtility::MakeTranslation(translation_);
-
-	// ワールド行列の合成
-	matWorld = MyMathUtility::MakeIdentity();
-	matWorld *= matScale;
-	matWorld *= matRot;
-	matWorld *= matTrans;
 }
 
 D3D12_GPU_VIRTUAL_ADDRESS WorldTransform::GetGpuAddress()

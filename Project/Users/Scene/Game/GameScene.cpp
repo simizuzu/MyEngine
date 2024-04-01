@@ -82,8 +82,13 @@ void GameScene::Initialize()
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
 
+	colliderObj_.reset(ObjObject3d::Create());
+	colliderObj_->SetModel("collider");
+
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","mob",camera));
+
+
 
 	bulletManager_ = BulletManager::GetInstance();
 
@@ -94,10 +99,7 @@ void GameScene::Update()
 {
 	GameTimer();
 
-	//レイの始発点をプレイヤーの中心に設定
-	rayBullet.start = player_->GetCenterPosition();
-	MyMath::Vector3 vec(0,0,1);
-	rayBullet.dir = MyMath::Vec3Mat4Mul(vec,camera->matCameraWorld_);
+
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
@@ -107,7 +109,7 @@ void GameScene::Update()
 
 	ImGui::Begin("GameTimer");
 	ImGui::Text("GameTimer(%d,%d)",gameTimer_,oneSecond);
-	ImGui::Text("FlashRot(%d)",muzzleFlashFlag1);
+	ImGui::Text("ray(%f,%f,%f)",rayBullet.dir.x,rayBullet.dir.y,rayBullet.dir.z);
 	ImGui::End();
 
 #endif
@@ -134,6 +136,8 @@ void GameScene::Update()
 	{
 	case GameScene::SCENEFASE::MOVIE:
 		enemyManager_->EnemyNormalEmit(player_.get());
+
+
 		//スタート演出
 		BlackMind();
 		//モデルのムービー演出
@@ -147,6 +151,18 @@ void GameScene::Update()
 
 		break;
 	case GameScene::SCENEFASE::GAME:
+		if ( !init )
+		{
+			init = true;
+			for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
+			{
+				WorldTransform trans;
+				trans.Initialize();
+				trans.SetTranslation(enemy->GetCenterPosition());
+				trans.SetScale({ 5,5,5 });
+				colliderTrans.push_back(trans);
+			}
+		}
 		cameraTimeRate = player_->timeRate;
 		player_->Update();
 		//衝突判定と応答
@@ -173,12 +189,17 @@ void GameScene::Update()
 		break;
 	}
 	enemyManager_->Update();
+
+	for ( WorldTransform& trans : colliderTrans )
+	{
+		trans.Update(camera);
+	}
 }
 
 void GameScene::Draw()
 {
 	modelData_->Draw();
-	
+
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::MOVIE:
@@ -215,6 +236,16 @@ void GameScene::Draw()
 		spriteBlackDown_->Draw(texBlackDown_,blackDownPos,{ blackSize.x * minus1,blackSize.y });
 	}
 	spriteBlack_->Draw(texBlackUp_,blackUpPos,windowSize);
+
+	size_t index = 0;
+	for ( WorldTransform& trans : colliderTrans )
+	{
+		if (! flags[ index ] )
+		{
+			colliderObj_->Draw(&trans);
+		}
+		index++;
+	}
 }
 
 
@@ -315,6 +346,7 @@ void GameScene::CheckAllCollilsions()
 	collisionManager_->AddCollider(player_.get());
 	player_->SetRadius(2.0f);
 
+
 	// --------------敵全てについて-------------- //
 	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 	{
@@ -335,6 +367,11 @@ void GameScene::CheckAllCollilsions()
 		}
 	}
 
+	MyMath::Vector3 playerpos = player_->GetCenterPosition();
+
+	MyMath::Vector3 vec = playerpos - enemyBody.center;
+	MyMath::Vector3 dir = MyMathUtility::MakeNormalize(vec);
+
 	// --------------プレイヤーの攻撃について-------------- //
 	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
 	{
@@ -353,16 +390,29 @@ void GameScene::CheckAllCollilsions()
 			const float enemyRadius = 10.0f;
 			enemyBody.center = enemy->GetCenterPosition();
 			enemyBody.radius = enemyRadius;
+			//レイの始発点をプレイヤーの中心に設定
+			rayBullet.start = player_->GetCenterPosition();
+
+			vec = rayBullet.start - enemyBody.center;
+			dir = MyMathUtility::MakeNormalize(vec);
+
+			rayBullet.dir = dir;
+
 			if ( CollisionManager::CheckRay2Sphere(rayBullet,enemyBody) )
 			{
 				//敵のHPを減らす
-			enemy->HitBullet();
+				enemy->HitBullet();
 			}
 		}
 		//攻撃時のフラグとタイマーをリセット
 		bulletIntervalFlag = false;
 		bulletIntervalTimer = six;	//6フレーム
 	}
+
+	ImGui::Begin("GameTimer");
+	ImGui::Text("GameTimer(%d,%d)",gameTimer_,oneSecond);
+	ImGui::Text("ray(%f,%f,%f)",rayBullet.dir.x,rayBullet.dir.y,rayBullet.dir.z);
+	ImGui::End();
 
 	// --------------敵弾について-------------- //
 	for ( const std::unique_ptr<BaseBullet>& bullet : bulletManager_->GetNormalBullets() )

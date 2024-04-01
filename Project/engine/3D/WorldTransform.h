@@ -46,11 +46,6 @@ public:
 	MyMath::Vector3 GetRotation();
 
 	/// <summary>
-	/// マットワールドの生成
-	/// </summary>
-	void MakeMatWorld();
-
-	/// <summary>
 	/// GetGPUVirtualAddress()を返す関数
 	/// </summary>
 	/// <returns>GetGPUVirtualAddress()</returns>
@@ -80,10 +75,6 @@ public:
 	MyMath::Matrix4* parentMat = nullptr;
 
 private:
-	//代入演算子削除
-	WorldTransform& operator=(const WorldTransform&) = delete;
-	//コピーコンストラクタ削除
-	WorldTransform(const WorldTransform&) = delete;
 };
 
 namespace MyMath {
