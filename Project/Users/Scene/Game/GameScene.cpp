@@ -82,8 +82,8 @@ void GameScene::Initialize()
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
 
-	colliderObj_.reset(ObjObject3d::Create());
-	colliderObj_->SetModel("collider");
+	/*colliderObj_.reset(ObjObject3d::Create());
+	colliderObj_->SetModel("collider");*/
 
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","mob",camera));
@@ -160,7 +160,7 @@ void GameScene::Update()
 				trans.Initialize();
 				trans.SetTranslation(enemy->GetCenterPosition());
 				trans.SetScale({ 5,5,5 });
-				colliderTrans.push_back(trans);
+				//colliderTrans.push_back(trans);
 			}
 		}
 		cameraTimeRate = player_->timeRate;
@@ -190,10 +190,10 @@ void GameScene::Update()
 	}
 	enemyManager_->Update();
 
-	for ( WorldTransform& trans : colliderTrans )
+	/*for ( WorldTransform& trans : colliderTrans )
 	{
 		trans.Update(camera);
-	}
+	}*/
 }
 
 void GameScene::Draw()
@@ -237,7 +237,7 @@ void GameScene::Draw()
 	}
 	spriteBlack_->Draw(texBlackUp_,blackUpPos,windowSize);
 
-	size_t index = 0;
+	/*size_t index = 0;
 	for ( WorldTransform& trans : colliderTrans )
 	{
 		if (! flags[ index ] )
@@ -245,7 +245,7 @@ void GameScene::Draw()
 			colliderObj_->Draw(&trans);
 		}
 		index++;
-	}
+	}*/
 }
 
 
@@ -384,24 +384,24 @@ void GameScene::CheckAllCollilsions()
 	//押しっぱなしの時、ずっとレイを飛ばし続けることを阻止
 	if ( bulletIntervalTimer == zero )
 	{
+		//レイの始発点をプレイヤーの中心に設定
+		rayBullet.start = player_->GetCenterPosition();
+		rayBullet.dir = MyMath::Vec3Mat4Mul({ 0,0.0,1.0 },camera->GetMatRot());
+
 		for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 		{
-			//敵の当たり判定の設定
-			const float enemyRadius = 10.0f;
-			enemyBody.center = enemy->GetCenterPosition();
-			enemyBody.radius = enemyRadius;
-			//レイの始発点をプレイヤーの中心に設定
-			rayBullet.start = player_->GetCenterPosition();
-
-			vec = rayBullet.start - enemyBody.center;
-			dir = MyMathUtility::MakeNormalize(vec);
-
-			rayBullet.dir = dir;
-
-			if ( CollisionManager::CheckRay2Sphere(rayBullet,enemyBody) )
+			if ( !enemy->IsDead() )
 			{
-				//敵のHPを減らす
-				enemy->HitBullet();
+				//敵の当たり判定の設定
+				const float enemyRadius = 8.0f;
+				enemyBody.center = enemy->GetCenterPosition();
+				enemyBody.radius = enemyRadius;
+
+				if ( CollisionManager::CheckRay2Sphere(rayBullet,enemyBody) )
+				{
+					//敵のHPを減らす
+					enemy->HitBullet();
+				}
 			}
 		}
 		//攻撃時のフラグとタイマーをリセット

@@ -132,16 +132,14 @@ private: // メンバ変数
 
 	BulletManager* bulletManager_ = nullptr;
 
-	//中心地点
-	std::unique_ptr<ObjObject3d> colliderObj_;
-	//WorldTransform colliderTrans;
-	std::vector<WorldTransform> colliderTrans;
+	//デバッグ用当たり判定可視化
+	/*std::unique_ptr<ObjObject3d> colliderObj_;
+	std::vector<WorldTransform> colliderTrans;*/
 
 	INT32 sceneNum = 0;
 	char PADING[4]{};
 
 	std::unique_ptr<GameObject> modelData_;
-	//std::unique_ptr<GameCamera> gameCamera_;
 	std::unique_ptr<PostEffect> postEffect_;
 
 	std::unique_ptr<FbxObject3d> robotoObj_;
