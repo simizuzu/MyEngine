@@ -214,8 +214,8 @@ void GameScene::Draw()
 		//敵の描画
 		enemyManager_->Draw();
 		modelData_->TexDraw();
-		sprite2DReticle->Draw(texReticle_,{ 640,320 },{ 1.5f,1.5f },0,{ 0.5f,0.5f });
 		MuzzleFlashRotation();
+		sprite2DReticle->Draw(texReticle_,{ 640,360 },{ 1.5f,1.5f },0,{ 0.5f,0.5f });
 		break;
 
 	case GameScene::SCENEFASE::RESULT:
