@@ -38,6 +38,8 @@ void DirectXCommon::Initialize()
 	InitializeRtv();
 	InitializeDepthBuffer();
 	InitializeFence();
+
+	ExecuteCommand(false);
 }
 
 #pragma region 各初期化
@@ -245,6 +247,8 @@ void DirectXCommon::InitializeFence()
 #pragma region 描画
 void DirectXCommon::PreDraw(WinApp* winApp)
 {
+	ResetCommand();
+
 	winApp_ = winApp;
 	// バックバッファ番号を取得
 	UINT bbIndex = swapChain->GetCurrentBackBufferIndex();
@@ -296,7 +300,7 @@ void DirectXCommon::PostDraw()
 	ExecuteCommand();
 }
 
-void DirectXCommon::ExecuteCommand()
+void DirectXCommon::ExecuteCommand(bool flip)
 {
 	// 命令のクローズ
 	result = commandList->Close();
@@ -305,9 +309,12 @@ void DirectXCommon::ExecuteCommand()
 	ID3D12CommandList* commandListts[] = { commandList.Get() };
 	commandQueue->ExecuteCommandLists(1, commandListts);
 
-	// フリップ
-	result = swapChain->Present(1, 0);
-	assert(SUCCEEDED(result));
+	if ( flip )
+	{
+		// フリップ
+		result = swapChain->Present(1,0);
+		assert(SUCCEEDED(result));
+	}
 
 	//コマンド実行完了を待つ
 	commandQueue->Signal(fence.Get(), ++fenceVal);
@@ -321,14 +328,16 @@ void DirectXCommon::ExecuteCommand()
 			CloseHandle(event);
 		}
 	}
-
+}
+void DirectXCommon::ResetCommand()
+{
 	// キューをクリア
 	result = cmdAllocator->Reset();
 	assert(SUCCEEDED(result));
 	// コマンドリストを貯める準備
-	if (commandList != 0)
+	if ( commandList != 0 )
 	{
-		result = commandList->Reset(cmdAllocator.Get(), nullptr);
+		result = commandList->Reset(cmdAllocator.Get(),nullptr);
 		assert(SUCCEEDED(result));
 	}
 	else

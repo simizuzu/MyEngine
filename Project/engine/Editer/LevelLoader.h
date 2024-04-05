@@ -123,7 +123,4 @@ namespace MyMathUtility {
 	/// <param name="nextPoint">次の制御点</param>
 	/// <returns>方向ベクトル</returns>
 	MyMath::Vector3 CalcTangentPosition(const MyMath::Vector3& prevPoint, const MyMath::Vector3& nextPoint);
-
-
-	//MyMath::Vector3 AnimationKeyframe(std::vector<LevelData::AnimData>& nowFrame, float wholeFrame);
 }

@@ -2,6 +2,7 @@
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
+#include <d3dx12.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 
  /**
@@ -40,9 +41,7 @@ void TextureManager::Initialize(DirectXCommon* directXCommon)
 	assert(SUCCEEDED(result));
 
 	// ヒープ設定
-	textureHeapProp.Type = D3D12_HEAP_TYPE_CUSTOM;
-	textureHeapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
-	textureHeapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;
+	textureHeapProp.Type = D3D12_HEAP_TYPE_DEFAULT;
 }
 
 TextureData TextureManager::LoadTexture(const std::string& fileName)
@@ -116,42 +115,73 @@ TextureData TextureManager::LoadTexture(const std::string& fileName)
 
 Microsoft::WRL::ComPtr<ID3D12Resource> TextureManager::CreateTexBuff(DirectX::TexMetadata& metadata, DirectX::ScratchImage& scratchImg)
 {
-	Microsoft::WRL::ComPtr<ID3D12Resource> tmp;
-	HRESULT result;
+	dxCommon_->ResetCommand();
+
+	std::vector<D3D12_SUBRESOURCE_DATA> textureSubResource;
+	for ( size_t i = 0; i < metadata.mipLevels; i++ )
+	{
+		D3D12_SUBRESOURCE_DATA subresouce{};
+
+		subresouce.pData = scratchImg.GetImages()[i ].pixels;
+		subresouce.RowPitch = static_cast< LONG_PTR >( scratchImg.GetImages()[ i ].rowPitch );
+		subresouce.SlicePitch = static_cast<LONG_PTR>( scratchImg.GetImages()[ i ]. slicePitch);
+
+		textureSubResource.push_back(subresouce);
+	}
 
 	// リソース設定
-	D3D12_RESOURCE_DESC textureResourceDesc{};
-	textureResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-	textureResourceDesc.Format = metadata.format;
-	textureResourceDesc.Width = metadata.width;
-	textureResourceDesc.Height = (UINT)metadata.height;
-	textureResourceDesc.DepthOrArraySize = (UINT16)metadata.arraySize;
-	textureResourceDesc.MipLevels = (UINT16)metadata.mipLevels;
-	textureResourceDesc.SampleDesc.Count = 1;
+	D3D12_RESOURCE_DESC textureResourceDesc =
+	CD3DX12_RESOURCE_DESC::Tex2D(
+	metadata.format,
+	metadata.width,
+	( UINT ) metadata.height,
+	( UINT16 ) metadata.arraySize,
+	( UINT16 ) metadata.mipLevels
+	);
+
+	Microsoft::WRL::ComPtr<ID3D12Resource> tmp;
+	HRESULT result;
 
 	// テクスチャバッファの生成
 	result = dxCommon_->GetDevice()->CreateCommittedResource(
 		&textureHeapProp,
 		D3D12_HEAP_FLAG_NONE,
 		&textureResourceDesc,
-		D3D12_RESOURCE_STATE_GENERIC_READ,
+		D3D12_RESOURCE_STATE_COPY_DEST,
 		nullptr,
 		IID_PPV_ARGS(tmp.ReleaseAndGetAddressOf()));
 
-	// 全ミップマップについて
-	for (size_t i = 0; i < metadata.mipLevels; i++) {
-		// ミップマップレベルを指定してイメージを取得
-		const DirectX::Image* img = scratchImg.GetImage(i, 0, 0);
-		// テクスチャバッファにデータ転送
-		result = tmp->WriteToSubresource(
-			(UINT)i,
-			nullptr,              // 全領域へコピー
-			img->pixels,          // 元データアドレス
-			(UINT)img->rowPitch,  // 1ラインサイズL"Basic
-			(UINT)img->slicePitch // 1枚サイズ
-		);
-		assert(SUCCEEDED(result));
+	UINT64 totalBytes;
+
+	totalBytes = GetRequiredIntermediateSize(tmp.Get(),0,static_cast<UINT>(textureSubResource.size()));
+
+	Microsoft::WRL::ComPtr<ID3D12Resource> staginBuffer;
+
+	D3D12_HEAP_PROPERTIES heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+	D3D12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Buffer(totalBytes);
+	result = dxCommon_->GetDevice()->CreateCommittedResource(
+		&heapProp,
+		D3D12_HEAP_FLAG_NONE,
+		&resDesc,
+		D3D12_RESOURCE_STATE_GENERIC_READ,
+		nullptr,
+		IID_PPV_ARGS(staginBuffer.ReleaseAndGetAddressOf()));
+
+	if ( FAILED(result) )
+	{
+		assert(0);
 	}
+
+	UpdateSubresources(dxCommon_->GetCommandList(),tmp.Get(),staginBuffer.Get(),0,0,static_cast<uint32_t>(textureSubResource.size()),textureSubResource.data());
+
+	D3D12_RESOURCE_BARRIER barrierTex = CD3DX12_RESOURCE_BARRIER::Transition(
+		tmp.Get(),
+		D3D12_RESOURCE_STATE_COPY_DEST,
+		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE
+	);
+
+	dxCommon_->GetCommandList()->ResourceBarrier(1,&barrierTex);
+	dxCommon_->ExecuteCommand(false);
 
 	return tmp;
 }

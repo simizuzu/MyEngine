@@ -88,8 +88,6 @@ void GameScene::Initialize()
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","mob",camera));
 
-
-
 	bulletManager_ = BulletManager::GetInstance();
 
 	sceneManager_ = SceneManager::GetInstance();
@@ -408,11 +406,6 @@ void GameScene::CheckAllCollilsions()
 		bulletIntervalFlag = false;
 		bulletIntervalTimer = six;	//6フレーム
 	}
-
-	ImGui::Begin("GameTimer");
-	ImGui::Text("GameTimer(%d,%d)",gameTimer_,oneSecond);
-	ImGui::Text("ray(%f,%f,%f)",rayBullet.dir.x,rayBullet.dir.y,rayBullet.dir.z);
-	ImGui::End();
 
 	// --------------敵弾について-------------- //
 	for ( const std::unique_ptr<BaseBullet>& bullet : bulletManager_->GetNormalBullets() )

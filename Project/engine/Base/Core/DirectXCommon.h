@@ -93,7 +93,8 @@ public:
 	//描画終了
 	void PostDraw();
 	//コマンド処理を実行
-	void ExecuteCommand();
+	void ExecuteCommand(bool flip = true);
+	void ResetCommand();
 
 	// セッター
 	//背景色変更(RGBA)
