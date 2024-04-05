@@ -42,13 +42,13 @@ public: // エイリアステンプレート
 
 private: // 静的メンバ変数
 	// デバイス
-	static ComPtr<ID3D12Device> device_;
+	static ID3D12Device* device_;
 	// デスクリプタサイズ
 	static UINT descriptorSize_;
 	// コマンドリスト
-	static ComPtr<ID3D12GraphicsCommandList> commandList_;
+	static ID3D12GraphicsCommandList* commandList_;
 	// ルートシグネチャ
-	static ComPtr<ID3D12RootSignature> rootSignature_;
+	static ID3D12RootSignature* rootSignature_;
 	// プロジェクション行列
 	static MyMath::Matrix4 matProjection_;
 	// パイプラインステート
@@ -119,6 +119,8 @@ public: // メンバ関数
 	void Draw(
 		TextureData& textureData, MyMath::Vector2 position, MyMath::Vector2 scale = { 1.0f,1.0f }, float rotation = 0.0f,
 		MyMath::Vector2 anchorpoint = { 0.0f,0.0f }, bool flipX = false, bool flipY = false);
+
+	static void Finalize();
 
 private:
 	/// <summary>

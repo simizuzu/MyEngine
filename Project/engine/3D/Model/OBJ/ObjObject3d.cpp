@@ -14,8 +14,8 @@ MYENGINE_SUPPRESS_WARNINGS_END
 /// <summary>
 /// 静的メンバ変数の実態
 /// </summary>
-Microsoft::WRL::ComPtr<ID3D12Device> ObjObject3d::device_;
-Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> ObjObject3d::cmdList_;
+ID3D12Device* ObjObject3d::device_;
+ID3D12GraphicsCommandList* ObjObject3d::cmdList_;
 RootsigSetPip ObjObject3d::pip;
 Light* ObjObject3d::light_ = nullptr;
 
@@ -39,7 +39,7 @@ void ObjObject3d::CreateGraphicsPipeline()
 
 	Shader::CreateObjShade(vsBlob, psBlob);
 
-	Pipeline::CreateObjPipeline(vsBlob.Get(), psBlob.Get(), BlendMode::None, device_.Get(),pip);
+	Pipeline::CreateObjPipeline(vsBlob.Get(), psBlob.Get(), BlendMode::None, device_,pip);
 }
 
 ObjObject3d* ObjObject3d::Create()
@@ -114,9 +114,9 @@ void ObjObject3d::Draw(WorldTransform* transform)
 	cmdList_->SetGraphicsRootConstantBufferView(2, transform->GetGpuAddress());
 
 	//ライトの描画
-	light_->Draw(cmdList_.Get(), 3);
+	light_->Draw(cmdList_, 3);
 	// モデル描画
-	model_->Draw(cmdList_.Get());
+	model_->Draw(cmdList_);
 }
 
 void ObjObject3d::SetModel(ObjModel* model)
@@ -133,6 +133,14 @@ void ObjObject3d::SetModel(const std::string& filePath,bool smoothing)
 		ModelManager::GetInstance()->LoadModel(filePath,obj,smoothing);
 		model_ = ModelManager::GetInstance()->FindObjModel(filePath);
 	}
+}
+
+void ObjObject3d::Finalize()
+{
+	device_ = nullptr;
+	cmdList_ = nullptr;
+	pip.pipelineState.Reset();
+	pip.rootSignature.Reset();
 }
 
 void ObjObject3d::SetLight(Light* light)

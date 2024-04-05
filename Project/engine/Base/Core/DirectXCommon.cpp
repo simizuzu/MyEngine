@@ -13,22 +13,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief DirectXCommonの処理について書いてあります
  */
 
-DirectXCommon::~DirectXCommon()
-{
-	//device.As(&debugDevice);
-	//dxgiFactory->Release();
-	//swapChain->Release();
-	//cmdAllocator->Release();
-	//commandList->Release();
-	//commandQueue->Release();
-	//rtvHeap->Release();
-	//fence->Release();
-	//depthBuff->Release();
-	//dsvHeap->Release();
-	//backBuffers.clear();
-	//device->Release();
-	//debugDevice->ReportLiveDeviceObjects(D3D12_RLDO_SUMMARY | D3D12_RLDO_IGNORE_INTERNAL);
-}
+ DirectXCommon* DirectXCommon::dxcommon = nullptr;
 
 void DirectXCommon::Initialize()
 {
@@ -345,6 +330,22 @@ void DirectXCommon::ResetCommand()
 		assert(SUCCEEDED(0));
 	}
 }
+void DirectXCommon::Finalize()
+{
+	/*dxgiFactory->Release();
+	swapChain->Release();
+	cmdAllocator->Release();
+	commandList->Release();
+	commandQueue->Release();
+	rtvHeap->Release();
+	fence->Release();
+	depthBuff->Release();
+	dsvHeap->Release();
+	backBuffers.clear();
+	device->Release();*/
+
+	delete dxcommon;
+}
 #pragma endregion
 
 void DirectXCommon::SetBackScreenColor(float red, float green, float blue, float alpha)
@@ -357,8 +358,12 @@ void DirectXCommon::SetBackScreenColor(float red, float green, float blue, float
 
 DirectXCommon* DirectXCommon::GetInstance()
 {
-	static DirectXCommon DirectXCore_;
-	return &DirectXCore_;
+	if ( dxcommon == nullptr )
+	{
+		dxcommon = new DirectXCommon();
+	}
+
+	return dxcommon;
 }
 
 #pragma region デバックレイヤー

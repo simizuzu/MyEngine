@@ -1,5 +1,6 @@
 #include "Framework.h"
-
+#include "ObjModel.h"
+#include "ModelManager.h"
  /**
  * @file Framework.cpp
  * @brief Frameworkの処理について書いてあります
@@ -20,15 +21,15 @@ void Framework::Initialize()
 	// FPS固定初期化
 	fps_ = new FPS();
 	fps_->InitializeFixFps();
-	// DirectX初期化
+	//// DirectX初期化
 	dxCommon_->Initialize();
 	// スプライト共通部の初期化
 	textureManager_->Initialize(dxCommon_);
 	// Audio初期化
 	audioManager->Initialize();
-	// ImGui初期化
+	//// ImGui初期化
 	imGuiManager->Initialize(winApp_, dxCommon_);
-	// Input初期化
+	//// Input初期化
 	input_->Initialize();
 	//FBXLoaderの初期化
 	fbxLoader->Initialize(dxCommon_->GetDevice());
@@ -42,8 +43,6 @@ void Framework::Initialize()
 	Light::StaticInitialise(dxCommon_);
 	//スプライト静的初期化
 	Sprite::StaticInitialize();
-	//パーティクルマネージャー静的初期化
-	//ParticleManager::StaticInitialize(dxCommon_->GetDevice(), dxCommon_->GetCommandList());
 	//3Dオブジェクト静的初期化(Fbx版)
 	FbxObject3d::StaticInitialize(dxCommon_->GetDevice());
 
@@ -55,14 +54,22 @@ void Framework::Finalize()
 	sceneManager_->Finalize();
 	delete sceneFactory_;
 
+	ObjObject3d::Finalize();
+	Sprite::Finalize();
+	FbxObject3d::Finalize();
+	ObjModel::Finalize();
+	ModelManager::Finalze();
+	postEffect->Finalize();
+	postEffect.reset();
 	// ImGui解放
 	imGuiManager->Finalize();
 	// テクスチャマネージャ解放
 	textureManager_->Delete();
-	// オーディオマネージャー初期化
+	//// オーディオマネージャー初期化
 	audioManager->Destroy();
 	//FBXLoaderの後始末
-	FbxLoader::GetInstance()->Finalize();
+	fbxLoader->Finalize();
+	dxCommon_->Finalize();
 	// WindowsAPIの終了処理
 	winApp_->Finalize();
 	// WinApp解放
@@ -82,7 +89,7 @@ void Framework::Update()
 	input_->Update();
 	audioManager->Update();
 
-	// ImGui更新処理開始
+	/// ImGui更新処理開始
 	imGuiManager->Begin();
 	// ゲームシーンの毎フレーム処理
 	sceneManager_->Update();

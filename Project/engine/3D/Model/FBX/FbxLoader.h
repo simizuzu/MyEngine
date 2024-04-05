@@ -7,8 +7,6 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <string>
 MYENGINE_SUPPRESS_WARNINGS_END
 
-
-
 #include "FbxModel.h"
 
 /**
@@ -112,11 +110,13 @@ private:
 
 private:
 	//D3Dデバイス
-	Microsoft::WRL::ComPtr<ID3D12Device> device_ = nullptr;
+	ID3D12Device* device_ = nullptr;
 	//FBXマネージャ
 	FbxManager* fbxManager = nullptr;
 	//FBXインポータ
 	FbxImporter* fbxImporter = nullptr;
+
+	static FbxLoader* instance;
 
 public:
 	static const std::string baseDirectory;

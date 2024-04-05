@@ -13,10 +13,10 @@ MYENGINE_SUPPRESS_WARNINGS_END
 /// <summary>
 /// 静的メンバ変数の実体
 /// </summary>
-Microsoft::WRL::ComPtr<ID3D12Device> Sprite::device_;
+ID3D12Device* Sprite::device_;
 UINT Sprite::descriptorSize_;
-Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> Sprite::commandList_;
-Microsoft::WRL::ComPtr<ID3D12RootSignature> Sprite::rootSignature_;
+ID3D12GraphicsCommandList* Sprite::commandList_;
+ID3D12RootSignature* Sprite::rootSignature_;
 std::array<RootsigSetPip, 6> Sprite::pipelineState;
 MyMath::Matrix4 Sprite::matProjection_;
 
@@ -42,7 +42,7 @@ void Sprite::StaticInitialize()
 
 	for (size_t i = 0; i < pipelineState.size(); i++)
 	{
-		Pipeline::CreateSpritePipeline(vsBlob.Get(), psBlob.Get(), (BlendMode)i, device_.Get(), pipelineState);
+		Pipeline::CreateSpritePipeline(vsBlob.Get(), psBlob.Get(), (BlendMode)i, device_, pipelineState);
 	}
 }
 
@@ -132,6 +132,15 @@ void Sprite::Draw(TextureData& textureData, MyMath::Vector2 position, MyMath::Ve
 
 	// 描画コマンド
 	commandList_->DrawIndexedInstanced(_countof(indices), 1, 0, 0, 0);
+}
+
+void Sprite::Finalize()
+{
+	for ( size_t i = 0; i < pipelineState.size(); i++ )
+	{
+		pipelineState[ i ].pipelineState.Reset();
+		pipelineState[ i ].rootSignature.Reset();
+	}
 }
 
 void Sprite::DrawCommandList(TextureData textureData)

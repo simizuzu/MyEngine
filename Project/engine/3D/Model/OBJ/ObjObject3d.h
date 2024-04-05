@@ -33,9 +33,9 @@ public: // 静的メンバ関数
 
 private:
 	// デバイス
-	static Microsoft::WRL::ComPtr<ID3D12Device> device_;
+	static ID3D12Device* device_;
 	// コマンドリスト
-	static Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> cmdList_;
+	static ID3D12GraphicsCommandList* cmdList_;
 	// パイプラインステート
 	static RootsigSetPip pip;
 	//ライト
@@ -56,6 +56,8 @@ public: // メンバ関数
 	void SetModel(ObjModel* model);
 
 	void SetModel(const std::string& filePath, bool smoothing = false);
+
+	static void Finalize();
 
 public:
 	// 定数バッファ

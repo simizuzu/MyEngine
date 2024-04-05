@@ -64,6 +64,8 @@ private:
 	// 背景色
 	FLOAT clearColor[4] = { 0.1f,0.25f, 0.5f,0.0f }; // 黄緑色
 
+	static DirectXCommon* dxcommon;
+
 	// DXGIまわり初期化
 	void InitializeDXGI();
 	// 最終的なレンダーターゲットの生成
@@ -96,6 +98,8 @@ public:
 	void ExecuteCommand(bool flip = true);
 	void ResetCommand();
 
+	void Finalize();
+
 	// セッター
 	//背景色変更(RGBA)
 	void SetBackScreenColor(float red, float green, float blue, float alpha);
@@ -115,7 +119,7 @@ public:
 
 private:
 	DirectXCommon() = default;
-	~DirectXCommon();
+	~DirectXCommon() = default;
 	DirectXCommon& operator=(const DirectXCommon&) = delete;
 	DirectXCommon(const DirectXCommon&) = delete;
 };

@@ -44,7 +44,7 @@ public:
 	FbxModel* FindFbxModel(const std::string& filePath);
 
 	//終了
-	void Finalze();
+	static void Finalze();
 
 private:
 	static ModelManager* instance;

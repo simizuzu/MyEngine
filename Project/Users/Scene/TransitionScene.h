@@ -24,6 +24,8 @@ public:
 	//初期化
 	void Initialize();
 
+	void Finalize();
+
 	/// <summary>
 	/// 暗転時の挙動
 	/// </summary>
@@ -107,6 +109,8 @@ private:
 	int8_t pad7[ 4 ];
 
 	MyMath::Vector2 translation_;
+
+	static TransitionScene* instance;
 
 private:
 	enum class TRANSITION_COUNT

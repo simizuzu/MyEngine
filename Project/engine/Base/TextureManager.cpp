@@ -218,8 +218,12 @@ void TextureManager::Delete()
 
 TextureManager* TextureManager::GetInstance()
 {
-	static TextureManager instance;
-	return &instance;
+	if ( textureManager_ == nullptr )
+	{
+		textureManager_ = new TextureManager();
+	}
+	
+	return textureManager_;
 }
 
 ID3D12DescriptorHeap* TextureManager::GetSrvHeap()

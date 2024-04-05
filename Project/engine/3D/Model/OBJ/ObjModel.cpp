@@ -15,7 +15,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
 /// <summary>
 /// 静的メンバ変数の実態
 /// </summary>
-Microsoft::WRL::ComPtr<ID3D12Device> ObjModel::device_;
+ID3D12Device* ObjModel::device_;
 Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> ObjModel::descHeap;
 
 ObjModel* ObjModel::LoadFromObj(const std::string& modelname, bool smoothing)
@@ -140,6 +140,11 @@ void ObjModel::Draw(ID3D12GraphicsCommandList* cmdList)
 void ObjModel::SetDevice(ID3D12Device* device)
 {
 	ObjModel::device_ = device;
+}
+
+void ObjModel::Finalize()
+{
+	descHeap.Reset();
 }
 
 void ObjModel::LoadFromOBJInternal(const std::string& modelname,bool smoothing)

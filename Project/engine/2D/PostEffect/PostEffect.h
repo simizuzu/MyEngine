@@ -1,5 +1,5 @@
-#pragma once
 #include "DirectX12Math.h"
+#pragma once
 
 #include "Pipeline.h"
 #include "Shader.h"
@@ -28,8 +28,8 @@ class PostEffect
 {
 private: // 静的メンバ変数
 	//デバイス
-	static Microsoft::WRL::ComPtr<ID3D12Device> device_;
-	static Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> cmdList_;
+	static ID3D12Device* device_;
+	static ID3D12GraphicsCommandList* cmdList_;
 
 	static const float clearColor[4];
 	static RootsigSetPip pipline_;
@@ -45,6 +45,8 @@ public: // メンバ関数
 	/// </summary>
 	/// <param name="cmdList">コマンドリスト</param>
 	void Draw(ID3D12GraphicsCommandList* cmdList_);
+
+	static void Finalize();
 
 	/// <summary>
 	/// シーン描画前

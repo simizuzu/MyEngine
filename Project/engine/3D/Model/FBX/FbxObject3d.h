@@ -31,10 +31,10 @@ private: //静的メンバ変数
 	static const int MAX_BONES = 64;
 
 	//デバイス
-	static Microsoft::WRL::ComPtr<ID3D12Device> device_;
+	static ID3D12Device* device_;
 
 	// コマンドリスト
-	static Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> cmdList_;
+	static ID3D12GraphicsCommandList* cmdList_;
 
 	// パイプラインステート
 	static RootsigSetPip pip;
@@ -75,6 +75,8 @@ public:
 	/// </summary>
 	/// <param name="transform">トランスフォーム</param>
 	void Draw(WorldTransform* transform);
+
+	static void Finalize();
 
 	/// <summary>
 	/// モデルをセット

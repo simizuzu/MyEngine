@@ -9,10 +9,20 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief TransitionSceneの処理について書いてあります
  */
 
+TransitionScene* TransitionScene::instance = nullptr;
+
 TransitionScene* TransitionScene::GetInstance()
 {
-	static TransitionScene instance;
-	return &instance;
+	if ( instance == nullptr )
+	{
+		instance = new TransitionScene();
+	}
+	return instance;
+}
+
+void TransitionScene::Finalize()
+{
+	delete instance;
 }
 
 void TransitionScene::Initialize()

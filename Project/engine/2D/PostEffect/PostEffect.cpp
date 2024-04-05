@@ -17,8 +17,8 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief PostEffectの処理について書いてあります
  */
 
-Microsoft::WRL::ComPtr<ID3D12Device> PostEffect::device_;
-Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> PostEffect::cmdList_;
+ID3D12Device* PostEffect::device_;
+ID3D12GraphicsCommandList* PostEffect::cmdList_;
 const float PostEffect::clearColor[4] = { 0.5f,0.5f,0.0f,1.0f };
 RootsigSetPip PostEffect::pipline_;
 
@@ -28,7 +28,7 @@ void PostEffect::CreateGraphicsPipeline()
 	Microsoft::WRL::ComPtr<ID3DBlob> psBlob;	// ピクセルシェーダオブジェクト
 
 	Shader::CreatePostEffectShade(vsBlob,psBlob);
-	Pipeline::CreatePostEffectPipeline(vsBlob.Get(), psBlob.Get(), device_.Get(), pipline_);
+	Pipeline::CreatePostEffectPipeline(vsBlob.Get(), psBlob.Get(), device_, pipline_);
 }
 
 void PostEffect::Initialize(ID3D12Device* device)
@@ -63,6 +63,12 @@ void PostEffect::Draw(ID3D12GraphicsCommandList* cmdList)
 	cmdList_->SetGraphicsRootDescriptorTable(1, descHeapSRVHandle);
 	// 描画コマンド
 	cmdList_->DrawInstanced(_countof(vertices_), 1, 0, 0);//全ての頂点を使って描画
+}
+
+void PostEffect::Finalize()
+{
+	pipline_.pipelineState.Reset();
+	pipline_.rootSignature.Reset();
 }
 
 void PostEffect::CreateTex()

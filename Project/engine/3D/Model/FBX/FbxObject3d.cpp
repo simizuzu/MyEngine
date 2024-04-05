@@ -10,8 +10,8 @@
  */
 
 //静的メンバ変数の実態
-Microsoft::WRL::ComPtr<ID3D12Device> FbxObject3d::device_;
-Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> FbxObject3d::cmdList_;
+ID3D12Device* FbxObject3d::device_;
+ID3D12GraphicsCommandList* FbxObject3d::cmdList_;
 RootsigSetPip FbxObject3d::pip;
 
 void FbxObject3d::StaticInitialize(ID3D12Device* device)
@@ -143,7 +143,13 @@ void FbxObject3d::Draw(WorldTransform* transform)
 	cmdList_->SetGraphicsRootConstantBufferView(2,constBuffSkin->GetGPUVirtualAddress());
 
 	//モデル描画
-	model_->Draw(cmdList_.Get());
+	model_->Draw(cmdList_);
+}
+
+void FbxObject3d::Finalize()
+{
+	pip.pipelineState.Reset();
+	pip.rootSignature.Reset();
 }
 
 void FbxObject3d::SetModel(FbxModel* model)
@@ -189,5 +195,5 @@ void FbxObject3d::CrateGrapicsPipeline()
 
 	Shader::CreateFBXShade(vsBlob,psBlob);
 
-	Pipeline::CreateFBXPipeline(vsBlob.Get(),psBlob.Get(),device_.Get(),pip);
+	Pipeline::CreateFBXPipeline(vsBlob.Get(),psBlob.Get(),device_,pip);
 }

@@ -88,8 +88,10 @@ public:
 
 	static void SetDevice(ID3D12Device* device);
 
+	static void Finalize();
+
 private:
-	static Microsoft::WRL::ComPtr<ID3D12Device> device_;
+	static ID3D12Device* device_;
 	// テクスチャバッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> texBuff;
    // シェーダリソースビューのハンドル(CPU)
