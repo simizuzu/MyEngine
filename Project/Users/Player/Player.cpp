@@ -137,7 +137,7 @@ void Player::RotateCamera()
 void Player::OnCollision()
 {
 	//HPを減らす
-	HP--;
+	//HP--;
 
 	//ゼロになったら死亡フラグを立てる
 	if ( HP == zero )

@@ -65,12 +65,12 @@ void EnemyNormal::Update()
 	bulletManager_->Update();
 
 	//各敵の更新
-	enemyTrans.SetTranslation(translation);
+	enemyTrans.SetTranslation(translation_);
 	enemyTrans.Update(camera_);
 	enemyObj_->Update();
 
 	//HPの更新
-	HP_UITrans.SetTranslation({ translation.x + UITranslation.x,translation.y + UITranslation.y,translation.z + UITranslation.z });
+	HP_UITrans.SetTranslation({ translation_.x + UITranslation.x,translation_.y + UITranslation.y,translation_.z + UITranslation.z });
 	HP_UITrans.SetScale(HPScale);
 	HP_UITrans.Update(camera_,true);
 
@@ -129,6 +129,11 @@ bool EnemyNormal::IsDead() const
 void EnemyNormal::SetPlayer(Player* player)
 {
 	player_ = player;
+}
+
+void EnemyNormal::SetEnemyTranslation(MyMath::Vector3 translation)
+{
+	translation_ = translation;
 }
 
 void EnemyNormal::Fire()

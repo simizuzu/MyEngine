@@ -7,7 +7,7 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <cassert>
 MYENGINE_SUPPRESS_WARNINGS_END
 
-EnemyManager* EnemyManager::Create(const std::string& filePath,const std::string& modelName,Camera* camera)
+EnemyManager* EnemyManager::Create(Player* player, LevelData* data,const std::string& modelName,Camera* camera)
 {
 	//インスタンス生成
 	EnemyManager* instance = new EnemyManager();
@@ -17,7 +17,7 @@ EnemyManager* EnemyManager::Create(const std::string& filePath,const std::string
 	}
 
 	instance->Initialize(modelName,camera);
-	instance->LoadEnemyPopData(filePath);
+	instance->UpdateEnemyPopCommands(player,data);
 
 	return instance;
 }
@@ -45,12 +45,6 @@ void EnemyManager::Draw()
 	{
 		enemy->Draw();
 	}
-}
-
-void EnemyManager::EnemyNormalEmit(Player* player)
-{
-	//敵出現
-	UpdateEnemyPopCommands(player);
 }
 
 const std::list<std::unique_ptr<BaseEnemy>>& EnemyManager::GetEnemys()
@@ -83,89 +77,20 @@ void EnemyManager::LoadEnemyPopData(const std::string& filePath)
 	file.close();
 }
 
-void EnemyManager::UpdateEnemyPopCommands(Player* player)
+void EnemyManager::UpdateEnemyPopCommands(Player* player,LevelData* enemyData)
 {
-	//待機処理
-	if ( waitFlag )
+
+	for ( LevelData::EnemyData enemy : enemyData->enemys )
 	{
-		waitTimer--;
-		if ( waitTimer <= 0 )
+		if ( enemy.enemyType == "normal" )
 		{
-			//待機完了
-			waitFlag = false;
-		}
-		return;
-	}
+			std::unique_ptr<EnemyNormal> normalEnemy = std::make_unique<EnemyNormal>();
 
-	//1行分の文字列を入れる変数
-	std::string line;
+			normalEnemy->Initialize(modelName_,camera_);
+			normalEnemy->SetPlayer(player);
+			normalEnemy->SetEnemyTranslation(enemy.translation);
 
-	//コマンド実行ループ
-	while ( getline(enemyPospCommands,line) )
-	{
-		//1行分の文字列をストリームに変換して解析しやすくする
-		std::istringstream line_stream(line);
-
-		std::string word;
-		//[,]区切りで行の先頭文字列を取得
-		getline(line_stream,word,',');
-
-		//["//"]から始まる行はコメントアウト扱い
-		if ( word.find("//") == 0 )
-		{
-			//コメント行は飛ばす
-			continue;
-		}
-
-		//POPコマンド
-		if ( word.find("POP") == 0 )
-		{
-			//該当する敵の属性ごとに生成
-
-			//敵を発生させる
-			//x座標
-			getline(line_stream,word,',');
-			enemysPos_.x = ( float ) std::atof(word.c_str());
-
-			//y座標
-			getline(line_stream,word,',');
-			enemysPos_.y = ( float ) std::atof(word.c_str());
-
-			//z座標
-			getline(line_stream,word,',');
-			enemysPos_.z = ( float ) std::atof(word.c_str());
-
-			std::unique_ptr<EnemyNormal> enemy = std::make_unique<EnemyNormal>();
-			enemy->Initialize(modelName_,camera_);
-			enemy->SetPlayer(player);
-
-			enemy->translation = enemysPos_;
-			enemys.push_back(std::move(enemy));
-		}
-		else if ( word.find("WAIT") == 0 )
-		{
-			getline(line_stream,word,',');
-
-			//csvから何F待つのか
-			waitTime = atoi(word.c_str());
-
-			//待機開始
-			waitFlag = true;
-			waitTimer = waitTime;
-
-			//コマンドループを抜ける
-			break;
-		}
-		else if ( word.find("TOTAL") == 0 )
-		{
-			getline(line_stream,word,',');
-			enemyCount = ( size_t ) atoi(word.c_str());
-			if ( enemyCount == enemys.size() )
-			{
-				reachCommandFlag = true;
-			}
-
-			break;
+			enemys.push_back(std::move(normalEnemy));
 		}
 	}
 }

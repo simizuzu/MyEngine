@@ -121,6 +121,8 @@ private: // メンバ変数
 	TransitionScene* transition_ = nullptr;
 	ClearScene* clearDirection = nullptr;
 
+	LevelData* enemyData_;
+
 	std::unique_ptr<Light> light;
 
 	ParticleManager* damageParticle = nullptr;

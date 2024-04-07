@@ -26,7 +26,7 @@ void Camera::Initialize()
 	up_ = { 0,1,0 };//上方向ベクトル
 
 	nearZ_ = 0.1f;
-	farZ_ = 1000.0f;
+	farZ_ = 3000.0f;
 
 	// アスペクト比を計算(画面横幅/画面縦幅)
 	aspect = 

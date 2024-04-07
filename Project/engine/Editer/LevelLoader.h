@@ -49,6 +49,14 @@ struct LevelData {
 		MyMath::Vector3 rot;
 	};
 
+	struct EnemyData{
+		// ファイル名
+		std::string enemyType;
+		// 平行移動
+		MyMath::Vector3 translation;
+		int8_t pad2[ 4 ];
+	};
+
 	// 3つ並べた制御点
 	std::vector<MyMath::Vector3> points;
 
@@ -61,6 +69,7 @@ struct LevelData {
 	std::vector<ObjectData> objects;
 	std::vector<CurveData> curves;
 	std::vector<AnimData> anims;
+	std::vector<EnemyData> enemys;
 };
 
 // レベルデータのローダー

@@ -3,6 +3,7 @@
 #include "BaseEnemy.h"
 #include "FbxModel.h"
 #include "Player.h"
+#include "LevelLoader.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <list>
@@ -27,7 +28,7 @@ private:
 	std::stringstream enemyPospCommands;
 
 public:
-	static EnemyManager* Create(const std::string& filePath,const std::string& modelName, Camera* camera);
+	static EnemyManager* Create(Player* player, LevelData* data, const std::string& modelName, Camera* camera);
 
 public:
 	EnemyManager() = default;
@@ -49,11 +50,6 @@ public:
 	void Draw();
 
 	/// <summary>
-	/// 各敵キャラの初期化情報(更新処理の先頭にいれる)
-	/// </summary>
-	void EnemyNormalEmit(Player* player);
-
-	/// <summary>
 	/// 敵の数を取得
 	/// </summary>
 	/// <returns>敵の数</returns>
@@ -73,7 +69,7 @@ private:
 	/// <summary>
 	/// 敵発生コマンドの更新
 	/// </summary>
-	void UpdateEnemyPopCommands(Player* player);
+	void UpdateEnemyPopCommands(Player* player,LevelData* enemyData);
 
 	/// <summary>
 	/// 敵の削除

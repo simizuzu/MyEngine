@@ -45,7 +45,9 @@ public:
 	//const std::list<EnemyBullet*>& GetBullets() const override;
 
 	//プレイヤーのポインタをセット
-	void SetPlayer(Player* player);
+	void SetPlayer(Player* player) override;
+
+	void SetEnemyTranslation(MyMath::Vector3 translation);
 
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision() override;
@@ -106,6 +108,9 @@ private:
 	MyMath::Vector3 UITranslation;
 	MyMath::Vector3 HPScale;
 
+	//敵1体の座標
+	MyMath::Vector3 translation_;
+
 	float enemyAngleY;
 	float enemyAngleX;
 
@@ -118,9 +123,6 @@ private:
 	uint8_t bulletIntervalTimer;
 	bool turnFlag = false;
 	int8_t pad1[ 6 ];
-
-public:
-	MyMath::Vector3 translation;
 
 private:
 	//代入演算子削除

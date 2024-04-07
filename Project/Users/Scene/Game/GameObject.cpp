@@ -36,7 +36,7 @@ void GameObject::Initialize(Camera* camera)
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
 	groundTrans.SetTranslation({0,-50.0f,0});
-	skydomeTrans.SetScale({ 900.0f,900.0f,900.0f });
+	skydomeTrans.SetScale({ 2000.0f,2000.0f,2000.0f });
 }
 
 void GameObject::Update()

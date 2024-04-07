@@ -72,10 +72,9 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 			// トランスフォームのパラメータ読み込み
 			nlohmann::json& transform = object["transform"];
 			// 平行移動
-			objectData.translation.x = (float)transform["translation"][1];
+			objectData.translation.x = (float)transform["translation"][0];
 			objectData.translation.y = (float)transform["translation"][2];
-			objectData.translation.z = (float)transform["translation"][0];
-			objectData.translation.z = -objectData.translation.z;
+			objectData.translation.z = (float)transform["translation"][1];
 			// 回転角
 			objectData.rotation.x = (float)transform["rotation"][1];
 			objectData.rotation.x = -objectData.rotation.x;
@@ -94,6 +93,28 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		if (object.contains("children")) {
 
 		}
+	}
+
+	// "objects"からfilenameで指定した敵の X,Y,Z を走査
+	for ( nlohmann::json& enemys : deserialized[ "objects" ] )
+	{
+		// 要素追加
+		levelData->enemys.emplace_back(LevelData::EnemyData{});
+		// 今追加した要素の参照を得る
+		LevelData::EnemyData& enemyData = levelData->enemys.back();
+
+		//敵の名前を検索
+		if ( enemys.contains("file_name") )
+		{
+			// ファイル名
+			enemyData.enemyType = enemys[ "file_name" ];
+		}
+
+		nlohmann::json& transform = enemys[ "transform" ];
+		// 平行移動
+		enemyData.translation.x = ( float ) transform[ "translation" ][ 0 ];
+		enemyData.translation.y = ( float ) transform[ "translation" ][ 2 ];
+		enemyData.translation.z = ( float ) transform[ "translation" ][ 1 ];
 	}
 
 	// "curves"の制御点の X,Y,Z を走査

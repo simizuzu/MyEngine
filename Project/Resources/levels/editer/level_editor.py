@@ -10,7 +10,7 @@ import json
 #ブレンダーに登録するアドオン情報
 bl_info = {
     "name": "レベルエディタ",
-    "author": "Taro Kamata",
+    "author": "Sho Shimizu",
     "version": (1, 0),
     "blender": (3, 1, 2),
     "location": "",
@@ -21,38 +21,6 @@ bl_info = {
     "tracker_url": "",
     "category": "Object"
 }
-
-#オペレータ 頂点を伸ばす
-class MYADDON_OT_stretch_vertex(bpy.types.Operator):
-    bl_idname = "myaddon.myaddon_ot_stretch_vertex"
-    bl_label = "頂点を伸ばす"
-    bl_description = "頂点座標を引っ張って伸ばします"
-    #リドゥ、アンドゥ可能オプション
-    bl_options = {'REGISTER', 'UNDO'}
-
-    #メニューを実行したときに呼ばれるコールバック関数
-    def execute(self, context):
-        bpy.data.objects["Cube"].data.vertices[0].co.x += 1.0
-        print("頂点を伸ばしました。")
-
-        #オペレータの命令終了を通知
-        return {'FINISHED'}
-    
-#オペレータ ICO球生成
-class MYADDON_OT_create_ico_sphere(bpy.types.Operator):
-    bl_idname = "myaddon.myaddon_ot_create_object"
-    bl_label = "ICO球生成"
-    bl_description = "ICO球を生成します"
-    #リドゥ、アンドゥ可能オプション
-    bl_options = {'REGISTER', 'UNDO'}
-
-    #メニューを実行したときに呼ばれるコールバック関数
-    def execute(self, context):
-        bpy.ops.mesh.primitive_ico_sphere_add()
-        print("ICO球を生成しました。")
-
-        #オペレータの命令終了を通知
-        return {'FINISHED'}
       
 #コライダー描画
 class DrawCollider:
@@ -146,6 +114,33 @@ class DrawCollider:
         shader.uniform_float("color", color)
         #描画
         batch.draw(shader)
+
+class MTADDON_PT_add_enemyPanel(bpy.types.Panel):
+    bl_idname = "myaddon.myaddon_pt_add_enemyPanel"
+    bl_label = "ENEMY NAME of the Panel"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "Tab"
+
+    def draw(self, context):
+        layout = self.layout
+
+        layout.oparator("wm.template_oparator")
+
+class MYADDON_OT_enemyOperator(bpy.types.Oparator):
+    bl_label = "Template Oparator"
+    bl_idname = "wm.template_oparator"
+
+    def invoke(self, context, event):
+        wm = context.window_manager
+        return wm.invoke_props_dialog(self)
+    
+    def draw(self, context):
+        layout = self.layout
+
+    def execute(self,context):
+
+        return {"FINISHED"} 
 
 #オペレータ カスタムプロパティ['collider']追加
 class MYADDON_OT_add_collider(bpy.types.Operator):
@@ -426,8 +421,6 @@ class TOPBAR_MT_my_menu(bpy.types.Menu):
     #サブメニューの描画
     def draw(self, context):
         #トップバーの「エディターメニュー」に項目（オペレーター）を追加
-        self.layout.operator(MYADDON_OT_stretch_vertex.bl_idname, text=MYADDON_OT_stretch_vertex.bl_label)
-        self.layout.operator(MYADDON_OT_create_ico_sphere.bl_idname, text=MYADDON_OT_create_ico_sphere.bl_label)
         self.layout.operator(MYADDON_OT_export_scene.bl_idname, text=MYADDON_OT_export_scene.bl_label)
 
     def submenu(self,context):
@@ -436,14 +429,14 @@ class TOPBAR_MT_my_menu(bpy.types.Menu):
 
 #Blenderに登録するクラスリスト
 classes = (
-    MYADDON_OT_stretch_vertex,
-    MYADDON_OT_create_ico_sphere,
     MYADDON_OT_export_scene,
     TOPBAR_MT_my_menu,
     MYADDON_OT_add_filename,
     OBJECT_PT_file_name,
     OBJECT_PT_collider,
     MYADDON_OT_add_collider,
+    MTADDON_PT_add_enemyPanel,
+    MYADDON_OT_enemyOperator,
 )
 
 #アドオン有効時コールバック

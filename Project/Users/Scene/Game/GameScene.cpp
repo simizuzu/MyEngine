@@ -45,6 +45,8 @@ void GameScene::Initialize()
 	player_ = std::make_unique<Player>();
 	player_->Initialize(camera);
 
+	enemyData_ = LevelLoader::LoadFile("enemyData");
+
 	//衝突マネージャの生成
 	collisionManager_ = std::make_unique<CollisionManager>();
 
@@ -86,7 +88,7 @@ void GameScene::Initialize()
 	colliderObj_->SetModel("collider");*/
 
 	enemyManager_ = std::make_unique<EnemyManager>();
-	enemyManager_.reset(EnemyManager::Create("Resources/csv/enemyPop.csv","mob",camera));
+	enemyManager_.reset(EnemyManager::Create(player_.get(),enemyData_,"mob",camera));
 
 	bulletManager_ = BulletManager::GetInstance();
 
@@ -96,8 +98,6 @@ void GameScene::Initialize()
 void GameScene::Update()
 {
 	GameTimer();
-
-
 
 #ifdef _DEBUG
 	ImGui::Begin("debug");
@@ -133,9 +133,6 @@ void GameScene::Update()
 	switch ( scene )
 	{
 	case GameScene::SCENEFASE::MOVIE:
-		enemyManager_->EnemyNormalEmit(player_.get());
-
-
 		//スタート演出
 		BlackMind();
 		//モデルのムービー演出
@@ -210,7 +207,7 @@ void GameScene::Draw()
 	case GameScene::SCENEFASE::GAME:
 		player_->Draw();
 		//敵の描画
-		enemyManager_->Draw();
+		
 		modelData_->TexDraw();
 		MuzzleFlashRotation();
 		sprite2DReticle->Draw(texReticle_,{ 640,360 },{ 1.5f,1.5f },0,{ 0.5f,0.5f });
@@ -244,6 +241,8 @@ void GameScene::Draw()
 		}
 		index++;
 	}*/
+
+	enemyManager_->Draw();
 }
 
 

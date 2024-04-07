@@ -9,6 +9,9 @@
  * @brief 敵キャラの基底クラス
  */
 
+//クラスの前方宣言
+class Player;
+
 /// <summary>
 /// エネミー
 /// </summary>
@@ -33,6 +36,8 @@ public:
 	virtual void OnCollision() override = 0;
 
 	virtual void HitBullet() = 0;
+
+	virtual void SetPlayer(Player* player) = 0;
 
 	const Sphere& GetSphereCenter() const;
 
