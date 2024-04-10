@@ -37,7 +37,7 @@ void Player::Initialize(Camera* camera)
 	//プレイヤーのトランスフォーム初期化
 	playerTrans.Initialize();
 	//カメラを親に設定
-	//playerTrans.parentMat = &camera_->matCameraWorld_;
+	playerTrans.parentMat = &camera_->matCameraWorld_;
 	playerTrans.SetTranslation({0,100,0});
 
 	//プレイヤーのトランスフォーム初期化
@@ -56,6 +56,7 @@ void Player::Initialize(Camera* camera)
 void Player::Update()
 {
 	gunmodelTranslation = { 0.3f,-0.15f,1.5f };
+	const MyMath::Vector3 scale = {1.5f,1.0f, 1.5f};
 
 	//カメラの回転処理
 	RotateCamera();
@@ -63,11 +64,17 @@ void Player::Update()
 	//レールカメラの移動処理
 	RailCamera();
 
+	//銃のモデルの座標を設定
 	playerTrans.SetTranslation(gunmodelTranslation);
 	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0 });
 	playerTrans.Update(camera_.get());
 
-	shuttleTrans.Update(camera_.get());
+	//スペースシャトルを見える位置の下に設定
+	shuttleTrans.SetTranslation(GetCenterPosition());
+	shuttleTrans.SetScale(scale);
+	shuttleTrans.translation_.y += -2.0f;
+	MyMath::Vector3 vec = translation - oldTranslation;
+	shuttleTrans.LookAtMatrix(vec.Norm(),{ 0,1,0 },camera_.get());
 }
 
 void Player::Draw()
@@ -83,15 +90,26 @@ void Player::Draw()
 void Player::RotateCamera()
 {
 	//スティックのベクトルを取得
-	stickDeadZone = input->GetLeftStickVec();
+	stickDeadZone = input->GetLeftStickVec({0.5f,0.5f});
+
+	rotationSpeed = 0.02f;
 
 	//カメラの回転制御
-	if ( input->InputStick(L_RIGHT))
+	if ( input->InputStick(L_RIGHT) )
 	{
+		if ( input->InputStick(R_LEFT) )
+		{
+			rotationSpeed = 0.01f;
+		}
 		rot.y += rotationSpeed * stickDeadZone.x;
 	}
-	if (  input->InputStick(L_LEFT) )
+
+	if ( input->InputStick(L_LEFT) )
 	{
+		if ( input->InputStick(R_RIGHT) )
+		{
+			rotationSpeed = 0.01f;
+		}
 		rot.y += rotationSpeed * stickDeadZone.x;
 	}
 
@@ -142,7 +160,7 @@ void Player::RotateCamera()
 void Player::OnCollision()
 {
 	//HPを減らす
-	//HP--;
+	HP--;
 
 	//ゼロになったら死亡フラグを立てる
 	if ( HP == zero )
@@ -170,6 +188,7 @@ void Player::SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint)
 
 void Player::RailCamera()
 {
+	oldTranslation = translation;
 	translation = MyMathUtility::SplinePosition(points,timeRate,startIndex);
 
 	nowCount++;
@@ -191,8 +210,7 @@ void Player::RailCamera()
 		}
 	}
 
-	camera_->SetTranslation(shuttleTrans.GetTranslation());
-	shuttleTrans.SetTranslation(translation);
+	camera_->SetTranslation(translation);
 }
 
 MyMath::Vector3 Player::GetCenterPosition() const

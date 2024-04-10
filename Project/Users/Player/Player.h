@@ -89,6 +89,7 @@ public:
 private:
 	MyMath::Vector3 rot;
 	MyMath::Vector3 translation;
+	MyMath::Vector3 oldTranslation;
 	
 	MyMath::Vector3 gunmodelTranslation;
 	MyMath::Vector2 stickDeadZone;
@@ -100,7 +101,6 @@ private:
 	uint8_t HP = 10;
 	bool bulletIntervalFlag = false;
 	bool isDead = false;
-	int8_t pad[ 4 ];
 
 	size_t startIndex = 1;
 	uint32_t startCount = 0;

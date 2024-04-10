@@ -99,6 +99,82 @@ void WorldTransform::CreateConstBuffer()
 	assert(SUCCEEDED(result));
 }
 
+void WorldTransform::LookAtMatrix(const MyMath::Vector3& target,const MyMath::Vector3& up,Camera* camera)
+{
+	HRESULT result;
+	MyMath::Matrix4 matScale, matRot, matTrans;
+	MyMath::Vector3 target_ = translation_ + target;
+
+	//スケール、平行移動行列の計算
+	matScale = MyMathUtility::MakeScaling(scale_);
+	matTrans = MyMathUtility::MakeTranslation(translation_);
+
+	//X軸,Y軸,Z軸,Direction(距離)
+	MyMath::Vector3 X, Y, Z, D;
+	D = target_ - translation_;
+	D = D.Norm();
+	Y = up.Norm();
+	X = Y.cross(D);
+	X = X.Norm();
+	Z = X.cross(Y);
+	Z = Z.Norm();
+
+	//新しく回転行列を計算する
+	matRot.m[ 0 ][ 0 ] = X.x;
+	matRot.m[ 0 ][ 1 ] = X.y;
+	matRot.m[ 0 ][ 2 ] = X.z;
+	matRot.m[ 0 ][ 3 ] = 0.0f;
+
+	matRot.m[ 1 ][ 0 ] = Y.x;
+	matRot.m[ 1 ][ 1 ] = Y.y;
+	matRot.m[ 1 ][ 2 ] = Y.z;
+	matRot.m[ 0 ][ 3 ] = 0.0f;
+
+	matRot.m[ 2 ][ 0 ] = Z.x;
+	matRot.m[ 2 ][ 1 ] = Z.y;
+	matRot.m[ 2 ][ 2 ] = Z.z;
+	matRot.m[ 2 ][ 3 ] = 0.0f;
+
+	matRot.m[ 3 ][ 0 ] = 0.0f;
+	matRot.m[ 3 ][ 1 ] = 0.0f;
+	matRot.m[ 3 ][ 2 ] = 0.0f;
+	matRot.m[ 3 ][ 3 ] = 1.0f;
+
+	//ワールド行列の合成
+	matWorld = MyMathUtility::MakeIdentity();
+	matWorld *= matScale;
+	matWorld *= matRot;
+	matWorld *= matTrans;
+
+	//親行列の指定がある場合は、掛け算する
+	if ( parent != nullptr )
+	{
+		matWorld *= parent->matWorld;
+	}
+
+	//親行列の指定がある場合は、掛け算する
+	if ( parentMat != nullptr )
+	{
+		matWorld *= *parentMat;
+	}
+
+	//マットビュー
+	const MyMath::Matrix4 matView = camera->GetMatView();
+	//マットプロジェクション
+	const MyMath::Matrix4 matProjection = camera->GetMatProjection();
+	//カメラ座標
+	const MyMath::Vector3& cameraPos = camera->GetEye();
+
+	// 定数バッファへデータ転送
+	ConstBufferDataB0* constMap = nullptr;
+	result = constBuffer_->Map(0,nullptr,( void** ) &constMap);
+	assert(SUCCEEDED(result));
+	constMap->viewproj = matView * matProjection;
+	constMap->world = matWorld;
+	constMap->cameraPos = cameraPos;
+	constBuffer_->Unmap(0,nullptr);
+}
+
 void WorldTransform::SetTranslation(MyMath::Vector3 translation)
 {
 	translation_ = translation;

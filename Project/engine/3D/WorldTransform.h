@@ -35,6 +35,14 @@ public:
 	//更新
 	void Update(Camera* camera,bool billboradFlag = false);
 
+	/// <summary>
+	/// モデルに注視点を設定する
+	/// </summary>
+	/// <param name="target">向かせたい方向</param>
+	/// <param name="up">上方向ベクトル</param>
+	/// <param name="camera">カメラ</param>
+	void LookAtMatrix(const MyMath::Vector3& target, const MyMath::Vector3& up,Camera* camera);
+
 	//setter
 	void SetTranslation(MyMath::Vector3 translation);
 	void SetScale(MyMath::Vector3 scale);
