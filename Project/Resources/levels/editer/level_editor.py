@@ -115,33 +115,6 @@ class DrawCollider:
         #描画
         batch.draw(shader)
 
-class MTADDON_PT_add_enemyPanel(bpy.types.Panel):
-    bl_idname = "myaddon.myaddon_pt_add_enemyPanel"
-    bl_label = "ENEMY NAME of the Panel"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "Tab"
-
-    def draw(self, context):
-        layout = self.layout
-
-        layout.oparator("wm.template_oparator")
-
-class MYADDON_OT_enemyOperator(bpy.types.Oparator):
-    bl_label = "Template Oparator"
-    bl_idname = "wm.template_oparator"
-
-    def invoke(self, context, event):
-        wm = context.window_manager
-        return wm.invoke_props_dialog(self)
-    
-    def draw(self, context):
-        layout = self.layout
-
-    def execute(self,context):
-
-        return {"FINISHED"} 
-
 #オペレータ カスタムプロパティ['collider']追加
 class MYADDON_OT_add_collider(bpy.types.Operator):
     bl_idname = "myaddon.myaddon_ot_add_collider"
@@ -435,8 +408,6 @@ classes = (
     OBJECT_PT_file_name,
     OBJECT_PT_collider,
     MYADDON_OT_add_collider,
-    MTADDON_PT_add_enemyPanel,
-    MYADDON_OT_enemyOperator,
 )
 
 #アドオン有効時コールバック

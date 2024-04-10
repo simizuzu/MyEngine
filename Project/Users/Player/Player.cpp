@@ -31,11 +31,17 @@ void Player::Initialize(Camera* camera)
 	playerObj.reset(ObjObject3d::Create());
 	playerObj->SetModel("gun",true);
 
+	shuttleObj.reset(ObjObject3d::Create());
+	shuttleObj->SetModel("SpaceShuttle");
+
 	//プレイヤーのトランスフォーム初期化
 	playerTrans.Initialize();
 	//カメラを親に設定
-	playerTrans.parentMat = &camera_->matCameraWorld_;
+	//playerTrans.parentMat = &camera_->matCameraWorld_;
 	playerTrans.SetTranslation({0,100,0});
+
+	//プレイヤーのトランスフォーム初期化
+	shuttleTrans.Initialize();
 
 	hpUI = std::make_unique<Sprite>();
 	hpUI->Initialize();
@@ -61,16 +67,15 @@ void Player::Update()
 	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0 });
 	playerTrans.Update(camera_.get());
 
-#ifdef _DEBUG
-	ImGui::Begin("Player");
-	ImGui::Text("CameraEye(%f,%f,%f)",playerTrans.GetTranslation().x,playerTrans.GetTranslation().y,playerTrans.GetTranslation().z);
-	ImGui::End();
-#endif
+	shuttleTrans.Update(camera_.get());
 }
 
 void Player::Draw()
 {
+	//銃のモデル描画
 	playerObj->Draw(&playerTrans);
+
+	shuttleObj->Draw(&shuttleTrans);
 
 	hpUI->Draw(texHp,{10,600},hpSize);
 }
@@ -186,7 +191,8 @@ void Player::RailCamera()
 		}
 	}
 
-	camera_->SetTranslation(translation);
+	camera_->SetTranslation(shuttleTrans.GetTranslation());
+	shuttleTrans.SetTranslation(translation);
 }
 
 MyMath::Vector3 Player::GetCenterPosition() const

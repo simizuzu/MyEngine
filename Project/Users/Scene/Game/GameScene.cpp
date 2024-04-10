@@ -84,9 +84,6 @@ void GameScene::Initialize()
 	spriteBlackUp_->SetSize({ 1280,100 });
 	spriteBlackDown_->SetSize({ 1280,100 });
 
-	/*colliderObj_.reset(ObjObject3d::Create());
-	colliderObj_->SetModel("collider");*/
-
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_.reset(EnemyManager::Create(player_.get(),enemyData_,"mob",camera));
 
@@ -155,7 +152,6 @@ void GameScene::Update()
 				trans.Initialize();
 				trans.SetTranslation(enemy->GetCenterPosition());
 				trans.SetScale({ 5,5,5 });
-				//colliderTrans.push_back(trans);
 			}
 		}
 		cameraTimeRate = player_->timeRate;
@@ -184,11 +180,6 @@ void GameScene::Update()
 		break;
 	}
 	enemyManager_->Update();
-
-	/*for ( WorldTransform& trans : colliderTrans )
-	{
-		trans.Update(camera);
-	}*/
 }
 
 void GameScene::Draw()
@@ -206,8 +197,9 @@ void GameScene::Draw()
 		break;
 	case GameScene::SCENEFASE::GAME:
 		player_->Draw();
+
 		//敵の描画
-		
+		enemyManager_->Draw();
 		modelData_->TexDraw();
 		MuzzleFlashRotation();
 		sprite2DReticle->Draw(texReticle_,{ 640,360 },{ 1.5f,1.5f },0,{ 0.5f,0.5f });
@@ -231,18 +223,6 @@ void GameScene::Draw()
 		spriteBlackDown_->Draw(texBlackDown_,blackDownPos,{ blackSize.x * minus1,blackSize.y });
 	}
 	spriteBlack_->Draw(texBlackUp_,blackUpPos,windowSize);
-
-	/*size_t index = 0;
-	for ( WorldTransform& trans : colliderTrans )
-	{
-		if (! flags[ index ] )
-		{
-			colliderObj_->Draw(&trans);
-		}
-		index++;
-	}*/
-
-	enemyManager_->Draw();
 }
 
 

@@ -122,11 +122,12 @@ private:
 
 	//プレイヤーのモデル
 	std::unique_ptr<ObjObject3d> playerObj;
+	std::unique_ptr<ObjObject3d> shuttleObj;
 
 	//プレイヤー用ワールドトランスフォーム
 	WorldTransform playerTrans;
-	//3Dレティクル用ワールドトランスフォーム
-	WorldTransform worldTransform3DReticle;
+	//スペースシャトル用ワールドトランスフォーム
+	WorldTransform shuttleTrans;
 
 private:
 	//代入演算子削除

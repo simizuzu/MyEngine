@@ -393,9 +393,6 @@
     <ClCompile Include="engine\Base\Pipeline\Pipeline.cpp">
       <Filter>Engine\ソース ファイル\Base\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="engine\Scene\MainGame.cpp">
-      <Filter>Engine\ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="engine\3D\Model\Manager\ModelManager.cpp">
       <Filter>Engine\ソース ファイル\3D\Model</Filter>
     </ClCompile>
@@ -446,6 +443,9 @@
     </ClCompile>
     <ClCompile Include="Users\Bullet\BaseBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Scene\MainGame.cpp">
+      <Filter>Application\ソースファイル\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -584,9 +584,6 @@
     <ClInclude Include="engine\Base\Pipeline\Shader.h">
       <Filter>Engine\ヘッダー ファイル\Base\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="engine\Scene\MainGame.h">
-      <Filter>Engine\ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="engine\2D\PostEffect\PostEffect.h">
       <Filter>Engine\ヘッダー ファイル\2D\PostEffect</Filter>
     </ClInclude>
@@ -646,6 +643,9 @@
     </ClInclude>
     <ClInclude Include="Users\Bullet\BaseBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Scene\MainGame.h">
+      <Filter>Application\ヘッダーファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
