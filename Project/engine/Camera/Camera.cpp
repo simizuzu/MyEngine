@@ -16,9 +16,6 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief Cameraの処理について書いてあります
  */
 
-ViewProjection viewPro;
-ConstBufferDataViewProjection ConstMap;
-
 void Camera::Initialize()
 {
 	eye_ = { 0,0,-distance_ };//視点座標
@@ -129,9 +126,9 @@ void Camera::UpdateMatrix()
 void Camera::TransferMatrix()
 {
 	// 定数バッファに書き込み
-	ConstMap.view = matViewInverse_;
-	ConstMap.projection = matProjection_;
-	ConstMap.cameraPos = eye_;
+	constMap.view = matViewInverse_;
+	constMap.projection = matProjection_;
+	constMap.cameraPos = eye_;
 }
 
 #pragma region Getter&Setter
