@@ -27,18 +27,18 @@ void TransitionScene::Finalize()
 
 void TransitionScene::Initialize()
 {
-	//input = Input::GetInstance();
+	input = Input::GetInstance();
 
 	spriteBlack_ = std::make_unique<Sprite>();
-	/*spriteLineLeft_ = std::make_unique<Sprite>();
+	spriteLineLeft_ = std::make_unique<Sprite>();
 	spriteLineRight_ = std::make_unique<Sprite>();
 	spriteCircle_ = std::make_unique<Sprite>();
 	spriteTriangleLeft_ = std::make_unique<Sprite>();
 	spriteTriangleRight_ = std::make_unique<Sprite>();
-	spriteWave_ = std::make_unique<Sprite>();*/
+	spriteWave_ = std::make_unique<Sprite>();
 
 	spriteBlack_->Initialize();
-	/*spriteLineLeft_->Initialize();
+	spriteLineLeft_->Initialize();
 	spriteLineRight_->Initialize();
 	spriteCircle_->Initialize();
 	spriteTriangleLeft_->Initialize();
@@ -51,7 +51,7 @@ void TransitionScene::Initialize()
 	color_ = { 0.0f,0.0f,0.0f,0.0f };
 	lineColor_ = { 1.0f,1.0f,1.0f,1.0f };
 	circleColor_ = { 0.3f,1.0f,0.3f,0.3f };
-	wavePos_ = { 0.0f,-730.0f };*/
+	wavePos_ = { 0.0f,-730.0f };
 }
 
 void TransitionScene::DrawBlackOut()

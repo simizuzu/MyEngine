@@ -29,13 +29,6 @@ struct ConstBufferDataViewProjection
 	MyMath::Matrix4 projection;
 	// カメラ座標（ワールド座標）
 	MyMath::Vector3 cameraPos;
-
-	ConstBufferDataViewProjection() = default;
-
-	//代入演算子削除
-	ConstBufferDataViewProjection& operator=(const ConstBufferDataViewProjection&) = delete;
-	//コピーコンストラクタ削除
-	ConstBufferDataViewProjection(const ConstBufferDataViewProjection&) = delete;
 };
 
 /// <summary>
@@ -47,13 +40,6 @@ struct ViewProjection
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuff_;
 	// マッピング済みアドレス
 	ConstBufferDataViewProjection* constBuffMap = nullptr;
-
-	ViewProjection() = default;
-
-	//代入演算子削除
-	ViewProjection& operator=(const ViewProjection&) = delete;
-	//コピーコンストラクタ削除
-	ViewProjection(const ViewProjection&) = delete;
 };
 
 /// <summary>
