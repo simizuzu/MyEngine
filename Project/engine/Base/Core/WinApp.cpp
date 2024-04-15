@@ -103,8 +103,12 @@ void WinApp::Delete()
 
 WinApp* WinApp::GetInstance()
 {
-	static WinApp instance;
-	return &instance;
+	if ( winApp_ == nullptr )
+	{
+		winApp_ = new WinApp();
+	}
+
+	return winApp_;
 }
 
 HWND WinApp::GetHwnd() const 
