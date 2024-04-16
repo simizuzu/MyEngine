@@ -222,7 +222,6 @@ void GameScene::Draw()
 	spriteBlack_->Draw(texBlackUp_,blackUpPos,windowSize);
 }
 
-
 void GameScene::Finalize()
 {
 }
@@ -418,23 +417,3 @@ void GameScene::MuzzleFlashRotation()
 	}
 }
 
-//void GameScene::DamagePlayerEffect()
-//{
-//	if(!playerHit )
-//	{
-//		if ( color.w != 0.0f )
-//		{
-//			color.w -= 0.25f;
-//		}
-//		else if ( color.w < 0.0f )
-//		{
-//			color.w = 0.0f;
-//		}
-//	}
-//
-//	if ( playerHit )
-//	{
-//		color.w = 1.0f;
-//		playerHit = false;
-//	}
-//}
