@@ -58,7 +58,7 @@ private:
 
 	std::unique_ptr<TitleAnimation> titleAnimation_;
 
-	TransitionScene* transition_ = nullptr;
+	std::unique_ptr <TransitionScene> transition_;
 
 	TextureData texClear;
 	std::unique_ptr<Sprite> spriteClear;

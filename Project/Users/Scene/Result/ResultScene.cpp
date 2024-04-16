@@ -23,7 +23,7 @@ void ResultScene::Initialize()
 	titleAnimation_ = std::make_unique<TitleAnimation>();
 	titleAnimation_->Initalize(camera.get());
 
-	transition_ = TransitionScene::GetInstance();
+	transition_ = std::make_unique<TransitionScene>();
 	transition_->Initialize();
 
 	texClear = TextureManager::Load("Resources/Texture/Scene/GameClear.png");

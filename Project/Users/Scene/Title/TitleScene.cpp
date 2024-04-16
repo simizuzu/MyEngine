@@ -24,7 +24,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
 	titleAnimation_ = std::make_unique<TitleAnimation>();
 	titleAnimation_->Initalize(camera.get());
 
-	transition_ = TransitionScene::GetInstance();
+	transition_ = std::make_unique<TransitionScene>();
 	transition_->Initialize();
 
 	sceneManager_ = SceneManager::GetInstance();
@@ -85,5 +85,4 @@ void TitleScene::Finalize()
 {
 	blackoutTimer = 60;
 	titleAnimation_->Finalize();
-	transition_->Finalize();
 }

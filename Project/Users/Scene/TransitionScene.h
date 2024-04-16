@@ -24,8 +24,6 @@ public:
 	//初期化
 	void Initialize();
 
-	void Finalize();
-
 	/// <summary>
 	/// 暗転時の挙動
 	/// </summary>
@@ -41,12 +39,6 @@ public:
 	/// </summary>
 	void GameOver();
 
-public:
-	/// <summary>
-	/// インスタンス生成
-	/// </summary>
-	static TransitionScene* GetInstance();
-
 private:
 	//リセット処理
 	void Reset();
@@ -59,14 +51,7 @@ private:
 
 	//暗幕
 	std::unique_ptr<Sprite> spriteBlack_;
-	//縦のライン
-	std::unique_ptr<Sprite> spriteLineLeft_;
-	std::unique_ptr<Sprite> spriteLineRight_;
-	//回す円のスプライト
-	std::unique_ptr<Sprite> spriteCircle_;
-	//背景の三角形
-	std::unique_ptr<Sprite> spriteTriangleLeft_;
-	std::unique_ptr<Sprite> spriteTriangleRight_;
+
 	//ゲームオーバーの波線
 	std::unique_ptr<Sprite> spriteWave_;
 

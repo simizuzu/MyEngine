@@ -51,7 +51,7 @@ private:
 
 	std::unique_ptr<TitleAnimation> titleAnimation_;
 
-	TransitionScene* transition_ = nullptr;
+	std::unique_ptr <TransitionScene> transition_;
 
 	//ImGuiデバッグ用
 	MyMath::Vector3 cameraPos = { 0,0,0 };

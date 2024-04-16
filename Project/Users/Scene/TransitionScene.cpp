@@ -9,40 +9,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief TransitionSceneの処理について書いてあります
  */
 
-TransitionScene* TransitionScene::instance = nullptr;
-
-TransitionScene* TransitionScene::GetInstance()
-{
-	if ( instance == nullptr )
-	{
-		instance = new TransitionScene();
-	}
-	return instance;
-}
-
-void TransitionScene::Finalize()
-{
-	delete instance;
-}
-
 void TransitionScene::Initialize()
 {
 	input = Input::GetInstance();
 
 	spriteBlack_ = std::make_unique<Sprite>();
-	spriteLineLeft_ = std::make_unique<Sprite>();
-	spriteLineRight_ = std::make_unique<Sprite>();
-	spriteCircle_ = std::make_unique<Sprite>();
-	spriteTriangleLeft_ = std::make_unique<Sprite>();
-	spriteTriangleRight_ = std::make_unique<Sprite>();
 	spriteWave_ = std::make_unique<Sprite>();
 
 	spriteBlack_->Initialize();
-	spriteLineLeft_->Initialize();
-	spriteLineRight_->Initialize();
-	spriteCircle_->Initialize();
-	spriteTriangleLeft_->Initialize();
-	spriteTriangleRight_->Initialize();
 	spriteWave_->Initialize();
 
 	texBlack_ = TextureManager::Load("Resources/Texture/white1x1.png");
@@ -83,12 +57,6 @@ void TransitionScene::DrawWhiteOut()
 		color_.w -= texAlpha.black1x1Alpha;
 		lineColor_.w += texAlpha.lineAlpha;
 		adjustAlpha_ -= texAlpha.adjustAlpha;
-
-		spriteLineLeft_->SetColor(lineColor_);
-		spriteLineRight_->SetColor(lineColor_);
-
-		spriteTriangleLeft_->SetColor({ red,green,blue,lineColor_.w - adjustAlpha_ });
-		spriteTriangleRight_->SetColor({ red,green,blue,lineColor_.w - adjustAlpha_ });
 
 		spriteBlack_->SetColor(color_);
 		spriteBlack_->Draw(texBlack_,texSizeZero,windowSize);
