@@ -9,22 +9,15 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief Clear時の動きに関する処理が書かれてあります
  */
 
-ClearScene* ClearScene::GetInstance()
-{
-	static ClearScene instance;
-	return &instance;
-}
-
 void ClearScene::Initialize(Camera* camera)
 {
 	assert(camera);
-	camera_=camera;
+	//camera_=camera;
 
-	clearObj_=FbxObject3d::Create();
+	clearObj_.reset(FbxObject3d::Create());
 	clearObj_->SetModel("clear");
 	clearObj_->PlayAnimation();
-	//clearObj_->SetScale({ 0.009f,0.009f ,0.009f });
-
+	
 	spriteBlackUp = std::make_unique<Sprite>();
 	spriteBlackDown = std::make_unique<Sprite>();
 
@@ -43,37 +36,36 @@ void ClearScene::Initialize(Camera* camera)
 
 void ClearScene::Update()
 {
-	sceneTimer++;
-
-	if ( sceneTimer > comparisonNum )
-	{
-		drawFlag = false;
-	}
-	camera_->SetEye({ 0.0f,2.0f,3.0f });
-	camera_->SetTarget({ 0.0f,2,-10 });
-
-	BlackMind();
-	clearTrans.SetTranslation({ modelPos_ });
-	clearTrans.Update(camera_);
-	clearObj_->Update();
-
-#ifdef _DEBUG
-	ImGui::Begin("sceneTimer");
-	ImGui::Text("sceneTimer:%d",sceneTimer);
-	ImGui::End();
-#endif 
-
+//	sceneTimer++;
+//
+//	if ( sceneTimer > comparisonNum )
+//	{
+//		drawFlag = false;
+//	}
+//	camera_->SetEye({ 0.0f,2.0f,3.0f });
+//	camera_->SetTarget({ 0.0f,2,-10 });
+//
+//	BlackMind();
+//	clearTrans.SetTranslation({ modelPos_ });
+//	clearTrans.Update(camera_);
+//	clearObj_->Update();
+//
+//#ifdef _DEBUG
+//	ImGui::Begin("sceneTimer");
+//	ImGui::Text("sceneTimer:%d",sceneTimer);
+//	ImGui::End();
+//#endif 
 }
 
 void ClearScene::Draw()
 {
-	if ( drawFlag )
+	/*if ( drawFlag )
 	{
 		clearObj_->Draw(&clearTrans);
 	}
 
 	spriteBlackUp->Draw(texBlackUp,blackUpPos,{ blackSize.x,blackSize.y });
-	spriteBlackDown->Draw(texBlackDown,blackDownPos,{ -blackSize.x ,blackSize.y });
+	spriteBlackDown->Draw(texBlackDown,blackDownPos,{ -blackSize.x ,blackSize.y });*/
 }
 
 void ClearScene::GameClear()
@@ -83,10 +75,10 @@ void ClearScene::GameClear()
 
 void ClearScene::BlackMind()
 {
-	blackSize.x += blackTimer_;
+	//blackSize.x += blackTimer_;
 
-	if ( blackSize.x > stopBlackSize )
-	{
-		blackSize.x = stopBlackSize;
-	}
+	//if ( blackSize.x > stopBlackSize )
+	//{
+	//	blackSize.x = stopBlackSize;
+	//}
 }

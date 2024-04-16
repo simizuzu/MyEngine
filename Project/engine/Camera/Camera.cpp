@@ -9,15 +9,10 @@ MYENGINE_SUPPRESS_WARNINGS_END
 #include "DirectXCommon.h"
 #include "WinApp.h"
 
-#include "WorldTransform.h"
-
  /**
  * @file Camera.cpp
  * @brief Cameraの処理について書いてあります
  */
-
-ViewProjection viewPro;
-ConstBufferDataViewProjection ConstMap;
 
 void Camera::Initialize()
 {
@@ -32,9 +27,9 @@ void Camera::Initialize()
 	aspect = 
 		static_cast<float>(WinApp::GetInstance()->window_width) /
 		static_cast<float>(WinApp::GetInstance()->window_height);
-
+	//定数バッファ生成
 	CreateConstBuffer();
-	Map();
+	//ビュー行列の初期値設定
 	UpdateLookAt();
 }
 
@@ -42,11 +37,11 @@ void Camera::Update(bool isMatrix)
 {
 	if ( isMatrix )
 	{
-		UpdateMatrix();
+		UpdateMatrix();	//ワールド行列方式
 	}
 	else
 	{
-		UpdateLookAt();
+		UpdateLookAt();	//ビュー行列方式(デフォルト)
 	}
 }
 
@@ -74,16 +69,11 @@ void Camera::CreateConstBuffer()
 		&resDesc,
 		D3D12_RESOURCE_STATE_GENERIC_READ,
 		nullptr,
-		IID_PPV_ARGS(viewPro.constBuff_.ReleaseAndGetAddressOf()));
+		IID_PPV_ARGS(constBuff_.ReleaseAndGetAddressOf()));
 	assert(SUCCEEDED(result));
-}
-
-void Camera::Map()
-{
-	HRESULT result;
 
 	//定数バッファのマッピング
-	result = viewPro.constBuff_->Map(0, nullptr, (void**)&viewPro.constBuffMap);//マッピング
+	result = constBuff_->Map(0,nullptr,( void** ) &constBuffMap);//マッピング
 	assert(SUCCEEDED(result));
 }
 
@@ -99,6 +89,7 @@ void Camera::UpdateLookAt()
 	// 定数バッファに転送
 	TransferMatrix();
 }
+
 void Camera::UpdateMatrix()
 {
 	//回転、平行移動行列の計算
@@ -129,9 +120,9 @@ void Camera::UpdateMatrix()
 void Camera::TransferMatrix()
 {
 	// 定数バッファに書き込み
-	ConstMap.view = matViewInverse_;
-	ConstMap.projection = matProjection_;
-	ConstMap.cameraPos = eye_;
+	constBuffMap->view = matViewInverse_;
+	constBuffMap->projection = matProjection_;
+	constBuffMap->cameraPos = eye_;
 }
 
 #pragma region Getter&Setter

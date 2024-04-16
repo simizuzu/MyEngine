@@ -15,12 +15,6 @@
 class ClearScene
 {
 public:
-	/// <summary>
-	/// インスタンス作成
-	/// </summary>
-	static ClearScene* GetInstance();
-
-public:
 	ClearScene() = default;
 	~ClearScene() = default;
 
@@ -59,8 +53,7 @@ private:
 	Camera* camera_ = nullptr;
 
 	//モデル
-	FbxObject3d* clearObj_ = nullptr;
-	FbxModel* clearModel_ = nullptr;
+	std::unique_ptr <FbxObject3d> clearObj_;
 	WorldTransform clearTrans;
 
 	//テクスチャ

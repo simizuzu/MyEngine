@@ -117,9 +117,9 @@ private:
 
 private: // メンバ変数
 	Input* input_ = nullptr;
-	Camera* camera = nullptr;
+	std::unique_ptr <Camera> camera;
 	TransitionScene* transition_ = nullptr;
-	ClearScene* clearDirection = nullptr;
+	std::unique_ptr <ClearScene> clearDirection;
 
 	LevelData* enemyData_;
 

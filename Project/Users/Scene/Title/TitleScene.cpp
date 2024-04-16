@@ -85,4 +85,5 @@ void TitleScene::Finalize()
 {
 	blackoutTimer = 60;
 	titleAnimation_->Finalize();
+	transition_->Finalize();
 }

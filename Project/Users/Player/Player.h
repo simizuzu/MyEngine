@@ -118,7 +118,7 @@ private:
 	TextureData texHp;
 
 	//カメラ
-	std::unique_ptr<Camera> camera_;
+	Camera* camera_ = nullptr;
 
 	//プレイヤーのモデル
 	std::unique_ptr<ObjObject3d> playerObj;

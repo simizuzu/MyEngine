@@ -15,7 +15,7 @@ void Player::Initialize(Camera* camera)
 	assert(camera);
 
 	//カメラをセット
-	camera_.reset(camera);
+	camera_ = camera;
 	//操作関連の初期化
 	input = Input::GetInstance();
 	
@@ -67,14 +67,14 @@ void Player::Update()
 	//銃のモデルの座標を設定
 	playerTrans.SetTranslation(gunmodelTranslation);
 	playerTrans.SetRotation({ -10.0f * MyMathUtility::degree2Radius,-20.0f * MyMathUtility::degree2Radius,0 });
-	playerTrans.Update(camera_.get());
+	playerTrans.Update(camera_);
 
 	//スペースシャトルを見える位置の下に設定
 	shuttleTrans.SetTranslation(GetCenterPosition());
 	shuttleTrans.SetScale(scale);
 	shuttleTrans.translation_.y += -2.0f;
 	MyMath::Vector3 vec = translation - oldTranslation;
-	shuttleTrans.LookAtMatrix(vec.Norm(),{ 0,1,0 },camera_.get());
+	shuttleTrans.LookAtMatrix(vec.Norm(),{ 0,1,0 },camera_);
 }
 
 void Player::Draw()

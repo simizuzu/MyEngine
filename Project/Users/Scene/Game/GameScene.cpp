@@ -11,7 +11,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief GameSceneの処理が書かれてあります
  */
 
-	void GameScene::GameTimer()
+void GameScene::GameTimer()
 {
 	oneSecond--;
 	if ( oneSecond == 0 )
@@ -30,20 +30,17 @@ void GameScene::Initialize()
 
 	input_ = Input::GetInstance();
 
-	camera = new Camera();
+	camera = std::make_unique<Camera>();
 	camera->Initialize();
 
-	transition_ = TransitionScene::GetInstance();
-	transition_->Initialize();
-
-	clearDirection = ClearScene::GetInstance();
-	clearDirection->Initialize(camera);
+	clearDirection = std::make_unique<ClearScene>();
+	clearDirection->Initialize(camera.get());
 
 	modelData_ = std::make_unique<GameObject>();
-	modelData_->Initialize(camera);
+	modelData_->Initialize(camera.get());
 
 	player_ = std::make_unique<Player>();
-	player_->Initialize(camera);
+	player_->Initialize(camera.get());
 
 	enemyData_ = LevelLoader::LoadFile("enemyData");
 
@@ -85,7 +82,7 @@ void GameScene::Initialize()
 	spriteBlackDown_->SetSize({ 1280,100 });
 
 	enemyManager_ = std::make_unique<EnemyManager>();
-	enemyManager_.reset(EnemyManager::Create(player_.get(),enemyData_,"mob",camera));
+	enemyManager_.reset(EnemyManager::Create(player_.get(),enemyData_,"mob",camera.get()));
 
 	bulletManager_ = BulletManager::GetInstance();
 
@@ -225,7 +222,6 @@ void GameScene::Draw()
 	spriteBlack_->Draw(texBlackUp_,blackUpPos,windowSize);
 }
 
-
 void GameScene::Finalize()
 {
 }
@@ -295,7 +291,7 @@ void GameScene::StopTimer()
 void GameScene::ModelMovie()
 {
 	startCount++;
-	robotoTrans.Update(camera);
+	robotoTrans.Update(camera.get());
 	robotoObj_->Update();
 	camera->SetEye({ -2.2f,1,-4 });
 	camera->SetTarget({ -3,2,0 });
@@ -420,24 +416,4 @@ void GameScene::MuzzleFlashRotation()
 		}
 	}
 }
-//
-//void GameScene::DamagePlayerEffect()
-//{
-//	if(!playerHit )
-//	{
-//		if ( color.w != 0.0f )
-//		{
-//			color.w -= 0.25f;
-//		}
-//		else if ( color.w < 0.0f )
-//		{
-//			color.w = 0.0f;
-//		}
-//	}
-//
-//	if ( playerHit )
-//	{
-//		color.w = 1.0f;
-//		playerHit = false;
-//	}
-//}
+

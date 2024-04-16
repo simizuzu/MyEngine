@@ -56,10 +56,9 @@ void TitleAnimation::Initalize(Camera* camera)
 	pilotObj_.reset(FbxObject3d::Create());
 	pilotObj_->SetModel("pilot");
 	pilotObj_->PlayAnimation();
-	//pilotObj_->SetScale({ 0.006f,0.006f ,0.006f });
+
 	pilotTrans.SetScale({ 0.006f,0.006f ,0.006f });
 	pilotTrans.SetTranslation({ -0.9f,0.0f,-1.2f });
-	//pilotObj_->SetTranslation({ -0.9f,0.0f,-1.2f });
 
 #pragma endregion
 	rotation = zero;
