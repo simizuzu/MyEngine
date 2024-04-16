@@ -131,7 +131,6 @@ class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
 
         # ファイルパスの文字列を空に設定する
         context.scene.filepath = ""
-
         return {'FINISHED'}
     
 class ADDONNAME_PT_EnemyPanel(bpy.types.Panel):
