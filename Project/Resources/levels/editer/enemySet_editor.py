@@ -21,29 +21,6 @@ bl_info = {
     "category": "Object"
 }
 
-class SAMPLE27_OT_Nop(bpy.types.Operator):
-
-    bl_idname = "object.sample27_nop"
-    bl_label = "NOP"
-    bl_description = "何もしない"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        return {'FINISHED'}
-
-    
-class SAMPLE27_MT_NopMenu(bpy.types.Menu):
-
-    bl_idname = "SAMPLE27_MT_NopMenu"
-    bl_label = "NOP メニュー"
-    bl_description = "何もしないオペレータを複数持つメニュー"
-
-    def draw(self, context):
-        layout = self.layout
-        # メニュー項目の追加
-        for i in range(3):
-            layout.operator(SAMPLE27_OT_Nop.bl_idname, text=("項目 %d" % (i)))
- 
 class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
     bl_label = "追加"
     bl_idname = "wm.template_operator"
@@ -60,8 +37,14 @@ class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
         items=[
             ('OP1', "NormalEnemy", "通常の敵を追加"),
             ('OP2', "BossEnemy", "ボスを追加"),
+            ('OP3', "MoveEnemy", "動く敵を追加")
         ]
     )
+
+    val_x : bpy.props.FloatProperty(name="X軸")
+    val_y : bpy.props.FloatProperty(name="Y軸")
+    val_z : bpy.props.FloatProperty(name="Z軸")
+    
     def invoke(self, context, event):
         wm = context.window_manager
         return wm.invoke_props_dialog(self)
@@ -70,17 +53,47 @@ class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
         layout = self.layout
         #敵を追加
         layout.prop(self, "preset_enum")
+
+        layout.prop(self,"val_x")
+        layout.prop(self,"val_y")
+        layout.prop(self,"val_z")
     
     def execute(self, context):
-        if self.preset_enum == 'OP1':
+        if self.preset_enum == 'OP1':      
+            #正方形を追加
             bpy.ops.mesh.primitive_cube_add()
+
             #['file_name']カスタムプロパティを追加
-            context.object["file_name"] = "normal"
+            context.object["file_name"] = "normal"            
 
         if self.preset_enum == 'OP2':
+            #ICO球を追加
             bpy.ops.mesh.primitive_ico_sphere_add()
+
             #['file_name']カスタムプロパティを追加
             context.object["file_name"] = "boss"
+
+        if self.preset_enum == 'OP3':
+            bpy.ops.mesh.primitive_uv_sphere_add(radius=0.5)
+            planet = context.object
+            bpy.ops.curve.primitive_bezier_curve_add()
+            orbit = context.object
+            
+            fp = planet.constraints.new('FOLLOW_PATH')
+            fp.target = orbit
+            fp.use_fixed_location = True
+            fp.use_curve_follow = True
+            fcurve = fp.driver_add("offset_factor")
+            fcurve.driver.expression = "(frame / %d) %% 1" % 50
+
+            #['file_name']カスタムプロパティを追加
+            context.object["file_name"] = "move"
+
+        objects = [object for object in context.selected_objects]
+        for object in objects:
+            object.location.x += self.val_x
+            object.location.y += self.val_y
+            object.location.z += self.val_z
 
         return {'FINISHED'}
     
@@ -99,8 +112,6 @@ class ADDONNAME_PT_EnemyPanel(bpy.types.Panel):
 classes = {
        ADDONNAME_PT_EnemyPanel,
        ADDONAME_OT_EnemyOperator,
-       SAMPLE27_OT_Nop,
-       SAMPLE27_MT_NopMenu,
 }
 
 #アドオン有効時コールバック
