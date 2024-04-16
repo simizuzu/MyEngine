@@ -26,13 +26,10 @@ class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
     bl_idname = "wm.template_operator"
     bl_options = {"REGISTER", "UNDO"}
 
-    min=0.0
-    max=0.0
-    
     #プロパティを設定
     preset_enum : bpy.props.EnumProperty(
         name="敵を選択",
-        description= "Select Enemy",
+        description= "敵を選択して生成するプロパティ",
         #属性分け
         items=[
             ('OP1', "NormalEnemy", "通常の敵を追加"),
@@ -44,47 +41,84 @@ class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
     val_x : bpy.props.FloatProperty(name="X軸")
     val_y : bpy.props.FloatProperty(name="Y軸")
     val_z : bpy.props.FloatProperty(name="Z軸")
+
+    bpy.types.Scene.filepath = bpy.props.StringProperty(
+        name= "ファイルパス",
+        description= "モデルのファイルパスを指定して生成するプロパティ",
+        default= "",
+        maxlen=1024, #最大文字数
+        subtype="FILE_PATH",
+        options={'SKIP_SAVE'}
+    )
     
     def invoke(self, context, event):
         wm = context.window_manager
-        return wm.invoke_props_dialog(self)
+        return wm.invoke_props_dialog(self, width=400)# ダイアログの幅を調整するために width を設定
     
     def draw(self, context):
         layout = self.layout
+        scene = context.scene
         #敵を追加
         layout.prop(self, "preset_enum")
 
+        #X,Y,Z座標を追加
         layout.prop(self,"val_x")
         layout.prop(self,"val_y")
         layout.prop(self,"val_z")
+
+        # ファイルパスを入力するテキストボックスを表示
+        layout.prop(scene, "filepath", text="")
     
     def execute(self, context):
-        if self.preset_enum == 'OP1':      
-            #正方形を追加
-            bpy.ops.mesh.primitive_cube_add()
+        filepath = context.scene.filepath
+
+        #ファイルパスが空だった時何も描画しない
+        if filepath == '':
+            return {'FINISHED'}
+        else:
+            #モデルをインポートする
+            bpy.ops.import_scene.obj(filepath=filepath)
+
+        #オペレーター01
+        if self.preset_enum == 'OP1':  
+            #インポートされたオブジェクトを取得する
+            obj=bpy.context.selected_objects[0]
 
             #['file_name']カスタムプロパティを追加
-            context.object["file_name"] = "normal"            
-
+            obj["file_name"] = "normal"
+        
+        #オペレーター02
         if self.preset_enum == 'OP2':
-            #ICO球を追加
-            bpy.ops.mesh.primitive_ico_sphere_add()
+            #インポートされたオブジェクトを取得する
+            obj=bpy.context.selected_objects[0]
 
             #['file_name']カスタムプロパティを追加
-            context.object["file_name"] = "boss"
+            obj["file_name"] = "boss"
 
+        #オペレーター03
         if self.preset_enum == 'OP3':
-            bpy.ops.mesh.primitive_uv_sphere_add(radius=0.5)
-            planet = context.object
+            #インポートされたオブジェクトを取得する
+            obj = bpy.context.selected_objects[0]
+            #カーブを生成
             bpy.ops.curve.primitive_bezier_curve_add()
-            orbit = context.object
+            # 生成されたベジェ曲線オブジェクトを取得する
+            curve = context.object
+
+            # 曲線データを取得する
+            curve_data = curve.data
+
+            # ベジェ曲線の制御点の総数を取得する
+            control_point_count = len(curve_data.splines[0].bezier_points)
             
-            fp = planet.constraints.new('FOLLOW_PATH')
-            fp.target = orbit
+            #モデルオブジェクトをフォローパスに設定する
+            fp = obj.constraints.new('FOLLOW_PATH')
+            fp.target = curve
             fp.use_fixed_location = True
             fp.use_curve_follow = True
+
+             # ベジェ曲線のドライバーを設定する
             fcurve = fp.driver_add("offset_factor")
-            fcurve.driver.expression = "(frame / %d) %% 1" % 50
+            fcurve.driver.expression = "(frame / %d) %% 1" % (50*control_point_count)
 
             #['file_name']カスタムプロパティを追加
             context.object["file_name"] = "move"
@@ -95,6 +129,9 @@ class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
             object.location.y += self.val_y
             object.location.z += self.val_z
 
+        # ファイルパスの文字列を空に設定する
+        context.scene.filepath = ""
+
         return {'FINISHED'}
     
 class ADDONNAME_PT_EnemyPanel(bpy.types.Panel):
@@ -102,7 +139,8 @@ class ADDONNAME_PT_EnemyPanel(bpy.types.Panel):
     bl_idname = "ADDONNAME_PT_EnemyPanel"
     bl_space_type = "VIEW_3D"
     bl_region_type = 'UI'
-    bl_category = "Add Enemy"
+    bl_category = "Import"
+    bl_options = {'DEFAULT_CLOSED'}
     
     def draw(self, context):
         layout = self.layout    

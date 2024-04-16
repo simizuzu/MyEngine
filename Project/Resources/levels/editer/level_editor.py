@@ -217,8 +217,6 @@ class OBJECT_PT_file_name(bpy.types.Panel):
             #プロパティがなければ、プロパティ追加ボタンを表示
             self.layout.operator(MYADDON_OT_add_filename.bl_idname)
 
-        #self.layout.operator(MYADDON_OT_add_collider.bl_idname)
-
 #オペレータ シーン出力
 class MYADDON_OT_export_scene(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
     bl_idname = "myaddon.myaddon_ot_export_scene"
