@@ -79,7 +79,7 @@ void EnemyManager::LoadEnemyPopData(const std::string& filePath)
 
 void EnemyManager::UpdateEnemyPopCommands(Player* player,LevelData* enemyData)
 {
-
+	//jsonファイルの"file_name"から属性分け
 	for ( LevelData::EnemyData enemy : enemyData->enemys )
 	{
 		if ( enemy.enemyType == "normal" )
@@ -92,6 +92,28 @@ void EnemyManager::UpdateEnemyPopCommands(Player* player,LevelData* enemyData)
 
 			enemys.push_back(std::move(normalEnemy));
 		}
+
+		/*if ( enemy.enemyType == "move" )
+		{
+			std::unique_ptr<EnemyNormal> normalEnemy = std::make_unique<EnemyNormal>();
+
+			normalEnemy->Initialize(modelName_,camera_);
+			normalEnemy->SetPlayer(player);
+			normalEnemy->SetEnemyTranslation(enemy.translation);
+
+			enemys.push_back(std::move(normalEnemy));
+		}*/
+
+		/*if ( enemy.enemyType == "boss" )
+		{
+			std::unique_ptr<EnemyNormal> normalEnemy = std::make_unique<EnemyNormal>();
+
+			normalEnemy->Initialize(modelName_,camera_);
+			normalEnemy->SetPlayer(player);
+			normalEnemy->SetEnemyTranslation(enemy.translation);
+
+			enemys.push_back(std::move(normalEnemy));
+		}*/
 	}
 }
 

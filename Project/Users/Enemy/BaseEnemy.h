@@ -39,6 +39,8 @@ public:
 
 	virtual void SetPlayer(Player* player) = 0;
 
+	virtual void SetEnemyTranslation(MyMath::Vector3 translation) = 0;
+
 	const Sphere& GetSphereCenter() const;
 
 public:

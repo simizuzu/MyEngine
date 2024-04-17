@@ -6,29 +6,21 @@
 #include "FbxObject3d.h"
 #include "ParticleManager.h"
 #include "BulletManager.h"
+#include "LevelLoader.h"
 
-/**
- * @class EnemyNormal.h
- * @brief 敵キャラの派生クラス（通常の敵キャラ）
- */
+//クラスの前方宣言
+class Player;
 
- //クラスの前方宣言
- class Player;
-
-/// <summary>
-/// ノーマルエネミー
-/// </summary>
-class EnemyNormal final : public BaseEnemy
+class EnemyMove final : public BaseEnemy
 {
 public:
 	//コンストラクタ・デストラクタ
-	EnemyNormal() = default;
-	~EnemyNormal()= default;
+	EnemyMove() = default;
+	~EnemyMove() = default;
 
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="camera">カメラ</param>
 	void Initialize(const std::string& filePath,Camera* camera);
 
 	/// <summary>
@@ -41,7 +33,6 @@ public:
 	/// </summary>
 	void Draw() override;
 
-	//プレイヤーのポインタをセット
 	void SetPlayer(Player* player) override;
 
 	//一体分の座標をセットする
@@ -64,12 +55,12 @@ private:
 	/// 振り向き処理
 	/// </summary>
 	void Turn();
-	
+
 	//ワールド座標の原点
 	MyMath::Vector3 GetCenterPosition() const override;
 
 private:
-	//カメラ
+//カメラ
 	Camera* camera_ = nullptr;
 	//自キャラ
 	Player* player_ = nullptr;
@@ -80,7 +71,7 @@ private:
 
 	//弾の速度
 	const float bulletSpeed = 0.8f;
-	MyMath::Vector3 velocity = {0.0f,0.0f,bulletSpeed};
+	MyMath::Vector3 velocity = { 0.0f,0.0f,bulletSpeed };
 
 	//自キャラのワールド座標
 	MyMath::Vector3 playerWorldPos;
@@ -126,8 +117,8 @@ private:
 
 private:
 	//代入演算子削除
-	EnemyNormal& operator=(const EnemyNormal&) = delete;
+	EnemyMove& operator=(const EnemyMove&) = delete;
 	//コピーコンストラクタ削除
-	EnemyNormal(const EnemyNormal&) = delete;
+	EnemyMove(const EnemyMove&) = delete;
 };
 
