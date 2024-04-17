@@ -6,6 +6,7 @@ import gpu_extras.batch
 import copy
 import mathutils
 import json
+import os
 
 bl_info = {
 	"name": "EnemySetEditor",
@@ -20,6 +21,16 @@ bl_info = {
     "tracker_url": "",
     "category": "Object"
 }
+
+#通常の関数としてファイルの拡張子を検出してファイル形式を返す
+def detect_file_format(file_path):
+    file_extension = os.path.splitext(file_path)[1].lower()
+    if file_extension == '.obj':
+        return 'OBJ'
+    elif file_extension == '.fbx':
+        return 'FBX'
+    else:
+        return 'Unknown'
 
 class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
     bl_label = "追加"
@@ -54,7 +65,7 @@ class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
     def invoke(self, context, event):
         wm = context.window_manager
         return wm.invoke_props_dialog(self, width=400)# ダイアログの幅を調整するために width を設定
-    
+
     def draw(self, context):
         layout = self.layout
         scene = context.scene
@@ -76,8 +87,14 @@ class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
         if filepath == '':
             return {'FINISHED'}
         else:
-            #モデルをインポートする
-            bpy.ops.import_scene.obj(filepath=filepath)
+            #ファイル形式を検出する
+            file_format = detect_file_format(filepath)
+
+            #ファイル形式に応じてインポート操作を行う
+            if file_format == "OBJ":
+                bpy.ops.import_scene.obj(filepath=filepath)
+            elif file_format == "FBX":
+                bpy.ops.import_scene.fbx(filepath=filepath)
 
         #オペレーター01
         if self.preset_enum == 'OP1':  
@@ -121,9 +138,11 @@ class ADDONAME_OT_EnemyOperator(bpy.types.Operator):
             fcurve.driver.expression = "(frame / %d) %% 1" % (50*control_point_count)
 
             #['file_name']カスタムプロパティを追加
-            context.object["file_name"] = "move"
+            obj["file_name"] = "move"
 
         objects = [object for object in context.selected_objects]
+
+        #パネルから得た座標を代入
         for object in objects:
             object.location.x += self.val_x
             object.location.y += self.val_y
