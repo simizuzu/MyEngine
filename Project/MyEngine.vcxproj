@@ -19,6 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationState.cpp" />
+    <ClCompile Include="BossAppearScene.cpp" />
+    <ClCompile Include="EnemyBoss.cpp" />
+    <ClCompile Include="PlayerAppearScene.cpp" />
     <ClCompile Include="Users\Enemy\EnemyMove.cpp" />
     <ClCompile Include="Users\Effect\PlayerDamage.cpp" />
     <ClCompile Include="Users\Bullet\BaseBullet.cpp" />
@@ -82,6 +87,11 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationState.h" />
+    <ClInclude Include="BossAppearScene.h" />
+    <ClInclude Include="EnemyBoss.h" />
+    <ClInclude Include="PlayerAppearScene.h" />
     <ClInclude Include="Users\Enemy\EnemyMove.h" />
     <ClInclude Include="Users\Effect\PlayerDamage.h" />
     <ClInclude Include="Users\Bullet\BaseBullet.h" />

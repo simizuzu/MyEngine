@@ -10,7 +10,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief TitleSceneの処理が書かれてあります
  */
 
-	void TitleScene::Initialize()
+void TitleScene::Initialize()
 {
 	input_ = Input::GetInstance();
 

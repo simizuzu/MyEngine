@@ -77,18 +77,14 @@ private: //メンバ変数
 	std::unique_ptr<ObjObject3d> skydomeObj_;
 	std::unique_ptr<ObjObject3d> groundObj_;
 	std::unique_ptr<ObjObject3d> robotoObj_;
-
-	std::unique_ptr<ObjModel> skydomeModel_;
-	std::unique_ptr<ObjModel> groundModel_;
-	std::unique_ptr<ObjModel> robotoModel_;
+	std::unique_ptr<ObjObject3d> shuttleObj_;
 
 	WorldTransform skydomeTrans;
 	WorldTransform groundTrans;
 	WorldTransform robotoTrans;
 	WorldTransform pilotTrans;
+	WorldTransform shuttleTrans;
 
-	std::map<std::string, std::unique_ptr<ObjModel>>models;
-	std::vector<std::unique_ptr<ObjObject3d>> objects;
 #pragma endregion
 
 #pragma region fbx

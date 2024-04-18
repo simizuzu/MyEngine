@@ -20,6 +20,7 @@ void MainGame::Initialize()
 	ModelManager::GetInstance()->LoadModel("concrete",obj,true);
 	ModelManager::GetInstance()->LoadModel("box",obj);
 	ModelManager::GetInstance()->LoadModel("SpaceShuttle",obj);
+	ModelManager::GetInstance()->LoadModel("boss",obj);
 
 	//fbx
 	ModelManager::GetInstance()->LoadModel("roboto",fbx);

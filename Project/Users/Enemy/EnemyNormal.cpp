@@ -27,7 +27,7 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 
 	//雑魚敵のワールド座標
 	enemyTrans.Initialize();
-	enemyTrans.SetScale({ 0.04f,0.04f ,0.04f });
+	enemyTrans.SetScale({ 0.06f,0.06f ,0.06f });
 
 	//弾のモデル
 	bulletObj.reset(ObjObject3d::Create());

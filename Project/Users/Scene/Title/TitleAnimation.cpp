@@ -38,15 +38,19 @@ void TitleAnimation::Initalize(Camera* camera)
 	skydomeObj_.reset(ObjObject3d::Create());
 	groundObj_.reset(ObjObject3d::Create());
 	robotoObj_.reset(ObjObject3d::Create());
+	shuttleObj_.reset(ObjObject3d::Create());
 
 	skydomeObj_->SetModel("skydome",true);
 	groundObj_->SetModel("concrete",true);
 	robotoObj_->SetModel("roboto");
+	shuttleObj_->SetModel("SpaceShuttle");
 
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
 	robotoTrans.Initialize();
 	pilotTrans.Initialize();
+	shuttleTrans.Initialize();
+	shuttleTrans.SetTranslation({ 1.8f,0.2f,-0.5f });
 
 	skydomeTrans.SetScale({ skydomeScale,skydomeScale,skydomeScale });
 #pragma endregion
@@ -67,12 +71,6 @@ void TitleAnimation::Initalize(Camera* camera)
 
 void TitleAnimation::Update()
 {
-#ifdef _DEBUG
-	ImGui::Begin("ClickFrame");
-	ImGui::Text("ClickFrame:%d",clickTime);
-	ImGui::End();
-#endif
-
 	rotation += desimalRot;
 	skydomeTrans.SetRotation({ 0,rotation,0 });
 
@@ -81,6 +79,7 @@ void TitleAnimation::Update()
 	robotoTrans.Update(camera_);
 	pilotTrans.Update(camera_);
 	pilotObj_->Update();
+	shuttleTrans.Update(camera_);
 }
 
 void TitleAnimation::Draw()
@@ -89,6 +88,7 @@ void TitleAnimation::Draw()
 	groundObj_->Draw(&groundTrans);
 	robotoObj_->Draw(&robotoTrans);
 	pilotObj_->Draw(&pilotTrans);
+	shuttleObj_->Draw(&shuttleTrans);
 	spriteBack_->Draw(texBack,black1x1Size,scale,texRot,anchorpoint);
 	ClickAnim();
 }
