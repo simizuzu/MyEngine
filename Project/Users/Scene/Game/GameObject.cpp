@@ -13,9 +13,11 @@ void GameObject::Initialize(Camera* camera)
 
 	skydomeObj_.reset(ObjObject3d::Create());
 	groundObj_.reset(ObjObject3d::Create());
+	bossObj_.reset(ObjObject3d::Create());
 
 	skydomeObj_->SetModel("skydome",true);
 	groundObj_->SetModel("city");
+	bossObj_->SetModel("boss");
 
 	display = std::make_unique<Sprite>();
 	UI01 = std::make_unique<Sprite>();
@@ -35,12 +37,17 @@ void GameObject::Initialize(Camera* camera)
 
 	skydomeTrans.Initialize();
 	groundTrans.Initialize();
+	bossTrans.Initialize();
+	bossTrans.SetTranslation({ -1181,911,1715 });
+	bossTrans.SetScale({73,73,73});
+	bossTrans.SetRotation({0,-45*MyMathUtility::degree2Radius,0});
 	groundTrans.SetTranslation({0,-50.0f,0});
-	skydomeTrans.SetScale({ 2000.0f,2000.0f,2000.0f });
+	skydomeTrans.SetScale({ 5000.0f,5000.0f,5000.0f });
 }
 
 void GameObject::Update()
 {
+	bossTrans.Update(camera_);
 	skydomeTrans.Update(camera_);
 	skydomeTrans.SetTranslation(MyMath::GetWorldPosition(camera_->GetMatWorld()));
 	groundTrans.SetRotation({ 0.0f,180.0f * MyMathUtility::degree2Radius,0.0f });
@@ -49,8 +56,10 @@ void GameObject::Update()
 
 void GameObject::Draw()
 {
+	bossObj_->Draw(&bossTrans);
 	skydomeObj_->Draw(&skydomeTrans);
 	groundObj_->Draw(&groundTrans);
+	
 	if ( input->PushButton(RT) )
 	{
 		UIRT->SetColor({ 0,1,0,1 });
