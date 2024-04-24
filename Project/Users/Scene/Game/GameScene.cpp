@@ -366,7 +366,7 @@ void GameScene::CheckAllCollilsions()
 			if ( !enemy->IsDead() )
 			{
 				//敵の当たり判定の設定
-				const float enemyRadius = 8.0f;
+				const float enemyRadius = 15.0f;
 				enemyBody.center = enemy->GetCenterPosition();
 				enemyBody.radius = enemyRadius;
 
