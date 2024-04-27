@@ -77,9 +77,9 @@ class LevelLoader {
 
 private:
 	// デフォルトの読み込みディレクトリ
-	static const std::string kDefaultBaseDirectory;
+	static const std::string defaultBaseDirectory;
 	// ファイル拡張子
-	static const std::string kExtension;
+	static const std::string extension;
 
 	static int16_t objectType;
 

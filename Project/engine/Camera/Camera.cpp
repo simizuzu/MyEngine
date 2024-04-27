@@ -45,6 +45,50 @@ void Camera::Update(bool isMatrix)
 	}
 }
 
+void Camera::LookAtMatrix(const MyMath::Vector3& target,const MyMath::Vector3& up)
+{
+	target_ = translation_ + target;
+
+	//平行移動行列の計算
+	//matTrans = MyMathUtility::MakeTranslation(translation_);
+
+	//X軸,Y軸,Z軸,Direction(距離)
+	MyMath::Vector3 X,Y,Z,D;
+	D = target_ - translation_;
+	D = D.Norm();
+	Y = up.Norm();
+	X = Y.cross(D);
+	X = X.Norm();
+	Z = X.cross(Y);
+	Z = Z.Norm();
+
+	//新しく回転行列を計算する
+	matRot.m[ 0 ][ 0 ] = X.x;
+	matRot.m[ 0 ][ 1 ] = X.y;
+	matRot.m[ 0 ][ 2 ] = X.z;
+	matRot.m[ 0 ][ 3 ] = 0.0f;
+
+	matRot.m[ 1 ][ 0 ] = Y.x;
+	matRot.m[ 1 ][ 1 ] = Y.y;
+	matRot.m[ 1 ][ 2 ] = Y.z;
+	matRot.m[ 0 ][ 3 ] = 0.0f;
+
+	matRot.m[ 2 ][ 0 ] = Z.x;
+	matRot.m[ 2 ][ 1 ] = Z.y;
+	matRot.m[ 2 ][ 2 ] = Z.z;
+	matRot.m[ 2 ][ 3 ] = 0.0f;
+
+	matRot.m[ 3 ][ 0 ] = 0.0f;
+	matRot.m[ 3 ][ 1 ] = 0.0f;
+	matRot.m[ 3 ][ 2 ] = 0.0f;
+	matRot.m[ 3 ][ 3 ] = 1.0f;
+
+	//ワールド行列の合成
+	matCameraWorld_ = MyMathUtility::MakeIdentity();
+	matCameraWorld_ *= matRot;
+	//matCameraWorld_ *= matTrans;
+}
+
 void Camera::CreateConstBuffer()
 {
 	HRESULT result;

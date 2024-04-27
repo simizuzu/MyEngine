@@ -12,14 +12,14 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief LevelLoaderの処理について書いてあります
  */
 
-const std::string LevelLoader::kDefaultBaseDirectory = "Resources/levels/";
-const std::string LevelLoader::kExtension = ".json";
+const std::string LevelLoader::defaultBaseDirectory = "Resources/levels/";
+const std::string LevelLoader::extension = ".json";
 
 [[nodiscard]]
 LevelData* LevelLoader::LoadFile(const std::string& fileName)
 {
 	// 連結してフルパスを得る
-	const std::string fullpath = kDefaultBaseDirectory + fileName + kExtension;
+	const std::string fullpath = defaultBaseDirectory + fileName + extension;
 
 	// ファイルストリーム
 	std::ifstream file;

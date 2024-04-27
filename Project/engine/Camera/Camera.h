@@ -86,6 +86,13 @@ public:
 	/// </summary>
 	void Update(bool isMatrix = false);
 
+	/// <summary>
+	/// マットワールド用注視点
+	/// </summary>
+	/// <param name="target">注視点座標</param>
+	/// <param name="up">上ベクトル</param>
+	void LookAtMatrix(const MyMath::Vector3& target, const MyMath::Vector3& up);
+
 private:
 	/// <summary>
 	/// 定数バッファ生成
