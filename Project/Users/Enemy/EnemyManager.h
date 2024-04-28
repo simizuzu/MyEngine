@@ -42,7 +42,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update(Player* player,LevelData* data,const std::string& modelName);
 
 	/// <summary>
 	/// 描画
@@ -61,15 +61,11 @@ public:
 
 private:
 	/// <summary>
-	/// 敵発生データの読み込み("Resources/filePath/fname.csv")
-	/// </summary>
-	/// <param name="filePath">ファイルパス</param>
-	void LoadEnemyPopData(const std::string& filePath);
-
-	/// <summary>
 	/// 敵発生コマンドの更新
 	/// </summary>
 	void UpdateEnemyPopCommands(Player* player,LevelData* enemyData);
+
+	void UpdateMoveEnemyPop(Player* player,LevelData* enemyData,const std::string& modelName);
 
 	/// <summary>
 	/// 敵の削除
@@ -79,22 +75,15 @@ private:
 private:
 	//各敵キャラのXYZ座標
 	MyMath::Vector3 enemysPos_;
-	uint8_t pad1[4 ];
-
-	//敵の合計数
-	size_t enemyCount;
-
-	//待っているかのフラグ
-	bool waitFlag = false;
+	//外部から読み込んで入れる変数
+	float waitTime;
+	//待機用タイム変数(現在進行形)
+	float waitTimer;
 	//コマンドが最後までたどり着いたかのフラグ
 	bool reachCommandFlag = false;
-	uint8_t pad2[ 2 ];
-
-	//csvから読み込んで入れる変数
-	int32_t waitTime;
-	//待機用タイム変数(現在進行形)
-	int32_t waitTimer;
-	uint8_t pad3[ 4 ];
+	//待っているかのフラグ
+	bool waitFlag = true;
+	int8_t pad[2 ];
 
 	Camera* camera_ = nullptr;
 	std::string modelName_;

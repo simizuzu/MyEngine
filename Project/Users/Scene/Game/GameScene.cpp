@@ -176,7 +176,7 @@ void GameScene::Update()
 	default:
 		break;
 	}
-	enemyManager_->Update();
+	enemyManager_->Update(player_.get(),enemyData_,"mob");
 }
 
 void GameScene::Draw()

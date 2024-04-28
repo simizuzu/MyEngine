@@ -21,7 +21,8 @@
                     17.509756088256836
                 ]
             },
-            "file_name": "normal"
+            "file_name": "normal",
+            "wait_time": 900.000000000
         },
         {
             "type": "MESH",
@@ -43,7 +44,8 @@
                     17.509756088256836
                 ]
             },
-            "file_name": "normal"
+            "file_name": "normal",
+            "wait_time": 900.000000000
         },
         {
             "type": "MESH",
@@ -65,7 +67,8 @@
                     17.509754180908203
                 ]
             },
-            "file_name": "normal"
+            "file_name": "normal",
+            "wait_time": 900.000000000
         },
         {
             "type": "MESH",
@@ -87,7 +90,8 @@
                     17.509754180908203
                 ]
             },
-            "file_name": "normal"
+            "file_name": "normal",
+            "wait_time": 900.000000000
         },
         {
             "type": "MESH",
@@ -109,7 +113,8 @@
                     17.509754180908203
                 ]
             },
-            "file_name": "normal"
+            "file_name": "normal",
+            "wait_time": 900.000000000
         },
         {
             "type": "MESH",
@@ -131,7 +136,8 @@
                     17.509756088256836
                 ]
             },
-            "file_name": "normal"
+            "file_name": "normal",
+            "wait_time": 900.000000000
         },
         {
             "type": "MESH",
@@ -153,7 +159,8 @@
                     17.509756088256836
                 ]
             },
-            "file_name": "normal"
+            "file_name": "normal",
+            "wait_time": 900.000000000
         },
         {
             "type": "MESH",
@@ -175,7 +182,8 @@
                     17.509756088256836
                 ]
             },
-            "file_name": "normal"
+            "file_name": "normal",
+            "wait_time": 900.000000000
         },
         {
             "type": "MESH",

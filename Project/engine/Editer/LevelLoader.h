@@ -4,6 +4,7 @@
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <string>
 #include <vector>
+#include <json.hpp>
 MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "DirectX12Math.h"
@@ -36,7 +37,6 @@ struct LevelData {
 		MyMath::Vector3 pointLeft;
 		// 右ハンドル
 		MyMath::Vector3 pointRight;
-
 	};
 
 	//アニメーションキーフレームデータ
@@ -54,7 +54,8 @@ struct LevelData {
 		std::string enemyType;
 		// 平行移動
 		MyMath::Vector3 translation;
-		int8_t pad2[ 4 ];
+		//待ち時間
+		float waitTime;
 	};
 
 	// 3つ並べた制御点
@@ -93,7 +94,14 @@ public:// メンバ関数
 	static LevelData* LoadFile(const std::string& fileName);
 
 private:
-	
+	//"ObjectData"走査
+	static void LoadObjectData(LevelData* levelData,nlohmann::json deserialized);
+	//"EnemyData"走査
+	static void LoadEnemyData(LevelData* levelData,nlohmann::json deserialized);
+	//"CurveData"走査
+	static void LoadCurvesData(LevelData* levelData,nlohmann::json deserialized);
+	//"AnimData"走査
+	static void LoadAnimData(LevelData* levelData,nlohmann::json deserialized);
 };
 
 namespace MyMathUtility {
