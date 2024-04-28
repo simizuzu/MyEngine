@@ -62,21 +62,6 @@ bool EnemyManager::GetReachCommandFlag()
 	return reachCommandFlag;
 }
 
-void EnemyManager::LoadEnemyPopData(const std::string& filePath)
-{
-	//ファイルを開く
-	std::ifstream file;
-
-	file.open(filePath);
-	assert(file.is_open());
-
-	//ファイルの内容を文字列ストリームにコピー
-	enemyPospCommands << file.rdbuf();
-
-	//ファイルを閉じる
-	file.close();
-}
-
 void EnemyManager::UpdateEnemyPopCommands(Player* player,LevelData* enemyData)
 {
 	//jsonファイルの"file_name"から属性分け

@@ -98,7 +98,7 @@ private:
 	float maxTime = 0.5f;	//全体時間[s]
 	uint32_t elapsedCount = 0;
 	uint8_t bulletIntervalTimer = 6;
-	uint8_t HP = 10;
+	uint8_t HP = 20;
 	bool bulletIntervalFlag = false;
 	bool isDead = false;
 
