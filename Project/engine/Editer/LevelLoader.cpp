@@ -138,7 +138,7 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		}
 	}
 
-	for (nlohmann::json& keyframes : deserialized["animdata"]) {
+	for (nlohmann::json& keyframes : deserialized["anims"]) {
 
 		//要素追加
 		levelData->anims.emplace_back(LevelData::AnimData{});
@@ -149,20 +149,86 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		nlohmann::json& transform = keyframes["keyframe"];
 
 		//現在のフレーム
-		animData.nowFrame = (float)transform["nowframe"];
+		animData.frame = (float)transform["nowframe"];
 		//座標
-		animData.trans.x = (float)transform["translation"][0];
-		animData.trans.y = (float)transform["translation"][1];
-		animData.trans.z = (float)transform["translation"][2];
+		animData.translation.x = (float)transform["translation"][0];
+		animData.translation.y = (float)transform["translation"][1];
+		animData.translation.z = (float)transform["translation"][2];
 		//回転角
-		animData.rot.x = (float)transform["rotation"][0];
-		animData.rot.y = (float)transform["rotation"][1];
-		animData.rot.z = (float)transform["rotation"][2];
+		animData.rotation.x = (float)transform["rotation"][0];
+		animData.rotation.y = (float)transform["rotation"][1];
+		animData.rotation.z = (float)transform["rotation"][2];
 
-		levelData->nowFrame.push_back(animData.nowFrame);
-		levelData->nowTransform.push_back(animData.trans);
-		levelData->nowTransform.push_back(animData.rot);
+		levelData->nowFrame.push_back(animData.frame);
+		levelData->nowTransform.push_back(animData.translation);
+		levelData->nowTransform.push_back(animData.rotation);
 	}
+
+	return levelData;
+}
+
+[[nodiscard]]
+LevelData* LevelLoader::LoadFileAnim(const std::string& fileName)
+{
+	// 連結してフルパスを得る
+	const std::string fullpath = defaultBaseDirectory + fileName + extension;
+
+	// ファイルストリーム
+	std::ifstream file;
+
+	// ファイルを開く
+	file.open(fullpath);
+	// ファイルオープン失敗をチェック
+	if ( file.fail() )
+	{
+		assert(0);
+	}
+
+	// JSON文字列から解凍したデータ
+	nlohmann::json deserialized;
+
+	// 解凍
+	file >> deserialized;
+
+	// レベルデータ格納用インスタンスを生成
+	LevelData* levelData = new LevelData();
+
+	for ( nlohmann::json& keyframes : deserialized[ "anims" ] )
+	{
+		//要素追加
+		levelData->anims.emplace_back(LevelData::AnimData{});
+		//今追加した要素の参照を得る
+		LevelData::AnimData& animData = levelData->anims.back();
+
+		//トランスフォームのパラメータ読み込み
+		nlohmann::json& cameraTransform = keyframes[ "keyframe" ];
+
+		//敵の名前を検索
+		if ( keyframes.contains("Camera") )
+		{
+			// ファイル名
+			if ( keyframes[ "Camera" ] == "Camera" )
+			{
+				
+			}
+		}
+
+		//現在のフレーム
+		animData.frame = ( float ) transform[ "nowframe" ];
+		//座標
+		animData.translation.x = ( float ) transform[ "translation" ][ 0 ];
+		animData.translation.y = ( float ) transform[ "translation" ][ 1 ];
+		animData.translation.z = ( float ) transform[ "translation" ][ 2 ];
+		//回転角
+		animData.rotation.x = ( float ) transform[ "rotation" ][ 0 ];
+		animData.rotation.y = ( float ) transform[ "rotation" ][ 1 ];
+		animData.rotation.z = ( float ) transform[ "rotation" ][ 2 ];
+
+		levelData->nowFrame.push_back(animData.frame);
+		levelData->nowTransform.push_back(animData.translation);
+		levelData->nowTransform.push_back(animData.rotation);
+	}
+
 
 	return levelData;
 }

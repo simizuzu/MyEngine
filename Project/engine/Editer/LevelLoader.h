@@ -42,11 +42,11 @@ struct LevelData {
 	//アニメーションキーフレームデータ
 	struct AnimData {
 		//現在のフレーム
-		float nowFrame;
+		float frame;
 		//座標
-		MyMath::Vector3 trans;
+		MyMath::Vector3 translation;
 		//回転
-		MyMath::Vector3 rot;
+		MyMath::Vector3 rotation;
 	};
 
 	struct EnemyData{
@@ -92,8 +92,12 @@ public:// メンバ関数
 	[[nodiscard]]
 	static LevelData* LoadFile(const std::string& fileName);
 
-private:
-	
+	/// <summary>
+	/// アニメーション用のファイル読み込み
+	/// </summary>
+	/// <param name="fileName">ファイル</param>
+	[[nodiscard]]
+	static LevelData* LoadFileAnim(const std::string& fileName);
 };
 
 namespace MyMathUtility {
