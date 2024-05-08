@@ -138,113 +138,76 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		}
 	}
 
-	for (nlohmann::json& keyframes : deserialized["anims"]) {
-
-		//要素追加
-		levelData->anims.emplace_back(LevelData::AnimData{});
-		//今追加した要素の参照を得る
-		LevelData::AnimData& animData = levelData->anims.back();
-
-		//トランスフォームのパラメータ読み込み
-		nlohmann::json& transform = keyframes["keyframe"];
-
-		//現在のフレーム
-		animData.frame = (float)transform["nowframe"];
-		//座標
-		animData.translation.x = (float)transform["translation"][0];
-		animData.translation.y = (float)transform["translation"][1];
-		animData.translation.z = (float)transform["translation"][2];
-		//回転角
-		animData.rotation.x = (float)transform["rotation"][0];
-		animData.rotation.y = (float)transform["rotation"][1];
-		animData.rotation.z = (float)transform["rotation"][2];
-
-		levelData->nowFrame.push_back(animData.frame);
-		levelData->nowTransform.push_back(animData.translation);
-		levelData->nowTransform.push_back(animData.rotation);
-	}
-
-	return levelData;
-}
-
-[[nodiscard]]
-LevelData* LevelLoader::LoadFileAnim(const std::string& fileName)
-{
-	// 連結してフルパスを得る
-	const std::string fullpath = defaultBaseDirectory + fileName + extension;
-
-	// ファイルストリーム
-	std::ifstream file;
-
-	// ファイルを開く
-	file.open(fullpath);
-	// ファイルオープン失敗をチェック
-	if ( file.fail() )
+	for ( nlohmann::json& animations : deserialized[ "animations" ] )
 	{
-		assert(0);
-	}
+		assert(animations.contains("type"));
+		//種別を取得
+		std::string type = animations[ "type" ].get<std::string>();
 
-	// JSON文字列から解凍したデータ
-	nlohmann::json deserialized;
 
-	// 解凍
-	file >> deserialized;
-
-	// レベルデータ格納用インスタンスを生成
-	LevelData* levelData = new LevelData();
-
-	for ( nlohmann::json& keyframes : deserialized[ "anims" ] )
-	{
-		//要素追加
-		levelData->anims.emplace_back(LevelData::AnimData{});
-		//今追加した要素の参照を得る
-		LevelData::AnimData& animData = levelData->anims.back();
-
-		//トランスフォームのパラメータ読み込み
-		nlohmann::json& cameraTransform = keyframes[ "keyframe" ];
-
-		//敵の名前を検索
-		if ( keyframes.contains("Camera") )
+		for ( nlohmann::json& animedata : animations[ "animedata" ] )
 		{
-			// ファイル名
-			if ( keyframes[ "Camera" ] == "Camera" )
+			//要素追加
+			levelData->anims.emplace_back(LevelData::AnimData{});
+			//今追加した要素の参照を得る
+			LevelData::AnimData& animeData = levelData->anims.back();
+
+			//jsonファイルからフレーム数を検索
+			if ( animations.contains("frame") )
 			{
-				
+				//フレーム数を取得
+				animeData.frame = animations[ "frame" ];
 			}
+
+			//トランスフォームのパラメータ読み込み
+			nlohmann::json& transform = animations[ "animedata" ];
+
+			//typeがCAMERAの時
+			if ( type.compare("CAMERA") == 0 )
+			{
+				//平行移動 (blender上ではZ方向とY方向が逆のため入れ替える)
+				animeData.translation.x = ( float ) transform[ "translation" ][ 0 ];
+				animeData.translation.y = ( float ) transform[ "translation" ][ 2 ];
+				animeData.translation.z = ( float ) transform[ "translation" ][ 1 ];
+
+				//回転 (XとYで座標系を変更)
+				animeData.rotation.x = ( float ) transform[ "rotation" ][ 0 ];
+				animeData.rotation.x = -animeData.rotation.x;
+				animeData.rotation.y = ( float ) transform[ "rotation" ][ 1 ];
+				animeData.rotation.x = -animeData.rotation.y;
+				animeData.rotation.z = ( float ) transform[ "rotation" ][ 2 ];
+			}
+			else
+			{
+				//平行移動 (blender上ではZ方向とY方向が逆のため入れ替える)
+				animeData.translation.x = ( float ) transform[ "translation" ][ 0 ];
+				animeData.translation.y = ( float ) transform[ "translation" ][ 2 ];
+				animeData.translation.z = ( float ) transform[ "translation" ][ 1 ];
+
+				//回転 (XとYで座標系を変更)
+				animeData.rotation.x = ( float ) transform[ "rotation" ][ 0 ];
+				animeData.rotation.x = -animeData.rotation.x;
+				animeData.rotation.y = ( float ) transform[ "rotation" ][ 1 ];
+				animeData.rotation.x = -animeData.rotation.y;
+				animeData.rotation.z = ( float ) transform[ "rotation" ][ 2 ];
+
+				//スケーリング
+				animeData.scaling.x = ( float ) transform[ "scaling" ][ 0 ];
+				animeData.scaling.y = ( float ) transform[ "scaling" ][ 1 ];
+				animeData.scaling.z = ( float ) transform[ "scaling" ][ 2 ];
+			}
+
+			levelData->keyframes.push_back(animeData.frame);
+			levelData->transforms.push_back(animeData.translation);
+			levelData->transforms.push_back(animeData.rotation);
+			levelData->transforms.push_back(animeData.scaling);
 		}
-
-		//現在のフレーム
-		animData.frame = ( float ) transform[ "nowframe" ];
-		//座標
-		animData.translation.x = ( float ) transform[ "translation" ][ 0 ];
-		animData.translation.y = ( float ) transform[ "translation" ][ 1 ];
-		animData.translation.z = ( float ) transform[ "translation" ][ 2 ];
-		//回転角
-		animData.rotation.x = ( float ) transform[ "rotation" ][ 0 ];
-		animData.rotation.y = ( float ) transform[ "rotation" ][ 1 ];
-		animData.rotation.z = ( float ) transform[ "rotation" ][ 2 ];
-
-		levelData->nowFrame.push_back(animData.frame);
-		levelData->nowTransform.push_back(animData.translation);
-		levelData->nowTransform.push_back(animData.rotation);
+		
 	}
-
-
 	return levelData;
 }
 
 namespace MyMathUtility {
-	MyMath::Vector3 BezierGetPoint(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 p2, MyMath::Vector3 p3, float t)
-	{
-		MyMath::Vector3 c0 = Lerp(p0, p1, t);
-		MyMath::Vector3 c1 = Lerp(p1, p2, t);
-		MyMath::Vector3 c2 = Lerp(p2, p3, t);
-		MyMath::Vector3 c3 = Lerp(c0, c1, t);
-		MyMath::Vector3 c4 = Lerp(c1, c2, t);
-
-		return Lerp(c3, c4, t);
-	}
-
 	MyMath::Vector3 SplinePosition(std::vector<LevelData::CurveData>& points, float t, size_t startIndex)
 	{
 		size_t n = points.size() - 2;
@@ -267,32 +230,70 @@ namespace MyMathUtility {
 		return position;
 	}
 
-	MyMath::Vector3 SplinePositionAnim(std::vector<LevelData::AnimData>& points,float t,size_t startIndex)
+	MyMath::Vector3 SplinePosition(std::vector<LevelData::AnimData>& points,float frame)
 	{
-		size_t n = points.size() - 2;
-
-		if ( startIndex > n ) return points[ n ].trans; //Pnの値を返す
-		if ( startIndex < 1 ) return points[ 1 ].trans; //Pnの値を返す
-
-		//始点
-		MyMath::Vector3 p0 = points[ startIndex - 1 ].trans;
-		//制御点1
-		MyMath::Vector3 p1 = points[ startIndex ].trans;
-		//制御点2
-		MyMath::Vector3 p2 = points[ startIndex + 1 ].trans;
-		//終点
-		MyMath::Vector3 p3 = points[ startIndex + 2 ].trans;
-
-		//ベジェ曲線を代入
-		MyMath::Vector3 position = MyMathUtility::HermiteGetPoint(p0,p1,p2,p3,t);
-
-		return position;
+		MyMath::Vector3 defaultNum = {0,0,0};
+		// フレーム数に基づいて制御点間の補間を行う
+		for ( size_t i = 1; i < points.size(); ++i )
+		{
+			// フレーム数が範囲内の制御点を見つける
+			if ( frame >= points[ i - 1 ].frame && frame <= points[ i ].frame )
+			{
+				// フレーム間の相対位置を計算
+				float t = static_cast< float >( frame - points[ i - 1 ].frame ) /
+					( points[ i ].frame - points[ i - 1 ].frame );
+				MyMath::Vector3 m0,m1;
+				if ( i == 1 )
+				{ // 最初のセグメントの場合はm0を計算
+					m0 = { 0.0f, 0.0f, 0.0f }; // 開始点では接線を0と仮定
+				}
+				else
+				{
+					CalculateTangents(points[ i - 2 ],points[ i - 1 ],points[ i ],points[ i + 1 ],m0,m1);
+				}
+				if ( i == points.size() - 1 )
+				{ // 最後のセグメントの場合はm1を計算
+					m1 = { 0.0f, 0.0f, 0.0f }; // 終了点では接線を0と仮定
+				}
+				// エルミート曲線に基づいて補間を行う
+				return MyMathUtility::HermiteGetPoint(points[ i - 1 ].translation,points[ i ].translation, m0,m1,t);
+			}
+		}
+		return defaultNum; // フレームが範囲外の場合はデフォルト値を返す
 	}
 
-	MyMath::Vector3 CalcTangentPosition(const MyMath::Vector3& prevPoint, const MyMath::Vector3& nextPoint)
+	MyMath::Vector3 InterpolateControlPoints(const std::vector<LevelData::AnimData>& points,int frame,std::function<MyMath::Vector3(const LevelData::AnimData&,const LevelData::AnimData&,float)> interpolator)
 	{
-		//方向ベクトルを取得
-		MyMath::Vector3 calcVec = nextPoint - prevPoint;
-		return calcVec.normalize();
+		MyMath::Vector3 defaultNum = {0,0,0};
+		for ( size_t i = 1; i < points.size(); ++i )
+		{
+			if ( frame >= points[ i - 1 ].frame && frame <= points[ i ].frame )
+			{
+				// 現在のフレームが制御点の範囲内にある場合
+				// tの値を計算し、指定された補間関数を使用して補間を行う
+				float t = static_cast< float >( frame - points[ i - 1 ].frame ) /
+					( points[ i ].frame - points[ i - 1 ].frame );
+				return interpolator(points[ i - 1 ],points[ i ],t);
+			}
+		}
+		// フレームが制御点の範囲外の場合、デフォルトの値を返す
+		return defaultNum;
+	}
+
+	void CalculateTangents(LevelData::AnimData& p0,LevelData::AnimData& p1,LevelData::AnimData& p2,LevelData::AnimData& p3,MyMath::Vector3& m0,MyMath::Vector3& m1)
+	{
+		float dt1 = ( p2.frame - p1.frame ) / 60.0f;
+		float dt0 = ( p1.frame - p0.frame ) / 60.0f;
+		float dt2 = ( p3.frame - p2.frame ) / 60.0f;
+
+		m0 = { ( p2.translation.x - p0.translation.x ) / ( dt0 + dt1 ),
+			   ( p2.translation.y - p0.translation.y ) / ( dt0 + dt1 ),
+			   ( p2.translation.z - p0.translation.z ) / ( dt0 + dt1 )};
+
+		m1 = { ( p3.translation.x - p1.translation.x ) / ( dt1 + dt2 ),
+		       ( p3.translation.y - p1.translation.y ) / ( dt1 + dt2 ),
+		       ( p3.translation.z - p1.translation.z ) / ( dt1 + dt2 ) };
+
+		m1 = ( p3.translation - p1.translation ) / ( dt1 + dt2);
 	}
 }

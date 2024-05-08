@@ -47,6 +47,8 @@ struct LevelData {
 		MyMath::Vector3 translation;
 		//回転
 		MyMath::Vector3 rotation;
+		//スケール
+		MyMath::Vector3 scaling;
 	};
 
 	struct EnemyData{
@@ -61,9 +63,9 @@ struct LevelData {
 	std::vector<MyMath::Vector3> points;
 
 	//現在のトランスフォーム
-	std::vector<MyMath::Vector3> nowTransform;
+	std::vector<MyMath::Vector3> transforms;
 	//現在のフレーム
-	std::vector<float>nowFrame;
+	std::vector<float>keyframes;
 
 	// オブジェクト配列
 	std::vector<ObjectData> objects;
@@ -91,27 +93,9 @@ public:// メンバ関数
 	/// <param name="fileName">ファイル名</param>
 	[[nodiscard]]
 	static LevelData* LoadFile(const std::string& fileName);
-
-	/// <summary>
-	/// アニメーション用のファイル読み込み
-	/// </summary>
-	/// <param name="fileName">ファイル</param>
-	[[nodiscard]]
-	static LevelData* LoadFileAnim(const std::string& fileName);
 };
 
 namespace MyMathUtility {
-	/// <summary>
-	/// 4点分のベジェ曲線
-	/// </summary>
-	/// <param name="p0">始点</param>
-	/// <param name="p1">制御点1</param>
-	/// <param name="v0">制御点2</param>
-	/// <param name="v1">終点</param>
-	/// <param name="t">時間</param>
-	/// <returns>ベジェ曲線の計算結果</returns>
-	MyMath::Vector3 BezierGetPoint(MyMath::Vector3 p0, MyMath::Vector3 p1, MyMath::Vector3 p2, MyMath::Vector3 p3, float t);
-
 	/// <summary>
 	/// スプライン曲線(blenderベジェ用)
 	/// </summary>
@@ -121,19 +105,15 @@ namespace MyMathUtility {
 	MyMath::Vector3 SplinePosition(std::vector<LevelData::CurveData>& points, float t,size_t startIndex = 1);
 
 	/// <summary>
-	/// スプライン曲線()
+	/// スプライン曲線(blenderアニメーション用)
 	/// </summary>
-	/// <param name="points">アニメーションフレーム</param>
-	/// <param name="t">全体の時間</param>
-	/// <param name="startIndex">開始するフレーム(デフォルトは1)</param>
+	/// <param name="points">制御点</param>
+	/// <param name="t"></param>
+	/// <param name="startIndex"></param>
 	/// <returns></returns>
-	MyMath::Vector3 SplinePositionAnim(std::vector<LevelData::AnimData>& points, float t ,size_t startIndex = 1);
+	MyMath::Vector3 SplinePosition(std::vector<LevelData::AnimData>& points, float frame);
 
-	/// <summary>
-	/// 方向ベクトルを取得
-	/// </summary>
-	/// <param name="prevPoint">開始点</param>
-	/// <param name="nextPoint">次の制御点</param>
-	/// <returns>方向ベクトル</returns>
-	MyMath::Vector3 CalcTangentPosition(const MyMath::Vector3& prevPoint, const MyMath::Vector3& nextPoint);
+	MyMath::Vector3 InterpolateControlPoints(const std::vector<LevelData::AnimData>& points,int frame,std::function<MyMath::Vector3(const LevelData::AnimData&,const LevelData::AnimData&,float)> interpolator);
+
+	void CalculateTangents(LevelData::AnimData& p0,LevelData::AnimData& p1,LevelData::AnimData& p2,LevelData::AnimData& p3,MyMath::Vector3& m0,MyMath::Vector3& m1);
 }

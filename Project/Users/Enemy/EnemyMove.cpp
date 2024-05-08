@@ -6,7 +6,7 @@
 
 void EnemyMove::Initialize(const std::string& filePath,Camera* camera)
 {
-		//渡されたかチェック
+	//渡されたかチェック
 	assert(camera);
 	camera_ = camera;
 	modelName = filePath;
