@@ -10,7 +10,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief TitleSceneの処理が書かれてあります
  */
 
-	void TitleScene::Initialize()
+void TitleScene::Initialize()
 {
 	input_ = Input::GetInstance();
 
@@ -26,6 +26,9 @@ MYENGINE_SUPPRESS_WARNINGS_END
 
 	transition_ = std::make_unique<TransitionScene>();
 	transition_->Initialize();
+
+	key = std::make_unique<KeyframeObject>();
+	key->Initialize();
 
 	sceneManager_ = SceneManager::GetInstance();
 }

@@ -265,6 +265,12 @@
     <Filter Include="Engine\ソース ファイル\3D\Model\Obj">
       <UniqueIdentifier>{431628af-244c-4d34-8ee7-d7246c790e85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\ソースファイル\Keyframe">
+      <UniqueIdentifier>{cbe9b14a-c592-4de8-a15f-538985714f5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Keyframe">
+      <UniqueIdentifier>{15f83363-6046-4491-a984-608f5ca7395d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Users\Scene\SceneFactory.cpp">
@@ -449,6 +455,12 @@
     </ClCompile>
     <ClCompile Include="Users\Enemy\EnemyMove.cpp">
       <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyframeCamera.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Keyframe\KeyframeObject.cpp">
+      <Filter>Application\ソースファイル\Keyframe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -652,6 +664,12 @@
     </ClInclude>
     <ClInclude Include="Users\Enemy\EnemyMove.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyframeCamera.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Keyframe\KeyframeObject.h">
+      <Filter>Application\ヘッダーファイル\Keyframe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

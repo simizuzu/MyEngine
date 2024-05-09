@@ -21,8 +21,6 @@ void TitleAnimation::Initalize(Camera* camera)
 	camera_->SetEye({ 6.0f,3.5f,-7.5f });
 	camera_->SetTarget({ 3.5f,2.0f,0.0f });
 
-	levelData_ = LevelLoader::LoadFile("titleSceneData");
-
 #pragma region Sprite
 	texBack = TextureManager::Load("Resources/Texture/Scene/Assault.png");
 	texClickStart = TextureManager::Load("Resources/Texture/Scene/clickStart.png");

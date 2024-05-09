@@ -131,7 +131,7 @@ void EnemyMove::Fire()
 {
 	assert(player_);
 
-		//タイマー作動
+	//タイマー作動
 	bulletIntervalTimer--;
 
 	//自キャラのワールド座標を取得する
@@ -160,7 +160,7 @@ void EnemyMove::Turn()
 {
 	MyMath::Vector3 rot;
 
-		//角度を算出して自機方向に振り向かせる(Y軸)
+	//角度を算出して自機方向に振り向かせる(Y軸)
 	enemyAngleY = std::atan2(enemyDir.x,enemyDir.z);
 	rot.y = MyMathUtility::LerpShortAngle(enemyTrans.GetRotation().y,enemyAngleY,0.3f);
 	//Z軸の横軸

@@ -111,9 +111,9 @@ namespace MyMathUtility {
 	/// <param name="t"></param>
 	/// <param name="startIndex"></param>
 	/// <returns></returns>
-	MyMath::Vector3 SplinePosition(std::vector<LevelData::AnimData>& points, float frame);
+	/*MyMath::Vector3 SplinePosition(std::vector<LevelData::AnimData>& points, float frame);
 
 	MyMath::Vector3 InterpolateControlPoints(const std::vector<LevelData::AnimData>& points,int frame,std::function<MyMath::Vector3(const LevelData::AnimData&,const LevelData::AnimData&,float)> interpolator);
 
-	void CalculateTangents(LevelData::AnimData& p0,LevelData::AnimData& p1,LevelData::AnimData& p2,LevelData::AnimData& p3,MyMath::Vector3& m0,MyMath::Vector3& m1);
+	void CalculateTangents(LevelData::AnimData& p0,LevelData::AnimData& p1,LevelData::AnimData& p2,LevelData::AnimData& p3,MyMath::Vector3& m0,MyMath::Vector3& m1);*/
 }

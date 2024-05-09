@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="KeyframeCamera.cpp" />
+    <ClCompile Include="Users\Keyframe\KeyframeObject.cpp" />
     <ClCompile Include="Users\Enemy\EnemyMove.cpp" />
     <ClCompile Include="Users\Effect\PlayerDamage.cpp" />
     <ClCompile Include="Users\Bullet\BaseBullet.cpp" />
@@ -82,6 +84,8 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KeyframeCamera.h" />
+    <ClInclude Include="Users\Keyframe\KeyframeObject.h" />
     <ClInclude Include="Users\Enemy\EnemyMove.h" />
     <ClInclude Include="Users\Effect\PlayerDamage.h" />
     <ClInclude Include="Users\Bullet\BaseBullet.h" />
@@ -336,7 +340,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Users\Enemy;$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)engine\Editer;$(ProjectDir)engine\3D\Model\Manager;$(ProjectDir)engine\3D\Model\OBJ;$(ProjectDir)engine\3D\Model\FBX;$(ProjectDir)External\imgui;$(ProjectDir)External\DirectXTex;$(ProjectDir)External;$(ProjectDir)engine\Base\Pipeline;$(ProjectDir)engine\Base\Core;$(ProjectDir)engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\3D;$(ProjectDir)Users\Bullet;$(ProjectDir)Users\Effect;$(ProjectDir)Users\Scene;$(ProjectDir)engine\Scene;$(ProjectDir)engine\Imgui;$(ProjectDir)Users;$(ProjectDir)engine\Collider;$(ProjectDir)engine\Base;$(ProjectDir)engine\Input;$(ProjectDir)engine\Math;$(ProjectDir)engine\2D\Sprite;$(ProjectDir)engine\3D\Particle;$(ProjectDir)engine\3D;$(ProjectDir)engine\Camera;$(ProjectDir)engine\3D\Model;$(ProjectDir)engine\Audio;$(ProjectDir);%(AdditionalIncludeDirectories);engine\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Users\Enemy;$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)engine\Editer;$(ProjectDir)engine\3D\Model\Manager;$(ProjectDir)engine\3D\Model\OBJ;$(ProjectDir)engine\3D\Model\FBX;$(ProjectDir)External\imgui;$(ProjectDir)External\DirectXTex;$(ProjectDir)External;$(ProjectDir)engine\Base\Pipeline;$(ProjectDir)engine\Base\Core;$(ProjectDir)engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\3D;$(ProjectDir)Users\Bullet;$(ProjectDir)Users\Effect;$(ProjectDir)Users\Keyframe;$(ProjectDir)Users\Scene;$(ProjectDir)engine\Scene;$(ProjectDir)engine\Imgui;$(ProjectDir)engine\Collider;$(ProjectDir)engine\Base;$(ProjectDir)engine\Input;$(ProjectDir)engine\Math;$(ProjectDir)engine\2D\Sprite;$(ProjectDir)engine\3D\Particle;$(ProjectDir)engine\3D;$(ProjectDir)engine\Camera;$(ProjectDir)engine\3D\Model;$(ProjectDir)engine\Audio;$(ProjectDir);%(AdditionalIncludeDirectories);engine\Collision</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -360,7 +364,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Users\Enemy;$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)engine\Editer;$(ProjectDir)engine\3D\Model\Manager;$(ProjectDir)engine\3D\Model\OBJ;$(ProjectDir)engine\3D\Model\FBX;$(ProjectDir)External\imgui;$(ProjectDir)External\DirectXTex;$(ProjectDir)External;$(ProjectDir)engine\Base\Pipeline;$(ProjectDir)engine\Base\Core;$(ProjectDir)engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\3D;$(ProjectDir)Users\Bullet;$(ProjectDir)Users\Effect;$(ProjectDir)Users\Scene;$(ProjectDir)engine\Scene;$(ProjectDir)engine\Imgui;$(ProjectDir)Users;$(ProjectDir)engine\Collider;$(ProjectDir)engine\Base;$(ProjectDir)engine\Input;$(ProjectDir)engine\Math;$(ProjectDir)engine\2D\Sprite;$(ProjectDir)engine\3D\Particle;$(ProjectDir)engine\3D;$(ProjectDir)engine\Camera;$(ProjectDir)engine\3D\Model;$(ProjectDir)engine\Audio;$(ProjectDir);%(AdditionalIncludeDirectories);engine\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Users\Enemy;$(ProjectDir)Users\Reticle;$(ProjectDir)Users\GameCamera;$(ProjectDir)Users\Player;$(ProjectDir)Resources\shaders\Primitive;$(ProjectDir)engine\2D\PostEffect;$(ProjectDir)Resources\levels;$(ProjectDir)Resources\shaders\Sprite;$(ProjectDir)Resources\shaders\PostEffect;$(ProjectDir)Resources\shaders\Particle;$(ProjectDir)Resources\shaders\OBJ;$(ProjectDir)Resources\shaders\FBX;$(ProjectDir)engine\Editer;$(ProjectDir)engine\3D\Model\Manager;$(ProjectDir)engine\3D\Model\OBJ;$(ProjectDir)engine\3D\Model\FBX;$(ProjectDir)External\imgui;$(ProjectDir)External\DirectXTex;$(ProjectDir)External;$(ProjectDir)engine\Base\Pipeline;$(ProjectDir)engine\Base\Core;$(ProjectDir)engine\Base\Utility;$(ProjectDir)Users\Scene\Result;$(ProjectDir)Users\Scene\Title;$(ProjectDir)Users\Scene\Game;$(ProjectDir)Users\3D;$(ProjectDir)Users\Bullet;$(ProjectDir)Users\Effect;$(ProjectDir)Users\Keyframe;$(ProjectDir)Users\Scene;$(ProjectDir)engine\Scene;$(ProjectDir)engine\Imgui;$(ProjectDir)engine\Collider;$(ProjectDir)engine\Base;$(ProjectDir)engine\Input;$(ProjectDir)engine\Math;$(ProjectDir)engine\2D\Sprite;$(ProjectDir)engine\3D\Particle;$(ProjectDir)engine\3D;$(ProjectDir)engine\Camera;$(ProjectDir)engine\3D\Model;$(ProjectDir)engine\Audio;$(ProjectDir);%(AdditionalIncludeDirectories);engine\Collision</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
