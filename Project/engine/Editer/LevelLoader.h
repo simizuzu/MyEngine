@@ -63,9 +63,11 @@ struct LevelData {
 	std::vector<MyMath::Vector3> points;
 
 	//現在のトランスフォーム
-	std::vector<MyMath::Vector3> transforms;
+	std::vector<MyMath::Vector3> transformObjects;
+	std::vector<MyMath::Vector3> transformCamera;
 	//現在のフレーム
-	std::vector<float>keyframes;
+	std::vector<float>keyframeObjects;
+	std::vector<float>keyframeCamera;
 
 	// オブジェクト配列
 	std::vector<ObjectData> objects;

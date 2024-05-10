@@ -144,7 +144,51 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 		}
 	}
 
-	//オブジェクト用
+	//"animations""MESH"から frame,X,Y,Z要素を走査(カメラ用)
+	for ( nlohmann::json& animations : deserialized[ "animations" ] )
+	{
+		assert(animations.contains("type"));
+		//種別を取得
+		std::string type = animations[ "type" ].get<std::string>();
+
+		//typeがCAMERAの時
+		if ( type.compare("CAMERA") == 0 )
+		{
+			for ( nlohmann::json& animedata : animations[ "animedata" ] )
+			{
+				//要素追加
+				levelData->anims.emplace_back(LevelData::AnimData{});
+				//今追加した要素の参照を得る
+				LevelData::AnimData& animeData = levelData->anims.back();
+
+				//jsonファイルからフレーム数を検索
+				if ( animedata.contains("frame") )
+				{
+					//フレーム数を取得
+					animeData.frame = animedata[ "frame" ];
+				}
+
+				//平行移動 (blender上ではZ方向とY方向が逆のため入れ替える)
+				animeData.translation.x = ( float ) animedata[ "translation" ][ 0 ];
+				animeData.translation.y = ( float ) animedata[ "translation" ][ 2 ];
+				animeData.translation.z = ( float ) animedata[ "translation" ][ 1 ];
+
+				//回転 (XとYで座標系を変更)
+				animeData.rotation.x = ( float ) animedata[ "rotation" ][ 0 ];
+				animeData.rotation.x = -animeData.rotation.x;
+				animeData.rotation.y = ( float ) animedata[ "rotation" ][ 1 ];
+				animeData.rotation.x = -animeData.rotation.y;
+				animeData.rotation.z = ( float ) animedata[ "rotation" ][ 2 ];
+
+				//各要素を登録する
+				levelData->keyframeCamera.push_back(animeData.frame);
+				levelData->transformCamera.push_back(animeData.translation);
+				levelData->transformCamera.push_back(animeData.rotation);
+			}
+		}
+	}
+
+	//"animations""MESH"から frame,X,Y,Z要素を走査(オブジェクト用)
 	for ( nlohmann::json& animations : deserialized[ "animations" ] )
 	{
 		assert(animations.contains("type"));
@@ -186,57 +230,14 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 				animeData.scaling.z = ( float ) animedata[ "scaling" ][ 2 ];
 
 				//各要素を登録する
-				levelData->keyframes.push_back(animeData.frame);
-				levelData->transforms.push_back(animeData.translation);
-				levelData->transforms.push_back(animeData.rotation);
-				levelData->transforms.push_back(animeData.scaling);
+				levelData->keyframeObjects.push_back(animeData.frame);
+				levelData->transformObjects.push_back(animeData.translation);
+				levelData->transformObjects.push_back(animeData.rotation);
+				levelData->transformObjects.push_back(animeData.scaling);
 			}
 		}
 	}
 
-	//カメラ用
-	for ( nlohmann::json& animations : deserialized[ "animations" ] )
-	{
-		assert(animations.contains("type"));
-		//種別を取得
-		std::string type = animations[ "type" ].get<std::string>();
-
-		//typeがCAMERAの時
-		if ( type.compare("CAMERA") == 0 )
-		{
-			for ( nlohmann::json& animedata : animations[ "animedata" ] )
-			{
-				//要素追加
-				levelData->anims.emplace_back(LevelData::AnimData{});
-				//今追加した要素の参照を得る
-				LevelData::AnimData& animeData = levelData->anims.back();
-
-				//jsonファイルからフレーム数を検索
-				if ( animedata.contains("frame") )
-				{
-					//フレーム数を取得
-					animeData.frame = animedata[ "frame" ];
-				}
-
-				//平行移動 (blender上ではZ方向とY方向が逆のため入れ替える)
-				animeData.translation.x = ( float ) animedata[ "translation" ][ 0 ];
-				animeData.translation.y = ( float ) animedata[ "translation" ][ 2 ];
-				animeData.translation.z = ( float ) animedata[ "translation" ][ 1 ];
-
-				//回転 (XとYで座標系を変更)
-				animeData.rotation.x = ( float ) animedata[ "rotation" ][ 0 ];
-				animeData.rotation.x = -animeData.rotation.x;
-				animeData.rotation.y = ( float ) animedata[ "rotation" ][ 1 ];
-				animeData.rotation.x = -animeData.rotation.y;
-				animeData.rotation.z = ( float ) animedata[ "rotation" ][ 2 ];
-
-				//各要素を登録する
-				levelData->keyframes.push_back(animeData.frame);
-				levelData->transforms.push_back(animeData.translation);
-				levelData->transforms.push_back(animeData.rotation);
-			}
-		}
-	}
 	return levelData;
 }
 
