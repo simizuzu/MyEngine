@@ -4,13 +4,9 @@
 class KeyframeObject
 {
 public:
-	struct KeyframeVector3
-	{
-		MyMath::Vector3 value;	//キーフレームの値
-		float time;				//キーフレームの時刻
-	};
+	KeyframeObject() = default;
+	~KeyframeObject() = default;
 
-public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -27,12 +23,15 @@ public:
 	void IsPlayAnimation();
 
 private:
-	LevelData* keyframeData;
+	Keyframe* keyframeData;
 	std::vector<LevelData::AnimData> points;
+
+	Keyframe::KeyframeVector3 node;
+	//Keyframe::NodeAnimation nodeAnimation;
 	
 private:
 	//そのオブジェクトのゲーム内開始時間
-	const float startTime = 1.0f;
+	const float startTime = 0.0f;
 	//終了時間
 	float endTime = 0.0f;
 	//1フレーム
@@ -42,9 +41,12 @@ private:
 
 	bool isPlay = false;
 
-	//座標
-	std::vector<MyMath::Vector3> translation_;
-	//回転
-	std::vector<MyMath::Vector3> rotation_;
+	int8_t pad[ 7 ];
+
+private:
+//代入演算子削除
+	KeyframeObject& operator=(const KeyframeObject&) = delete;
+	//コピーコンストラクタ削除
+	KeyframeObject(const KeyframeObject&) = delete;
 };
 

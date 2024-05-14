@@ -2,7 +2,7 @@
     "name": "scene",
     "animations": [
         {
-            "type": "NANANA",
+            "type": "MESH",
             "name": "Cube",
             "animedata": [
                 {

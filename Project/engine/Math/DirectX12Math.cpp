@@ -490,7 +490,7 @@ namespace MyMathUtility
 		return result;
 	}
 
-	Vector3 Lerp(Vector3 a,Vector3 b,float t)
+	Vector3 Lerp(const MyMath::Vector3& a,const MyMath::Vector3& b,const float& t)
 	{
 		Vector3 tmp;
 		tmp.x = a.x + ( b.x - a.x ) * Clamp0To1(t);

@@ -2,8 +2,9 @@
 #include "SuppressWarning.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
-#include <string>
 #include <vector>
+#include <string>
+#include <map>
 MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "DirectX12Math.h"
@@ -12,6 +13,41 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @class LevelLoader.h
  * @brief blenderからjsonファイルを読み取るクラス
  */
+
+//キーフレームデータ
+struct Keyframe
+{
+	//１つのキーフレーム情報が入っている
+	struct KeyframeVector3
+	{
+		MyMath::Vector3 value;	//キーフレームの値
+		float time;				//キーフレームの時刻
+	};
+
+	//キーフレーム内の各トランスフォーム
+	struct MeshKeyframe
+	{
+		std::vector<KeyframeVector3> translate;	//座標
+		std::vector<KeyframeVector3> rotate;	//回転
+		std::vector<KeyframeVector3> scale;		//スケール
+	};
+
+	struct CameraKeyframe
+	{
+		std::vector<KeyframeVector3> translate;	//座標
+		std::vector<KeyframeVector3> rotate;	//回転
+	};
+
+	std::map<std::string,MeshKeyframe> meshKeyframe;
+	std::map<std::string,CameraKeyframe> cameraKeyframe;
+
+	//struct Animation
+	//{
+	//	float duration;	//アニメーション全体の尺（単位は秒）
+	//	int8_t pad[ 4 ];
+	//	std::map<std::string,NodeAnimation> nodeAnimations;
+	//};
+};
 
 // レベルデータ
 struct LevelData {
@@ -78,7 +114,6 @@ struct LevelData {
 
 // レベルデータのローダー
 class LevelLoader {
-
 private:
 	// デフォルトの読み込みディレクトリ
 	static const std::string defaultBaseDirectory;
@@ -86,6 +121,9 @@ private:
 	static const std::string extension;
 
 	static int16_t objectType;
+
+	static std::string cameraName;
+	static std::string meshName;
 
 public:// メンバ関数
 
@@ -95,6 +133,9 @@ public:// メンバ関数
 	/// <param name="fileName">ファイル名</param>
 	[[nodiscard]]
 	static LevelData* LoadFile(const std::string& fileName);
+
+	[[nodiscard]]
+	static Keyframe* LoadKeyframe(const std::string& fileName);
 };
 
 namespace MyMathUtility {
@@ -107,15 +148,10 @@ namespace MyMathUtility {
 	MyMath::Vector3 SplinePosition(std::vector<LevelData::CurveData>& points, float t,size_t startIndex = 1);
 
 	/// <summary>
-	/// スプライン曲線(blenderアニメーション用)
+	/// 任意の時刻の値を取得する関数
 	/// </summary>
-	/// <param name="points">制御点</param>
-	/// <param name="t"></param>
-	/// <param name="startIndex"></param>
-	/// <returns></returns>
-	/*MyMath::Vector3 SplinePosition(std::vector<LevelData::AnimData>& points, float frame);
-
-	MyMath::Vector3 InterpolateControlPoints(const std::vector<LevelData::AnimData>& points,int frame,std::function<MyMath::Vector3(const LevelData::AnimData&,const LevelData::AnimData&,float)> interpolator);
-
-	void CalculateTangents(LevelData::AnimData& p0,LevelData::AnimData& p1,LevelData::AnimData& p2,LevelData::AnimData& p3,MyMath::Vector3& m0,MyMath::Vector3& m1);*/
+	/// <param name="keyframes">キーフレーム</param>
+	/// <param name="time">時間</param>
+	/// <returns>任意の時刻の値</returns>
+	MyMath::Vector3 CalculateValue(const std::vector<Keyframe::KeyframeVector3>& keyframes, float time);
 }

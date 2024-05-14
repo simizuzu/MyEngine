@@ -71,7 +71,7 @@ namespace MyMathUtility
 	// 最短角度補間
 	float LerpShortAngle(const float& a,const float& b,const float& t);
 	// 線形補間(Vector3)
-	MyMath::Vector3 Lerp(MyMath::Vector3 a, MyMath::Vector3 b, float t);
+	MyMath::Vector3 Lerp(const MyMath::Vector3& a, const MyMath::Vector3& b,const float& t);
 	//球面線形補間
 	MyMath::Vector3 Slerp(const MyMath::Vector3& a,const MyMath::Vector3& b,const float& t);
 
