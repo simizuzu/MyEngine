@@ -30,20 +30,25 @@ struct Keyframe
 		std::vector<KeyframeVector3> translate;	//座標
 		std::vector<KeyframeVector3> rotate;	//回転
 		std::vector<KeyframeVector3> scale;		//スケール
+		float duration;	//アニメーション全体の尺（単位は秒）
+		float ticsPerSecond; //何フレームで進むか(30F,60F,120F,...)
 	};
 
 	struct CameraKeyframe
 	{
 		std::vector<KeyframeVector3> translate;	//座標
 		std::vector<KeyframeVector3> rotate;	//回転
+		float duration;	//アニメーション全体の尺（単位は秒）
+		float ticsPerSecond; //何フレームで進むか(30F,60F,120F,...)
 	};
 
 	std::map<std::string,MeshKeyframe> meshKeyframe;
 	std::map<std::string,CameraKeyframe> cameraKeyframe;
+	
 
 	//struct Animation
 	//{
-	//	float duration;	//アニメーション全体の尺（単位は秒）
+	//	
 	//	int8_t pad[ 4 ];
 	//	std::map<std::string,NodeAnimation> nodeAnimations;
 	//};
