@@ -150,7 +150,7 @@ LevelData* LevelLoader::LoadFile(const std::string& fileName)
 	return levelData;
 }
 
-Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName)
+Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName,float ticsPerSecond)
 {
 	// 連結してフルパスを得る
 	const std::string fullpath = defaultBaseDirectory + fileName + extension;
@@ -199,6 +199,18 @@ Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName)
 
 			Keyframe::CameraKeyframe& keyframeName = keyframe->cameraKeyframe[ cameraName ];
 
+			float lastFrame = 0.0f;
+			//最後のフレームを取得
+			if ( animations.contains("last_frame") )
+			{
+				lastFrame = animations[ "last_frame" ];
+			}
+
+			keyframeName.duration = lastFrame;
+
+			//何フレームで進むかを決める
+			keyframeName.ticsPerSecond = ticsPerSecond;
+
 			for ( nlohmann::json& animedata : animations[ "animedata" ] )
 			{
 				float frame = 0.0f;
@@ -245,6 +257,18 @@ Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName)
 
 			Keyframe::MeshKeyframe& keyframeName = keyframe->meshKeyframe[ meshName ];
 
+			float lastFrame = 0.0f;
+			//最後のフレームを取得
+			if ( animations.contains("last_frame") )
+			{
+				lastFrame = animations["last_frame" ];
+			}
+
+			//全体フレームに最後のフレームを代入する
+			keyframeName.duration = lastFrame;
+
+			//何フレームで進むかを決める
+			keyframeName.ticsPerSecond = ticsPerSecond;
 
 			for ( nlohmann::json& animedata : animations[ "animedata" ] )
 			{
@@ -311,7 +335,33 @@ namespace MyMathUtility
 		return position;
 	}
 
-	MyMath::Vector3 CalculateValue(const std::vector<Keyframe::KeyframeVector3>& keyframes,float time)
+	MyMath::Vector3 CalculateValueLerp(const std::vector<Keyframe::KeyframeVector3>& keyframes,float time)
+	{
+		//必ずキーがないものはassertをかける
+		assert(!keyframes.empty());
+		//キーが1つ場合または時刻がキーフレーム前なら最初の値とする
+		if ( keyframes.size() == 1 || time <= keyframes[ 0 ].time )
+		{
+			return keyframes[ 0 ].value;
+		}
+
+		for ( size_t index = 0; index < keyframes.size() - 1; ++index )
+		{
+			size_t nextIndex = index + 1;
+
+			//indexとnextIndexの2つのkeyframeを取得して範囲内に時刻があるかを判定
+			if ( keyframes[ index ].time <= time && time <= keyframes[ nextIndex ].time )
+			{
+				//範囲内を補間する
+				float t = ( time - keyframes[ index ].time ) / ( keyframes[ nextIndex ].time - keyframes[ index ].time );
+				return MyMathUtility::Lerp(keyframes[ index ].value,keyframes[ nextIndex ].value,t);
+			}
+		}
+
+		//一番後の時刻よりも後の値になったとき最後の値を返す
+		return (*keyframes.rbegin()).value;
+	}
+	MyMath::Vector3 CalculateValueSlerp(const std::vector<Keyframe::KeyframeVector3>& keyframes,float time)
 	{
 		//必ずキーがないものはassertをかける
 		assert(!keyframes.empty());
@@ -335,6 +385,6 @@ namespace MyMathUtility
 		}
 
 		//一番後の時刻よりも後の値になったとき最後の値を返す
-		return (*keyframes.rbegin()).value;
+		return ( *keyframes.rbegin() ).value;
 	}
 }

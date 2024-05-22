@@ -44,14 +44,6 @@ struct Keyframe
 
 	std::map<std::string,MeshKeyframe> meshKeyframe;
 	std::map<std::string,CameraKeyframe> cameraKeyframe;
-	
-
-	//struct Animation
-	//{
-	//	
-	//	int8_t pad[ 4 ];
-	//	std::map<std::string,NodeAnimation> nodeAnimations;
-	//};
 };
 
 // レベルデータ
@@ -140,7 +132,7 @@ public:// メンバ関数
 	static LevelData* LoadFile(const std::string& fileName);
 
 	[[nodiscard]]
-	static Keyframe* LoadKeyframe(const std::string& fileName);
+	static Keyframe* LoadKeyframe(const std::string& fileName, float ticsPerSecond);
 };
 
 namespace MyMathUtility {
@@ -153,10 +145,18 @@ namespace MyMathUtility {
 	MyMath::Vector3 SplinePosition(std::vector<LevelData::CurveData>& points, float t,size_t startIndex = 1);
 
 	/// <summary>
-	/// 任意の時刻の値を取得する関数
+	/// 任意の時刻の値を取得する関数(線形補間)
 	/// </summary>
 	/// <param name="keyframes">キーフレーム</param>
 	/// <param name="time">時間</param>
 	/// <returns>任意の時刻の値</returns>
-	MyMath::Vector3 CalculateValue(const std::vector<Keyframe::KeyframeVector3>& keyframes, float time);
+	MyMath::Vector3 CalculateValueLerp(const std::vector<Keyframe::KeyframeVector3>& keyframes, float time);
+
+	/// <summary>
+	/// 任意の時刻の値を取得する関数(球面線形補間)
+	/// </summary>
+	/// <param name="keyframes">キーフレーム</param>
+	/// <param name="time">時間</param>
+	/// <returns>時刻の</returns>
+	MyMath::Vector3 CalculateValueSlerp(const std::vector<Keyframe::KeyframeVector3>& keyframes,float time);
 }

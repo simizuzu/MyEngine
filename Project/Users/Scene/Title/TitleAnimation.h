@@ -1,6 +1,7 @@
 #pragma once
 #include "Camera.h"
 #include "LevelLoader.h"
+#include "KeyframeObject.h"
 
 #include "Sprite.h"
 #include "ObjObject3d.h"
@@ -62,6 +63,12 @@ private: //メンバ変数
 	//カメラ
 	Camera* camera_ = nullptr;
 	LevelData* levelData_ = nullptr;
+
+	//---------------
+	Keyframe* keyframeData;
+	float animationTime = 1.0f / 60.0f;
+	MyMath::Vector3 translate;
+	//---------------------
 
 #pragma region Sprite
 	TextureData texBack;

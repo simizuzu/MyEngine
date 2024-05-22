@@ -27,9 +27,6 @@ void TitleScene::Initialize()
 	transition_ = std::make_unique<TransitionScene>();
 	transition_->Initialize();
 
-	key = std::make_unique<KeyframeObject>();
-	key->Initialize();
-
 	sceneManager_ = SceneManager::GetInstance();
 }
 

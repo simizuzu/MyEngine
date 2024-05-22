@@ -2,33 +2,20 @@
 
 void KeyframeObject::Initialize()
 {
-	keyframeData = LevelLoader::LoadKeyframe("anim");
+	keyframeData = LevelLoader::LoadKeyframe("anim",animationTime);
 }
 
-void KeyframeObject::Update(LevelData* animeData)
+void KeyframeObject::Update(Camera* camera)
 {
-	if ( isPlay )
-	{
-		//1フレーム進める
-		currentTime += frameTime;
-		//最後まで再生したら最後に固定する
-		if ( currentTime > endTime )
-		{
-			currentTime = endTime;
-		}
-	}
+	animationTime += 1.0f / 60.0f;
+	animationTime = std::fmod(animationTime,keyframeData->meshKeyframe[ "Box" ].duration);
 
-	if ( animeData )
+	translate = MyMathUtility::CalculateValueSlerp(keyframeData->meshKeyframe[ "Box" ].scale,animationTime);
+
+	if ( camera )
 	{
 
 	}
-
-	//for ( LevelData::AnimData anim : animeData->anims )
-	//{
-	//	nodeAnimation = 
-	//}
-
-	//translation_ = MyMathUtility::CalculateValue(nodeAnimation.translate,currentTime);
 }
 
 void KeyframeObject::IsPlayAnimation()

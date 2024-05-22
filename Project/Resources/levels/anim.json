@@ -3,7 +3,8 @@
     "animations": [
         {
             "type": "MESH",
-            "name": "Cube",
+            "name": "Box",
+            "last_frame": 47,
             "animedata": [
                 {
                     "frame": 1,
@@ -64,6 +65,7 @@
         {
             "type": "CAMERA",
             "name": "Camera",
+            "last_frame": 74,
             "animedata": [
                 {
                     "frame": 1,
@@ -105,7 +107,8 @@
         },
         {
             "type": "MESH",
-            "name": "Sphere",
+            "name": "Tun",
+            "last_frame": 46,
             "animedata": [
                 {
                     "frame": 0,

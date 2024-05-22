@@ -1,5 +1,6 @@
 #pragma once
 #include "LevelLoader.h"
+#include "Camera.h"
 
 class KeyframeObject
 {
@@ -15,7 +16,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update(LevelData* animeData);
+	void Update(Camera* camera);
 
 	/// <summary>
 	/// キーフレームを再生する
@@ -24,24 +25,10 @@ public:
 
 private:
 	Keyframe* keyframeData;
-	std::vector<LevelData::AnimData> points;
-
-	Keyframe::KeyframeVector3 node;
-	//Keyframe::NodeAnimation nodeAnimation;
 	
 private:
-	//そのオブジェクトのゲーム内開始時間
-	const float startTime = 0.0f;
-	//終了時間
-	float endTime = 0.0f;
-	//1フレーム
-	float frameTime = 1.0f;
-	//現在の時間(フレーム数)
-	float currentTime = 0.0f;
-
-	bool isPlay = false;
-
-	int8_t pad[ 7 ];
+	float animationTime = 1.0f / 60.0f;
+	MyMath::Vector3 translate;
 
 private:
 //代入演算子削除
