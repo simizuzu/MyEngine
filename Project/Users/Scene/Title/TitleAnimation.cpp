@@ -19,7 +19,7 @@ void TitleAnimation::Initalize(Camera* camera)
 	camera_ = camera;
 
 	camera_->SetEye({ 6.0f,3.5f,-7.5f });
-	camera_->SetTarget({ 3.5f,2.0f,-5.0f });
+	camera_->SetTarget({ 3.5f,2.0f,2.0f });
 
 #pragma region Sprite
 	texBack = TextureManager::Load("Resources/Texture/Scene/Assault.png");
@@ -73,15 +73,15 @@ void TitleAnimation::Update()
 	ImGui::End();
 #endif
 
-	animationTime += 1.0f / 60.0f;
-	animationTime = std::fmod(animationTime,keyframeData->meshKeyframe[ "Box" ].duration);
+	animationTime += 1.0f / 10.0f;
+	animationTime = std::fmod(animationTime,keyframeData->meshKeyframe[ "Cube" ].duration);
 
-	translate = MyMathUtility::CalculateValueLerp(keyframeData->meshKeyframe[ "Box" ].translate,animationTime);
+	translate = MyMathUtility::CalculateValueLerp(keyframeData->meshKeyframe[ "Cube" ].scale,animationTime);
 
 	rotation += desimalRot;
 	skydomeTrans.SetRotation({ 0,rotation,0 });
 
-	robotoTrans.SetTranslation(translate);
+	robotoTrans.SetScale(translate);
 
 	skydomeTrans.Update(camera_);
 	groundTrans.Update(camera_);
@@ -92,8 +92,8 @@ void TitleAnimation::Update()
 
 void TitleAnimation::Draw()
 {
-	//skydomeObj_->Draw(&skydomeTrans);
-	//groundObj_->Draw(&groundTrans);
+	skydomeObj_->Draw(&skydomeTrans);
+	groundObj_->Draw(&groundTrans);
 	robotoObj_->Draw(&robotoTrans);
 	pilotObj_->Draw(&pilotTrans);
 	spriteBack_->Draw(texBack,black1x1Size,scale,texRot,anchorpoint);
