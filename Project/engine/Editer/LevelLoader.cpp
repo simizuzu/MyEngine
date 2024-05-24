@@ -222,7 +222,8 @@ Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName,float ticsPerSec
 					frame = animedata[ "frame" ];
 				}
 
-				Keyframe::KeyframeVector3 translation, rotation;
+				Keyframe::KeyframeVector3 translation;
+				Keyframe::KeyframeQuaternion rotation;
 
 				//平行移動 (blender上ではZ方向とY方向が逆のため入れ替える)
 				translation.value.x = ( float ) animedata[ "translation" ][ 0 ];
@@ -231,12 +232,11 @@ Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName,float ticsPerSec
 				translation.time = frame;
 				keyframeName.translate.push_back(translation);
 
-				//回転 (XとYで座標系を変更)
-				rotation.value.x = ( float ) animedata[ "rotation" ][ 0 ];
-				rotation.value.x = -rotation.value.x;
+				//回転
+				rotation.value.w = ( float ) animedata[ "rotation" ][ 0 ];
 				rotation.value.y = ( float ) animedata[ "rotation" ][ 1 ];
-				rotation.value.x = -rotation.value.y;
 				rotation.value.z = ( float ) animedata[ "rotation" ][ 2 ];
+				rotation.value.z = ( float ) animedata[ "rotation" ][ 3 ];
 				rotation.time = frame;
 				keyframeName.rotate.push_back(rotation);
 			}
@@ -281,7 +281,8 @@ Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName,float ticsPerSec
 					frame = animedata[ "frame" ];
 				}
 
-				Keyframe::KeyframeVector3 translation,rotation,scaling;
+				Keyframe::KeyframeVector3 translation,scaling;
+				Keyframe::KeyframeQuaternion rotation;
 
 				//平行移動 (blender上ではZ方向とY方向が逆のため入れ替える)
 				translation.value.x = ( float ) animedata[ "translation" ][ 0 ];
@@ -290,15 +291,15 @@ Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName,float ticsPerSec
 				translation.time = frame;
 				keyframeName.translate.push_back(translation);
 
-				//回転 (XとYで座標系を変更)
-				rotation.value.x = ( float ) animedata[ "rotation" ][ 0 ];
-				rotation.value.x = -rotation.value.x;
+				//回転
+				rotation.value.w = ( float ) animedata[ "rotation" ][ 0 ];
 				rotation.value.y = ( float ) animedata[ "rotation" ][ 1 ];
-				rotation.value.x = -rotation.value.y;
 				rotation.value.z = ( float ) animedata[ "rotation" ][ 2 ];
+				rotation.value.z = ( float ) animedata[ "rotation" ][ 3 ];
 				rotation.time = frame;
 				keyframeName.rotate.push_back(rotation);
 
+				//スケール
 				scaling.value.x = ( float ) animedata[ "scaling" ][ 0 ];
 				scaling.value.y = ( float ) animedata[ "scaling" ][ 1 ];
 				scaling.value.z = ( float ) animedata[ "scaling" ][ 2 ];
@@ -361,7 +362,7 @@ namespace MyMathUtility
 		//一番後の時刻よりも後の値になったとき最後の値を返す
 		return (*keyframes.rbegin()).value;
 	}
-	MyMath::Vector3 CalculateValueSlerp(const std::vector<Keyframe::KeyframeVector3>& keyframes,float time)
+	MyMath::Quaternion CalculateValueSlerp(const std::vector<Keyframe::KeyframeQuaternion>& keyframes,float time)
 	{
 		//必ずキーがないものはassertをかける
 		assert(!keyframes.empty());

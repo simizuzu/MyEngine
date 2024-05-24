@@ -24,11 +24,17 @@ struct Keyframe
 		float time;				//キーフレームの時刻
 	};
 
+	struct KeyframeQuaternion
+	{
+		MyMath::Quaternion value;	//キーフレームの値
+		float time;				//キーフレームの時刻
+	};
+
 	//キーフレーム内の各トランスフォーム
 	struct MeshKeyframe
 	{
 		std::vector<KeyframeVector3> translate;	//座標
-		std::vector<KeyframeVector3> rotate;	//回転
+		std::vector<KeyframeQuaternion> rotate;	//回転
 		std::vector<KeyframeVector3> scale;		//スケール
 		float duration;	//アニメーション全体の尺（単位は秒）
 		float ticsPerSecond; //何フレームで進むか(30F,60F,120F,...)
@@ -37,7 +43,7 @@ struct Keyframe
 	struct CameraKeyframe
 	{
 		std::vector<KeyframeVector3> translate;	//座標
-		std::vector<KeyframeVector3> rotate;	//回転
+		std::vector<KeyframeQuaternion> rotate;	//回転
 		float duration;	//アニメーション全体の尺（単位は秒）
 		float ticsPerSecond; //何フレームで進むか(30F,60F,120F,...)
 	};
@@ -79,7 +85,7 @@ struct LevelData {
 		//座標
 		MyMath::Vector3 translation;
 		//回転
-		MyMath::Vector3 rotation;
+		MyMath::Quaternion rotation;
 		//スケール
 		MyMath::Vector3 scaling;
 	};
@@ -158,5 +164,5 @@ namespace MyMathUtility {
 	/// <param name="keyframes">キーフレーム</param>
 	/// <param name="time">時間</param>
 	/// <returns>時刻の</returns>
-	MyMath::Vector3 CalculateValueSlerp(const std::vector<Keyframe::KeyframeVector3>& keyframes,float time);
+	MyMath::Quaternion CalculateValueSlerp(const std::vector<Keyframe::KeyframeQuaternion>& keyframes,float time);
 }

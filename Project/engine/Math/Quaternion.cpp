@@ -15,28 +15,28 @@ namespace MyMath
 {
 	Quaternion::Quaternion()
 	{
-		w_ = 1;
-		x_ = 0;
-		y_ = 0;
-		z_ = 0;
+		w = 1;
+		x = 0;
+		y = 0;
+		z = 0;
 	}
 
 	Quaternion::Quaternion(float x,float y,float z,float w)
 	{
-		w_ = w;
-		x_ = x;
-		y_ = y;
-		z_ = z;
+		w = w;
+		x = x;
+		y = y;
+		z = z;
 	}
 
 	Quaternion Quaternion::Multiply(Quaternion r)
 	{
 		Quaternion result;
 
-		result.w_ = w_ * r.w_ - x_ * r.x_ - y_ * r.y_ - z_ * r.z_;
-		result.x_ = y_ * r.z_ - z_ * r.y_ + r.w_ * x_ + w_ * r.x_;
-		result.y_ = z_ * r.x_ - x_ * r.z_ + r.w_ * y_ + w_ * r.y_;
-		result.z_ = x_ * r.y_ - y_ * r.x_ + r.w_ * z_ + w_ * r.z_;
+		result.w = w * r.w - x * r.x - y * r.y - z * r.z;
+		result.x = y * r.z - z * r.y + r.w * x + w * r.x;
+		result.y = z * r.x - x * r.z + r.w * y + w * r.y;
+		result.z = x * r.y - y * r.x + r.w * z + w * r.z;
 
 		return result;
 	}
@@ -45,10 +45,10 @@ namespace MyMath
 	{
 		Quaternion result;
 
-		result.w_ = 1;
-		result.x_ = 0;
-		result.y_ = 0;
-		result.z_ = 0;
+		result.w = 1;
+		result.x = 0;
+		result.y = 0;
+		result.z = 0;
 
 		return result;
 	}
@@ -57,17 +57,17 @@ namespace MyMath
 	{
 		Quaternion result;
 
-		result.w_ = w_;
-		result.x_ = -x_;
-		result.y_ = -y_;
-		result.z_ = -z_;
+		result.w = w;
+		result.x = -x;
+		result.y = -y;
+		result.z = -z;
 
 		return result;
 	}
 
 	float Quaternion::Norm() const
 	{
-		float sqrtNorm = sqrt(pow(w_,2.0f) + pow(x_,2.0f) + pow(y_,2.0f) + pow(z_,2.0f));
+		float sqrtNorm = sqrt(pow(w,2.0f) + pow(x,2.0f) + pow(y,2.0f) + pow(z,2.0f));
 		return sqrtNorm;
 	}
 
@@ -82,7 +82,7 @@ namespace MyMath
 		return result;
 	}
 
-	Quaternion Quaternion::INverse()
+	Quaternion Quaternion::Inverse()
 	{
 		Quaternion result = Conjugate() / pow(Norm(),2.0f);
 
@@ -94,32 +94,32 @@ namespace MyMath
 		Quaternion result;
 		Quaternion VecQua;
 
-		VecQua.w_ = 0;
-		VecQua.x_ = vector.x;
-		VecQua.y_ = vector.y;
-		VecQua.z_ = vector.z;
+		VecQua.w = 0;
+		VecQua.x = vector.x;
+		VecQua.y = vector.y;
+		VecQua.z = vector.z;
 
 		Quaternion conQuaternion = Conjugate();
 
 		result = Multiply(VecQua);
 		result = result.Multiply(conQuaternion);
 
-		return { result.x_,result.y_,result.z_ };
+		return { result.x,result.y,result.z };
 	}
 
 	Matrix4 Quaternion::MakeRotateMatrix()
 	{
 		Matrix4 result = MyMathUtility::MakeIdentity();
 
-		result.m[ 0 ][ 0 ] = w_ * w_ + x_ * x_ - y_ * y_ - z_ * z_;
-		result.m[ 0 ][ 1 ] = 2 * ( x_ * y_ + w_ * z_ );
-		result.m[ 0 ][ 2 ] = 2 * ( x_ * z_ - w_ * y_ );
-		result.m[ 1 ][ 0 ] = 2 * ( x_ * y_ - w_ * z_ );
-		result.m[ 1 ][ 1 ] = w_ * w_ - x_ * x_ + y_ * y_ - z_ * z_;
-		result.m[ 1 ][ 2 ] = 2 * ( y_ * z_ + w_ * x_ );
-		result.m[ 2 ][ 0 ] = 2 * ( x_ * z_ + w_ * y_ );
-		result.m[ 2 ][ 1 ] = 2 * ( y_ * z_ - w_ * x_ );
-		result.m[ 2 ][ 2 ] = w_ * w_ - x_ * x_ - y_ * y_ + z_ * z_;
+		result.m[ 0 ][ 0 ] = w * w + x * x - y * y - z * z;
+		result.m[ 0 ][ 1 ] = 2 * ( x * y + w * z );
+		result.m[ 0 ][ 2 ] = 2 * ( x * z - w * y );
+		result.m[ 1 ][ 0 ] = 2 * ( x * y - w * z );
+		result.m[ 1 ][ 1 ] = w * w - x * x + y * y - z * z;
+		result.m[ 1 ][ 2 ] = 2 * ( y * z + w * x );
+		result.m[ 2 ][ 0 ] = 2 * ( x * z + w * y );
+		result.m[ 2 ][ 1 ] = 2 * ( y * z - w * x );
+		result.m[ 2 ][ 2 ] = w * w - x * x - y * y + z * z;
 
 		return result;
 	}
@@ -128,13 +128,13 @@ namespace MyMath
 	{
 		Quaternion result;
 
-		result.w_ = cos(angle / 2);
+		result.w = cos(angle / 2);
 
 		Vector3 VecResult = axsi * sin(angle / 2);
 
-		result.x_ = VecResult.x;
-		result.y_ = VecResult.y;
-		result.z_ = VecResult.z;
+		result.x = VecResult.x;
+		result.y = VecResult.y;
+		result.z = VecResult.z;
 
 		return result;
 	}
@@ -143,19 +143,19 @@ namespace MyMath
 	{
 		MyMath::Vector3 result;
 
-		float ww = w_ * w_;
-		float wx = w_ * x_;
-		float wy = w_ * y_;
-		float wz = w_ * z_;
+		float ww = w * w;
+		float wx = w * x;
+		float wy = w * y;
+		float wz = w * z;
 
-		float xx = x_ * x_;
-		float xy = x_ * y_;
-		float xz = x_ * z_;
+		float xx = x * x;
+		float xy = x * y;
+		float xz = x * z;
 
-		float yy = y_ * y_;
-		float yz = y_ * z_;
+		float yy = y * y;
+		float yz = y * z;
 
-		float zz = z_ * z_;
+		float zz = z * z;
 
 		result.x = atan2(twice * ( yz + wx ),ww - xx - yy + zz);
 		result.y = asin(twice * ( wy - xz ));
@@ -216,7 +216,7 @@ namespace MyMath
 
 	float Quaternion::Dot(const Quaternion& q) const
 	{
-		return x_ * q.x_ + y_ * q.y_ + z_ * q.z_ + w_ * q.w_;
+		return x * q.x + y * q.y + z * q.z + w * q.w;
 	}
 	Quaternion Quaternion::operator+()
 	{
@@ -225,25 +225,25 @@ namespace MyMath
 
 	Quaternion Quaternion::operator-()const
 	{
-		return Quaternion(-x_,-y_,-z_,-w_);
+		return Quaternion(-x,-y,-z,-w);
 	}
 
 	Quaternion& Quaternion::operator=(const Quaternion& q)
 	{
-		x_ = q.x_;
-		y_ = q.y_;
-		z_ = q.z_;
-		w_ = q.w_;
+		x = q.x;
+		y = q.y;
+		z = q.z;
+		w = q.w;
 
 		return *this;
 	}
 
 	Quaternion& Quaternion::operator+=(const Quaternion& q)
 	{
-		x_ += q.x_;
-		y_ += q.y_;
-		z_ += q.z_;
-		w_ += q.w_;
+		x += q.x;
+		y += q.y;
+		z += q.z;
+		w += q.w;
 
 		return *this;
 	}
@@ -251,20 +251,20 @@ namespace MyMath
 	Quaternion& Quaternion::operator-=(const Quaternion& q)
 	{
 
-		x_ -= q.x_;
-		y_ -= q.y_;
-		z_ -= q.z_;
-		w_ -= q.w_;
+		x -= q.x;
+		y -= q.y;
+		z -= q.z;
+		w -= q.w;
 
 		return *this;
 	}
 
 	Quaternion& Quaternion::operator*=(float s)
 	{
-		x_ *= s;
-		y_ *= s;
-		z_ *= s;
-		w_ *= s;
+		x *= s;
+		y *= s;
+		z *= s;
+		w *= s;
 
 		return *this;
 	}
@@ -278,15 +278,15 @@ namespace MyMath
 	{
 		float rx,ry,rz,rw;
 
-		rx = w_ * q.x_ + q.w_ * x_ + y_ * q.z_ + -z_ * q.y_;
-		ry = w_ * q.y_ + q.w_ * y_ + z_ * q.x_ + -x_ * q.z_;
-		rz = w_ * q.z_ + q.w_ * z_ + x_ * q.y_ + -y_ * q.x_;
-		rw = w_ * q.w_ + -x_ * q.x_ + -y_ * q.y_ + -z_ * q.z_;
+		rx = w * q.x + q.w * x + y * q.z + -z * q.y;
+		ry = w * q.y + q.w * y + z * q.x + -x * q.z;
+		rz = w * q.z + q.w * z + x * q.y + -y * q.x;
+		rw = w * q.w + -x * q.x + -y * q.y + -z * q.z;
 
-		x_ = rx;
-		y_ = ry;
-		z_ = rz;
-		w_ = rw;
+		x = rx;
+		y = ry;
+		z = rz;
+		w = rw;
 
 		return *this;
 	}
@@ -338,18 +338,18 @@ namespace MyMath
 
 	const Vector3 operator*(Quaternion q,Vector3 vec)
 	{
-		float x = q.x_ * 2.0f;
-		float y = q.y_ * 2.0f;
-		float z = q.z_ * 2.0f;
-		float xx = q.x_ * x;
-		float yy = q.y_ * y;
-		float zz = q.z_ * z;
-		float xy = q.x_ * y;
-		float xz = q.x_ * z;
-		float yz = q.y_ * z;
-		float wx = q.w_ * x;
-		float wy = q.w_ * y;
-		float wz = q.w_ * z;
+		float x = q.x * 2.0f;
+		float y = q.y * 2.0f;
+		float z = q.z * 2.0f;
+		float xx = q.x * x;
+		float yy = q.y * y;
+		float zz = q.z * z;
+		float xy = q.x * y;
+		float xz = q.x * z;
+		float yz = q.y * z;
+		float wx = q.w * x;
+		float wy = q.w * y;
+		float wz = q.w * z;
 
 		Vector3 temp;
 

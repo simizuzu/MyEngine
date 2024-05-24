@@ -590,10 +590,10 @@ namespace MyMathUtility
 		float cosYaw = cosf(rot.z / twice);
 		float sinYaw = sin(rot.z / twice);
 
-		result.w_ = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
-		result.x_ = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
-		result.y_ = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
-		result.z_ = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
+		result.w = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
+		result.x = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
+		result.y = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
+		result.z = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
 
 		return result;
 	}

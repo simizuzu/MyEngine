@@ -14,10 +14,10 @@ namespace MyMath
 	class Quaternion
 	{
 	public:
-		float x_;
-		float y_;
-		float z_;
-		float w_;
+		float x;
+		float y;
+		float z;
+		float w;
 
 		//コンストラクタ
 		Quaternion();
@@ -34,7 +34,7 @@ namespace MyMath
 		//正規化したQuaternionを返す
 		Quaternion Normalize();
 		//逆Quaternionを返す
-		Quaternion INverse();
+		Quaternion Inverse();
 		//ベクトルをQuaternionで回転させた結果のベクトルを求める
 		MyMath::Vector3 RotateVector(const MyMath::Vector3& vector);
 		//Quaternionから回転行列を求める
