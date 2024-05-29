@@ -45,6 +45,8 @@ namespace MyMathUtility
 	MyMath::Matrix4 MakeRotation(const MyMath::Vector3& rot);
 	// 平行移動行列を求める
 	MyMath::Matrix4 MakeTranslation(const MyMath::Vector3& trans);
+	// クォータニオン回転行列を求める
+	MyMath::Matrix4 MakeQuaternion(const MyMath::Quaternion& q);
 
 	// 平行投影変換(左手系)
 	void MakeOrthogonalL(float left, float right, float bottom, float top, float near_, float far_, MyMath::Matrix4& matrix);
@@ -74,6 +76,7 @@ namespace MyMathUtility
 	MyMath::Vector3 Lerp(const MyMath::Vector3& a, const MyMath::Vector3& b,const float& t);
 	//球面線形補間
 	MyMath::Vector3 Slerp(const MyMath::Vector3& a,const MyMath::Vector3& b,const float& t);
+	MyMath::Quaternion Slerp(const MyMath::Quaternion& q1,const MyMath::Quaternion& q2,float t);
 
 	/// <summary>
 	/// エルミート曲線

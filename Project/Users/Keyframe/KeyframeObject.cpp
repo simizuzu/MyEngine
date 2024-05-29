@@ -10,7 +10,7 @@ void KeyframeObject::Update(Camera* camera)
 	animationTime += 1.0f / 60.0f;
 	animationTime = std::fmod(animationTime,keyframeData->meshKeyframe[ "Box" ].duration);
 
-	translate = MyMathUtility::CalculateValueSlerp(keyframeData->meshKeyframe[ "Box" ].scale,animationTime);
+	//translate = MyMathUtility::CalculateValueSlerp(keyframeData->meshKeyframe[ "Box" ].scale,animationTime);
 
 	if ( camera )
 	{

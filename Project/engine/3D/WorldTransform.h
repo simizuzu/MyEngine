@@ -34,6 +34,7 @@ public:
 	void Initialize();
 	//更新
 	void Update(Camera* camera,bool billboradFlag = false);
+	//void Update(Camera* camera,bool billboradFlag = false, bool quaternionMatrix = false);
 
 	/// <summary>
 	/// モデルに注視点を設定する
@@ -47,6 +48,7 @@ public:
 	void SetTranslation(MyMath::Vector3 translation);
 	void SetScale(MyMath::Vector3 scale);
 	void SetRotation(MyMath::Vector3 rotation);
+	void SetRotation(MyMath::Quaternion& rotation);
 
 	//getter
 	MyMath::Vector3 GetTranslation();
@@ -75,10 +77,12 @@ public:
 	MyMath::Vector3 rotation_ = { 0.0f,0.0f,0.0f };
 	//ローカルスケール
 	MyMath::Vector3 scale_ = { 1.0f,1.0f,1.0f };
+	//ローカルクォータニオン角
+	MyMath::Quaternion quaternion_ = {0.0f,0.0f,0.0f,0.0f};
 
 	MyMath::Matrix4 matWorld;
-
 	const WorldTransform* parent = nullptr;
+	
 
 	MyMath::Matrix4* parentMat = nullptr;
 

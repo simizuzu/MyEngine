@@ -66,6 +66,7 @@ private: //メンバ変数
 
 	//---------------
 	Keyframe* keyframeData;
+	MyMath::Quaternion rotate;
 	float animationTime = 1.0f / 60.0f;
 	MyMath::Vector3 translate;
 	//---------------------

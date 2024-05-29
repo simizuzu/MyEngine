@@ -11,7 +11,7 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief Quaternionの処理について書いてあります
  */
 
-namespace MyMath
+	namespace MyMath
 {
 	Quaternion::Quaternion()
 	{
@@ -141,6 +141,8 @@ namespace MyMath
 
 	MyMath::Vector3 Quaternion::QuaternionToEuler()
 	{
+		const float twice = 2.0f;
+
 		MyMath::Vector3 result;
 
 		float ww = w * w;
@@ -186,9 +188,9 @@ namespace MyMath
 		return result;
 	}
 
-	Quaternion Quaternion::Slerp(const Quaternion& p,float t)
+	Quaternion Quaternion::Slerp(const Quaternion& q,float t)
 	{
-		float cos = Dot(p);
+		float cos = Dot(q);
 
 		Quaternion t2 = *this;
 
@@ -200,7 +202,7 @@ namespace MyMath
 
 		if ( cos >= 1.0f - 0.0005f )
 		{
-			return ( 1.0f - t ) * p + t * t2;
+			return ( 1.0f - t ) * q + t * t2;
 		}
 
 		float k0 = t;
@@ -211,7 +213,7 @@ namespace MyMath
 		k0 = ( sinf(theta * k0) / sinf(theta) );
 		k1 = ( sinf(theta * k1) / sinf(theta) );
 
-		return  k0 * p + k1 * t2;
+		return  k0 * q + k1 * t2;
 	}
 
 	float Quaternion::Dot(const Quaternion& q) const
@@ -291,9 +293,7 @@ namespace MyMath
 		return *this;
 	}
 
-	Quaternion::Quaternion(const Quaternion&)
-	{
-	}
+	Quaternion::Quaternion(const Quaternion&) = default;
 
 	const Quaternion operator+(const Quaternion& q1,const Quaternion& q2)
 	{

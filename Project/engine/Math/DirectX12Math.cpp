@@ -107,6 +107,46 @@ namespace MyMathUtility
 		return matTrans;
 	}
 
+	MyMath::Matrix4 MakeQuaternion(const MyMath::Quaternion& q)
+	{
+		Matrix4 matQuaternion;
+		matQuaternion = MakeIdentity();
+
+		float xx = q.x * q.x;
+		float yy = q.y * q.y;
+		float zz = q.z * q.z;
+
+		float xy = q.x * q.y;
+		float xz = q.x * q.z;
+		float yz = q.y * q.z;
+
+		float wx = q.w * q.x;
+		float wy = q.w * q.y;
+		float wz = q.w * q.z;
+
+		matQuaternion.m[ 0 ][ 0 ] = 1.0f - 2.0f * ( yy + zz );
+		matQuaternion.m[ 0 ][ 1 ] = 2.0f * ( xy - wz );
+		matQuaternion.m[ 0 ][ 2 ] = 2.0f * ( xz + wy );
+		matQuaternion.m[ 0 ][ 3 ] = 0.0f;
+
+		matQuaternion.m[ 1 ][ 0 ] = 2.0f * ( xy + wz );
+		matQuaternion.m[ 1 ][ 1 ] = 1.0f - 2.0f * ( xx + zz );
+		matQuaternion.m[ 1 ][ 2 ] = 2.0f * ( yz - wx );
+		matQuaternion.m[ 1 ][ 3 ] = 0.0f;
+
+		matQuaternion.m[ 2 ][ 0 ] = 2.0f * ( xz - wy );
+		matQuaternion.m[ 2 ][ 1 ] = 2.0f * ( yz + wx );
+		matQuaternion.m[ 2 ][ 2 ] = 1.0f - 2.0f * ( xx + yy );
+		matQuaternion.m[ 2 ][ 3 ] = 0.0f;
+
+		matQuaternion.m[ 3 ][ 0 ] = 0.0f;
+		matQuaternion.m[ 3 ][ 1 ] = 0.0f;
+		matQuaternion.m[ 3 ][ 2 ] = 0.0f;
+		matQuaternion.m[ 3 ][ 3 ] = 1.0f;
+
+		return matQuaternion;
+	}
+
 	//sin、cosを両方出す
 	void SinCos(float& sin_,float& cos_,float angle)
 	{
@@ -509,6 +549,36 @@ namespace MyMathUtility
 		MyMath::Vector3 termTwo = b * (std::sinf(omega * t) / sinOmega );
 
 		return termOne + termTwo;
+	}
+
+	MyMath::Quaternion Slerp(const MyMath::Quaternion& q1,const MyMath::Quaternion& q2,float t)
+	{
+		//クォータニオンの内積を計算
+		float dot = q1.Dot(q2);
+
+		//クォータニオンの内積が負の場合、q2を反転して最短経路を確保
+		MyMath::Quaternion q2_mod = q2;
+		if ( dot < 0.0f )
+		{
+			q2_mod = -q2;
+			dot = -dot;
+		}
+
+		//角度を計算
+		float omega = std::acos(dot);
+		float sinOmega = std::sin(omega);
+
+		//omegaが小さい場合、線形補間を使用して近似
+		if ( sinOmega < 1e-6 )
+		{
+			return q1 * ( 1.0f - t ) + q2_mod * t;
+		}
+
+		//球面線形補間の計算
+		float scale1 = std::sin(( 1.0f - t ) * omega) / sinOmega;
+		float scale2 = std::sin(t * omega) / sinOmega;
+
+		return q1 * scale1 + q2_mod * scale2;
 	}
 
 	Vector3 HermiteGetPoint(Vector3 p0,Vector3 p1,Vector3 p2,Vector3 p3,float t)

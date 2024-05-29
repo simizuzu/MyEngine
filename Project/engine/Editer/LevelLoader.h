@@ -8,6 +8,7 @@ MYENGINE_SUPPRESS_WARNINGS_BEGIN
 MYENGINE_SUPPRESS_WARNINGS_END
 
 #include "DirectX12Math.h"
+#include"Quaternion.h"
 
 /**
  * @class LevelLoader.h
@@ -21,7 +22,13 @@ struct Keyframe
 	struct KeyframeVector3
 	{
 		MyMath::Vector3 value;	//キーフレームの値
-		float time;				//キーフレームの時刻
+		float time = 0.0f;				//キーフレームの時刻
+	};
+
+	struct KeyframeQuaternion
+	{
+		MyMath::Quaternion value;	//キーフレームの値
+		float time = 0.0f;				//キーフレームの時刻
 	};
 
 	struct KeyframeQuaternion
@@ -36,8 +43,8 @@ struct Keyframe
 		std::vector<KeyframeVector3> translate;	//座標
 		std::vector<KeyframeQuaternion> rotate;	//回転
 		std::vector<KeyframeVector3> scale;		//スケール
-		float duration;	//アニメーション全体の尺（単位は秒）
-		float ticsPerSecond; //何フレームで進むか(30F,60F,120F,...)
+		float duration = 0.0f;	//アニメーション全体の尺（単位は秒）
+		float ticsPerSecond = 0.0f; //何フレームで進むか(30F,60F,120F,...)
 	};
 
 	struct CameraKeyframe

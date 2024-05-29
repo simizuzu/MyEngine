@@ -43,7 +43,6 @@ namespace MyMath
 		Quaternion MakeAxisAngle(const MyMath::Vector3& axsi, float angle);
 		//クォータニオンからオイラー角へ変換
 		MyMath::Vector3 QuaternionToEuler();
-		const float twice = 2.0f;
 		
 		/// <summary>
 		/// 特定の方向に向かせる
@@ -54,7 +53,7 @@ namespace MyMath
 		Quaternion DirectionToDirection(const MyMath::Vector3& u, const MyMath::Vector3& v);
 
 		//球面線形補間
-		Quaternion Slerp(const Quaternion& p, float t);
+		Quaternion Slerp(const Quaternion& q,float t);
 		//内積
 		float Dot(const Quaternion& q)const;
 
@@ -72,7 +71,6 @@ namespace MyMath
 		Quaternion& operator *= (const Quaternion& q);
 
 		//代入演算子削除
-		//Quaternion& operator=(const Quaternion&) = delete;
 		//コピーコンストラクタ削除
 		Quaternion(const Quaternion&);
 	};
