@@ -456,12 +456,6 @@
     <ClCompile Include="Users\Enemy\EnemyMove.cpp">
       <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="KeyframeCamera.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Users\Keyframe\KeyframeObject.cpp">
-      <Filter>Application\ソースファイル\Keyframe</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Users\Scene\SceneFactory.h">
@@ -664,12 +658,6 @@
     </ClInclude>
     <ClInclude Include="Users\Enemy\EnemyMove.h">
       <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyframeCamera.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Users\Keyframe\KeyframeObject.h">
-      <Filter>Application\ヘッダーファイル\Keyframe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

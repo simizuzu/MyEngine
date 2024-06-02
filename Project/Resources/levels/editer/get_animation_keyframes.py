@@ -120,11 +120,11 @@ class OBJECT_OT_PrintAnimationKeyframes(bpy.types.Operator, bpy_extras.io_utils.
         for keyframe in fcurve.keyframe_points:
             frame = int(keyframe.co[0])
             bpy.context.scene.frame_set(frame)
-            rot_euler = obj.rotation_euler
-            rot_degrees = [math.degrees(angle) for angle in rot_euler]
+            rot_quaternion = obj.rotation_quaternion
+            rot_values = [rot_quaternion.w, rot_quaternion.x, rot_quaternion.y, rot_quaternion.z]
 
             if frame not in frame_rotation_map:
-                frame_rotation_map[frame] = rot_degrees
+                frame_rotation_map[frame] = rot_values
 
         for frame, rotation in frame_rotation_map.items():
             index = next((i for i, d in enumerate(animation_data) if d['frame'] == frame), None)

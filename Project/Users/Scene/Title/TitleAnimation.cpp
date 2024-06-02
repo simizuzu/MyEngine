@@ -62,7 +62,7 @@ void TitleAnimation::Initalize(Camera* camera)
 	rotation = zero;
 	translation = zero;
 
-	keyframeData = LevelLoader::LoadKeyframe("animtest",animationTime);
+	keyframeData = LevelLoader::LoadKeyframe("test",animationTime);
 }
 
 void TitleAnimation::Update()
@@ -76,14 +76,8 @@ void TitleAnimation::Update()
 	animationTime += 1.0f / 5.0f;
 	animationTime = std::fmod(animationTime,keyframeData->meshKeyframe[ "Cube" ].duration);
 
-	rotate = MyMathUtility::CalculateValueSlerp(keyframeData->meshKeyframe[ "Cube" ].rotate,animationTime);
-	//MyMath::Vector3 translate1 = MyMathUtility::CalculateValueLerp(keyframeData->meshKeyframe[ "Cube" ].scale,animationTime);
-
 	rotation += desimalRot;
 	skydomeTrans.SetRotation({ 0,rotation,0 });
-
-	robotoTrans.SetRotation(rotate);
-	//robotoTrans.SetScale(translate1);
 
 	skydomeTrans.Update(camera_);
 	groundTrans.Update(camera_);

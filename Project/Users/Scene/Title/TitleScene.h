@@ -8,8 +8,6 @@
 #include "TitleAnimation.h"
 #include "TransitionScene.h"
 
-#include "KeyframeObject.h"
-
  /**
  * @class TitleScene.h
  * @brief TitleSceneのクラス
@@ -54,8 +52,6 @@ private:
 	std::unique_ptr<TitleAnimation> titleAnimation_;
 
 	std::unique_ptr <TransitionScene> transition_;
-
-	std::unique_ptr <KeyframeObject> key;
 
 	//ImGuiデバッグ用
 	MyMath::Vector3 cameraPos = { 0,0,0 };

@@ -19,8 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="KeyframeCamera.cpp" />
-    <ClCompile Include="Users\Keyframe\KeyframeObject.cpp" />
     <ClCompile Include="Users\Enemy\EnemyMove.cpp" />
     <ClCompile Include="Users\Effect\PlayerDamage.cpp" />
     <ClCompile Include="Users\Bullet\BaseBullet.cpp" />
@@ -84,8 +82,6 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KeyframeCamera.h" />
-    <ClInclude Include="Users\Keyframe\KeyframeObject.h" />
     <ClInclude Include="Users\Enemy\EnemyMove.h" />
     <ClInclude Include="Users\Effect\PlayerDamage.h" />
     <ClInclude Include="Users\Bullet\BaseBullet.h" />

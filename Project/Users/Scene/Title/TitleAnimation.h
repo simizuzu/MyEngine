@@ -1,7 +1,6 @@
 #pragma once
 #include "Camera.h"
 #include "LevelLoader.h"
-#include "KeyframeObject.h"
 
 #include "Sprite.h"
 #include "ObjObject3d.h"
@@ -69,6 +68,8 @@ private: //メンバ変数
 	MyMath::Quaternion rotate;
 	float animationTime = 1.0f / 60.0f;
 	MyMath::Vector3 translate;
+	MyMath::Vector3 scale3;
+	int8_t pad[4 ];
 	//---------------------
 
 #pragma region Sprite

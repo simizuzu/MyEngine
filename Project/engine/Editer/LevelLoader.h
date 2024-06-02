@@ -31,12 +31,6 @@ struct Keyframe
 		float time = 0.0f;				//キーフレームの時刻
 	};
 
-	struct KeyframeQuaternion
-	{
-		MyMath::Quaternion value;	//キーフレームの値
-		float time;				//キーフレームの時刻
-	};
-
 	//キーフレーム内の各トランスフォーム
 	struct MeshKeyframe
 	{
