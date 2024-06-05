@@ -34,7 +34,7 @@ public:
 	void Initialize();
 	//更新
 	void Update(Camera* camera,bool billboradFlag = false);
-	//void Update(Camera* camera,bool billboradFlag = false, bool quaternionMatrix = false);
+	void UpdateQuaternion(Camera* camera);
 
 	/// <summary>
 	/// モデルに注視点を設定する

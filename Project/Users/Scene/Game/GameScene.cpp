@@ -11,16 +11,6 @@ MYENGINE_SUPPRESS_WARNINGS_END
  * @brief GameSceneの処理が書かれてあります
  */
 
-void GameScene::GameTimer()
-{
-	oneSecond--;
-	if ( oneSecond == 0 )
-	{
-		oneSecond = 60;
-		gameTimer_++;
-	}
-}
-
 void GameScene::Initialize()
 {
 	//ライト
@@ -91,17 +81,10 @@ void GameScene::Initialize()
 
 void GameScene::Update()
 {
-	GameTimer();
-
 #ifdef _DEBUG
 	ImGui::Begin("debug");
 	ImGui::Text("Position(%f,%f,%f)",player_->GetCenterPosition().x,player_->GetCenterPosition().y,player_->GetCenterPosition().z);
 	ImGui::Text("size(%f,%f)",blackUpPos.y,blackDownPos.y);
-	ImGui::End();
-
-	ImGui::Begin("GameTimer");
-	ImGui::Text("GameTimer(%d,%d)",gameTimer_,oneSecond);
-	ImGui::Text("ray(%f,%f,%f)",rayBullet.dir.x,rayBullet.dir.y,rayBullet.dir.z);
 	ImGui::End();
 
 #endif
@@ -217,7 +200,7 @@ void GameScene::Draw()
 	if ( scene != SCENEFASE::GAME )
 	{
 		spriteBlackUp_->Draw(texBlackUp_,blackUpPos,{ blackSize.x,blackSize.y });
-		spriteBlackDown_->Draw(texBlackDown_,blackDownPos,{ blackSize.x * minus1,blackSize.y });
+		spriteBlackDown_->Draw(texBlackDown_,blackDownPos,{ -blackSize.x,blackSize.y });
 	}
 	spriteBlack_->Draw(texBlackUp_,blackUpPos,windowSize);
 }
@@ -319,18 +302,17 @@ void GameScene::CheckAllCollilsions()
 	collisionManager_->AddCollider(player_.get());
 	player_->SetRadius(2.0f);
 
-
 	// --------------敵全てについて-------------- //
 	for ( const std::unique_ptr<BaseEnemy>& enemy : enemyManager_->GetEnemys() )
 	{
 		//半径を指定
-		const float colliderRadius = 20000.0f;
+		const float colliderRadius = 30000.0f;
 		//エリアの中心を各敵の中心にセットし半径を設定
 		enemyErea.center = enemy->GetCenterPosition();
 		enemyErea.radius = colliderRadius;
 		//カメラの判定をプレイヤーと同じ中心にセットし半径を設定
 		cameraBody.center = player_->GetCenterPosition();
-		cameraBody.radius = 2.0f;
+		cameraBody.radius = 10.0f;
 
 		//当たっていれば
 		if ( CollisionManager::CheckSphre2Sphere(enemyErea,cameraBody) )
@@ -339,11 +321,6 @@ void GameScene::CheckAllCollilsions()
 			enemy->OnCollision();
 		}
 	}
-
-	MyMath::Vector3 playerpos = player_->GetCenterPosition();
-
-	MyMath::Vector3 vec = playerpos - enemyBody.center;
-	MyMath::Vector3 dir = MyMathUtility::MakeNormalize(vec);
 
 	// --------------プレイヤーの攻撃について-------------- //
 	if ( input_->PushButton(RT) || input_->PushKey(DIK_SPACE) )
@@ -379,7 +356,7 @@ void GameScene::CheckAllCollilsions()
 		}
 		//攻撃時のフラグとタイマーをリセット
 		bulletIntervalFlag = false;
-		bulletIntervalTimer = six;	//6フレーム
+		bulletIntervalTimer = setBulletIntervalTimer;	//6フレーム
 	}
 
 	// --------------敵弾について-------------- //

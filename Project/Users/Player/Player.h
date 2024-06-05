@@ -28,7 +28,7 @@ private:
 	const float maxRotate = 1.3f;
 	const float maxValueRotate = 1.5f;
 	//1秒60フレーム
-	const float oneSecondFrame = 60.0f;
+	const float oneSecondFrame = 70.0f;
 	//90度
 	const float degree90 = 90.0f;
 	//レート最大数[0~1]

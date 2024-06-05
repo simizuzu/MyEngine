@@ -23,7 +23,7 @@ void WorldTransform::Update(Camera* camera,bool billboradFlag)
 	// スケール、回転、平行移動行列の計算
 	matScale = MyMathUtility::MakeScaling(scale_);
 	matRot = MyMathUtility::MakeIdentity();
-	matRot = MyMathUtility::MakeQuaternion(quaternion_);
+	matRot = MyMathUtility::MakeRotation(rotation_);
 	matTrans = MyMathUtility::MakeTranslation(translation_);
 
 	// ワールド行列の合成
@@ -70,62 +70,48 @@ void WorldTransform::Update(Camera* camera,bool billboradFlag)
 	constMap->cameraPos = cameraPos;
 	constBuffer_->Unmap(0,nullptr);
 }
-//
-//void WorldTransform::Update(Camera* camera,bool billboradFlag,bool quaternionMatrix)
-//{
-//	HRESULT result;
-//	MyMath::Matrix4 matScale,matRot,matTrans;
-//
-//	// スケール、回転、平行移動行列の計算
-//	matScale = MyMathUtility::MakeScaling(scale_);
-//	matRot = MyMathUtility::MakeIdentity();
-//	matRot = MyMathUtility::MakeQuaternion(quaternion_);
-//	matTrans = MyMathUtility::MakeTranslation(translation_);
-//
-//	// ワールド行列の合成
-//	matWorld = MyMathUtility::MakeIdentity();
-//	matWorld *= matScale;
-//	matWorld *= matRot;
-//	matWorld *= matTrans;
-//
-//	//親行列の指定がある場合は、掛け算する
-//	if ( parent != nullptr )
-//	{
-//		matWorld *= parent->matWorld;
-//	}
-//
-//	//親行列の指定がある場合は、掛け算する
-//	if ( parentMat != nullptr )
-//	{
-//		matWorld *= *parentMat;
-//	}
-//
-//	const MyMath::Matrix4 matView = camera->GetMatView();
-//	const MyMath::Matrix4 matProjection = camera->GetMatProjection();
-//	const MyMath::Vector3& cameraPos = camera->GetEye();
-//
-//	if ( billboradFlag )
-//	{
-//		//逆行列された回転行列を引っ張ってくる
-//		const MyMath::Matrix4 matBillboard = camera->GetMatRot();
-//
-//		//行列計算
-//		matWorld = MyMathUtility::MakeIdentity();
-//		matWorld *= matBillboard;
-//		matWorld *= matScale;
-//		matWorld *= matRot;
-//		matWorld *= matTrans;
-//	}
-//
-//	// 定数バッファへデータ転送
-//	ConstBufferDataB0* constMap = nullptr;
-//	result = constBuffer_->Map(0,nullptr,( void** ) &constMap);
-//	assert(SUCCEEDED(result));
-//	constMap->viewproj = matView * matProjection;
-//	constMap->world = matWorld;
-//	constMap->cameraPos = cameraPos;
-//	constBuffer_->Unmap(0,nullptr);
-//}
+void WorldTransform::UpdateQuaternion(Camera* camera)
+{
+	HRESULT result;
+	MyMath::Matrix4 matScale,matRot,matTrans;
+
+	// スケール、回転、平行移動行列の計算
+	matScale = MyMathUtility::MakeScaling(scale_);
+	matRot = MyMathUtility::MakeIdentity();
+	matRot = MyMathUtility::MakeQuaternion(quaternion_);
+	matTrans = MyMathUtility::MakeTranslation(translation_);
+
+	// ワールド行列の合成
+	matWorld = MyMathUtility::MakeIdentity();
+	matWorld *= matScale;
+	matWorld *= matRot;
+	matWorld *= matTrans;
+
+	//親行列の指定がある場合は、掛け算する
+	if ( parent != nullptr )
+	{
+		matWorld *= parent->matWorld;
+	}
+
+	//親行列の指定がある場合は、掛け算する
+	if ( parentMat != nullptr )
+	{
+		matWorld *= *parentMat;
+	}
+
+	const MyMath::Matrix4 matView = camera->GetMatView();
+	const MyMath::Matrix4 matProjection = camera->GetMatProjection();
+	const MyMath::Vector3& cameraPos = camera->GetEye();
+
+	// 定数バッファへデータ転送
+	ConstBufferDataB0* constMap = nullptr;
+	result = constBuffer_->Map(0,nullptr,( void** ) &constMap);
+	assert(SUCCEEDED(result));
+	constMap->viewproj = matView * matProjection;
+	constMap->world = matWorld;
+	constMap->cameraPos = cameraPos;
+	constBuffer_->Unmap(0,nullptr);
+}
 
 void WorldTransform::CreateConstBuffer()
 {

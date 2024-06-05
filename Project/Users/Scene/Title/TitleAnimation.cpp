@@ -61,8 +61,6 @@ void TitleAnimation::Initalize(Camera* camera)
 #pragma endregion
 	rotation = zero;
 	translation = zero;
-
-	keyframeData = LevelLoader::LoadKeyframe("test",animationTime);
 }
 
 void TitleAnimation::Update()
@@ -72,10 +70,6 @@ void TitleAnimation::Update()
 	ImGui::Text("ClickFrame:%d",clickTime);
 	ImGui::End();
 #endif
-
-	animationTime += 1.0f / 5.0f;
-	animationTime = std::fmod(animationTime,keyframeData->meshKeyframe[ "Cube" ].duration);
-
 	rotation += desimalRot;
 	skydomeTrans.SetRotation({ 0,rotation,0 });
 

@@ -35,6 +35,7 @@
 
 #include "CollisionManager.h"
 
+#include "SuppressWarning.h"
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
 #include <memory>
 MYENGINE_SUPPRESS_WARNINGS_END
@@ -58,14 +59,16 @@ enum COLOR
 class GameScene : public BaseScene
 {
 private:
-	//1ステージ分の経過時間
-	uint8_t gameTimer_ = 0;
-	//1s = 60f
-	uint8_t oneSecond = 60;
-	int8_t pad6[6 ];
+	enum class SCENEFASE
+	{
+		MOVIE,
+		START,
+		GAME,
+		RESULT
+	};
 
-private:
-	MyMath::Vector2 windowSize = {1280.0f,720.0f};
+	SCENEFASE scene = SCENEFASE::MOVIE;
+	int8_t pad1[ 4 ];
 
 public: // メンバ関数
 	GameScene() = default;
@@ -80,11 +83,6 @@ public: // メンバ関数
 	virtual void Finalize() override;
 
 private:
-	/// <summary>
-	/// ゲームの経過時間
-	/// </summary>
-	void GameTimer();
-
 	/// <summary>
 	/// ゲームスタート時の演出
 	/// </summary>
@@ -139,7 +137,7 @@ private: // メンバ変数
 	std::vector<WorldTransform> colliderTrans;*/
 
 	INT32 sceneNum = 0;
-	char PADING[4]{};
+	char PADING[ 4 ]{};
 
 	std::unique_ptr<GameObject> modelData_;
 	std::unique_ptr<PostEffect> postEffect_;
@@ -147,15 +145,22 @@ private: // メンバ変数
 	std::unique_ptr<FbxObject3d> robotoObj_;
 	std::unique_ptr<FbxModel> robotoModel_;
 	WorldTransform robotoTrans;
-	
+
 	//シーンマネージャ
 	SceneManager* sceneManager_ = nullptr;
 
+private: //当たり判定
+	Ray rayBullet;		//プレイヤー弾のレイ
+	Sphere enemyBody;	//敵それぞれの当たり判定
+
+	Sphere cameraBody;	//カメラの当たり判定
+	Sphere enemyErea;	//敵が行動し始める範囲
+
 private: //bullet関連
 	bool bulletIntervalFlag = false;
-	uint8_t bulletIntervalTimer = 6;
-	bool init= false;
-	int8_t pad2;
+	const uint8_t setBulletIntervalTimer = 10;
+	uint8_t bulletIntervalTimer = 10;
+	bool init = false;
 
 private: //スタート演出
 	float easingFrame = 5.0f;
@@ -165,25 +170,21 @@ private: //スタート演出
 	const float stopBlackSize = 1300.0f;
 
 	//上下用座標[x=up,y=down]
-	const MyMath::Vector2 stopBlackPos = {200.0f,800.0f};
+	const MyMath::Vector2 stopBlackPos = { 200.0f,800.0f };
 
 	//1秒60フレーム
 	const float oneSecondFrame = 60.0f;
 	float decimalAlpha = 0.0f;
-	uint8_t startCount = 0;
 
-	bool easingFlag = false;
-	int8_t pad1[2 ];
+	MyMath::Vector2 windowSize = { 1280.0f,720.0f };
 
-	MyMath::Vector2 textureSize = {1280,0};
+	MyMath::Vector2 textureSize = { 1280,0 };
 
 	MyMath::Vector2 blackUpPos = { 0,0 };
-	MyMath::Vector2 blackDownPos = {1280,620};
+	MyMath::Vector2 blackDownPos = { 1280,620 };
 	MyMath::Vector2 blackSize = { 0,100 };
-	MyMath::Vector2 fieldNameSize = {50,300};
-	MyMath::Vector2 flashPos = {710,395};
-	
-	int8_t pad8[4 ];
+	MyMath::Vector2 fieldNameSize = { 50,300 };
+	MyMath::Vector2 flashPos = { 710,395 };
 
 	std::unique_ptr<Sprite> spriteWhite_;
 	std::unique_ptr<Sprite> spriteBlack_;
@@ -191,15 +192,14 @@ private: //スタート演出
 	std::unique_ptr<Sprite> spriteBlackDown_;
 	std::unique_ptr<Sprite> spriteStageName01_;
 	std::unique_ptr<Sprite> spriteFlash_;
-	
-	
+
 	TextureData texWhite_;
 	TextureData texBlackUp_;
 	TextureData texBlackDown_;
 	TextureData texStageName01_;
 	TextureData texFlash_;
 	TextureData texReticle_;
-	
+
 
 	//2Dレティクル用スプライト
 	std::unique_ptr<Sprite> sprite2DReticle;
@@ -210,33 +210,15 @@ private: //スタート演出
 	float cameraTimeRate;
 	float damageAlpha = 0.0f;
 
-	bool muzzleFlashFlag1 = false;
-	bool muzzleFlashFlag2 = false;
-	const int8_t minus1 = -1;
-	std::array<bool,5>flags;
-
 	DecimalNumbers decimal;
 	const float blackTimer_ = 50.0f;
 
-private: //当たり判定
-	Ray rayBullet;		//プレイヤー弾のレイ
-	Sphere enemyBody;	//敵それぞれの当たり判定
-
-	Sphere cameraBody;	//カメラの当たり判定
-	Sphere enemyErea;	//敵が行動し始める範囲
-
-	bool playerHit =false;
-	int8_t pad4[ 3 ];
-private:
-	enum class SCENEFASE
-	{
-		MOVIE,
-		START,
-		GAME,
-		RESULT
-	};
-
-	SCENEFASE scene = SCENEFASE::MOVIE;
+	bool playerHit = false;
+	bool muzzleFlashFlag1 = false;
+	bool muzzleFlashFlag2 = false;
+	bool easingFlag = false;
+	uint8_t startCount = 0;
+	int8_t pad2[ 3 ];
 
 private:
 	//コピーコンストラクタ・代入演算子削除

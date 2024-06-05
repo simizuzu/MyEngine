@@ -45,7 +45,7 @@ void EnemyNormal::Initialize(const std::string& filePath,Camera* camera)
 	HPScale = { 3.0f,3.0f,3.0f };
 
 	//雑魚敵の初期HP
-	enemyHP = 5;
+	enemyHP = 3;
 
 	bulletManager_ = BulletManager::GetInstance();
 	bulletManager_->Initialize("missile",camera_);
