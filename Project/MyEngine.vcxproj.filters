@@ -271,6 +271,12 @@
     <Filter Include="Application\ヘッダーファイル\Keyframe">
       <UniqueIdentifier>{15f83363-6046-4491-a984-608f5ca7395d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\ソースファイル\Reticle">
+      <UniqueIdentifier>{1cbf8bb6-6011-4047-a7e4-8c90bd46da7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ヘッダーファイル\Reticle">
+      <UniqueIdentifier>{5103298f-8eac-46fa-a5fe-30a06b303635}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Users\Scene\SceneFactory.cpp">
@@ -441,9 +447,6 @@
     <ClCompile Include="engine\Base\Pipeline\Shader.cpp">
       <Filter>Engine\ソース ファイル\Base\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="Users\Effect\PlayerDamage.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Users\Bullet\BulletManager.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
@@ -453,8 +456,17 @@
     <ClCompile Include="engine\Scene\MainGame.cpp">
       <Filter>Application\ソースファイル\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Reticle3D.cpp">
+      <Filter>Application\ソースファイル\Reticle</Filter>
+    </ClCompile>
     <ClCompile Include="Users\Enemy\EnemyMove.cpp">
-      <Filter>Engine\ソース ファイル</Filter>
+      <Filter>Application\ソースファイル\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Effect\PlayerDamage.cpp">
+      <Filter>Application\ソースファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBullet.cpp">
+      <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -644,9 +656,6 @@
     <ClInclude Include="engine\Scene\Framework.h">
       <Filter>Engine\ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Users\Effect\PlayerDamage.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Users\Bullet\BulletManager.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
@@ -657,7 +666,16 @@
       <Filter>Application\ヘッダーファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Users\Enemy\EnemyMove.h">
-      <Filter>Engine\ヘッダー ファイル</Filter>
+      <Filter>Application\ヘッダーファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Effect\PlayerDamage.h">
+      <Filter>Application\ヘッダーファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Reticle3D.h">
+      <Filter>Application\ヘッダーファイル\Reticle</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBullet.h">
+      <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

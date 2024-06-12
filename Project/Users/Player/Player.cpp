@@ -22,11 +22,9 @@ void Player::Initialize(Camera* camera)
 	//視野角の設定
 	camera_->SetFovAngleY(MyMathUtility::degree2Radius * degree90);
 	//blenderからカーブデータを取得
-	curveData = LevelLoader::LoadFile("curveData");
+	keyframeData = LevelLoader::LoadKeyframe("camera",animTime);
 	//スタート地点を今の地点にセット
 	nowCount = startCount;
-	//次の地点を算出
-	SplinePointLineUp(curveData->curves);
 
 	playerObj.reset(ObjObject3d::Create());
 	playerObj->SetModel("gun",true);
@@ -61,7 +59,7 @@ void Player::Update()
 	//カメラの回転処理
 	RotateCamera();
 
-	//レールカメラの移動処理
+	//レールカメラの移動処理	
 	RailCamera();
 
 	//銃のモデルの座標を設定
@@ -169,48 +167,17 @@ void Player::OnCollision()
 	}
 }
 
-void Player::SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint)
-{
-	points.resize(curvePoint.size() + two);
-	for ( size_t i = zero; i < curvePoint.size(); i++ )
-	{
-		points[ i + one ] = curvePoint[ i ];
-		if ( i == zero )
-		{
-			points[ i ] = curvePoint[ i ];
-		}
-		if ( i == curvePoint.size() - one )
-		{
-			points[ i + 2 ] = curvePoint[ i ];
-		}
-	}
-}
-
 void Player::RailCamera()
 {
-	oldTranslation = translation;
-	translation = MyMathUtility::SplinePosition(points,timeRate,startIndex);
+	//進む速度を決める
+	animTime += 1.0f / 40.0f;
+	animTime = std::fmod(animTime,keyframeData->meshKeyframe[ "Cube" ].duration);
 
-	nowCount++;
-	elapsedCount = nowCount - startCount;
-	float elapsedTime = static_cast< float > ( elapsedCount ) / oneSecondFrame;
-	timeRate = elapsedTime / maxTime;
+	//補間された値を座標に入れていく
+	playerTranslate = MyMathUtility::CalculateValueLerp(keyframeData->meshKeyframe[ "Cube" ].translate,animTime);
 
-	if ( timeRate >= static_cast< float >( one ) )
-	{
-		if ( startIndex < points.size() - three )
-		{
-			startIndex += static_cast< size_t >( one );
-			timeRate -= static_cast< float >( one );
-			startCount = nowCount;
-		}
-		else
-		{
-			timeRate = static_cast< float >( one );
-		}
-	}
-
-	camera_->SetTranslation(translation);
+	//カメラの座標にセット
+	camera_->SetTranslation(playerTranslate);
 }
 
 MyMath::Vector3 Player::GetCenterPosition() const

@@ -73,12 +73,6 @@ private:
 	void OnCollision() override;
 
 	/// <summary>
-	/// startとendをfor文で作る処理 {start,start,P1…Pn,end,end}
-	/// </summary>
-	/// <param name="curvePoint">カーブのデータ</param>
-	void SplinePointLineUp(std::vector<LevelData::CurveData> curvePoint);
-
-	/// <summary>
 	/// レールカメラの処理
 	/// </summary>
 	void RailCamera();
@@ -110,8 +104,10 @@ private:
 
 private:
 	//レベルエディタ(ベジェ曲線)
-	LevelData* curveData;
-	std::vector<LevelData::CurveData> points;
+	Keyframe* keyframeData;
+	float animTime = 1.0f/60.0f;
+	MyMath::Vector3 playerTranslate;
+
 	Input* input = nullptr;
 
 	std::unique_ptr<Sprite> hpUI;
