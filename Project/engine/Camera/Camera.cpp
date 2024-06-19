@@ -33,15 +33,15 @@ void Camera::Initialize()
 	UpdateLookAt();
 }
 
-void Camera::Update(bool isMatrix)
+void Camera::Update(const std::string& mode)
 {
-	if ( isMatrix )
-	{
-		UpdateMatrix();	//ワールド行列方式
-	}
-	else
+	if ( mode == "default" )
 	{
 		UpdateLookAt();	//ビュー行列方式(デフォルト)
+	}
+	else if( mode == "matrix" )
+	{
+		UpdateMatrix();	//ワールド行列方式
 	}
 }
 
@@ -139,6 +139,33 @@ void Camera::UpdateMatrix()
 	//回転、平行移動行列の計算
 	matRot = MyMathUtility::MakeIdentity();
 	matRot = MyMathUtility::MakeRotation(rotation_);
+	matTrans = MyMathUtility::MakeTranslation(translation_);
+
+	//ワールド行列の合成
+	matCameraWorld_ = MyMathUtility::MakeIdentity();
+	matCameraWorld_ *= matRot;
+	matCameraWorld_ *= matTrans;
+
+	//親行列の指定がある場合は、掛け算する
+	if ( parent != nullptr )
+	{
+		matCameraWorld_ *= parent->matCameraWorld_;
+	}
+
+	//ビュー行列の逆行列
+	matView_ = MyMathUtility::MakeInverse(matCameraWorld_);
+
+	// 透視投影の生成
+	matProjection_ = MyMathUtility::MakePerspective(fovAngleY,aspect,nearZ_,farZ_);
+	// 定数バッファに転送
+	TransferMatrix();
+}
+
+void Camera::UpdateQuaternion()
+{
+	//回転、平行移動行列の計算
+	matRot = MyMathUtility::MakeIdentity();
+	matRot = MyMathUtility::MakeQuaternion(quaternion_);
 	matTrans = MyMathUtility::MakeTranslation(translation_);
 
 	//ワールド行列の合成

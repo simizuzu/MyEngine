@@ -57,6 +57,7 @@ private:
 #pragma endregion
 	//回転
 	MyMath::Vector3 rotation_;
+	MyMath::Quaternion quaternion_;
 	//平行移動
 	MyMath::Vector3 translation_;
 
@@ -84,7 +85,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update(bool isMatrix = false);
+	void Update(const std::string& mode);
 
 	/// <summary>
 	/// マットワールド用注視点
@@ -106,6 +107,10 @@ private:
 	/// ビュー行列の更新(ワールド座標方式)
 	/// </summary>
 	void UpdateMatrix();
+	/// <summary>
+	/// ビュー行列の更新(クォータニオン回転方式)
+	/// </summary>
+	void UpdateQuaternion();
 	/// <summary>
 	/// ビュー行列の転送
 	/// </summary>
