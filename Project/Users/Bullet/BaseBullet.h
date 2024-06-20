@@ -1,7 +1,6 @@
 #pragma once
 #include "Collider.h"
 #include "Camera.h"
-#include "Player.h"
 
 class BaseBullet : public Collider
 {
@@ -16,8 +15,6 @@ public:
 	virtual void OnCollision() override = 0;
 
 	virtual MyMath::Vector3 GetCenterPosition() const override = 0;
-
-	virtual void SetPlayer(Player* Player) = 0;
 
 	virtual bool IsDead() const = 0;
 

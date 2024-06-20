@@ -40,10 +40,15 @@ public:
 	/// <param name="velocity">速度</param>
 	void CreateNormalBullet(const MyMath::Vector3& pos,const MyMath::Vector3 velocity,Player* player);
 
+	/// <summary>
+	/// プレイヤーの弾を生成
+	/// </summary>
+	/// <param name="pos">座標</param>
+	/// <param name="velocity">速度</param>
+	void CreatePlayerBullet(const MyMath::Vector3& pos, const MyMath::Vector3 velocity);
+
 	//弾リストを削除
 	void DeleteBullets();
-
-	//void SetPlayer(Player* player);
 
 public:
 	//通常弾のリストを取得

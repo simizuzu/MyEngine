@@ -53,7 +53,7 @@ public:
 	bool IsHit() const;
 
 	//敵弾に自キャラを渡す
-	void SetPlayer(Player* player) override;
+	void SetPlayer(Player* player);
 
 private:
 	//寿命<frm>

@@ -1,7 +1,7 @@
 #include "BulletManager.h"
 
-#include "Player.h"
 #include "EnemyBullet.h"
+#include "PlayerBullet.h"
 
 //インスタンス生成
 BulletManager* BulletManager::GetInstance()
@@ -50,6 +50,16 @@ void BulletManager::CreateNormalBullet(const MyMath::Vector3& pos,const MyMath::
 
 	newBullet = std::make_unique<EnemyBullet>();
 	newBullet->SetPlayer(player);
+	newBullet->Initialize(modelName_,pos,velocity);
+
+	normalBullets.push_back(std::move(newBullet));
+}
+
+void BulletManager::CreatePlayerBullet(const MyMath::Vector3& pos,const MyMath::Vector3 velocity)
+{
+	std::unique_ptr<PlayerBullet> newBullet;
+
+	newBullet = std::make_unique<PlayerBullet>();
 	newBullet->Initialize(modelName_,pos,velocity);
 
 	normalBullets.push_back(std::move(newBullet));

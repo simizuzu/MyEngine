@@ -3,7 +3,6 @@
 #include "Player.h"
 
 MYENGINE_SUPPRESS_WARNINGS_BEGIN
-#include <cassert>
 #include <imgui.h>
 MYENGINE_SUPPRESS_WARNINGS_END
 

@@ -6,6 +6,8 @@
 #include "TextureManager.h"
 #include "Collider.h"
 #include "ObjObject3d.h"
+#include "Reticle3D.h"
+#include "BulletManager.h"
 
 #include "LevelLoader.h"
 
@@ -61,8 +63,6 @@ public:
 	//死んでいるかどうか
 	bool IsDead()const;
 
-	MyMath::Matrix4 GetPlayerMatWorld()const;
-
 private:
 	/// <summary>
 	/// カメラの回転処理
@@ -76,6 +76,11 @@ private:
 	/// レールカメラの処理
 	/// </summary>
 	void RailCamera();
+
+	/// <summary>
+	/// プレイヤーの攻撃処理
+	/// </summary>
+	void Attack();
 
 public:
 	float timeRate;//何％時間が進んだか
@@ -110,6 +115,14 @@ private:
 
 	Input* input = nullptr;
 
+	//バレットマネージャ
+	BulletManager* bulletManager_ = nullptr;
+	//弾の速度
+	const float bulletSpeed = 1.0f;
+	MyMath::Vector3 velocity = { 0.0f,0.0f,bulletSpeed };
+	//弾のモデル
+	std::unique_ptr<ObjObject3d> bulletObj;
+
 	std::unique_ptr<Sprite> hpUI;
 	TextureData texHp;
 
@@ -124,6 +137,9 @@ private:
 	WorldTransform playerTrans;
 	//スペースシャトル用ワールドトランスフォーム
 	WorldTransform shuttleTrans;
+
+	std::unique_ptr<Reticle3D> reticle3d;
+	WorldTransform reticleTrans;
 
 private:
 	//代入演算子削除

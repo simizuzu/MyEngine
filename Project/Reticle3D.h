@@ -1,4 +1,7 @@
 #pragma once
+#include "DirectX12Math.h"
+#include "WorldTransform.h"
+#include "Camera.h"
 
 /// <summary>
 /// 3Dレティクルクラス
@@ -9,8 +12,12 @@ public:
 	
 	void Initialize();
 
-	void Update();
+	void Update(Camera* camera,WorldTransform& transform);
 
-	void Draw();
+
+private:
+
+private:
+	MyMath::Vector3 positionReticle;
 };
 

@@ -465,7 +465,7 @@
     <ClCompile Include="Users\Effect\PlayerDamage.cpp">
       <Filter>Application\ソースファイル\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBullet.cpp">
+    <ClCompile Include="Users\Bullet\PlayerBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
@@ -674,7 +674,7 @@
     <ClInclude Include="Reticle3D.h">
       <Filter>Application\ヘッダーファイル\Reticle</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBullet.h">
+    <ClInclude Include="Users\Bullet\PlayerBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
     </ClInclude>
   </ItemGroup>

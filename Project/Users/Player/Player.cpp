@@ -45,6 +45,14 @@ void Player::Initialize(Camera* camera)
 	hpUI->Initialize();
 	texHp = TextureManager::Load("Resources/Texture/HP.png");
 
+	//弾のモデル
+	bulletObj.reset(ObjObject3d::Create());
+	//バレットマネージャ
+	bulletManager_ = BulletManager::GetInstance();
+	bulletManager_->Initialize("box",camera_);
+
+	//reticle3d = std::make_unique<Reticle3D>();
+
 	//衝突属性を設定
 	SetCollisionAttribute(collisionAttributePlayer);
 	//衝突対象を自分の属性以外に設定(ビット反転)
@@ -56,11 +64,17 @@ void Player::Update()
 	gunmodelTranslation = { 0.3f,-0.15f,1.5f };
 	const MyMath::Vector3 scale = {1.5f,1.0f, 1.5f};
 
+	//弾の更新
+	bulletManager_->Update();
+
 	//カメラの回転処理
 	RotateCamera();
 
 	//レールカメラの移動処理	
 	RailCamera();
+
+	//攻撃処理
+	Attack();
 
 	//銃のモデルの座標を設定
 	playerTrans.SetTranslation(gunmodelTranslation);
@@ -73,6 +87,17 @@ void Player::Update()
 	shuttleTrans.translation_.y += -2.0f;
 	MyMath::Vector3 vec = translation - oldTranslation;
 	shuttleTrans.LookAtMatrix(vec.Norm(),{ 0,1,0 },camera_);
+
+	{
+		//自機から3Dレティクルへの距離
+		const float distancePlayerTo3DReticle = 50.0f;
+		//自機から3Dレティクルへのオフセット(Z+向き)
+		MyMath::Vector3 offset = { 0,0,1.0f };
+		//自機のワールド行列の回転を反映
+		offset = MyMath::Vec3Mat4Mul(offset,reticleTrans.matWorld);
+		//ベクトルの長さを整える
+		offset = MyMathUtility::MakeNormalize(offset) * distancePlayerTo3DReticle;
+	}
 }
 
 void Player::Draw()
@@ -83,6 +108,9 @@ void Player::Draw()
 	shuttleObj->Draw(&shuttleTrans);
 
 	hpUI->Draw(texHp,{10,600},hpSize);
+
+	//弾の描画
+	bulletManager_->Draw();
 }
 
 void Player::RotateCamera()
@@ -180,6 +208,30 @@ void Player::RailCamera()
 	camera_->SetTranslation(playerTranslate);
 }
 
+void Player::Attack()
+{
+	//速度ベクトルを自機の向きに合わせて回転させる
+	velocity = MyMath::Vec3Mat4Mul(velocity,camera_->GetMatWorld());
+
+	if ( input->PushKey(DIK_SPACE) )
+	{
+		bulletIntervalFlag = true;
+	}
+
+	if ( bulletIntervalFlag )
+	{
+		bulletIntervalTimer--;
+	}
+
+	if ( bulletIntervalTimer == zero )
+	{
+		bulletManager_->CreatePlayerBullet(GetCenterPosition(),velocity);
+
+		bulletIntervalFlag = false;
+		bulletIntervalTimer = 6;
+	}
+}
+
 MyMath::Vector3 Player::GetCenterPosition() const
 {
 	//ワールド座標に変換
@@ -190,9 +242,4 @@ MyMath::Vector3 Player::GetCenterPosition() const
 bool Player::IsDead() const
 {
 	return isDead;
-}
-
-MyMath::Matrix4 Player::GetPlayerMatWorld() const
-{
-	return playerTrans.matWorld;
 }
