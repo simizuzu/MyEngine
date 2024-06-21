@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Reticle2D.cpp" />
     <ClCompile Include="Users\Bullet\PlayerBullet.cpp" />
     <ClCompile Include="Reticle3D.cpp" />
     <ClCompile Include="Users\Enemy\EnemyMove.cpp" />
@@ -84,6 +85,7 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Reticle2D.h" />
     <ClInclude Include="Users\Bullet\PlayerBullet.h" />
     <ClInclude Include="Reticle3D.h" />
     <ClInclude Include="Users\Enemy\EnemyMove.h" />
