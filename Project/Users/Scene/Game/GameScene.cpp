@@ -94,11 +94,11 @@ void GameScene::Update()
 	//カメラの挙動
 	if ( scene == SCENEFASE::START || scene == SCENEFASE::GAME )
 	{
-		camera->Update(true);
+		camera->Update("matrix");
 	}
 	else
 	{
-		camera->Update();
+		camera->Update("default");
 	}
 
 	modelData_->Update();

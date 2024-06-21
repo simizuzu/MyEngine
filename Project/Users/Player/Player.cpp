@@ -199,10 +199,10 @@ void Player::RailCamera()
 {
 	//進む速度を決める
 	animTime += 1.0f / 40.0f;
-	animTime = std::fmod(animTime,keyframeData->meshKeyframe[ "Cube" ].duration);
+	animTime = std::fmod(animTime,keyframeData->cameraKeyframe[ "Camera" ].duration);
 
 	//補間された値を座標に入れていく
-	playerTranslate = MyMathUtility::CalculateValueLerp(keyframeData->meshKeyframe[ "Cube" ].translate,animTime);
+	playerTranslate = MyMathUtility::CalculateValueLerp(keyframeData->cameraKeyframe[ "Camera" ].translate,animTime);
 
 	//カメラの座標にセット
 	camera_->SetTranslation(playerTranslate);

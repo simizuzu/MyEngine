@@ -79,7 +79,7 @@ void ResultScene::Update()
 	}
 	camera->SetRotation(cameraRot);
 	camera->SetTranslation(cameraTrans);
-	camera->Update(true);
+	camera->Update("matrix");
 	light->Update();
 
 	trans.Update(camera.get());

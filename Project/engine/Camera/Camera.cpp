@@ -43,6 +43,10 @@ void Camera::Update(const std::string& mode)
 	{
 		UpdateMatrix();	//ワールド行列方式
 	}
+	else if ( mode == "quaternion" )
+	{
+		UpdateQuaternion();
+	}
 }
 
 void Camera::LookAtMatrix(const MyMath::Vector3& target,const MyMath::Vector3& up)
@@ -255,6 +259,11 @@ void Camera::SetTranslation(MyMath::Vector3 translation)
 void Camera::SetRotation(MyMath::Vector3 rotation)
 {
 	rotation_ = rotation;
+}
+
+void Camera::SetRotation(MyMath::Quaternion rotation)
+{
+	quaternion_ = rotation;
 }
 
 void Camera::SetEye(const MyMath::Vector3& eye)

@@ -85,6 +85,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
+	/// <param name="mode">[default, matrix, quaternion]</param>
 	void Update(const std::string& mode);
 
 	/// <summary>
@@ -135,6 +136,7 @@ public:
 
 	void SetTranslation(MyMath::Vector3 translation);
 	void SetRotation(MyMath::Vector3 rotation);
+	void SetRotation(MyMath::Quaternion rotation);
 
 	//視点距離
 	void SetEye(const MyMath::Vector3& eye);

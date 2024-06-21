@@ -51,7 +51,7 @@ void TitleScene::Update()
 		}
 	}
 
-	camera->Update();
+	camera->Update("default");
 	light->Update();
 
 	//タイトルシーン内の各モデルの挙動
