@@ -234,9 +234,9 @@ Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName,float ticsPerSec
 
 				//回転
 				rotation.value.w = ( float ) animedata[ "rotation" ][ 0 ];
-				rotation.value.y = ( float ) animedata[ "rotation" ][ 1 ];
+				rotation.value.x = ( float ) animedata[ "rotation" ][ 1 ];
+				rotation.value.y = ( float ) animedata[ "rotation" ][ 3 ];
 				rotation.value.z = ( float ) animedata[ "rotation" ][ 2 ];
-				rotation.value.z = ( float ) animedata[ "rotation" ][ 3 ];
 				rotation.time = frame;
 				keyframeName.rotate.push_back(rotation);
 			}
@@ -294,8 +294,8 @@ Keyframe* LevelLoader::LoadKeyframe(const std::string& fileName,float ticsPerSec
 				//回転 (XとYで座標系を変更)
 				rotation.value.w = ( float ) animedata[ "rotation" ][ 0 ];
 				rotation.value.x = ( float ) animedata[ "rotation" ][ 1 ];
-				rotation.value.y = ( float ) animedata[ "rotation" ][ 2 ];
-				rotation.value.z = ( float ) animedata[ "rotation" ][ 3 ];
+				rotation.value.y = ( float ) animedata[ "rotation" ][ 3 ];
+				rotation.value.z = ( float ) animedata[ "rotation" ][ 2 ];
 				rotation.time = frame;
 				keyframeName.rotate.push_back(rotation);
 

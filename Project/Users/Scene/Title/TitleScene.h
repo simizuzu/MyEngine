@@ -1,12 +1,14 @@
 #pragma once
 #include "BaseScene.h"
+#include "SceneManager.h"
 
 #include "Input.h"
 #include "Light.h"
-#include "SceneManager.h"
+#include "LevelLoader.h"
 
-#include "TitleAnimation.h"
-#include "TransitionScene.h"
+#include "FbxObject3d.h"
+#include "FbxModel.h"
+#include "WorldTransform.h"
 
  /**
  * @class TitleScene.h
@@ -47,22 +49,18 @@ private:
 	Input* input_ = nullptr;
 	std::unique_ptr<Camera> camera;
 	std::unique_ptr<Light> light;
-	SceneManager* sceneManager_= nullptr;
 
-	std::unique_ptr<TitleAnimation> titleAnimation_;
+	//FBXモデルデータ
+	std::unique_ptr<FbxObject3d> object;
+	WorldTransform transform;
 
-	std::unique_ptr <TransitionScene> transition_;
+	//キーフレームデータ
+	Keyframe* keyframeData;
+	float animTime = 1.0f / 60.0f;
+	MyMath::Vector3 translate;
+	MyMath::Quaternion rotate;
 
-	//ImGuiデバッグ用
-	MyMath::Vector3 cameraPos = { 0,0,0 };
-	MyMath::Vector2 pos = { 0,0 };
-
-	uint8_t blackoutTimer = 60;
-	int8_t pad1[3 ];
-
-	bool flag = false;
-	int8_t pad2[7 ];
-
+	SceneManager* sceneManager_ = nullptr;
 private:
 
 	//代入演算子削除
