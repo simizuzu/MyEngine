@@ -25,6 +25,9 @@ void TitleScene::Initialize()
 	object->SetModel("KaedeCamera");
 	object->PlayAnimation();
 
+	title = std::make_unique<TitleAnimation>();
+	title->Initalize(camera.get());
+
 	//ワールド座標
 	transform.Initialize();
 	transform.SetScale({ 0.01f,0.01f ,0.01f });
@@ -46,17 +49,18 @@ void TitleScene::Update()
 	//カメラの座標にセット
 	camera->SetTranslation({0,0,-5.0f});
 	//camera->SetRotation(rotate);
-
 	camera->Update("quaternion");
 
-	transform.SetRotation(rotate);
 	transform.Update(camera.get());
 	object->Update();
+
+	title->Update();
 }
 
 void TitleScene::Draw()
 {
 	object->Draw(&transform);
+	//title->Draw();
 }
 
 void TitleScene::Finalize()

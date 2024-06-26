@@ -6,9 +6,12 @@
 #include "Light.h"
 #include "LevelLoader.h"
 
+#include "ObjObject3d.h"
 #include "FbxObject3d.h"
-#include "FbxModel.h"
 #include "WorldTransform.h"
+
+#include "TitleAnimation.h"
+
 
  /**
  * @class TitleScene.h
@@ -59,6 +62,8 @@ private:
 	float animTime = 1.0f / 60.0f;
 	MyMath::Vector3 translate;
 	MyMath::Quaternion rotate;
+
+	std::unique_ptr<TitleAnimation> title;
 
 	SceneManager* sceneManager_ = nullptr;
 private:

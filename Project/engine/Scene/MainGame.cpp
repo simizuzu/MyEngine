@@ -11,6 +11,7 @@ void MainGame::Initialize()
 	//基底クラスの初期化処理
 	Framework::Initialize();
 
+	ModelManager::GetInstance()->LoadModel("skydome",obj,true);
 	//fbx
 	ModelManager::GetInstance()->LoadModel("KaedeCamera",fbx);
 

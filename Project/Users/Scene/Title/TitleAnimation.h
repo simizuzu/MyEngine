@@ -52,12 +52,6 @@ public:
 	TitleAnimation() = default;
 	~TitleAnimation() = default;
 
-private:
-	/// <summary>
-	/// クリックするテクスチャのアニメーション処理
-	/// </summary>
-	void ClickAnim();
-
 private: //メンバ変数
 	//カメラ
 	Camera* camera_ = nullptr;
