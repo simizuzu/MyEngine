@@ -50,10 +50,11 @@ void TitleScene::Update()
 	rotate = MyMathUtility::CalculateValueSlerp(keyframeData->cameraKeyframe[ "Camera" ].rotate,animTime);
 
 	//カメラの座標にセット
-	camera->SetTranslation({ 0,0,-5.0f });
-	//camera->SetRotation(rotate);
+	camera->SetTranslation(translate);
+	camera->SetRotation(rotate);
 	camera->Update("quaternion");
 
+	transform.SetRotation({0,MyMathUtility::degree2Radius * 180.0f,0.0f});
 	transform.Update(camera.get());
 	object->Update();
 
