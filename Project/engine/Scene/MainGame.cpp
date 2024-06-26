@@ -27,6 +27,7 @@ void MainGame::Initialize()
 	ModelManager::GetInstance()->LoadModel("mob",fbx);
 	ModelManager::GetInstance()->LoadModel("clear",fbx);
 	ModelManager::GetInstance()->LoadModel("pilot",fbx);
+	ModelManager::GetInstance()->LoadModel("KaedeCamera",fbx);
 
 	//texture
 	TextureManager::Load("Resources/Texture/Scene/takeDamage.png");

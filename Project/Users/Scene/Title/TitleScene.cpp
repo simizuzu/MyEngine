@@ -24,35 +24,38 @@ void TitleScene::Initialize()
 	titleAnimation_ = std::make_unique<TitleAnimation>();
 	titleAnimation_->Initalize(camera.get());
 
-	transition_ = std::make_unique<TransitionScene>();
-	transition_->Initialize();
+	//モデル
+	object.reset(FbxObject3d::Create());
+	object->SetModel("KaedeCamera");
+	object->PlayAnimation();
+
+	//ワールド座標
+	transform.Initialize();
+	transform.SetScale({ 0.01f,0.01f ,0.01f });
+
+	keyframeData = LevelLoader::LoadKeyframe("kaedeCamera",animTime);
 
 	sceneManager_ = SceneManager::GetInstance();
 }
 
 void TitleScene::Update()
 {
-#ifdef _DEBUG
-	ImGui::Begin("blackoutTimer");
-	ImGui::Text("blackoutTimer:%d",blackoutTimer);
-	ImGui::End();
-#endif
-
-	if ( input_->PushKey(DIK_SPACE) || input_->PushButton(A) )
-	{
-		blackoutTimer--;
-	}
-	if ( blackoutTimer < 59 )
-	{
-		blackoutTimer--;
-		if ( blackoutTimer < 2 )
-		{
-			sceneManager_->ChangeScene("GAME");
-		}
-	}
-
-	camera->Update("default");
 	light->Update();
+
+	//進む速度を決める
+	animTime += 1.0f;
+	animTime = std::fmod(animTime,keyframeData->cameraKeyframe[ "Camera" ].duration);
+	//補間された値を座標に入れていく
+	translate = MyMathUtility::CalculateValueLerp(keyframeData->cameraKeyframe[ "Camera" ].translate,animTime);
+	rotate = MyMathUtility::CalculateValueSlerp(keyframeData->cameraKeyframe[ "Camera" ].rotate,animTime);
+
+	//カメラの座標にセット
+	camera->SetTranslation({ 0,0,-5.0f });
+	//camera->SetRotation(rotate);
+	camera->Update("quaternion");
+
+	transform.Update(camera.get());
+	object->Update();
 
 	//タイトルシーン内の各モデルの挙動
 	titleAnimation_->Update();
@@ -62,27 +65,10 @@ void TitleScene::Draw()
 {
 	//タイトルシーン内の各モデルの描画
 	titleAnimation_->Draw();
-
-	if ( blackoutTimer < 59 )
-	{
-		transition_->DrawBlackOut();
-	}
-
-	if ( flag == true )
-	{
-		transition_->GameOver();
-		blackoutTimer--;
-		if ( blackoutTimer < 24 )
-		{
-			flag = false;
-			blackoutTimer = ( uint8_t ) oneSecondFrame;
-			sceneManager_->ChangeScene("TITLE");
-		}
-	}
+	object->Draw(&transform);
 }
 
 void TitleScene::Finalize()
 {
-	blackoutTimer = 60;
 	titleAnimation_->Finalize();
 }

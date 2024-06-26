@@ -6,18 +6,6 @@
 
 class Reticle2D
 {
-public:
-	void Initialize();
 
-	void Update();
-
-	void Draw();
-
-private:
-	std::unique_ptr<Sprite> reticle_;
-	TextureData texReticle_;
-
-private:
-	POINT mousePosition;
 };
 

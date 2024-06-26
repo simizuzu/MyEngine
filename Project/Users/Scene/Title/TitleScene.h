@@ -6,7 +6,6 @@
 #include "SceneManager.h"
 
 #include "TitleAnimation.h"
-#include "TransitionScene.h"
 
  /**
  * @class TitleScene.h
@@ -51,17 +50,15 @@ private:
 
 	std::unique_ptr<TitleAnimation> titleAnimation_;
 
-	std::unique_ptr <TransitionScene> transition_;
+	//FBXモデルデータ
+	std::unique_ptr<FbxObject3d> object;
+	WorldTransform transform;
 
-	//ImGuiデバッグ用
-	MyMath::Vector3 cameraPos = { 0,0,0 };
-	MyMath::Vector2 pos = { 0,0 };
-
-	uint8_t blackoutTimer = 60;
-	int8_t pad1[3 ];
-
-	bool flag = false;
-	int8_t pad2[7 ];
+	//キーフレームデータ
+	Keyframe* keyframeData;
+	float animTime = 1.0f / 60.0f;
+	MyMath::Vector3 translate;
+	MyMath::Quaternion rotate;
 
 private:
 
