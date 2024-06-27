@@ -456,7 +456,7 @@
     <ClCompile Include="engine\Scene\MainGame.cpp">
       <Filter>Application\ソースファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Reticle3D.cpp">
+    <ClCompile Include="Users\Reticle\Reticle3D.cpp">
       <Filter>Application\ソースファイル\Reticle</Filter>
     </ClCompile>
     <ClCompile Include="Users\Enemy\EnemyMove.cpp">
@@ -467,6 +467,9 @@
     </ClCompile>
     <ClCompile Include="Users\Bullet\PlayerBullet.cpp">
       <Filter>Application\ソースファイル\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Users\Reticle\Reticle2D.cpp">
+      <Filter>Engine\ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -671,11 +674,14 @@
     <ClInclude Include="Users\Effect\PlayerDamage.h">
       <Filter>Application\ヘッダーファイル\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Reticle3D.h">
+    <ClInclude Include="Users\Reticle\Reticle3D.h">
       <Filter>Application\ヘッダーファイル\Reticle</Filter>
     </ClInclude>
     <ClInclude Include="Users\Bullet\PlayerBullet.h">
       <Filter>Application\ヘッダーファイル\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Users\Reticle\Reticle2D.h">
+      <Filter>Engine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

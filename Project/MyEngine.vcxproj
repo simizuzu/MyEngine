@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Reticle2D.cpp" />
+    <ClCompile Include="Users\Reticle\Reticle2D.cpp" />
     <ClCompile Include="Users\Bullet\PlayerBullet.cpp" />
-    <ClCompile Include="Reticle3D.cpp" />
+    <ClCompile Include="Users\Reticle\Reticle3D.cpp" />
     <ClCompile Include="Users\Enemy\EnemyMove.cpp" />
     <ClCompile Include="Users\Effect\PlayerDamage.cpp" />
     <ClCompile Include="Users\Bullet\BaseBullet.cpp" />
@@ -85,9 +85,9 @@
     <ClCompile Include="Users\Scene\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Reticle2D.h" />
+    <ClInclude Include="Users\Reticle\Reticle2D.h" />
     <ClInclude Include="Users\Bullet\PlayerBullet.h" />
-    <ClInclude Include="Reticle3D.h" />
+    <ClInclude Include="Users\Reticle\Reticle3D.h" />
     <ClInclude Include="Users\Enemy\EnemyMove.h" />
     <ClInclude Include="Users\Effect\PlayerDamage.h" />
     <ClInclude Include="Users\Bullet\BaseBullet.h" />
