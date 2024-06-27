@@ -53,9 +53,6 @@ void Camera::LookAtMatrix(const MyMath::Vector3& target,const MyMath::Vector3& u
 {
 	target_ = translation_ + target;
 
-	//平行移動行列の計算
-	//matTrans = MyMathUtility::MakeTranslation(translation_);
-
 	//X軸,Y軸,Z軸,Direction(距離)
 	MyMath::Vector3 X,Y,Z,D;
 	D = target_ - translation_;

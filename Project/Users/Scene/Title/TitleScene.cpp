@@ -33,7 +33,7 @@ void TitleScene::Initialize()
 	transform.Initialize();
 	transform.SetScale({ 0.01f,0.01f ,0.01f });
 
-	keyframeData = LevelLoader::LoadKeyframe("test",animTime);
+	keyframeData = LevelLoader::LoadKeyframe("KaedeCamera",animTime);
 
 	sceneManager_ = SceneManager::GetInstance();
 }
@@ -42,6 +42,8 @@ void TitleScene::Update()
 {
 	light->Update();
 
+	MyMath::Quaternion tmp = {0.0f,0.0f,0.707f,0.707f };
+
 	//進む速度を決める
 	animTime += 1.0f;
 	animTime = std::fmod(animTime,keyframeData->cameraKeyframe[ "Camera" ].duration);
@@ -49,12 +51,14 @@ void TitleScene::Update()
 	translate = MyMathUtility::CalculateValueLerp(keyframeData->cameraKeyframe[ "Camera" ].translate,animTime);
 	rotate = MyMathUtility::CalculateValueSlerp(keyframeData->cameraKeyframe[ "Camera" ].rotate,animTime);
 
+	rotate *= tmp;
+
 	//カメラの座標にセット
-	//camera->SetTranslation(translate);
+	camera->SetTranslation(translate);
 	camera->SetRotation(rotate);
 	camera->Update("quaternion");
 
-	transform.SetRotation({0,MyMathUtility::degree2Radius * 180.0f,0.0f});
+	transform.SetRotation({ 0,MyMathUtility::degree2Radius * 180.0f,0.0f });
 	transform.Update(camera.get());
 	object->Update();
 

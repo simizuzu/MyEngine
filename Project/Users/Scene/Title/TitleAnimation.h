@@ -26,7 +26,7 @@ private: //定数
 	const float desimalRot = 0.0005f; //skydome用回転速度
 	int8_t pad6[ 4 ];
 
-	const float skydomeScale = 900.0f;
+	const float skydomeScale = 10.0f;
 public:
 	/// <summary>
 	/// 初期化
