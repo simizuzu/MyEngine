@@ -33,7 +33,7 @@ void TitleScene::Initialize()
 	transform.Initialize();
 	transform.SetScale({ 0.01f,0.01f ,0.01f });
 
-	keyframeData = LevelLoader::LoadKeyframe("kaedeCamera",animTime);
+	keyframeData = LevelLoader::LoadKeyframe("test",animTime);
 
 	sceneManager_ = SceneManager::GetInstance();
 }
@@ -50,7 +50,7 @@ void TitleScene::Update()
 	rotate = MyMathUtility::CalculateValueSlerp(keyframeData->cameraKeyframe[ "Camera" ].rotate,animTime);
 
 	//カメラの座標にセット
-	camera->SetTranslation(translate);
+	//camera->SetTranslation(translate);
 	camera->SetRotation(rotate);
 	camera->Update("quaternion");
 
