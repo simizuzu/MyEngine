@@ -42,16 +42,12 @@ void TitleScene::Update()
 {
 	light->Update();
 
-	MyMath::Quaternion tmp = {0.0f,0.0f,0.707f,0.707f };
-
 	//進む速度を決める
 	animTime += 1.0f;
 	animTime = std::fmod(animTime,keyframeData->cameraKeyframe[ "Camera" ].duration);
 	//補間された値を座標に入れていく
 	translate = MyMathUtility::CalculateValueLerp(keyframeData->cameraKeyframe[ "Camera" ].translate,animTime);
 	rotate = MyMathUtility::CalculateValueSlerp(keyframeData->cameraKeyframe[ "Camera" ].rotate,animTime);
-
-	rotate *= tmp;
 
 	//カメラの座標にセット
 	camera->SetTranslation(translate);

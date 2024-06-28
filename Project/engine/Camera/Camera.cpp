@@ -260,6 +260,9 @@ void Camera::SetRotation(MyMath::Vector3 rotation)
 
 void Camera::SetRotation(MyMath::Quaternion rotation)
 {
+	//Z軸方向に90度回転させる
+	const MyMath::Quaternion tmp = { 0.0f,0.0f,0.707f,0.707f };
+	rotation *= tmp;
 	quaternion_ = rotation;
 }
 
