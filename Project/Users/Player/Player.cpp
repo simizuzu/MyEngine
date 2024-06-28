@@ -225,7 +225,7 @@ void Player::Attack()
 
 	if ( bulletIntervalTimer == zero )
 	{
-		bulletManager_->CreatePlayerBullet(GetCenterPosition(),velocity);
+		//bulletManager_->CreatePlayerBullet(GetCenterPosition(),velocity);
 
 		bulletIntervalFlag = false;
 		bulletIntervalTimer = 6;
