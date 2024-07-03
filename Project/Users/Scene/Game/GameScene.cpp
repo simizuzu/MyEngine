@@ -144,7 +144,7 @@ void GameScene::Update()
 		StopTimer();
 
 		//シーン移行
-		if ( cameraTimeRate >= 1.0f )
+		if ( player_->animTime >= (cameraTimeRate -1.0f) )
 		{
 			scene = SCENEFASE::RESULT;
 		}

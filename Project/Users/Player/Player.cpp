@@ -204,6 +204,8 @@ void Player::RailCamera()
 	//補間された値を座標に入れていく
 	playerTranslate = MyMathUtility::CalculateValueLerp(keyframeData->cameraKeyframe[ "Camera" ].translate,animTime);
 
+	timeRate = keyframeData->cameraKeyframe["Camera" ].duration;
+
 	//カメラの座標にセット
 	camera_->SetTranslation(playerTranslate);
 }

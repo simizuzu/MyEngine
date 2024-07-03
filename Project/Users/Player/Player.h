@@ -106,13 +106,14 @@ private:
 	uint32_t nowCount = 0;
 
 	const MyMath::Vector2 hpSize = { 0.1f,0.1f };
-
-private:
 	//レベルエディタ(ベジェ曲線)
 	Keyframe* keyframeData;
-	float animTime = 1.0f/60.0f;
 	MyMath::Vector3 playerTranslate;
+public:
 
+	float animTime = 1.0f / 60.0f;
+
+private:
 	Input* input = nullptr;
 
 	//バレットマネージャ
