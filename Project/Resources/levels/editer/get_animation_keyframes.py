@@ -41,22 +41,37 @@ class OBJECT_OT_PrintAnimationKeyframes(bpy.types.Operator, bpy_extras.io_utils.
         json_object_root["name"] = "scene"
         # オブジェクトリストを作成
         json_object_root["animations"] = list()
-                
-        # シーン内の全オブジェクトをループ
-        for obj in bpy.context.scene.objects:
-            # アニメーションデータを取得してJSON形式に整形
-            animation_data = self.get_animation_data(obj)
-            last_frame = self.get_last_frame(animation_data)
-          
-            # オブジェクトの情報をまとめる
-            obj_data = {
-                "type": obj.type,  # オブジェクトの種類
-                "name": obj.name,  # オブジェクトの名前
-                "last_frame": last_frame,
-                "animedata": animation_data,  # オブジェクトのアニメーションデータ
-            }
-            # 出力データにオブジェクト情報を追加
-            json_object_root["animations"].append(obj_data)
+
+        #コレクションを取得
+        selected_objects = bpy.context.selected_objects
+        
+        if selected_objects:
+            #コレクション内のオブジェクトを検索
+            for obj in selected_objects:
+                #選択されているオブジェクトを出力する
+                # アニメーションデータを取得してJSON形式に整形
+                # ボーンのアニメーションデータを取得
+                if obj.type == 'ARMATURE':
+                    animation_data = self.get_bone_animation_data(obj)
+                else:
+                    animation_data = self.get_animation_data(obj)
+
+                last_frame = self.get_last_frame(animation_data)
+            
+                # オブジェクトの情報をまとめる
+                obj_data = {
+                    "type": obj.type,  # オブジェクトの種類
+                    "name": obj.name,  # オブジェクトの名前
+                    "last_frame": last_frame,
+                    "animedata": animation_data,  # オブジェクトのアニメーションデータ
+                }
+
+                # 出力データにオブジェクト情報を追加
+                json_object_root["animations"].append(obj_data)
+
+        else:
+            # 選択されていない場合の例外処理としてエラーログを出力
+            raise RuntimeError("オブジェクトが選択されていません。出力するオブジェクトを選択してください")
         
         # JSONファイルに書き込む
         with open(self.filepath, "w") as file:
@@ -146,7 +161,26 @@ class OBJECT_OT_PrintAnimationKeyframes(bpy.types.Operator, bpy_extras.io_utils.
                 animation_data.append({"frame": frame, "scaling": [value]})
             else:
                 animation_data[index].setdefault("scaling", []).append(value)
- 
+
+    def get_bone_animation_data(self, armature_obj):
+
+        # アクティブなオブジェクトを取得
+        obj = bpy.context.object
+
+        # オブジェクトがアーマチュアであるか確認
+        if obj and obj.type == 'ARMATURE':
+            armature = obj.data
+            
+            # アーマチュアのすべてのボーンを取得
+            bones = armature.bones
+            
+            # ボーンの名前を出力
+            for bone in bones:
+                print(bone.name)
+        else:
+            print("アクティブなオブジェクトがアーマチュアではありません。")
+
+
     def execute(self, context):
         """ファイルに出力"""
         print("シーン情報出力開始... %r" % self.filepath)     
