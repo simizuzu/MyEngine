@@ -49,12 +49,12 @@ class OBJECT_OT_PrintAnimationKeyframes(bpy.types.Operator, bpy_extras.io_utils.
             #コレクション内のオブジェクトを検索
             for obj in selected_objects:
                 #選択されているオブジェクトを出力する
-                # アニメーションデータを取得してJSON形式に整形
-                # ボーンのアニメーションデータを取得
-                if obj.type == 'ARMATURE':
-                    animation_data = self.get_bone_animation_data(obj)
-                else:
-                    animation_data = self.get_animation_data(obj)
+                #アニメーションデータを取得してJSON形式に整形
+                #ボーンのアニメーションデータを取得
+                # if obj.type == 'ARMATURE':
+                #     animation_data = self.get_bone_animation_data(obj)
+                # else:
+                animation_data = self.get_animation_data(obj)
 
                 last_frame = self.get_last_frame(animation_data)
             
@@ -83,7 +83,6 @@ class OBJECT_OT_PrintAnimationKeyframes(bpy.types.Operator, bpy_extras.io_utils.
             return max(item["frame"] for item in animation_data)
         return 0
             
-
     def get_animation_data(self, obj, include_scale=True):
         """オブジェクトのアニメーションデータを取得"""
         animation_data = []
@@ -108,14 +107,53 @@ class OBJECT_OT_PrintAnimationKeyframes(bpy.types.Operator, bpy_extras.io_utils.
 
         return animation_data
 
+    def get_bone_animation_data(self, obj):
+        """アーマチュアのボーンのアニメーションデータを取得"""
+        animation_data = []
+        
+        # アーマチュアデータを取得
+        armature = obj.data
+        #アーマチュアのすべてのボーンを参照
+        bones = armature.bones
+
+        #アーマチュアのすべてのボーンを取得
+        for bone in obj.pose.bones:
+            if obj.animation_data and obj.animation_data.action:
+                action = obj.animation_data.action
+
+                #アクション内のすべてのキーフレームカーブ（fcurve）をループ
+                for fcurve in action.fcurves:
+                    #キーフレームカーブのデータパスを取得
+                    data_path = fcurve.data_path
+                    #データパスにボーン名が含まれているかを確認
+                    if bone.name in data_path:
+                        #キーフレームの位置、回転、スケールのインデックスを判別
+                        if "location" in data_path:
+                            self.add_frame_to_animation_data(animation_data,fcurve)
+                            self.get_location_data(fcurve,animation_data)
+                        elif data_path.startswith("rotation"):
+                            # 回転情報の処理
+                            self.add_frame_to_animation_data(animation_data, fcurve)
+                            self.get_rotation_data(fcurve, animation_data, obj)
+                        elif data_path.startswith("scale"):
+                            # スケール情報の処理
+                            self.add_frame_to_animation_data(animation_data, fcurve)
+                            self.get_scale_data(fcurve, animation_data)
+
     def add_frame_to_animation_data(self, animation_data, fcurve):
         """フレーム情報を先頭に追加する"""
-        for keyframe in fcurve.keyframe_points:
-            frame = int(keyframe.co[0])
-            # 既存のフレームデータがあるか確認
-            index = next((i for i, d in enumerate(animation_data) if d['frame'] == frame), None)
-            if index is None:
-                animation_data.append({"frame": frame})
+        if isinstance(self, bpy.types.Armature):  # アーマチュアの場合
+            action = animation_data.action
+        else:  # アーマチュア以外の場合（例えばメッシュオブジェクト）
+            action = animation_data
+        
+        if action:
+            for keyframe in fcurve.keyframe_points:
+                frame = int(keyframe.co[0])
+                # 既存のフレームデータがあるか確認
+                index = next((i for i, d in enumerate(animation_data) if d['frame'] == frame), None)
+                if index is None:
+                    animation_data.append({"frame": frame})
 
     def get_location_data(self, fcurve, animation_data):
         """位置情報を取得"""
@@ -161,25 +199,6 @@ class OBJECT_OT_PrintAnimationKeyframes(bpy.types.Operator, bpy_extras.io_utils.
                 animation_data.append({"frame": frame, "scaling": [value]})
             else:
                 animation_data[index].setdefault("scaling", []).append(value)
-
-    def get_bone_animation_data(self, armature_obj):
-
-        # アクティブなオブジェクトを取得
-        obj = bpy.context.object
-
-        # オブジェクトがアーマチュアであるか確認
-        if obj and obj.type == 'ARMATURE':
-            armature = obj.data
-            
-            # アーマチュアのすべてのボーンを取得
-            bones = armature.bones
-            
-            # ボーンの名前を出力
-            for bone in bones:
-                print(bone.name)
-        else:
-            print("アクティブなオブジェクトがアーマチュアではありません。")
-
 
     def execute(self, context):
         """ファイルに出力"""
