@@ -109,6 +109,7 @@ private:
 	//レベルエディタ(ベジェ曲線)
 	Keyframe* keyframeData;
 	MyMath::Vector3 playerTranslate;
+	MyMath::Quaternion playerRotate;
 public:
 
 	float animTime = 1.0f / 60.0f;

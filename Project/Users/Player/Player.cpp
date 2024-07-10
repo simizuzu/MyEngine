@@ -180,7 +180,7 @@ void Player::RotateCamera()
 	}
 
 	//制御した回転を親のカメラにセットする
-	camera_->SetRotation({ rot.x,rot.y,zero });
+	//camera_->SetRotation({ rot.x,rot.y,zero });
 }
 
 void Player::OnCollision()
@@ -203,11 +203,13 @@ void Player::RailCamera()
 
 	//補間された値を座標に入れていく
 	playerTranslate = MyMathUtility::CalculateValueLerp(keyframeData->cameraKeyframe[ "Camera" ].translate,animTime);
+	playerRotate = MyMathUtility::CalculateValueSlerp(keyframeData->cameraKeyframe[ "Camera" ].rotate,animTime);
 
 	timeRate = keyframeData->cameraKeyframe["Camera" ].duration;
 
 	//カメラの座標にセット
 	camera_->SetTranslation(playerTranslate);
+	camera_->SetRotation(playerRotate);
 }
 
 void Player::Attack()
