@@ -86,13 +86,6 @@ private:
 	//同一頂点の法線座標かUVが重なる際の関数(新しく頂点インデックス作成)
 	static bool IsExistNormalUVInfo(const std::vector<float>& vertexInfo);
 
-	// 頂点情報生成
-	static std::vector<float> CreateVertexInfo(const std::vector<float>& vertex,const FbxVector4& normalVec4,const FbxVector2& uvVec2);
-
-	// 新しく頂点index生成
-	static int CreateNewVertexIndex(const std::vector<float>& vertexInfo,const FbxVector4& normalVec4,const FbxVector2& uvVec2,
-		std::vector<std::vector<float>>& vertexInfoList,int oldIndex,std::vector<std::array<int,2>>& oldNewIndexPairList);
-
 	// 一括にまとめたpos,norm,uv情報を整理
 	static bool IsSetNormalUV(const std::vector<float> vertexInfo,const FbxVector4& normalVec4,const FbxVector2& uvVec2);
 

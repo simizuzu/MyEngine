@@ -544,38 +544,6 @@ bool FbxLoader::IsExistNormalUVInfo(const std::vector<float>& vertexInfo)
 	return vertexInfo.size() == 8; // 頂点3 + 法線3 + UV2
 }
 
-std::vector<float> FbxLoader::CreateVertexInfo(const std::vector<float>& vertex,const FbxVector4& normalVec4,const FbxVector2& uvVec2)
-{
-	std::vector<float> newVertexInfo;
-
-	// 位置座標
-	newVertexInfo.push_back(static_cast< float >( vertex[ 0 ] ));
-	newVertexInfo.push_back(static_cast< float >( vertex[ 1 ] ));
-	newVertexInfo.push_back(static_cast< float >( vertex[ 2 ] ));
-	// 法線座標
-	newVertexInfo.push_back(static_cast< float >( normalVec4[ 0 ] ));
-	newVertexInfo.push_back(static_cast< float >( normalVec4[ 1 ] ));
-	newVertexInfo.push_back(static_cast< float >( normalVec4[ 2 ] ));
-	// UV座標
-	newVertexInfo.push_back(static_cast< float >( uvVec2[ 0 ] ));
-	newVertexInfo.push_back(static_cast< float >( uvVec2[ 1 ] ));
-
-	return newVertexInfo;
-}
-
-int FbxLoader::CreateNewVertexIndex(const std::vector<float>& vertexInfo,const FbxVector4& normalVec4,const FbxVector2& uvVec2,
-			std::vector<std::vector<float>>& vertexInfoList,int oldIndex,std::vector<std::array<int,2>>& oldNewIndexPairList)
-{
-	// 作成済でない場合、新たな頂点インデックスとして作成
-	std::vector<float> newVertexInfo = CreateVertexInfo(vertexInfo,normalVec4,uvVec2);
-	vertexInfoList.push_back(newVertexInfo);
-	// 作成したインデックス情報を設定
-	int newIndex = static_cast< int >( vertexInfoList.size() ) - 1;
-	std::array<int,2> oldNewIndexPair{ oldIndex , newIndex };
-	oldNewIndexPairList.push_back(oldNewIndexPair);
-	return newIndex;
-}
-
 bool FbxLoader::IsSetNormalUV(const std::vector<float> vertexInfo,const FbxVector4& normalVec4,const FbxVector2& uvVec2)
 {
 	// 法線、UV座標が同値なら設定済とみなす

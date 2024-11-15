@@ -81,7 +81,6 @@ bool FbxObject3d::Initialize()
 
 void FbxObject3d::Update()
 {
-
 	HRESULT result;
 	//アニメーション
 	if ( isPlay )
